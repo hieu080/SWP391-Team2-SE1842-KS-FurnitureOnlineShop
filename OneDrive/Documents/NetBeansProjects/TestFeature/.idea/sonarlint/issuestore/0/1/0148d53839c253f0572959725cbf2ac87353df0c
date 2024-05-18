@@ -1,0 +1,14 @@
+
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(üÑŸÙJ$b9afe6aa-c137-4cd7-81ed-2b078b79a6ba
+œ	java:S115!"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ˆİÕš8ğÕ®»ø1J$2f4ddddf-5cc6-421b-a3a0-3aef66d6ef3d
+œ	java:S115""ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ß®¢ö8ğÕ®»ø1J$e81efd11-9f70-4883-adcd-f4a73d20dea5
+s
+java:S11350"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿJ$c31b6a99-52d4-4444-b608-df32dc72a3d0
+r
+java:S1128"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8µ¶»ø1J$e2480a7e-54ec-4eba-a429-3d3e7a2e9d39
+{
+java:S1128"9Remove this unused import 'javax.activation.DataHandler'.(ßÕˆ>8µ¶»ø1J$f5b56b63-5b46-491e-8b0f-c8c015b1ab4e
+{
+java:S1128"8Remove this unused import 'javax.activation.DataSource'.(ÊÌâó8¶¶»ø1J$91c2ef48-e54b-4884-9c5a-97c5eaf6af77
+w
+java:S1128"4Remove this unused import 'java.util.logging.Level'.(…µÛ¶8¶¶»ø1J$ca5933bf-fd4d-4746-8e9c-26bcbce6fe65

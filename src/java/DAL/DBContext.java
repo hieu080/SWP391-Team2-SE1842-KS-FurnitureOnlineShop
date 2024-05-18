@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAL;
 
-/**
- *
- * @author HELLO
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DBContext {
-    
+    protected Connection connect;
+    public DBContext() {
+        try {
+            String url = "jdbc:mysql://localhost:3306/furniture?useSSL=false";
+            String username = "root";
+            String password = "123456";
+            
+            // Tạo kết nối
+            connect = DriverManager.getConnection(url, username, password);
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

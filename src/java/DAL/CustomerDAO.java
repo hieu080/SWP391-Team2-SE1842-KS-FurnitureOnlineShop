@@ -8,6 +8,5 @@ package DAL;
  *
  * @author HELLO
  */
-public class CustomerDAO {
-    
+public class CustomerDAO extends DBContext{
 }

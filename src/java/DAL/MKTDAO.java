@@ -8,6 +8,6 @@ package DAL;
  *
  * @author HELLO
  */
-public class MKTDAO {
+public class MKTDAO extends DBContext{
     
 }

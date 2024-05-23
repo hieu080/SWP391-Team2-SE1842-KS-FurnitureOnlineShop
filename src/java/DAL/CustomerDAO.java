@@ -11,6 +11,7 @@ import Models.Room;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -146,7 +147,7 @@ public class CustomerDAO extends DBContext {
     }
     
     public static void main(String[] args) {
-        ArrayList<Brand> list = new ArrayList<>();
+        List<Brand> list = new ArrayList<>();
         CustomerDAO dao = new CustomerDAO();
         list = dao.getBrandList();
         for (Brand product1 : list) {

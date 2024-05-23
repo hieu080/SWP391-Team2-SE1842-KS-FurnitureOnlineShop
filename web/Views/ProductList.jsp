@@ -102,6 +102,12 @@
             .cart-button svg {
                 margin-right: 5px;
             }
+
+            .product-quantity{
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+            }
         </style>
 
 
@@ -352,8 +358,8 @@
                                             <ul class="menuList-submain level-1">
                                                 <c:forEach items="${requestScope.brandList}" var="brand">
                                                     <li>
-                                                        <a href="#" title="${brand.getBrandname()}">
-                                                            ${brand.getBrandname()}
+                                                        <a href="#" title="${brand.brandName}">
+                                                            ${brand.brandName}
                                                         </a>
                                                     </li>
                                                 </c:forEach>
@@ -1216,91 +1222,88 @@
                                     <div class="container">
                                         <div class="row filter-here">
                                             <div class="content-product-list product-list clearfix">
-                                                <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
-                                                    <div class="product-block product-resize site-animation single-product"
-                                                         data-sold="888" data-pro="1030631225">
-                                                        <div class="product-img fade-box">
-                                                            <div class="product_gift_label combo hide" data-id="1030631225">
-                                                                <span>Combo giá rẻ</span>
-                                                            </div>
-                                                            <div class="product-sale"><span>-37%</span></div>
-                                                            <div class="tag-loop">
-                                                                <div class="icon icon_hot">
-                                                                    <img loading="lazy" decoding="async"
-                                                                         src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
-                                                                         alt="icon hot" />
+                                                <c:forEach items="${requestScope.productList}" var="product">
+                                                    <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
+                                                        <div class="product-block product-resize site-animation single-product"
+                                                             data-sold="888" data-pro="1030631225">
+                                                            <div class="product-img fade-box">
+                                                                <div class="product-sale"><span>-37%</span></div>
+                                                                <div class="tag-loop">
+                                                                    <div class="icon icon_hot">
+                                                                        <img loading="lazy" decoding="async"
+                                                                             src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
+                                                                             alt="icon hot" />
+                                                                    </div>
                                                                 </div>
+                                                                <a href="/products/tu-ke-tivi-go-moho-oslo-201"
+                                                                   title="Tủ Kệ Tivi Gỗ MOHO OSLO 201" class="image-resize">
+                                                                    <picture class="loop-one-img ">
+                                                                        <source media="(max-width: 767px)"
+                                                                                srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
+                                                                        <source media="(min-width: 768px)"
+                                                                                srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
+                                                                        <img loading="lazy" decoding="async" width="480"
+                                                                             height="480" class="img-loop"
+                                                                             alt=" Tủ Kệ Tivi Gỗ MOHO OSLO 201 "
+                                                                             src="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_grande.jpg" />
+                                                                    </picture>
+                                                                </a>
                                                             </div>
-                                                            <a href="/products/tu-ke-tivi-go-moho-oslo-201"
-                                                               title="Tủ Kệ Tivi Gỗ MOHO OSLO 201" class="image-resize">
-                                                                <picture class="loop-one-img ">
-                                                                    <source media="(max-width: 767px)"
-                                                                            srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
-                                                                    <source media="(min-width: 768px)"
-                                                                            srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
-                                                                    <img loading="lazy" decoding="async" width="480"
-                                                                         height="480" class="img-loop"
-                                                                         alt=" Tủ Kệ Tivi Gỗ MOHO OSLO 201 "
-                                                                         src="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_grande.jpg" />
-                                                                </picture>
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-detail clearfix">
-                                                            <div class="box-pro-detail">
-                                                                <h3 class="pro-name">
-                                                                    <a href="/products/tu-ke-tivi-go-moho-oslo-201"
-                                                                       title="Tủ Kệ Tivi Gỗ MOHO OSLO 201">
-                                                                        Tủ Kệ Tivi Gỗ MOHO OSLO 201
-                                                                    </a>
-                                                                </h3>
-                                                                <div class="box-pro-prices">
-                                                                    <p class="pro-price highlight">
-                                                                        <span>2,190,000₫</span>
-                                                                        <span class="pro-price-del">
-                                                                            <del class="compare-price">
-                                                                                3,490,000₫
-                                                                            </del>
-                                                                        </span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
+                                                            <div class="product-detail clearfix">
+                                                                <div class="box-pro-detail">
+                                                                    <h3 class="pro-name">
+                                                                        <a href="/products/tu-ke-tivi-go-moho-oslo-201"
+                                                                           title="Tủ Kệ Tivi Gỗ MOHO OSLO 201">
+                                                                            Tủ Kệ Tivi Gỗ MOHO OSLO 201
+                                                                        </a>
+                                                                    </h3>
+                                                                    <div class="box-pro-prices">
+                                                                        <p class="pro-price highlight">
+                                                                            <span>2,190,000₫</span>
+                                                                            <span class="pro-price-del">
+                                                                                <del class="compare-price">
+                                                                                    3,490,000₫
+                                                                                </del>
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
 
-                                                                        <div class="rating-container" data-rating="4.4"
-                                                                             data-num-reviews="78">
-                                                                            <div class="rating"></div>
-                                                                            <span class="num-reviews"></span>
+                                                                            <div class="rating-container" data-rating="4.4"
+                                                                                 data-num-reviews="78">
+                                                                                <div class="rating"></div>
+                                                                                <span class="num-reviews"></span>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
+                                                                            <div class="cmpText">Đã bán 888</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="product-quantity">
+                                                                        <div>Số lượng: 10</div>
+                                                                        <div class="product-addtocart">
+                                                                            <a href="#" class="cart-button">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     width="20" height="20" fill="currentColor"
+                                                                                     class="bi bi-cart" viewBox="0 0 16 16">
+                                                                                <path
+                                                                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                                                                </svg>Add to cart
+                                                                            </a>
                                                                         </div>
 
                                                                     </div>
 
-                                                                    <div
-                                                                        class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
-                                                                        <div class="cmpText">Đã bán 888</div>
-                                                                    </div>
                                                                 </div>
-                                                                <div style="display: flex;
-                                                                     justify-content: space-evenly;
-                                                                     align-items: center;">
-                                                                    <div>Số lượng: 10</div>
-                                                                    <div class="product-addtocart">
-                                                                        <a href="#" class="cart-button">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 width="20" height="20" fill="currentColor"
-                                                                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                                                            <path
-                                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                                            </svg>Add to cart
-                                                                        </a>
-                                                                    </div>
-
-                                                                </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>

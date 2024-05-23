@@ -9,14 +9,28 @@ package Models;
  * @author HELLO
  */
 public class Brand {
+
     private int id;
-    private String brandName;
-    
+    private String brandname;
+
     public Brand() {
     }
-    
+
+    public String getBrandName() {
+        return brandname;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandname = brandName;
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" + "id=" + id + ", brandName=" + brandname + '}';
+    }
+
     public Brand(String brandname) {
-        this.brandName = brandname;
+        this.brandname = brandname;
     }
 
     public int getId() {
@@ -28,14 +42,11 @@ public class Brand {
     }
 
     public String getBrandname() {
-        return brandName;
+        return brandname;
     }
 
     public void setBrandname(String brandname) {
-        this.brandName = brandname;
+        this.brandname = brandname;
     }
 
-    
-    
-    
 }

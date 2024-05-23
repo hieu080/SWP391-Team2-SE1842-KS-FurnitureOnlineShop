@@ -1,6 +1,8 @@
 package DAL;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,4 +25,15 @@ public class DBContext {
             ex.printStackTrace();
         }
     }
+//    
+//    public void closeConnection() {
+//        try {
+//            if (connect != null && !connect.isClosed()) {
+//                connect.close();
+//                Logger.getLogger(DBContext.class.getName()).log(Level.INFO, "Closed connection.");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, "Error closing connection.", ex);
+//        }
+//    }
 }

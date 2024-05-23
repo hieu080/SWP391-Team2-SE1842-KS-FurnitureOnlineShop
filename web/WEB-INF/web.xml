@@ -16,8 +16,16 @@
         <servlet-name>TestDB</servlet-name>
         <servlet-class>Controllers.TestDB</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>Controllers.ProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestDB</servlet-name>
         <url-pattern>/TestDB</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/ProductServlet</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -6,6 +6,7 @@ package Controllers;
 
 import DAL.CustomerDAO;
 import Models.Brand;
+import Models.Category;
 import Models.Feedback;
 import Models.OrderDetail;
 import Models.Page;
@@ -39,19 +40,22 @@ public class ProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        CustomerDAO customerDAO = new CustomerDAO();
+        ArrayList<Brand> brandList = customerDAO.getBrandList();
+        request.setAttribute("brandList", brandList);
+        ArrayList<Room> roomList = customerDAO.getRoomList();
+        request.setAttribute("roomList", roomList);
+        ArrayList<Page> pageList = customerDAO.getPageList();
+        request.setAttribute("pageList", pageList);
+        ArrayList<Sale> saleList = customerDAO.getSaleList();
+        request.setAttribute("saleList", saleList);
+        ArrayList<Feedback> feedbackList = customerDAO.getFeedbackList();
+        request.setAttribute("feedbackList", feedbackList);
+        ArrayList<OrderDetail> orderDetailList = customerDAO.getOrderDetailList();
+        request.setAttribute("orderDetailList", orderDetailList);
+        ArrayList<Category> categoryList = customerDAO.getCategoryList();
+        request.setAttribute("categoryList", categoryList);
+        request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,19 +73,7 @@ public class ProductServlet extends HttpServlet {
         CustomerDAO customerDAO = new CustomerDAO();
         ArrayList<Product> productList = customerDAO.getProductList();
         request.setAttribute("productList", productList);
-        ArrayList<Brand> brandList = customerDAO.getBrandList();
-        request.setAttribute("brandList", brandList);
-        ArrayList<Room> roomList = customerDAO.getRoomList();
-        request.setAttribute("roomList", roomList);
-        ArrayList<Page> pageList = customerDAO.getPageList();
-        request.setAttribute("pageList", pageList);
-        ArrayList<Sale> saleList = customerDAO.getSaleList();
-        request.setAttribute("saleList", saleList);
-        ArrayList<Feedback> feedbackList = customerDAO.getFeedbackList();
-        request.setAttribute("feedbackList", feedbackList);
-        ArrayList<OrderDetail> orderDetailList = customerDAO.getOrderDetailList();
-        request.setAttribute("orderDetailList", orderDetailList);
-        request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -95,6 +87,10 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String search = request.getParameter("search");
+        CustomerDAO customerDAO = new CustomerDAO();
+        ArrayList<Product> productList = customerDAO.searchProductByName(search);
+        request.setAttribute("productList", productList);
         processRequest(request, response);
     }
 

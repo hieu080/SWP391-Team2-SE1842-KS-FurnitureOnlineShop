@@ -108,6 +108,7 @@
                 justify-content: space-evenly;
                 align-items: center;
             }
+
         </style>
 
 
@@ -162,10 +163,10 @@
                             <div class="header-upper-search-top hidden-xs hidden-sm">
                                 <div class="header-search">
                                     <div class="search-box wpo-wrapper-search">
-                                        <form action="yourServletURL" method="GET" class="searchform searchform-categoris ultimate-search">
+                                        <form action="ProductServlet" method="post" class="searchform searchform-categoris ultimate-search">
                                             <div class="wpo-search-inner">
-                                                <input type="hidden" name="type" value="product" />
-                                                <input required id="inputSearchAuto" name="q" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
+                                                <!--<input type="hidden" name="type" value="product" />-->
+                                                <input required id="inputSearchAuto" name="search" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
                                             </div>
                                             <button type="submit" class="btn-search" title="Tìm kiếm">
                                                 <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve">
@@ -536,39 +537,6 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-
-
-                                                        <div class="collection_option">
-                                                            <div class="option browse-tags">
-                                                                <span class="custom-dropdown custom-dropdown--grey">
-                                                                    <select
-                                                                        class="sort-by custom-dropdown__select box_style"
-                                                                        aria-label="Sắp xếp theo">
-
-                                                                        <option value="manual">Sản phẩm nổi bật</option>
-
-                                                                        <option value="price-ascending"
-                                                                                data-filter="&sortby=(price:product=asc)">Giá:
-                                                                            Tăng dần</option>
-                                                                        <option value="price-descending"
-                                                                                data-filter="&sortby=(price:product=desc)">Giá:
-                                                                            Giảm dần</option>
-
-
-
-                                                                        <option value="created-descending"
-                                                                                data-filter="&sortby=(updated_at:product=asc)">
-                                                                            Mới nhất</option>
-                                                                        <option value="best-selling"
-                                                                                data-filter="&sortby=(sold_quantity:product=desc)">
-                                                                            Bán chạy nhất</option>
-
-                                                                    </select>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-
-
                                                     </div>
 
                                                 </div>
@@ -604,222 +572,15 @@
                                                                                 </div>
                                                                                 <div
                                                                                     class="filter_group_content bl-filter filter-brand">
-                                                                                    <ul class="check-box-list">
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p1"
-                                                                                                   value="Bàn Sofa - Bàn Cafe - Bàn Trà"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bàn Sofa - Bàn Cafe - Bàn Trà)" />
-                                                                                            <label for="data-brand-p1">Bàn
-                                                                                                Sofa - Bàn Cafe - Bàn
-                                                                                                Trà</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p2"
-                                                                                                   value="Bàn Ăn"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bàn Ăn)" />
-                                                                                            <label for="data-brand-p2">Bàn
-                                                                                                Ăn</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p3"
-                                                                                                   value="Ghế Sofa"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Ghế Sofa)" />
-                                                                                            <label for="data-brand-p3">Ghế
-                                                                                                Sofa</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p4"
-                                                                                                   value="Bộ Bàn Ăn"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bộ Bàn Ăn)" />
-                                                                                            <label for="data-brand-p4">Bộ
-                                                                                                Bàn Ăn</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p5"
-                                                                                                   value="Tủ Đầu Giường"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Tủ Đầu Giường)" />
-                                                                                            <label for="data-brand-p5">Tủ
-                                                                                                Đầu Giường</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p6"
-                                                                                                   value="Tủ & Kệ"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Tủ & Kệ)" />
-                                                                                            <label for="data-brand-p6">Tủ &
-                                                                                                Kệ</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p7"
-                                                                                                   value="Tủ Quần Áo"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Tủ Quần Áo)" />
-                                                                                            <label for="data-brand-p7">Tủ
-                                                                                                Quần Áo</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p8"
-                                                                                                   value="Tủ Kệ Tivi"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Tủ Kệ Tivi)" />
-                                                                                            <label for="data-brand-p8">Tủ Kệ
-                                                                                                Tivi</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p9"
-                                                                                                   value="Tủ Giày - Tủ Trang Trí"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Tủ Giày - Tủ Trang Trí)" />
-                                                                                            <label for="data-brand-p9">Tủ
-                                                                                                Giày - Tủ Trang Trí</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p10"
-                                                                                                   value="Bàn Làm Việc"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bàn Làm Việc)" />
-                                                                                            <label for="data-brand-p10">Bàn
-                                                                                                Làm Việc</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p11"
-                                                                                                   value="Ghế Ăn"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Ghế Ăn)" />
-                                                                                            <label for="data-brand-p11">Ghế
-                                                                                                Ăn</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p12"
-                                                                                                   value="Giường Ngủ"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Giường Ngủ)" />
-                                                                                            <label
-                                                                                                for="data-brand-p12">Giường
-                                                                                                Ngủ</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p13"
-                                                                                                   value="Bàn Trang Điểm"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bàn Trang Điểm)" />
-                                                                                            <label for="data-brand-p13">Bàn
-                                                                                                Trang Điểm</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p14"
-                                                                                                   value="Ghế Văn Phòng"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Ghế Văn Phòng)" />
-                                                                                            <label for="data-brand-p14">Ghế
-                                                                                                Văn Phòng</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p15"
-                                                                                                   value="Khác"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Khác)" />
-                                                                                            <label
-                                                                                                for="data-brand-p15">Khác</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p16"
-                                                                                                   value="Khánh Vy Home"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Khánh Vy Home)" />
-                                                                                            <label
-                                                                                                for="data-brand-p16">Khánh
-                                                                                                Vy Home</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p17"
-                                                                                                   value="Bếp"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bếp)" />
-                                                                                            <label
-                                                                                                for="data-brand-p17">Bếp</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p18"
-                                                                                                   value="Combo Basic"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Combo Basic)" />
-                                                                                            <label
-                                                                                                for="data-brand-p18">Combo
-                                                                                                Basic</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p19"
-                                                                                                   value="Full Combo"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Full Combo)" />
-                                                                                            <label for="data-brand-p19">Full
-                                                                                                Combo</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p20"
-                                                                                                   value="Bếp Dưới"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Bếp Dưới)" />
-                                                                                            <label for="data-brand-p20">Bếp
-                                                                                                Dưới</label>
-                                                                                        </li>
-
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-brand-p21"
-                                                                                                   value="Vạn Thành"
-                                                                                                   name="brand-filter"
-                                                                                                   data-vendor="(vendor:product=Vạn Thành)" />
-                                                                                            <label for="data-brand-p21">Vạn
-                                                                                                Thành</label>
-                                                                                        </li>
-
+                                                                                    <ul class="">
+                                                                                        <c:forEach items="${requestScope.categoryList}" var="category">
+                                                                                            <li>
+                                                                                                <input type="checkbox"
+                                                                                                       name="category"
+                                                                                                       value="${category.category}" />
+                                                                                                <label for="category">${category.category}</label>
+                                                                                            </li>
+                                                                                        </c:forEach>
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
@@ -1230,7 +991,7 @@
                                                                     <c:if test="${sale.product_id == product.id}">
 
                                                                         <c:choose>
-                                                                            <c:when test="${sale.salevalue != 0}">
+                                                                            <c:when test="${sale.salevalue ne 0}">
                                                                                 <div class="product-sale"><span>-${sale.salevalue}%</span></div>
                                                                             </c:when>
                                                                             <c:otherwise>
@@ -1247,7 +1008,7 @@
                                                                              alt="icon hot" />
                                                                     </div>
                                                                 </div>
-                                                                <a href="/products/tu-ke-tivi-go-moho-oslo-201"
+                                                                <a href="#"
                                                                    title="${product.name}" class="image-resize">
                                                                     <picture class="loop-one-img ">
                                                                         <img loading="lazy" decoding="async" width="480"
@@ -1267,19 +1028,23 @@
                                                                     </h3>
                                                                     <div class="box-pro-prices">
                                                                         <p class="pro-price highlight">
-                                                                            <c:choose>
-                                                                                <c:when test="${sale.salevalue != 0}">
-                                                                                    <span>${product.price * sale.salevalue / 100}₫</span>
-                                                                                    <span class="pro-price-del">
-                                                                                        <del class="compare-price">
-                                                                                            ${product.price}₫
-                                                                                        </del>
-                                                                                    </span>
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <span>${product.price}₫</span>
-                                                                                </c:otherwise>
-                                                                            </c:choose>
+                                                                            <c:forEach items="${requestScope.saleList}" var="sale">
+                                                                                <c:if test="${sale.product_id == product.id}">    
+                                                                                    <c:choose>
+                                                                                        <c:when test="${sale.salevalue == 0}">
+                                                                                            <span>${product.price}₫</span>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span>${product.price * sale.salevalue / 100}₫</span>
+                                                                                            <span class="pro-price-del">
+                                                                                                <del class="compare-price">
+                                                                                                    ${product.price}₫
+                                                                                                </del>
+                                                                                            </span>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
+                                                                                </c:if>
+                                                                            </c:forEach>
                                                                         </p>
                                                                     </div>
 

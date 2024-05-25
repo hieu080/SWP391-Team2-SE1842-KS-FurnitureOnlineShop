@@ -5,6 +5,7 @@
 package DAL;
 
 import Models.Brand;
+import Models.Category;
 import Models.Feedback;
 import Models.OrderDetail;
 import Models.Page;
@@ -218,15 +219,39 @@ public class CustomerDAO extends DBContext {
             }
 
         } catch (Exception ex) {
-            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving room list.", ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving order list.", ex);
         }
         return OrderDetailList;
     }
+    
+    public ArrayList<Category> getCategoryList(){
+        ArrayList<Category> categoryList = new ArrayList<>();
+        String sql = "SELECT * FROM category";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Category category = new Category();
+                category.setId(rs.getInt("id"));
+                category.setCategory(rs.getString("category"));
+                category.setRoom_id(rs.getInt("room_id"));
+                category.setParentcategory_id(rs.getInt("parentcategory_id"));
+                
+                categoryList.add(category);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving category list.", ex);
+        }
+        return categoryList;
+    }
+            
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        ArrayList<OrderDetail> list = dao.getOrderDetailList();
-        for (OrderDetail od : list) {
-            System.out.println(od.getQuantity());
+        ArrayList<Category> list = dao.getCategoryList();
+        for (Category od : list) {
+            System.out.println(od.getCategory());
         }
     }
 }

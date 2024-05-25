@@ -9,6 +9,7 @@ package Models;
  * @author HELLO
  */
 public class User {
+    private int id;
     private String fullname;
     private String gender;
     private String avatar;
@@ -30,10 +31,18 @@ public class User {
         this.address = address;
         this.email = email;
         this.password = password;
-        this.role_id = role_id;
-        this.status = status;
+        this.role_id = 1;
+        this.status = "Active";
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getFullname() {
         return fullname;
     }

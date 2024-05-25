@@ -1224,10 +1224,22 @@
                                             <div class="content-product-list product-list clearfix">
                                                 <c:forEach items="${requestScope.productList}" var="product">
                                                     <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
-                                                        <div class="product-block product-resize site-animation single-product"
-                                                             data-sold="888" data-pro="1030631225">
+                                                        <div class="product-block product-resize site-animation single-product">
                                                             <div class="product-img fade-box">
-                                                                <div class="product-sale"><span>-37%</span></div>
+                                                                <c:forEach items="${requestScope.saleList}" var="sale">
+                                                                    <c:if test="${sale.product_id == product.id}">
+
+                                                                        <c:choose>
+                                                                            <c:when test="${sale.salevalue != 0}">
+                                                                                <div class="product-sale"><span>-${sale.salevalue}%</span></div>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <div></div>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </c:if>
+                                                                </c:forEach>
+
                                                                 <div class="tag-loop">
                                                                     <div class="icon icon_hot">
                                                                         <img loading="lazy" decoding="async"
@@ -1236,56 +1248,73 @@
                                                                     </div>
                                                                 </div>
                                                                 <a href="/products/tu-ke-tivi-go-moho-oslo-201"
-                                                                   title="Tủ Kệ Tivi Gỗ MOHO OSLO 201" class="image-resize">
+                                                                   title="${product.name}" class="image-resize">
                                                                     <picture class="loop-one-img ">
-                                                                        <source media="(max-width: 767px)"
-                                                                                srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
-                                                                        <source media="(min-width: 768px)"
-                                                                                srcset="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_large.jpg">
                                                                         <img loading="lazy" decoding="async" width="480"
                                                                              height="480" class="img-loop"
-                                                                             alt=" Tủ Kệ Tivi Gỗ MOHO OSLO 201 "
-                                                                             src="//product.hstatic.net/200000065946/product/pro_go_phoi_trang_noi_that_moho_tu_ke_tivi_go_oslo__201_9eacfc0a2214441694bc4e098122134e_grande.jpg" />
+                                                                             alt="${product.name}"
+                                                                             src="images/product/${product.image}" />
                                                                     </picture>
                                                                 </a>
                                                             </div>
                                                             <div class="product-detail clearfix">
                                                                 <div class="box-pro-detail">
                                                                     <h3 class="pro-name">
-                                                                        <a href="/products/tu-ke-tivi-go-moho-oslo-201"
-                                                                           title="Tủ Kệ Tivi Gỗ MOHO OSLO 201">
-                                                                            Tủ Kệ Tivi Gỗ MOHO OSLO 201
+                                                                        <a href="#"
+                                                                           title="${product.name}">
+                                                                            ${product.name}
                                                                         </a>
                                                                     </h3>
                                                                     <div class="box-pro-prices">
                                                                         <p class="pro-price highlight">
-                                                                            <span>2,190,000₫</span>
-                                                                            <span class="pro-price-del">
-                                                                                <del class="compare-price">
-                                                                                    3,490,000₫
-                                                                                </del>
-                                                                            </span>
+                                                                            <c:choose>
+                                                                                <c:when test="${sale.salevalue != 0}">
+                                                                                    <span>${product.price * sale.salevalue / 100}₫</span>
+                                                                                    <span class="pro-price-del">
+                                                                                        <del class="compare-price">
+                                                                                            ${product.price}₫
+                                                                                        </del>
+                                                                                    </span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <span>${product.price}₫</span>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
                                                                         </p>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div
-                                                                            class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
 
-                                                                            <div class="rating-container" data-rating="4.4"
-                                                                                 data-num-reviews="78">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
+                                                                            <c:set var="totalRating" value="0" scope="page" />
+                                                                            <c:set var="reviewCount" value="0" scope="page" />
+
+                                                                            <c:forEach items="${requestScope.feedbackList}" var="feedback">
+                                                                                <c:if test="${feedback.product_id == product.id}">
+                                                                                    <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
+                                                                                    <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
+                                                                                </c:if>
+                                                                            </c:forEach>
+
+                                                                            <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
+
+                                                                            <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
                                                                                 <div class="rating"></div>
                                                                                 <span class="num-reviews"></span>
                                                                             </div>
-
                                                                         </div>
-
+                                                                        <c:set var="quantitySold" value="0" scope="page" /> 
+                                                                        <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
+                                                                            <c:if test="${orderDetail.product_id == product.id}">
+                                                                                <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                                            </c:if>
+                                                                        </c:forEach>
                                                                         <div
                                                                             class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
-                                                                            <div class="cmpText">Đã bán 888</div>
+                                                                            <div class="cmpText">Đã bán ${quantitySold}</div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="product-quantity">
-                                                                        <div>Số lượng: 10</div>
+                                                                        <div>Số lượng: ${product.quantity}</div>
                                                                         <div class="product-addtocart">
                                                                             <a href="#" class="cart-button">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg"

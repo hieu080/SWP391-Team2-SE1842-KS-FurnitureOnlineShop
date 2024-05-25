@@ -6,9 +6,12 @@ package Controllers;
 
 import DAL.CustomerDAO;
 import Models.Brand;
+import Models.Feedback;
+import Models.OrderDetail;
 import Models.Page;
 import Models.Product;
 import Models.Room;
+import Models.Sale;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,13 +69,18 @@ public class ProductServlet extends HttpServlet {
         CustomerDAO customerDAO = new CustomerDAO();
         ArrayList<Product> productList = customerDAO.getProductList();
         request.setAttribute("productList", productList);
-        ArrayList<Brand> brandList = new ArrayList<>();
-        brandList=   customerDAO.getBrandList();
+        ArrayList<Brand> brandList = customerDAO.getBrandList();
         request.setAttribute("brandList", brandList);
         ArrayList<Room> roomList = customerDAO.getRoomList();
         request.setAttribute("roomList", roomList);
         ArrayList<Page> pageList = customerDAO.getPageList();
         request.setAttribute("pageList", pageList);
+        ArrayList<Sale> saleList = customerDAO.getSaleList();
+        request.setAttribute("saleList", saleList);
+        ArrayList<Feedback> feedbackList = customerDAO.getFeedbackList();
+        request.setAttribute("feedbackList", feedbackList);
+        ArrayList<OrderDetail> orderDetailList = customerDAO.getOrderDetailList();
+        request.setAttribute("orderDetailList", orderDetailList);
         request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
 

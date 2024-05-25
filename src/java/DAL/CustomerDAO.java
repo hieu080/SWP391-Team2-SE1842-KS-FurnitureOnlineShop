@@ -5,9 +5,12 @@
 package DAL;
 
 import Models.Brand;
+import Models.Feedback;
+import Models.OrderDetail;
 import Models.Page;
 import Models.Product;
 import Models.Room;
+import Models.Sale;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -146,12 +149,84 @@ public class CustomerDAO extends DBContext {
         return pageList;
     }
     
+    public ArrayList<Feedback> getFeedbackList(){
+        ArrayList<Feedback> feedbackList = new ArrayList<>();
+        String sql = "SELECT * FROM feedback";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Feedback feedback = new Feedback();
+                feedback.setId(rs.getInt("id"));
+                feedback.setCustomer_id(rs.getInt("customer_id"));
+                feedback.setProduct_id(rs.getInt("product_id"));
+                feedback.setVotescore(rs.getInt("votescore"));
+                feedback.setFeedback(rs.getString("feedback"));
+                feedback.setReplyfeedback_id(rs.getInt("replyfeedback_id"));
+                feedback.setStatus(rs.getString("status")); 
+                
+                feedbackList.add(feedback);
+                
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving room list.", ex);
+        }
+        return feedbackList;
+    }
+    
+    public ArrayList<Sale> getSaleList(){
+        ArrayList<Sale> saleList = new ArrayList<>();
+        String sql = "SELECT * FROM sale";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Sale sale = new Sale();
+                sale.setId(rs.getInt("id"));
+                sale.setProduct_id(rs.getInt("product_id"));
+                sale.setSalevalue(rs.getInt("salevalue"));
+                sale.setStatus(rs.getString("status"));
+                
+                saleList.add(sale);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving room list.", ex);
+        }
+        return saleList;
+    }
+    
+    public ArrayList<OrderDetail> getOrderDetailList(){
+        ArrayList<OrderDetail> OrderDetailList = new ArrayList<>();
+        String sql = "SELECT * FROM orderdetail";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setId(rs.getInt("id"));
+                orderDetail.setOrder_id(rs.getInt("order_id"));
+                orderDetail.setProduct_id(rs.getInt("product_id"));
+                orderDetail.setQuantity(rs.getInt("quantity"));
+                orderDetail.setPrice(rs.getDouble("price"));
+                
+                OrderDetailList.add(orderDetail);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving room list.", ex);
+        }
+        return OrderDetailList;
+    }
     public static void main(String[] args) {
-        List<Brand> list = new ArrayList<>();
         CustomerDAO dao = new CustomerDAO();
-        list = dao.getBrandList();
-        for (Brand product1 : list) {
-            System.out.println(product1.getBrandname());
+        ArrayList<OrderDetail> list = dao.getOrderDetailList();
+        for (OrderDetail od : list) {
+            System.out.println(od.getQuantity());
         }
     }
 }

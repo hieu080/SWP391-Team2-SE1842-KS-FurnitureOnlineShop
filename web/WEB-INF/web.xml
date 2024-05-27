@@ -4,8 +4,48 @@
         <servlet-name>ProductServlet</servlet-name>
         <servlet-class>Controllers.ProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>Controllers.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Controllers.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>Controllers.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyEmail</servlet-name>
+        <servlet-class>Controllers.VerifyEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyResetEmail</servlet-name>
+        <servlet-class>Controllers.VerifyResetEmail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/ResetPasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyEmail</servlet-name>
+        <url-pattern>/VerifyEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyResetEmail</servlet-name>
+        <url-pattern>/VerifyResetEmail</url-pattern>
     </servlet-mapping>
 </web-app>

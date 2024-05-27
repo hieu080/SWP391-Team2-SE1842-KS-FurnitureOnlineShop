@@ -11,16 +11,12 @@ package Models;
 public class Category {
     private int id;
     private String category;
-    private int room_id;
-    private int parentcategory_id;
 
     public Category() {
     }
 
-    public Category(String category, int room_id, int parentcategory_id) {
+    public Category(String category) {
         this.category = category;
-        this.room_id = room_id;
-        this.parentcategory_id = parentcategory_id;
     }
 
     public int getId() {
@@ -38,22 +34,4 @@ public class Category {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    public int getRoom_id() {
-        return room_id;
-    }
-
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
-    }
-
-    public int getParentcategory_id() {
-        return parentcategory_id;
-    }
-
-    public void setParentcategory_id(int parentcategory_id) {
-        this.parentcategory_id = parentcategory_id;
-    }
-    
-    
 }

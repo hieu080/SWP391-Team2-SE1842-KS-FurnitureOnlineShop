@@ -11,11 +11,10 @@ import Models.OrderDetail;
 import Models.Page;
 import Models.Product;
 import Models.Room;
-import Models.Sale;
+import Models.SaleOff;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,6 +41,7 @@ public class CustomerDAO extends DBContext {
                 product.setId(resultSet.getInt("id"));
                 product.setCategory_id(resultSet.getInt("category_id"));
                 product.setBrand_id(resultSet.getInt("brand_id"));
+                product.setRoom_id(resultSet.getInt("room_id"));
                 product.setName(resultSet.getString("name"));
                 product.setDescription(resultSet.getString("description"));
                 product.setImage(resultSet.getString("image"));
@@ -57,7 +57,7 @@ public class CustomerDAO extends DBContext {
 
         return productList;
     }
-    
+
     public ArrayList<Product> searchProductByName(String name) {
         ArrayList<Product> productList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -74,6 +74,7 @@ public class CustomerDAO extends DBContext {
                 product.setId(resultSet.getInt("id"));
                 product.setCategory_id(resultSet.getInt("category_id"));
                 product.setBrand_id(resultSet.getInt("brand_id"));
+                product.setRoom_id(resultSet.getInt("room_id"));
                 product.setName(resultSet.getString("name"));
                 product.setDescription(resultSet.getString("description"));
                 product.setImage(resultSet.getString("image"));
@@ -88,13 +89,12 @@ public class CustomerDAO extends DBContext {
         }
         return productList;
     }
-    
+
     public ArrayList<Brand> getBrandList() {
         ArrayList<Brand> brandList = new ArrayList<>();
         String sql = "SELECT brandname FROM brand";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 String brandname = rs.getString("brandname");
@@ -113,8 +113,7 @@ public class CustomerDAO extends DBContext {
         ArrayList<Room> roomList = new ArrayList<>();
         String sql = "SELECT roomname FROM room";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 String roomname = rs.getString("roomname");
@@ -128,13 +127,12 @@ public class CustomerDAO extends DBContext {
 
         return roomList;
     }
-    
+
     public ArrayList<Page> getPageList() {
         ArrayList<Page> pageList = new ArrayList<>();
         String sql = "SELECT * FROM page";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -149,13 +147,12 @@ public class CustomerDAO extends DBContext {
 
         return pageList;
     }
-    
-    public ArrayList<Feedback> getFeedbackList(){
+
+    public ArrayList<Feedback> getFeedbackList() {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
         String sql = "SELECT * FROM feedback";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Feedback feedback = new Feedback();
@@ -165,10 +162,10 @@ public class CustomerDAO extends DBContext {
                 feedback.setVotescore(rs.getInt("votescore"));
                 feedback.setFeedback(rs.getString("feedback"));
                 feedback.setReplyfeedback_id(rs.getInt("replyfeedback_id"));
-                feedback.setStatus(rs.getString("status")); 
-                
+                feedback.setStatus(rs.getString("status"));
+
                 feedbackList.add(feedback);
-                
+
             }
 
         } catch (Exception ex) {
@@ -176,36 +173,34 @@ public class CustomerDAO extends DBContext {
         }
         return feedbackList;
     }
-    
-    public ArrayList<Sale> getSaleList(){
-        ArrayList<Sale> saleList = new ArrayList<>();
-        String sql = "SELECT * FROM sale";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+    public ArrayList<SaleOff> getSaleList() {
+        ArrayList<SaleOff> saleoffList = new ArrayList<>();
+        String sql = "SELECT * FROM saleoff";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                Sale sale = new Sale();
+                SaleOff sale = new SaleOff();
                 sale.setId(rs.getInt("id"));
                 sale.setProduct_id(rs.getInt("product_id"));
-                sale.setSalevalue(rs.getInt("salevalue"));
+                sale.setSaleoffvalue(rs.getInt("saleoffvalue"));
                 sale.setStatus(rs.getString("status"));
-                
-                saleList.add(sale);
+
+                saleoffList.add(sale);
             }
 
         } catch (Exception ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving room list.", ex);
         }
-        return saleList;
+        return saleoffList;
     }
-    
-    public ArrayList<OrderDetail> getOrderDetailList(){
+
+    public ArrayList<OrderDetail> getOrderDetailList() {
         ArrayList<OrderDetail> OrderDetailList = new ArrayList<>();
         String sql = "SELECT * FROM orderdetail";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 OrderDetail orderDetail = new OrderDetail();
@@ -214,7 +209,7 @@ public class CustomerDAO extends DBContext {
                 orderDetail.setProduct_id(rs.getInt("product_id"));
                 orderDetail.setQuantity(rs.getInt("quantity"));
                 orderDetail.setPrice(rs.getDouble("price"));
-                
+
                 OrderDetailList.add(orderDetail);
             }
 
@@ -223,21 +218,18 @@ public class CustomerDAO extends DBContext {
         }
         return OrderDetailList;
     }
-    
-    public ArrayList<Category> getCategoryList(){
+
+    public ArrayList<Category> getCategoryList() {
         ArrayList<Category> categoryList = new ArrayList<>();
         String sql = "SELECT * FROM category";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Category category = new Category();
                 category.setId(rs.getInt("id"));
                 category.setCategory(rs.getString("category"));
-                category.setRoom_id(rs.getInt("room_id"));
-                category.setParentcategory_id(rs.getInt("parentcategory_id"));
-                
+
                 categoryList.add(category);
             }
 
@@ -246,12 +238,85 @@ public class CustomerDAO extends DBContext {
         }
         return categoryList;
     }
-            
+
+    private String parsePrice(String priceStr) {
+    String x = "";
+    if (priceStr != null && !priceStr.isEmpty()) {
+        if (priceStr.equals("<500")) {
+            x += " < 500000";
+        } else if (priceStr.equals("500<x<1000")) {
+            x += " BETWEEN 500000 AND 1000000";
+        } else if (priceStr.equals("1000<x<2000")) {
+            x += " BETWEEN 1000000 AND 2000000";
+        } else if (priceStr.equals("2000<x<5000")) {
+            x += " BETWEEN 2000000 AND 5000000";
+        } else if (priceStr.equals(">5000")) {
+            x += " > 5000000";
+        }
+    }
+    return x;
+}
+
+public ArrayList<Product> filterProductList(String categoryStr, String priceStr, String colorStr, String sizeStr) {
+    ArrayList<Product> productList = new ArrayList<>();
+    
+    String sql = """
+                 SELECT 
+                     Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
+                 FROM 
+                     Product
+                 JOIN 
+                     Category ON Product.category_id = Category.id
+                 JOIN 
+                     Room ON Product.room_id = Room.id
+                 JOIN 
+                     ProductDetail ON Product.id = ProductDetail.product_id
+                 WHERE 
+                     Category.category = ?
+                 AND ProductDetail.color = ?
+                 AND ProductDetail.size LIKE ?
+                 """;
+    
+    String priceCondition = parsePrice(priceStr);
+    if (!priceCondition.isEmpty()) {
+        sql += " AND Product.price " + priceCondition;
+    }
+
+    try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
+
+        pstmt.setString(1, categoryStr);
+        pstmt.setString(2, colorStr);
+        pstmt.setString(3, "%" + sizeStr + "%");
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setCategory_id(rs.getInt("category_id"));
+                product.setBrand_id(rs.getInt("brand_id"));
+                product.setRoom_id(rs.getInt("room_id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setPrice(rs.getDouble("price"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setStatus(rs.getString("status"));
+
+                productList.add(product);
+            }
+        }
+    } catch (Exception ex) {
+        Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, "Error retrieving product list.", ex);
+    }
+    return productList;
+}
+
+
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        ArrayList<Category> list = dao.getCategoryList();
-        for (Category od : list) {
-            System.out.println(od.getCategory());
+        ArrayList<Product> list = dao.filterProductList("Sofa", "<500", "White", "90");
+        for (Product product : list) {
+            System.out.println(product.toString());
         }
     }
 }

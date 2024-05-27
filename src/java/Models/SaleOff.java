@@ -8,18 +8,19 @@ package Models;
  *
  * @author HELLO
  */
-public class Sale {
+public class SaleOff {
+
     private int id;
     private int product_id;
-    private int salevalue;
+    private int saleoffvalue;
     private String status;
 
-    public Sale() {
+    public SaleOff() {
     }
 
-    public Sale(int product_id, int salevalue) {
+    public SaleOff(int product_id, int saleoffvalue) {
         this.product_id = product_id;
-        this.salevalue = salevalue;
+        this.saleoffvalue = saleoffvalue;
         this.status = "Active";
     }
 
@@ -39,12 +40,12 @@ public class Sale {
         this.product_id = product_id;
     }
 
-    public int getSalevalue() {
-        return salevalue;
+    public int getSaleoffvalue() {
+        return saleoffvalue;
     }
 
-    public void setSalevalue(int salevalue) {
-        this.salevalue = salevalue;
+    public void setSaleoffvalue(int saleoffvalue) {
+        this.saleoffvalue = saleoffvalue;
     }
 
     public String getStatus() {
@@ -54,6 +55,5 @@ public class Sale {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
 }

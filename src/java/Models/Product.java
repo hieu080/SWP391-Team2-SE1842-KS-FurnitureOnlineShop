@@ -12,6 +12,7 @@ public class Product {
     private int id;
     private int category_id;
     private int brand_id;
+    private int room_id;
     private String name;
     private String description;
     private String image;
@@ -22,9 +23,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(int category_id, int brand_id, String name, String description, String image, double price, int quantity) {
+    public Product(int category_id, int brand_id, int room_id, String name, String description, String image, double price, int quantity) {
         this.category_id = category_id;
         this.brand_id = brand_id;
+        this.room_id = room_id;
         this.name = name;
         this.description = description;
         this.image = image;
@@ -55,6 +57,14 @@ public class Product {
 
     public void setBrand_id(int brand_id) {
         this.brand_id = brand_id;
+    }
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
     }
 
     public String getName() {
@@ -104,5 +114,12 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
-  
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", category_id=" + category_id + ", brand_id=" + brand_id + ", room_id=" + room_id + ", name=" + name + ", description=" + description + ", image=" + image + ", price=" + price + ", quantity=" + quantity + ", status=" + status + '}';
+    }
+    
+    
+    
 }

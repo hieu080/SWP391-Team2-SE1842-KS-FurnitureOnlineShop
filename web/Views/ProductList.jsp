@@ -165,7 +165,6 @@
                                     <div class="search-box wpo-wrapper-search">
                                         <form action="ProductServlet" method="post" class="searchform searchform-categoris ultimate-search">
                                             <div class="wpo-search-inner">
-                                                <!--<input type="hidden" name="type" value="product" />-->
                                                 <input required id="inputSearchAuto" name="search" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
                                             </div>
                                             <button type="submit" class="btn-search" title="Tìm kiếm">
@@ -545,436 +544,243 @@
                                                 <div class="wrap-filter">
                                                     <div class="box_sidebar">
                                                         <div class="layered">
+                                                            <form method="post" >
+                                                                <div class="layer_filter-container">
 
-                                                            <div class="layer_filter-container">
-                                                                <div class="layer_filter-title hidden-xs hidden-sm">
-                                                                    <h2 class="title_filter">
-                                                                        <span class="icon_title"><svg viewBox="0 0 20 20">
-                                                                            <path fill="none" stroke-width="2"
-                                                                                  stroke-linejoin="round"
-                                                                                  stroke-miterlimit="10"
-                                                                                  d="M12 9v8l-4-4V9L2 3h16z"></path>
-                                                                            </svg></span>
-                                                                        Bộ lọc
-                                                                    </h2>
-                                                                </div>
-                                                                <div class="layer_filter-group">
-                                                                    <div class="row clearfix">
-                                                                        <!-- ./filter brand -->
 
-                                                                        <div class="col-md-3 ">
-                                                                            <div class="group-filter">
-                                                                                <div
-                                                                                    class="filter_group_title dropdown-filter">
-                                                                                    <span>DANH MỤC</span>
-                                                                                    <span class="icon-controls"><i
-                                                                                            class="fa fa-chevron-down"></i></span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="filter_group_content bl-filter filter-brand">
-                                                                                    <ul class="">
-                                                                                        <c:forEach items="${requestScope.categoryList}" var="category">
-                                                                                            <li>
-                                                                                                <input type="checkbox"
-                                                                                                       name="category"
-                                                                                                       value="${category.category}" />
-                                                                                                <label for="category">${category.category}</label>
-                                                                                            </li>
-                                                                                        </c:forEach>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <!-- ./filter price -->
-
-                                                                        <div class="col-md-3 ">
-                                                                            <div class="group-filter">
-                                                                                <div
-                                                                                    class="filter_group_title dropdown-filter">
-                                                                                    <span>Giá sản phẩm</span><span
-                                                                                        class="icon-controls"><i
-                                                                                            class="fa fa-chevron-down"></i></span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="filter_group_content bl-filter filter-price">
-                                                                                    <ul class="check-box-list">
-                                                                                        <li>
-                                                                                            <input type="checkbox" id="p1"
-                                                                                                   name="cc"
-                                                                                                   data-price="(price:product<=500000)" />
-                                                                                            <label for="p1">
-                                                                                                <span>Dưới</span> 500,000₫
-                                                                                            </label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox" id="p2"
-                                                                                                   name="cc"
-                                                                                                   data-price="((price:product>500000)&amp;&amp;(price:product<=1000000))" />
-                                                                                            <label for="p2">
-                                                                                                500,000₫ - 1,000,000₫
-                                                                                            </label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox" id="p3"
-                                                                                                   name="cc"
-                                                                                                   data-price="((price:product>1000000)&amp;&amp;(price:product<=1500000))" />
-                                                                                            <label for="p3">
-                                                                                                1,000,000₫ - 1,500,000₫
-                                                                                            </label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox" id="p4"
-                                                                                                   name="cc"
-                                                                                                   data-price="((price:product>2000000)&amp;&amp;(price:product<=5000000))" />
-                                                                                            <label for="p4">
-                                                                                                2,000,000₫ - 5,000,000₫
-                                                                                            </label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox" id="p5"
-                                                                                                   name="cc"
-                                                                                                   data-price="(price:product>=5000000)" />
-                                                                                            <label for="p5">
-                                                                                                <span>Trên</span> 5,000,000₫
-                                                                                            </label>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- ./filter color -->
-
-                                                                        <div class="col-md-3 ">
-                                                                            <div class="group-filter">
-                                                                                <div
-                                                                                    class="filter_group_title dropdown-filter">
-                                                                                    <span>Màu sắc</span><span
-                                                                                        class="icon-controls"><i
-                                                                                            class="fa fa-chevron-down"></i>
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="filter_group_content color-filter">
-                                                                                    <ul class="check-box-list clearfix">
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p1"
-                                                                                                   value="Màu Tự Nhiên"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Màu Tự Nhiên)" />
-                                                                                            <label for="data-color-p1"
-                                                                                                   style="background-color: #d2af84">Màu
-                                                                                                Tự Nhiên</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p2"
-                                                                                                   value="Nâu"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Nâu)" />
-                                                                                            <label for="data-color-p2"
-                                                                                                   style="background-color: #644335">Nâu</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p3"
-                                                                                                   value="Xám Xanh"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Xám Xanh)" />
-                                                                                            <label for="data-color-p3"
-                                                                                                   style="background-color: #97a2b9">Xám
-                                                                                                Xanh</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p4"
-                                                                                                   value="Trắng"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Trắng)" />
-                                                                                            <label for="data-color-p4"
-                                                                                                   style="background-color: #ffffff">Trắng</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p5"
-                                                                                                   value="Gỗ Phối Trắng"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Gỗ Phối Trắng)" />
-                                                                                            <label for="data-color-p5"
-                                                                                                   style="background-color: #f1e2c2">Gỗ
-                                                                                                Phối Trắng</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p6"
-                                                                                                   value="Be"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Be)" />
-                                                                                            <label for="data-color-p6"
-                                                                                                   style="background-color: #ece3dd">Be</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p7"
-                                                                                                   value="Đá Xanh"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Đá Xanh)" />
-                                                                                            <label for="data-color-p7"
-                                                                                                   style="background-color: #b3c3c2">Đá
-                                                                                                Xanh</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p8"
-                                                                                                   value="Đen"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Đen)" />
-                                                                                            <label for="data-color-p8"
-                                                                                                   style="background-color: #000000">Đen</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p9"
-                                                                                                   value="Đậu Cobe"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Đậu Cobe)" />
-                                                                                            <label for="data-color-p9"
-                                                                                                   style="background-color: #b2b6a4">Đậu
-                                                                                                Cobe</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p10"
-                                                                                                   value="Vàng"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Vàng)" />
-                                                                                            <label for="data-color-p10"
-                                                                                                   style="background-color: #f3e524">Vàng</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p11"
-                                                                                                   value="Đồng"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Đồng)" />
-                                                                                            <label for="data-color-p11"
-                                                                                                   style="background-color: #e2b360">Đồng</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p12"
-                                                                                                   value="Vàng Hồng"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Vàng Hồng)" />
-                                                                                            <label for="data-color-p12"
-                                                                                                   style="background-color: #d4b4a5">Vàng
-                                                                                                Hồng</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p13"
-                                                                                                   value="Bạc"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Bạc)" />
-                                                                                            <label for="data-color-p13"
-                                                                                                   style="background-color: #dadada">Bạc</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p14"
-                                                                                                   value="Xám Đá"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Xám Đá)" />
-                                                                                            <label for="data-color-p14"
-                                                                                                   style="background-color: #b4babe">Xám
-                                                                                                Đá</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p15"
-                                                                                                   value="Ghi"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Ghi)" />
-                                                                                            <label for="data-color-p15"
-                                                                                                   style="background-color: #46484b">Ghi</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p16"
-                                                                                                   value="Xanh Nhạt"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Xanh Nhạt)" />
-                                                                                            <label for="data-color-p16"
-                                                                                                   style="background-color: #92b4da">Xanh
-                                                                                                Nhạt</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p17"
-                                                                                                   value="Cam Đất"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Cam Đất)" />
-                                                                                            <label for="data-color-p17"
-                                                                                                   style="background-color: #9f6033">Cam
-                                                                                                Đất</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p18"
-                                                                                                   value="Da Đậm"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Da Đậm)" />
-                                                                                            <label for="data-color-p18"
-                                                                                                   style="background-color: #d1b292">Da
-                                                                                                Đậm</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p19"
-                                                                                                   value="Dâu Lợt"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Dâu Lợt)" />
-                                                                                            <label for="data-color-p19"
-                                                                                                   style="background-color: #e9caae">Dâu
-                                                                                                Lợt</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-color-p20"
-                                                                                                   value="Hồng Phấn"
-                                                                                                   name="color-filter"
-                                                                                                   data-color="(variant:product contains Hồng Phấn)" />
-                                                                                            <label for="data-color-p20"
-                                                                                                   style="background-color: #ecd3d8">Hồng
-                                                                                                Phấn</label>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <!-- ./filter size -->
-
-                                                                        <div class="col-md-3">
-                                                                            <div class="group-filter">
-                                                                                <div
-                                                                                    class="filter_group_title dropdown-filter">
-                                                                                    <span>Kích thước</span><span
-                                                                                        class="icon-controls"><i
-                                                                                            class="fa fa-chevron-down"></i></span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="filter_group_content filter-size s-filter">
-                                                                                    <ul class="check-box-list clearfix">
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-size-p1"
-                                                                                                   value="90cm"
-                                                                                                   name="size-filter"
-                                                                                                   data-size="(variant:product=90cm)" />
-                                                                                            <label
-                                                                                                for="data-size-p1">90cm</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-size-p2"
-                                                                                                   value="1m2"
-                                                                                                   name="size-filter"
-                                                                                                   data-size="(variant:product=1m2)" />
-                                                                                            <label
-                                                                                                for="data-size-p2">1m2</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-size-p3"
-                                                                                                   value=" 1m4"
-                                                                                                   name="size-filter"
-                                                                                                   data-size="(variant:product= 1m4)" />
-                                                                                            <label for="data-size-p3">
-                                                                                                1m4</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-size-p4"
-                                                                                                   value=" 1m6"
-                                                                                                   name="size-filter"
-                                                                                                   data-size="(variant:product= 1m6)" />
-                                                                                            <label for="data-size-p4">
-                                                                                                1m6</label>
-                                                                                        </li>
-                                                                                        <li>
-                                                                                            <input type="checkbox"
-                                                                                                   id="data-size-p5"
-                                                                                                   value=" 1m8"
-                                                                                                   name="size-filter"
-                                                                                                   data-size="(variant:product= 1m8)" />
-                                                                                            <label for="data-size-p5">
-                                                                                                1m8</label>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
+                                                                    <div class="layer_filter-title hidden-xs hidden-sm">
+                                                                        <h2 class="title_filter">
+                                                                            <span class="icon_title"><svg viewBox="0 0 20 20">
+                                                                                <path fill="none" stroke-width="2"
+                                                                                      stroke-linejoin="round"
+                                                                                      stroke-miterlimit="10"
+                                                                                      d="M12 9v8l-4-4V9L2 3h16z"></path>
+                                                                                </svg></span>
+                                                                            <input type="submit" value="Bộ lọc">
+                                                                        </h2>
                                                                     </div>
+                                                                    <div class="layer_filter-group">
+                                                                        <div class="row clearfix">
+                                                                            <!-- ./filter brand -->
+
+                                                                            <div class="col-md-3 ">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>DANH MỤC</span>
+                                                                                        <span class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i></span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content bl-filter filter-brand">
+                                                                                        <ul class="">
+                                                                                            <c:forEach items="${requestScope.categoryList}" var="category">
+                                                                                                <li>
+                                                                                                    <input type="radio" id="data-brand-p${category.id}" value="${category.category}" name="brand-filter">
+                                                                                                    <label for="data-brand-p${category.id}">${category.category}</label>   
+                                                                                                </li>
+                                                                                            </c:forEach>
+
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- ./filter price -->
+
+                                                                            <div class="col-md-3 ">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>Giá sản phẩm</span><span
+                                                                                            class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i></span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content bl-filter filter-price">
+                                                                                        <ul class="check-box-list">
+                                                                                            <li>
+                                                                                                <input type="radio" id="p1"
+                                                                                                       name="cc"
+                                                                                                       value="<500" />
+                                                                                                <label for="p1">
+                                                                                                    <span>Dưới</span> 500,000₫
+                                                                                                </label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="p2"
+                                                                                                       name="cc"
+                                                                                                       value="500<x<1000"/>
+                                                                                                <label for="p2">
+                                                                                                    500,000₫ - 1,000,000₫
+                                                                                                </label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="p3"
+                                                                                                       name="cc"
+                                                                                                       value="1000<x<2000" />
+                                                                                                <label for="p3">
+                                                                                                    1,000,000₫ - 2,000,000₫
+                                                                                                </label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="p4"
+                                                                                                       name="cc"
+                                                                                                       value="2000<x<5000"/>
+                                                                                                <label for="p4">
+                                                                                                    2,000,000₫ - 5,000,000₫
+                                                                                                </label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="p5"
+                                                                                                       name="cc"
+                                                                                                       value=">5000" />
+                                                                                                <label for="p5">
+                                                                                                    <span>Trên</span> 5,000,000₫
+                                                                                                </label>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- ./filter color -->
+
+                                                                            <div class="col-md-3 ">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>Màu sắc</span><span
+                                                                                            class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content color-filter">
+                                                                                        <ul class="check-box-list clearfix">
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p1" value="Black" name="color-filter" data-color="(variant:product contains Màu đen)" />
+                                                                                                <label for="data-color-p1" style="background-color: #000000">Màu đen</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p2" value="White" name="color-filter" data-color="(variant:product contains Màu trắng)" />
+                                                                                                <label for="data-color-p2" style="background-color: #FFFFFF">Màu trắng</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p3" value="Yellow" name="color-filter" data-color="(variant:product contains Màu vàng)" />
+                                                                                                <label for="data-color-p3" style="background-color: #FFFF00">Màu vàng</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p4" value="Red" name="color-filter" data-color="(variant:product contains Màu đỏ)" />
+                                                                                                <label for="data-color-p4" style="background-color: #FF0000">Màu đỏ</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p5" value="Blue" name="color-filter" data-color="(variant:product contains Màu xanh dương)" />
+                                                                                                <label for="data-color-p5" style="background-color: #0000FF">Màu xanh dương</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p6" value="Green" name="color-filter" data-color="(variant:product contains Màu xanh lá)" />
+                                                                                                <label for="data-color-p6" style="background-color: #008000">Màu xanh lá</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p7" value="Purple" name="color-filter" data-color="(variant:product contains Màu tím)" />
+                                                                                                <label for="data-color-p7" style="background-color: #800080">Màu tím</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p8" value="Orange" name="color-filter" data-color="(variant:product contains Màu cam)" />
+                                                                                                <label for="data-color-p8" style="background-color: #FFA500">Màu cam</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio" id="data-color-p9" value="Pink" name="color-filter" data-color="(variant:product contains Màu hồng)" />
+                                                                                                <label for="data-color-p9" style="background-color: #FFC0CB">Màu hồng</label>
+                                                                                            </li>
+
+                                                                                        </ul>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- ./filter size -->
+
+                                                                            <div class="col-md-3">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>Kích thước</span><span
+                                                                                            class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i></span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                        <ul class="check-box-list clearfix">
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p1"
+                                                                                                       value="90"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product=90cm)" />
+                                                                                                <label
+                                                                                                    for="data-size-p1">90cm</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p2"
+                                                                                                       value="120"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product=1m2)" />
+                                                                                                <label
+                                                                                                    for="data-size-p2">1m2</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p3"
+                                                                                                       value=" 140"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product= 1m4)" />
+                                                                                                <label for="data-size-p3">
+                                                                                                    1m4</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p4"
+                                                                                                       value=" 160"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product= 1m6)" />
+                                                                                                <label for="data-size-p4">
+                                                                                                    1m6</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p5"
+                                                                                                       value=" 180"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product= 1m8)" />
+                                                                                                <label for="data-size-p5">
+                                                                                                    1m8</label>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <input type="radio"
+                                                                                                       id="data-size-p6"
+                                                                                                       value=" 200"
+                                                                                                       name="size-filter"
+                                                                                                       data-size="(variant:product= 2m)" />
+                                                                                                <label for="data-size-p5">
+                                                                                                    2m</label>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
                                                                 </div>
-                                                            </div>
+                                                            </form>
                                                         </div>
-                                                        <div class="group_filter_tags">
-                                                            <div class="filter_tags">
-                                                                DANH MỤC: <b></b>
-                                                                <span class="filter_tags_remove">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         version="1.1" x="0px" y="0px" viewBox="0 0 50 50"
-                                                                         xml:space="preserve">
-                                                                    <path fill="#333"
-                                                                          d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
-                                                            <div class="filter_tags">
-                                                                Giá sản phẩm: <b></b>
-                                                                <span class="filter_tags_remove">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         version="1.1" x="0px" y="0px" viewBox="0 0 50 50"
-                                                                         xml:space="preserve">
-                                                                    <path fill="#333"
-                                                                          d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
-                                                            <div class="filter_tags">
-                                                                Màu sắc: <b></b>
-                                                                <span class="filter_tags_remove">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         version="1.1" x="0px" y="0px" viewBox="0 0 50 50"
-                                                                         xml:space="preserve">
-                                                                    <path fill="#333"
-                                                                          d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
-                                                            <div class="filter_tags">
-                                                                Kích thước: <b></b>
-                                                                <span class="filter_tags_remove">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         version="1.1" x="0px" y="0px" viewBox="0 0 50 50"
-                                                                         xml:space="preserve">
-                                                                    <path fill="#333"
-                                                                          d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
-                                                                    </svg>
-                                                                </span>
-                                                            </div>
-                                                            <div class="filter_tags filter_tags_remove_all"><span>Xóa hết
-                                                                </span></div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -987,12 +793,12 @@
                                                     <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
                                                         <div class="product-block product-resize site-animation single-product">
                                                             <div class="product-img fade-box">
-                                                                <c:forEach items="${requestScope.saleList}" var="sale">
-                                                                    <c:if test="${sale.product_id == product.id}">
+                                                                <c:forEach items="${requestScope.saleList}" var="saleoff">
+                                                                    <c:if test="${saleoff.product_id == product.id}">
 
                                                                         <c:choose>
-                                                                            <c:when test="${sale.salevalue ne 0}">
-                                                                                <div class="product-sale"><span>-${sale.salevalue}%</span></div>
+                                                                            <c:when test="${saleoff.saleoffvalue ne 0}">
+                                                                                <div class="product-sale"><span>-${saleoff.saleoffvalue}%</span></div>
                                                                             </c:when>
                                                                             <c:otherwise>
                                                                                 <div></div>
@@ -1028,14 +834,16 @@
                                                                     </h3>
                                                                     <div class="box-pro-prices">
                                                                         <p class="pro-price highlight">
-                                                                            <c:forEach items="${requestScope.saleList}" var="sale">
-                                                                                <c:if test="${sale.product_id == product.id}">    
+                                                                            <c:set var="hasSale" value="false" />
+                                                                            <c:forEach items="${requestScope.saleList}" var="saleoff">
+                                                                                <c:if test="${saleoff.product_id == product.id}">  
+                                                                                    <c:set var="hasSale" value="true" />
                                                                                     <c:choose>
-                                                                                        <c:when test="${sale.salevalue == 0}">
-                                                                                            <span>${product.price}₫</span>
+                                                                                        <c:when test="${saleoff.saleoffvalue == 0}">
+                                                                                            <span style="color: black">${product.price}₫</span>
                                                                                         </c:when>
                                                                                         <c:otherwise>
-                                                                                            <span>${product.price * sale.salevalue / 100}₫</span>
+                                                                                            <span>${product.price - product.price * saleoff.saleoffvalue / 100}₫</span>
                                                                                             <span class="pro-price-del">
                                                                                                 <del class="compare-price">
                                                                                                     ${product.price}₫
@@ -1045,6 +853,9 @@
                                                                                     </c:choose>
                                                                                 </c:if>
                                                                             </c:forEach>
+                                                                            <c:if test="${!hasSale}">
+                                                                                <span style="color: black">${product.price}₫</span>
+                                                                            </c:if>
                                                                         </p>
                                                                     </div>
 
@@ -1090,9 +901,7 @@
                                                                                 </svg>Add to cart
                                                                             </a>
                                                                         </div>
-
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1105,24 +914,10 @@
                                         <div id="pagination" class="clearfix">
 
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <span class="page-node current">1</span>
-                                                <a class="page-node" href="/collections/tat-ca-san-pham-moho?page=2"
-                                                   aria-label="Trang 2">2</a>
-                                                <a class="page-node" href="/collections/tat-ca-san-pham-moho?page=3"
-                                                   aria-label="Trang 3">3</a>
+                                                <c:forEach var="page" items="${pagenumber}">
+                                                    <a class="page-node" href="ProductServlet?page=${page}" aria-label="Trang ${page}">${page}</a>
+                                                </c:forEach>
                                                 <span class="page-node ">&hellip;</span>
-                                                <a class="page-node" href="/collections/tat-ca-san-pham-moho?page=11"
-                                                   aria-label="Trang 11">11</a>
-                                                <a class="next" href="/collections/tat-ca-san-pham-moho?page=2"
-                                                   aria-label="Trang sau">
-                                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 31 10"
-                                                         style="enable-background:new 0 0 31 10; width: 31px; height: 10px;"
-                                                         xml:space="preserve">
-                                                    <polygon points="31,5 25,0 25,4 0,4 0,6 25,6 25,10 ">
-                                                    </polygon>
-                                                    </svg> </a>
                                             </div>
                                         </div>
                                     </div>
@@ -1131,270 +926,268 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" class="hidden" id="coll-handle" value="(collectionid:product=1002776925)" />
+                </
         </div>
-    </div>
-    <!-- Banner dịch vụ -->
+        <!-- Banner dịch vụ -->
+        <main>
+            <div class="wrapper-home-banner-servce">
+                <div class="container">
+                    <div class="flex_content services-pd site-animation">
 
-    <div class="wrapper-home-banner-servce">
-        <div class="container">
-            <div class="flex_content services-pd site-animation">
-
-                <div class="services">
-                    <div class="img-outer">
-                        <div class="service-img fade-box">
-                            <img loading="lazy" decoding="async" width="50" height="50"
-                                 src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_1_thumb.png?v=582"
-                                 alt="Giao Hàng & Lắp Đặt">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="title">Giao Hàng & Lắp Đặt</div>
-                        <div class="desc">Miễn Phí</div>
-                    </div>
-                </div>
-
-                <div class="services">
-                    <div class="img-outer">
-                        <div class="service-img fade-box">
-                            <img loading="lazy" decoding="async" width="50" height="50"
-                                 src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_2_thumb.png?v=582"
-                                 alt="Đổi Trả 1 - 1">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="title">Đổi Trả 1 - 1</div>
-                        <div class="desc">Miễn Phí</div>
-                    </div>
-                </div>
-
-                <div class="services">
-                    <div class="img-outer">
-                        <div class="service-img fade-box">
-                            <img loading="lazy" decoding="async" width="50" height="50"
-                                 src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_3_thumb.png?v=582"
-                                 alt="Bảo Hành 2 Năm">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="title">Bảo Hành 2 Năm</div>
-                        <div class="desc">Miễn Phí</div>
-                    </div>
-                </div>
-                <div class="services">
-                    <div class="img-outer">
-                        <div class="service-img fade-box">
-                            <img loading="lazy" decoding="async" width="50" height="50"
-                                 src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_4_thumb.png?v=582"
-                                 alt="Tư Vấn Thiết Kế">
-                        </div>
-                    </div>
-                    <div class="text">
-                        <div class="title">Tư Vấn Thiết Kế</div>
-                        <div class="desc">Miễn Phí</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="collection-desc">
-        <div class="container">
-            <div class="collections-description">
-                <div class="description-content expandable-toggle opened">
-
-                    <div class="description-productdetail" style="height: 220px; overflow: hidden;">
-                        Nội Thất MOHO thân thiện môi trường, an toàn sức khỏe, chất lượng quốc tế với đa dạng đồ
-                        nội thất hiện đại cho phòng khách, phòng ăn, phòng ngủ, phòng làm việc, văn phòng và tủ
-                        bếp.
-                    </div>
-                    <div class="description-btn">
-                        <button class="expandable-content_toggle js_expandable_content">
-                            <span class="expandable-content_toggle-icon"></span>
-                            <span class="expandable-content_toggle-text">Xem thêm nội dung</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-<footer class="mainFooter mainfooter-toolbar   ">
-    <div class="footer-container">
-        <div class="container">
-            <div class="row footer-container--content">
-                <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
-                    <div class="widget-footer">
-                        <h4 class="footer-title">Nội Thất MOHO</h4>
-                        <div class="footer-content">
-                            <p>Nội Thất MOHO là thương hiệu đến từ Savimex với gần 40 năm kinh nghiệm trong việc
-                                sản xuất và xuất khẩu nội thất đạt chuẩn quốc tế.</p>
-                            <div class="fBlock-logo-bct">
-                                <a href="http://online.gov.vn/(X(1)S(x0oiui2u3epcjwy4z2xlko03))/Home/WebDetails/60567?AspxAutoDetectCookieSupport=1"
-                                   class="fade-box" aria-label="Bộ Công Thương">
-                                    <img class="lazyload"
-                                         data-src="//theme.hstatic.net/200000065946/1001187274/14/logo_bct.png?v=582"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-                                         alt="Bộ Công Thương">
-                                </a>
+                        <div class="services">
+                            <div class="img-outer">
+                                <div class="service-img fade-box">
+                                    <img loading="lazy" decoding="async" width="50" height="50"
+                                         src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_1_thumb.png?v=582"
+                                         alt="Giao Hàng & Lắp Đặt">
+                                </div>
                             </div>
+                            <div class="text">
+                                <div class="title">Giao Hàng & Lắp Đặt</div>
+                                <div class="desc">Miễn Phí</div>
+                            </div>
+                        </div>
 
-                            <a href="//www.dmca.com/Protection/Status.aspx?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
-                               title="DMCA.com Protection Status" class="dmca-badge"> <img loading="lazy"
-                                                                                        decoding="async"
-                                                                                        src="https://images.dmca.com/Badges/dmca_protected_18_120.png?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
-                                                                                        alt="DMCA.com Protection Status" /></a>
+                        <div class="services">
+                            <div class="img-outer">
+                                <div class="service-img fade-box">
+                                    <img loading="lazy" decoding="async" width="50" height="50"
+                                         src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_2_thumb.png?v=582"
+                                         alt="Đổi Trả 1 - 1">
+                                </div>
+                            </div>
+                            <div class="text">
+                                <div class="title">Đổi Trả 1 - 1</div>
+                                <div class="desc">Miễn Phí</div>
+                            </div>
+                        </div>
+
+                        <div class="services">
+                            <div class="img-outer">
+                                <div class="service-img fade-box">
+                                    <img loading="lazy" decoding="async" width="50" height="50"
+                                         src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_3_thumb.png?v=582"
+                                         alt="Bảo Hành 2 Năm">
+                                </div>
+                            </div>
+                            <div class="text">
+                                <div class="title">Bảo Hành 2 Năm</div>
+                                <div class="desc">Miễn Phí</div>
+                            </div>
+                        </div>
+                        <div class="services">
+                            <div class="img-outer">
+                                <div class="service-img fade-box">
+                                    <img loading="lazy" decoding="async" width="50" height="50"
+                                         src="//theme.hstatic.net/200000065946/1001187274/14/vice_item_4_thumb.png?v=582"
+                                         alt="Tư Vấn Thiết Kế">
+                                </div>
+                            </div>
+                            <div class="text">
+                                <div class="title">Tư Vấn Thiết Kế</div>
+                                <div class="desc">Miễn Phí</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="collection-desc">
+                <div class="container">
+                    <div class="collections-description">
+                        <div class="description-content expandable-toggle opened">
+
+                            <div class="description-productdetail" style="height: 220px; overflow: hidden;">
+                                Nội Thất MOHO thân thiện môi trường, an toàn sức khỏe, chất lượng quốc tế với đa dạng đồ
+                                nội thất hiện đại cho phòng khách, phòng ăn, phòng ngủ, phòng làm việc, văn phòng và tủ
+                                bếp.
+                            </div>
+                            <div class="description-btn">
+                                <button class="expandable-content_toggle js_expandable_content">
+                                    <span class="expandable-content_toggle-icon"></span>
+                                    <span class="expandable-content_toggle-text">Xem thêm nội dung</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </main>
+        <footer class="mainFooter mainfooter-toolbar">
+            <div class="footer-container">
+                <div class="container">
+                    <div class="row footer-container--content">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
+                            <div class="widget-footer">
+                                <h4 class="footer-title">Nội Thất MOHO</h4>
+                                <div class="footer-content">
+                                    <p>Nội Thất MOHO là thương hiệu đến từ Savimex với gần 40 năm kinh nghiệm trong việc
+                                        sản xuất và xuất khẩu nội thất đạt chuẩn quốc tế.</p>
+                                    <div class="fBlock-logo-bct">
+                                        <a href="http://online.gov.vn/(X(1)S(x0oiui2u3epcjwy4z2xlko03))/Home/WebDetails/60567?AspxAutoDetectCookieSupport=1"
+                                           class="fade-box" aria-label="Bộ Công Thương">
+                                            <img class="lazyload"
+                                                 data-src="//theme.hstatic.net/200000065946/1001187274/14/logo_bct.png?v=582"
+                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                                                 alt="Bộ Công Thương">
+                                        </a>
+                                    </div>
 
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
-                    <div class="widget-footer footer-linklist">
-                        <h4 class="footer-title">
-                            Dịch Vụ
-                        </h4>
-                        <div class="footer-content">
-                            <ul class="menuFooter-list">
-
-                                <li class="item">
-                                    <a href="/pages/chinh-sach-ban-hang" title="Chính Sách Bán Hàng">Chính Sách
-                                        Bán Hàng</a>
-                                </li>
-
-                                <li class="item">
-                                    <a href="/pages/giao-hang-va-lap-dat"
-                                       title="Chính Sách Giao Hàng & Lắp Đặt">Chính Sách Giao Hàng & Lắp
-                                        Đặt</a>
-                                </li>
-
-                                <li class="item">
-                                    <a href="/pages/chinh-sach-doi-tra" title="Chính Sách Đổi Trả">Chính Sách
-                                        Đổi Trả</a>
-                                </li>
-
-                                <li class="item">
-                                    <a href="/pages/chinh-sach-bao-hanh" title="Chính Sách Bảo Hành & Bảo Trì">Chính
-                                        Sách Bảo Hành & Bảo Trì</a>
-                                </li>
-
-                                <li class="item">
-                                    <a href="/pages/khach-hang-than-thiet-mohomie"
-                                       title="Khách Hàng Thân Thiết – MOHOmie">Khách Hàng Thân Thiết –
-                                        MOHOmie</a>
-                                </li>
-
-                                <li class="item">
-                                    <a href="/pages/chinh-sach-doi-tac-ban-hang"
-                                       title="Chính Sách Đối Tác Bán Hàng">Chính Sách Đối Tác Bán Hàng</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-bd clea-mean">
-                    <div class="widget-footer footer-contact">
-                        <h4 class="footer-title">
-                            Thông tin liên hệ
-                        </h4>
-                        <div class="footer-content">
-                            <ul class="contactList">
-                                <li class="contact-1"></i>Showroom: 162 HT17, P. Hiệp Thành, Q. 12, TP. HCM (Nằm
-                                    trong khuôn viên công ty SAVIMEX phía sau bến xe buýt Hiệp Thành) | Hotline:
-                                    0971 141 140</p>
-                                    </i>Experience Store 1: S05.03-S18 phân khu The Rainbow | Vinhomes Grand
-                                    Park, TP. Thủ Đức | Hotline: 0931 880 424</p>
-                                    </i>Experience Store 2: S3.03-Sh15 phân khu Sapphire | Vinhomes Smart City,
-                                    Hà Nội | Hotline: 0909 665 728</p>
-                                    </i>Experience Store 3: S2.09-Sh19 phân khu Sapphire | Vinhomes Ocean Park,
-                                    Hà Nội | Hotline: 0938 108 772</p>
-                                </li>
-                                <li class="contact-2"></i>097 114 1140 (Hotline/Zalo)</p></i> 0902 415 359 (Đội
-                                    Giao Hàng)</p>
-                                </li>
-
-                                <li class="contact-4">cskh@moho.com.vn </p>Công Ty Cổ Phần Hợp Tác Kinh Tế Và
-                                    Xuất Nhập Khẩu Savimex - STK: 0071001303667 - Vietcombank CN HCM</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
-                    <div class="widget-footer footer-facebook">
-                        <h4 class="footer-title">
-                            Fanpage
-                        </h4>
-                        <div class="footer-content">
-                            <!-- Facebook widget -->
-                            <div class="footer-static-content">
-                                <div class="fb-page" data-href="https://www.facebook.com/mohofurniture/"
-                                     data-height="300" data-small-header="false" data-adapt-container-width="true"
-                                     data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+                                    <a href="//www.dmca.com/Protection/Status.aspx?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
+                                       title="DMCA.com Protection Status" class="dmca-badge"> <img loading="lazy"
+                                                                                                decoding="async"
+                                                                                                src="https://images.dmca.com/Badges/dmca_protected_18_120.png?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
+                                                                                                alt="DMCA.com Protection Status" /></a>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
+                            <div class="widget-footer footer-linklist">
+                                <h4 class="footer-title">
+                                    Dịch Vụ
+                                </h4>
+                                <div class="footer-content">
+                                    <ul class="menuFooter-list">
+
+                                        <li class="item">
+                                            <a href="/pages/chinh-sach-ban-hang" title="Chính Sách Bán Hàng">Chính Sách
+                                                Bán Hàng</a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/pages/giao-hang-va-lap-dat"
+                                               title="Chính Sách Giao Hàng & Lắp Đặt">Chính Sách Giao Hàng & Lắp
+                                                Đặt</a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/pages/chinh-sach-doi-tra" title="Chính Sách Đổi Trả">Chính Sách
+                                                Đổi Trả</a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/pages/chinh-sach-bao-hanh" title="Chính Sách Bảo Hành & Bảo Trì">Chính
+                                                Sách Bảo Hành & Bảo Trì</a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/pages/khach-hang-than-thiet-mohomie"
+                                               title="Khách Hàng Thân Thiết – MOHOmie">Khách Hàng Thân Thiết –
+                                                MOHOmie</a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/pages/chinh-sach-doi-tac-ban-hang"
+                                               title="Chính Sách Đối Tác Bán Hàng">Chính Sách Đối Tác Bán Hàng</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-bd clea-mean">
+                            <div class="widget-footer footer-contact">
+                                <h4 class="footer-title">
+                                    Thông tin liên hệ
+                                </h4>
+                                <div class="footer-content">
+                                    <ul class="contactList">
+                                        <li class="contact-1"></i>Showroom: 162 HT17, P. Hiệp Thành, Q. 12, TP. HCM (Nằm
+                                            trong khuôn viên công ty SAVIMEX phía sau bến xe buýt Hiệp Thành) | Hotline:
+                                            0971 141 140</p>
+                                            </i>Experience Store 1: S05.03-S18 phân khu The Rainbow | Vinhomes Grand
+                                            Park, TP. Thủ Đức | Hotline: 0931 880 424</p>
+                                            </i>Experience Store 2: S3.03-Sh15 phân khu Sapphire | Vinhomes Smart City,
+                                            Hà Nội | Hotline: 0909 665 728</p>
+                                            </i>Experience Store 3: S2.09-Sh19 phân khu Sapphire | Vinhomes Ocean Park,
+                                            Hà Nội | Hotline: 0938 108 772</p>
+                                        </li>
+                                        <li class="contact-2"></i>097 114 1140 (Hotline/Zalo)</p></i> 0902 415 359 (Đội
+                                            Giao Hàng)</p>
+                                        </li>
+
+                                        <li class="contact-4">cskh@moho.com.vn </p>Công Ty Cổ Phần Hợp Tác Kinh Tế Và
+                                            Xuất Nhập Khẩu Savimex - STK: 0071001303667 - Vietcombank CN HCM</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-bd">
+                            <div class="widget-footer footer-facebook">
+                                <h4 class="footer-title">
+                                    Fanpage
+                                </h4>
+                                <div class="footer-content">
+                                    <!-- Facebook widget -->
+                                    <div class="footer-static-content">
+                                        <div class="fb-page" data-href="https://www.facebook.com/mohofurniture/"
+                                             data-height="300" data-small-header="false" data-adapt-container-width="true"
+                                             data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
+            <div class="footer-bottom text-center">
+                <div class="container">
+                    <p>Copyright © 2024 <a href="https://moho.com.vn"> Nội Thất MOHO</a>.</p>
+                </div>
+            </div>
+        </footer>
+        <div class="addThis_listSharing hidden-xs">
+            <ul class="addThis_listing">
+            </ul>
         </div>
-    </div>
-    <div class="footer-bottom text-center">
-        <div class="container">
-            <p>Copyright © 2024 <a href="https://moho.com.vn"> Nội Thất MOHO</a>.</p>
+        <div class="actionToolbar_mobile visible-xs ">
+            <ul class="actionToolbar_listing">
+
+            </ul>
         </div>
-    </div>
-</footer>
-<div class="addThis_listSharing hidden-xs">
-    <ul class="addThis_listing">
-    </ul>
-</div>
-<div class="actionToolbar_mobile visible-xs ">
-    <ul class="actionToolbar_listing">
 
-    </ul>
-</div>
+        <div id="site-overlay" class="site-overlay"></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ratingContainers = document.querySelectorAll('.rating-container');
+                ratingContainers.forEach(function (container) {
+                    var ratingValue = parseFloat(container.getAttribute('data-rating'));
+                    var numReviews = container.getAttribute('data-num-reviews');
 
-</div>
-<div id="site-overlay" class="site-overlay"></div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var ratingContainers = document.querySelectorAll('.rating-container');
-        ratingContainers.forEach(function (container) {
-            var ratingValue = parseFloat(container.getAttribute('data-rating'));
-            var numReviews = container.getAttribute('data-num-reviews');
+                    // Cập nhật chiều rộng của sao đã đánh giá
+                    var ratingElement = container.querySelector('.rating');
+                    var starPercentage = (ratingValue / 5) * 100;
+                    ratingElement.style.setProperty('--rating-width', starPercentage + '%');
 
-            // Cập nhật chiều rộng của sao đã đánh giá
-            var ratingElement = container.querySelector('.rating');
-            var starPercentage = (ratingValue / 5) * 100;
-            ratingElement.style.setProperty('--rating-width', starPercentage + '%');
+                    // Cập nhật số lượng đánh giá
+                    var numReviewsElement = container.querySelector('.num-reviews');
+                    numReviewsElement.textContent = '(' + numReviews + ')';
+                });
+            });
 
-            // Cập nhật số lượng đánh giá
-            var numReviewsElement = container.querySelector('.num-reviews');
-            numReviewsElement.textContent = '(' + numReviews + ')';
-        });
-    });
+        </script>
+        <style>
+            .rating::after {
+                content: "★★★★★";
+                color: #ffc107;
+                /* Màu của sao được đánh giá */
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                width: var(--rating-width);
+            }
+        </style>
 
-</script>
-<style>
-    .rating::after {
-        content: "★★★★★";
-        color: #ffc107;
-        /* Màu của sao được đánh giá */
-        position: absolute;
-        top: 0;
-        left: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        width: var(--rating-width);
-    }
-</style>
-
-</body>
+    </body>
 
 </html>

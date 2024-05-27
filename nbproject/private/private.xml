@@ -6,6 +6,8 @@
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/web/Views/ProductList.jsp</file>
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/src/java/Models/Product.java</file>
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/src/java/Controllers/ProductServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/src/java/Models/PaginationHelper.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/src/java/Models/Category.java</file>
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureWebShop/src/java/DAL/CustomerDAO.java</file>
         </group>
     </open-files>

@@ -9,5 +9,31 @@ package Models;
  * @author HELLO
  */
 public class Brand {
+    private int id;
+    private String brandname;
+
+    public Brand() {
+    }
+
+    public Brand(String brandname) {
+        this.brandname = brandname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBrandname() {
+        return brandname;
+    }
+
+    public void setBrandname(String brandname) {
+        this.brandname = brandname;
+    }
+    
     
 }

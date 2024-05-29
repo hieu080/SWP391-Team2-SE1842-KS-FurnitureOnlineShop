@@ -10,13 +10,13 @@ package Models;
  */
 public class Room {
     private int id;
-    private String roomname;
+    private String Roomname;
 
     public Room() {
     }
 
     public Room(String roomname) {
-        this.roomname = roomname;
+        this.Roomname = roomname;
     }
 
     public int getId() {
@@ -28,11 +28,11 @@ public class Room {
     }
 
     public String getRoomname() {
-        return roomname;
+        return Roomname;
     }
 
     public void setRoomname(String roomname) {
-        this.roomname = roomname;
+        this.Roomname = roomname;
     }
     
     

@@ -2,19 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAl;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import Models.Slider;
+
+package DAL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ADMIN
  */
 public class DBContext {
+
+
     protected Connection connect;
+
     public DBContext() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +36,5 @@ public class DBContext {
             ex.printStackTrace();
         }
         
-    }
-    
-    
+    }     
 }

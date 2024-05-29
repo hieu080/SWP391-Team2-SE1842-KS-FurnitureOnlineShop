@@ -4,10 +4,10 @@
  */
 package DAL;
 
-/**
+/** private int id;
  *
  * @author HELLO
  */
 public class SliderDAO {
-    
+     private int id;
 }

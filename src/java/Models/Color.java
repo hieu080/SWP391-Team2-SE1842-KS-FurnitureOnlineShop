@@ -9,5 +9,31 @@ package Models;
  * @author HELLO
  */
 public class Color {
+    private int id;
+    private String colorname;
+
+    public Color() {
+    }
+
+    public Color(String colorname) {
+        this.colorname = colorname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getColorname() {
+        return colorname;
+    }
+
+    public void setColorname(String colorname) {
+        this.colorname = colorname;
+    }
+    
     
 }

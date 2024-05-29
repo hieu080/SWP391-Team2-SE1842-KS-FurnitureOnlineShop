@@ -36,11 +36,11 @@
                     <!-- dropdown to filter category -->
                     <div class="mb-5">
                         <form action="bloglist">
-                            <select class="form-select form-select-sm" name="category" id="categorySelect" onchange="this.form.submit()">
-                                <option value="All">All</option>
+                            <select class="form-select form-select-sm" name="category" onchange="this.form.submit()">
+                                <option value="0" >All</option>
                                 <c:forEach items="${listCategory}" var="c">
-                                    <option value="${c}"
-                                            <c:if test="${c==param.category}">selected</c:if>>${c}</option>
+                                    <option value="${c.getId()}"
+                                            <c:if test="${c.getId()==param.category}">selected</c:if>>${c.getCategory()}</option>
                                 </c:forEach>
                             </select>
                         </form>
@@ -56,7 +56,11 @@
                                          alt="anhdep" class="img-fluid">
                                 </div>
                                 <div class="col-lg-7">  
-                                    <p class="text-danger">|${p.getCategory()}</p>
+                                    <c:forEach items="${listCategory}" var="category">
+                                        <c:if test="${category.getId() == p.getCategory_id()}">
+                                            <p class="text-danger">|${category.getCategory()}</p>
+                                        </c:if>
+                                    </c:forEach>
                                     <h6>${p.getTitle()}</h6>
                                 </div>
                             </div>
@@ -87,7 +91,7 @@
 
                     <!-- author and updated date -->
                     <div class="float-end">
-                        <p class="fw-bold font-monospace">Tác giả: ${post.getAuthor()}</p>
+                        <p class="fw-bold font-monospace">Tác giả: ${author}</p>
                         <p class="font-monospace">Cập nhật: ${post.getUpdatedtime()}</p>
                     </div>
                 </div>

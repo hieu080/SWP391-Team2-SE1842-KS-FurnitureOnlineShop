@@ -4,42 +4,29 @@
  */
 package Models;
 
-/**
- *
- * @author DELL
- */
 public class Post {
     private int id;
-    private String category;
+    private int category_id;
+    private int mkt_id;
     private String title;
     private String subtitle;
-    private String thumbnail;
     private String content;
+    private String thumbnail;
     private String updatedtime;
-    private String author;
     private String status;
 
     public Post() {
     }
 
-    public Post(int id, String category, String title, String subtitle, String thumbnail, String content, String updatedtime, String author , String status) {
-        this.id = id;
-        this.category = category;
+    public Post(int category_id, int mkt_id, String title, String subtitle, String thumbnail, String content, String updatedtime) {
+        this.category_id = category_id;
+        this.mkt_id = mkt_id;
         this.title = title;
         this.subtitle = subtitle;
         this.thumbnail = thumbnail;
         this.content = content;
         this.updatedtime = updatedtime;
-        this.author=author;
-        this.status = status;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
+        this.status = "Active";
     }
 
     public int getId() {
@@ -50,12 +37,20 @@ public class Post {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public int getMkt_id() {
+        return mkt_id;
+    }
+
+    public void setMkt_id(int mkt_id) {
+        this.mkt_id = mkt_id;
     }
 
     public String getTitle() {
@@ -74,14 +69,6 @@ public class Post {
         this.subtitle = subtitle;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
     public String getContent() {
         return content;
     }
@@ -90,12 +77,20 @@ public class Post {
         this.content = content;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
     public String getUpdatedtime() {
         return updatedtime;
     }
 
-    public void setUpdatedtime(String posttime) {
-        this.updatedtime = posttime;
+    public void setUpdatedtime(String updatedtime) {
+        this.updatedtime = updatedtime;
     }
 
     public String getStatus() {
@@ -105,8 +100,6 @@ public class Post {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
     
     
 }

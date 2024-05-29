@@ -5,7 +5,9 @@
 
 package Controller.Public;
 
+import DAL.CategoryofpostDAO;
 import DAL.PostDAO;
+import Models.CategoryOfPost;
 import Models.Post;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -29,19 +31,20 @@ public class BlogListSearchedServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PostDAO dao = new PostDAO();
+        PostDAO pdao = new PostDAO();
+        CategoryofpostDAO cdao = new CategoryofpostDAO();
         
         //list category
-        List<String> listCategory = dao.getListCategoryofPost();
+        List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
-        
+
         //list post
-        List<Post> listPost = dao.getListPost();
+        List<Post> listPost = pdao.getListPost();
         request.setAttribute("listPost", listPost);
         
         //list post got by search
         String keyword = request.getParameter("keyword");
-        List<Post> listsearch = dao.getListPostbySearch(keyword);
+        List<Post> listsearch = pdao.getListPostbySearch(keyword);
         request.setAttribute("listsearch", listsearch);
         
         request.getRequestDispatcher("Views/blogListSearched.jsp").forward(request, response);

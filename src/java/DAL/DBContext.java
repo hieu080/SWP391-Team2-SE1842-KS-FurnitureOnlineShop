@@ -13,7 +13,7 @@ public class DBContext {
             // Load MySQL JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
           
-            String url = "jdbc:mysql://localhost:3306/furniture?useSSL=false";
+            String url = "jdbc:mysql://localhost:3306/furnitureshop?useSSL=false";
             String username = "root";
             String password = "123456";
             // Tạo kết nối
@@ -24,4 +24,9 @@ public class DBContext {
             ex.printStackTrace();
         }
     }
+    
+    public static void main(String[] args) {
+        System.out.println(new DBContext().connect);
+    }
+    
 }

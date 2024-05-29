@@ -12,12 +12,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script>
             function filterCategory() {
-                var selectElement = document.getElementById("categorySelect");
-                var selectedCategory = "${cat != null ? cat:'All'}";
-                document.getElementById("categoryTitle").innerText = selectedCategory;
+                var selectedCategory = "${catId != null ? catId:'0'}";
+                document.getElementById("categoryTitle").innerText = "${catname != null? catname:'All'}";
                 var posts = document.querySelectorAll(".post-item");
                 posts.forEach(function (post) {
-                    if (selectedCategory === "All" || post.classList.contains(selectedCategory)) {
+                    if (selectedCategory === "0" || post.classList.contains(selectedCategory)) {
                         post.classList.remove("d-none");
                     } else {
                         post.classList.add("d-none");
@@ -51,11 +50,11 @@
                     <!-- dropdown to filter category -->
                     <div class="mb-5">
                         <form action="bloglist">
-                            <select class="form-select form-select-sm" name="category" id="categorySelect" onchange="this.form.submit(), filterCategory()">
-                                <option value="All" >All</option>
+                            <select class="form-select form-select-sm" name="category" onchange="this.form.submit(), filterCategory()">
+                                <option value="0" >All</option>
                                 <c:forEach items="${listCategory}" var="c">
-                                    <option value="${c}"
-                                            <c:if test="${c==param.category}">selected</c:if>>${c}</option>
+                                    <option value="${c.getId()}"
+                                            <c:if test="${c.getId()==param.category}">selected</c:if>>${c.getCategory()}</option>
                                 </c:forEach>
                             </select>
                         </form>
@@ -71,7 +70,11 @@
                                          alt="anhdep" class="img-fluid">
                                 </div>
                                 <div class="col-lg-7">  
-                                    <p class="text-danger">|${p.getCategory()}</p>
+                                    <c:forEach items="${listCategory}" var="category">
+                                        <c:if test="${category.getId() == p.getCategory_id()}">
+                                            <p class="text-danger">|${category.getCategory()}</p>
+                                        </c:if>
+                                    </c:forEach>
                                     <h6>${p.getTitle()}</h6>
                                 </div>
                             </div>
@@ -92,13 +95,17 @@
                     <!-- list of post -->
                     <c:forEach items="${listPost}" var="p">
                         <a href="blogdetail?id=${p.getId()}" class="text-decoration-none text-black">
-                            <div class="row border-bottom p-2 post-item ${p.getCategory()}">
+                            <div class="row border-bottom p-2 post-item ${p.getCategory_id()}">
                                 <div class="col-lg-5">
                                     <img src="${p.getThumbnail()}"
                                          alt="anhdep" class="img-fluid">
                                 </div>
                                 <div class="col-lg-7">
-                                    <p class="text-danger">|${p.getCategory()}</p>
+                                    <c:forEach items="${listCategory}" var="category">
+                                        <c:if test="${category.getId() == p.getCategory_id()}">
+                                            <p class="text-danger">|${category.getCategory()}</p>
+                                        </c:if>
+                                    </c:forEach>
                                     <h5>${p.getTitle()}</h5>
                                     <h6>${p.getSubtitle()}</h6>
                                 </div>

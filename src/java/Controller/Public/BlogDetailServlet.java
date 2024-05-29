@@ -6,7 +6,10 @@ package Controller.Public;
  */
 
 
+import DAL.CategoryofpostDAO;
 import DAL.PostDAO;
+import DAL.UserDAO;
+import Models.CategoryOfPost;
 import Models.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,18 +34,22 @@ public class BlogDetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        PostDAO dao = new PostDAO();
+        CategoryofpostDAO cdao = new CategoryofpostDAO();
+        PostDAO pdao = new PostDAO();
+        UserDAO udao = new UserDAO();
         //list category
-        List<String> listCategory = dao.getListCategoryofPost();
+        List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
-        
+
         //list post
-        List<Post> listPost = dao.getListPost();
+        List<Post> listPost = pdao.getListPost();
         request.setAttribute("listPost", listPost);
         
         //post detail
         String id = request.getParameter("id");
-        Post p = dao.getPostbyID(id);
+        Post p = pdao.getPostbyID(id);
+        String author = udao.getUserbyID(String.valueOf(p.getMkt_id())).getFullname();
+        request.setAttribute("author", author);
         request.setAttribute("post", p);
         request.getRequestDispatcher("Views/blogDetails.jsp").forward(request, response);
     } 

@@ -18,32 +18,10 @@ import java.util.logging.Logger;
  * @author HELLO
  */
 public class PostDAO extends DBContext {
-
-    //get list post category de filter
-    public List<String> getListCategoryofPost() {
-        String sql = "select * from categoryofpost";
-        List<String> list = new ArrayList<>();
-
-        try {
-            PreparedStatement statement = connect.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                String category = rs.getString("category");
-                list.add(category);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-
+    
     //get list of all posts
     public List<Post> getListPost() {
-        String sql = "SELECT p.*, c.category, u.fullname\n"
-                + "FROM Post p\n"
-                + "JOIN CategoryOfPost c ON p.category_id = c.id\n"
-                + "JOIN User u ON p.mkt_id = u.id\n"
-                + "order by updatedtime desc";
+        String sql = "SELECT * from Post";
         List<Post> list = new ArrayList<>();
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
@@ -51,11 +29,12 @@ public class PostDAO extends DBContext {
             while (rs.next()) {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
-                p.setCategory(rs.getString("category"));
+                p.setCategory_id(rs.getInt("category_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
-                p.setAuthor(rs.getString("fullname"));
+                p.setContent(rs.getString("content"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
                 p.setStatus(rs.getString("status"));
                 list.add(p);
@@ -68,11 +47,7 @@ public class PostDAO extends DBContext {
 
     //get post detail by id
     public Post getPostbyID(String id) {
-        String sql = "SELECT p.*, c.category, u.fullname\n"
-                + "FROM Post p\n"
-                + "JOIN CategoryOfPost c ON p.category_id = c.id\n"
-                + "JOIN User u ON p.mkt_id = u.id\n"
-                + "where p.id=?";
+        String sql = "SELECT * from Post where id=?";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, id);
@@ -80,12 +55,12 @@ public class PostDAO extends DBContext {
             if (rs.next()) {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
-                p.setCategory(rs.getString("category"));
+                p.setCategory_id(rs.getInt("category_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
                 p.setContent(rs.getString("content"));
-                p.setAuthor(rs.getString("fullname"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
                 p.setStatus(rs.getString("status"));
                 return p;
@@ -111,12 +86,13 @@ public class PostDAO extends DBContext {
             while (rs.next()) {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
-                p.setCategory(rs.getString("category"));
+                p.setCategory_id(rs.getInt("category_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
+                p.setContent(rs.getString("content"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
-                p.setAuthor(rs.getString("fullname"));
                 p.setStatus(rs.getString("status"));
                 list.add(p);
             }
@@ -126,5 +102,9 @@ public class PostDAO extends DBContext {
         return list;
     }
 
-
+    public static void main(String[] args) {
+        PostDAO pdao = new PostDAO();
+        System.out.println(pdao.getListPostbySearch("cho").get(0).getTitle());
+    }
+    
 }

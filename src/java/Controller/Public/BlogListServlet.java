@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller.Public;
 
+import DAL.CategoryofpostDAO;
 import DAL.PostDAO;
+import Models.CategoryOfPost;
 import Models.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,35 +21,42 @@ import java.util.List;
  * @author DELL
  */
 public class BlogListServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        PostDAO dao = new PostDAO();
+            throws ServletException, IOException {
+        CategoryofpostDAO cdao = new CategoryofpostDAO();
+        PostDAO pdao = new PostDAO();
         //list category
-        List<String> listCategory = dao.getListCategoryofPost();
+        List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
-        
+
         //list post
-        List<Post> listPost = dao.getListPost();
+        List<Post> listPost = pdao.getListPost();
         request.setAttribute("listPost", listPost);
-        
+
         //selected category(select from blogdetail.jsp)
-        String category=request.getParameter("category");
-        request.setAttribute("cat", category);
-        
+        String categoryId = request.getParameter("category");
+        request.setAttribute("catId", categoryId);
+        if (categoryId!=null && !categoryId.equals("0")) {
+            request.setAttribute("catname", cdao.getCategoryofPostbyID(categoryId).getCategory());
+        }
+
         request.getRequestDispatcher("Views/blogList.jsp").forward(request, response);
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -56,13 +64,14 @@ public class BlogListServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-        
-    } 
 
-    /** 
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -70,12 +79,13 @@ public class BlogListServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

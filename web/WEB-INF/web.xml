@@ -24,10 +24,6 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>Controller.Common.ResetPasswordServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>Controller.Public.ProductServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -51,9 +47,5 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPasswordServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/ProductServlet</url-pattern>
     </servlet-mapping>
 </web-app>

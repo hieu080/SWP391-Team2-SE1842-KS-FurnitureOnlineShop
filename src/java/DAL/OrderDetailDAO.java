@@ -4,17 +4,10 @@
  */
 package DAL;
 
-import Models.OrderDetail;
-import java.util.ArrayList;
-
 /**
  *
  * @author HELLO
  */
 public class OrderDetailDAO {
-
-    public ArrayList<OrderDetail> getOrderDetailList() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

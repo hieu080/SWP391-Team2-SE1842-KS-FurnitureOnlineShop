@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import DAl.DBContext;
 import Models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

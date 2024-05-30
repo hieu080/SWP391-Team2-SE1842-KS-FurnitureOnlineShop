@@ -4,17 +4,10 @@
  */
 package DAL;
 
-import Models.SaleOff;
-import java.util.ArrayList;
-
 /**
  *
  * @author HELLO
  */
 public class SaleOffDAO {
-
-    public ArrayList<SaleOff> getSaleOffList() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

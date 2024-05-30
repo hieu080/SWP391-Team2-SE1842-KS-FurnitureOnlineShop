@@ -1,8 +1,8 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package DAL;
 
 import java.sql.Connection;
@@ -16,8 +16,6 @@ import java.util.logging.Logger;
  * @author ADMIN
  */
 public class DBContext {
-
-
     protected Connection connect;
 
     public DBContext() {

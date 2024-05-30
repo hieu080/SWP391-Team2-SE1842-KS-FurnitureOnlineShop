@@ -47,8 +47,7 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPasswordServlet</url-pattern>
-    </servlet-mapping>
-    
+    </servlet-mapping>   
     <servlet>
         <servlet-name>SliderDetailServlet</servlet-name>
         <servlet-class>Controller.Marketing.SliderDetailServlet</servlet-class>
@@ -81,5 +80,29 @@
     <servlet-mapping>
         <servlet-name>SliderServlet</servlet-name>
         <url-pattern>/SliderServlet</url-pattern>
+  <servlet>
+        <servlet-name>BlogListServlet</servlet-name>
+        <servlet-class>Controller.Public.BlogListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogDetailServlet</servlet-name>
+        <servlet-class>Controller.Public.BlogDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogListSearchedServlet</servlet-name>
+        <servlet-class>Controller.Public.BlogListSearchedServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>BlogListServlet</servlet-name>
+        <url-pattern>/bloglist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailServlet</servlet-name>
+        <url-pattern>/blogdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogListSearchedServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -4,10 +4,6 @@
  */
 package Models;
 
-/**
- *
- * @author HELLO
- */
 public class Post {
     private int id;
     private int category_id;

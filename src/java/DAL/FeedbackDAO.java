@@ -4,10 +4,17 @@
  */
 package DAL;
 
+import Models.Feedback;
+import java.util.ArrayList;
+
 /**
  *
  * @author HELLO
  */
 public class FeedbackDAO {
+
+    public ArrayList<Feedback> getFeedbackList() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

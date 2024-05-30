@@ -25,10 +25,20 @@ public class Slider {
         this.title = title;
         this.image = image;
         this.link = link;
-        this.status = "Active";
+        this.status = "show";
         this.notes = notes;
     }
 
+    public Slider(int id, int author_id, String title, String image, String link, String status, String notes) {
+        this.id = id;
+        this.author_id = author_id;
+        this.title = title;
+        this.image = image;
+        this.link = link;
+        this.status = status;
+        this.notes = notes;
+    }
+    
     public int getId() {
         return id;
     }

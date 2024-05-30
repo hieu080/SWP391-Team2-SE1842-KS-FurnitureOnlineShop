@@ -48,4 +48,38 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPasswordServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SliderDetailServlet</servlet-name>
+        <servlet-class>Controller.Marketing.SliderDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertSliderServlet</servlet-name>
+        <servlet-class>Controller.Marketing.InsertSliderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSliderServlet</servlet-name>
+        <servlet-class>Controller.Marketing.EditSliderServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SliderDetailServlet</servlet-name>
+        <url-pattern>/SliderDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSliderServlet</servlet-name>
+        <url-pattern>/EditSliderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertSliderServlet</servlet-name>
+        <url-pattern>/InsertSliderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SliderServlet</servlet-name>
+        <servlet-class>Controller.Marketing.SliderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SliderServlet</servlet-name>
+        <url-pattern>/SliderServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -4,11 +4,16 @@
  */
 package DAL;
 
+import Models.UserRole;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author HELLO
  */
-public class UserRoleDAO {
+public class UserRoleDAO extends DBContext{
     private int id;
     private String rolename;
     private String status;
@@ -43,6 +48,25 @@ public class UserRoleDAO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+   public UserRole getUserRoleByID(int id) {
+        UserRole userRole = null;
+        String query = "SELECT * FROM user_roles WHERE id = ?";
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    userRole = new UserRole();
+                    userRole.setId(rs.getInt("id"));
+                    userRole.setRolename(rs.getString("rolename"));
+                    userRole.setStatus(rs.getString("status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userRole;
     }
     
     

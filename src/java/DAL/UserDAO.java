@@ -4,7 +4,7 @@
  */
 package DAL;
 
-import DAl.DBContext;
+import DAL.DBContext;
 import Models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -101,5 +101,31 @@ public class UserDAO extends DBContext{
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error inserting customer", e);
         }
+    }
+
+    public User getUserByID(int id) {
+        User user = null;
+        String query = "SELECT * FROM users WHERE id = ?";
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setFullname(rs.getString("fullname"));
+                    user.setGender(rs.getString("gender"));
+                    user.setAvatar(rs.getString("avatar"));
+                    user.setPhonenumber(rs.getString("phonenumber"));
+                    user.setAddress(rs.getString("address"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole_id(rs.getInt("role_id"));
+                    user.setStatus(rs.getString("status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

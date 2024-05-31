@@ -157,13 +157,14 @@ public class ProductServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.setAttribute("productList", productList);
+        request.setAttribute("productList", productList);
         
         Pagination(request, response, productList);
     }
 
     private void Pagination(HttpServletRequest request, HttpServletResponse response, List<Product> productList)
             throws ServletException, IOException {
-        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 16);
+        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 4);
 
         int[] pagenumber = paginationHelper.getPageNumbers();
         request.setAttribute("pagenumber", pagenumber);

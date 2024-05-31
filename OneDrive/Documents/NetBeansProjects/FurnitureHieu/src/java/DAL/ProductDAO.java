@@ -20,14 +20,6 @@ public class ProductDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
 
-    public static void main(String[] args) {
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> productList = productDAO.getProductList();
-        for (Product product : productList) {
-            System.out.println(product.getName() + " " + product.getQuantity());
-        }
-    }
-
     public boolean insertProduct(Product product) {
         String sql = "INSERT INTO product (category_id, brand_id, room_id, name, description, image, price, quantity, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
@@ -115,23 +107,26 @@ public class ProductDAO extends DBContext {
         ArrayList<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM product WHERE name LIKE ?";
 
-        try (PreparedStatement preparedStatement = connect.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
-
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            // Définir le paramètre avant d'exécuter la requête
             preparedStatement.setString(1, "%" + name + "%");
 
-            while (resultSet.next()) {
-                Product product = new Product();
-                product.setId(resultSet.getInt("id"));
-                product.setCategory_id(resultSet.getInt("category_id"));
-                product.setBrand_id(resultSet.getInt("brand_id"));
-                product.setName(resultSet.getString("name"));
-                product.setDescription(resultSet.getString("description"));
-                product.setImage(resultSet.getString("image"));
-                product.setPrice(resultSet.getDouble("price"));
-                product.setQuantity(resultSet.getInt("quantity"));
-                product.setStatus(resultSet.getString("status"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("id"));
+                    product.setCategory_id(resultSet.getInt("category_id"));
+                    product.setBrand_id(resultSet.getInt("brand_id"));
+                    product.setRoom_id(resultSet.getInt("room_id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setImage(resultSet.getString("image"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantity(resultSet.getInt("quantity"));
+                    product.setStatus(resultSet.getString("status"));
 
-                productList.add(product);
+                    productList.add(product);
+                }
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
@@ -223,6 +218,14 @@ public class ProductDAO extends DBContext {
             }
         }
         return x;
+    }
+
+    public static void main(String[] args) {
+        ProductDAO productDAO = new ProductDAO();
+        ArrayList<Product> list = productDAO.searchProductByName("IKEA");
+        for (Product product : list) {
+            System.out.println(product.getName());
+        }
     }
 
 }

@@ -64,4 +64,23 @@ public class CategoryOfPostDAO extends DBContext {
         }
         return null;
     }
+    
+        public List<CategoryOfPost> getListCategoryofPost() {
+        String sql = "select * from categoryofpost";
+        List<CategoryOfPost> list = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                CategoryOfPost cop = new CategoryOfPost();
+                cop.setId(rs.getInt("id"));
+                cop.setCategory(rs.getString("category"));
+                list.add(cop);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

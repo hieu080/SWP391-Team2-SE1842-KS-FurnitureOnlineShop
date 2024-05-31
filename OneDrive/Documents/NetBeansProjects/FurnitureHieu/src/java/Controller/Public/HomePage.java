@@ -113,7 +113,7 @@ public class HomePage extends HttpServlet {
 
         request.setAttribute("productList", paginatedProductList);
         
-        request.getRequestDispatcher("Views/HomeProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
 
     }
 

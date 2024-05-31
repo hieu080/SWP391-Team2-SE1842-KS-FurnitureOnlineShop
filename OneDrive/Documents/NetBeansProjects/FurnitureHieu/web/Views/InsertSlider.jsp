@@ -19,7 +19,7 @@
                     <h2>Insert Slider</h2>
                 </div>
                 <div class="card-body">
-                    <form action="${pageContext.request.contextPath}/InsertSliderServlet" method="post" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/SliderInsert" method="post" enctype="multipart/form-data">
                         <span id="error-message" style="color: red">${error}</span>
                         <div class="mb-3">
                             <label for="title" class="form-label">Title:</label>
@@ -49,7 +49,7 @@
                             <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Insert Slider</button>
-                        <a href="SliderServlet" class="btn btn-secondary">Cancel</a>
+                        <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -74,17 +74,20 @@ body {
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="card-header text-center bg-primary text-white">
-                <h2>${slider.title}</h2>
+                <h2>${slider.slider.title}</h2>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-3">
-                    <img src="${slider.image}" alt="${slider.title}" class="img-fluid" style="max-height: 300px;">
+                    <img src="${slider.slider.image}" alt="${slider.slider.title}" class="img-fluid" style="max-height: 300px;">
                 </div>
-                <p><strong>Backlink:</strong> <a href="${slider.backLink}" target="_blank">${slider.backLink}</a></p>
-                <p><strong>Status:</strong> <span class="badge ${slider.status == 'visible' ? 'bg-success' : 'bg-secondary'}">${slider.status}</span></p>
-                <p><strong>Notes:</strong> ${slider.notes}</p>
+                <p><strong>Notes:</strong> ${slider.slider.notes}</p>
+                <p><strong>Backlink:</strong> <a href="${slider.slider.link}" target="_blank">${slider.slider.link}</a></p>
+                <p><strong>Status:</strong> <span class="badge ${slider.slider.status == 'visible' ? 'bg-success' : 'bg-secondary'}">${slider.slider.status}</span></p>
+                <p><strong>Notes:</strong> ${slider.slider.notes}</p>
+                <p><strong>Author:</strong> ${slider.author.fullname}</p>
+                
                 <div class="d-flex justify-content-center mt-4">
-                    <a href="SliderServlet" class="btn btn-primary">Back to List</a>
+                    <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-primary">Back to List</a>
                 </div>
             </div>
         </div>

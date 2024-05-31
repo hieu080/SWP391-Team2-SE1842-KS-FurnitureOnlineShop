@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controller.Maketing;
+package Controller.Marketing;
 
 import DAL.BrandDAO;
 import DAL.CategoryDAO;

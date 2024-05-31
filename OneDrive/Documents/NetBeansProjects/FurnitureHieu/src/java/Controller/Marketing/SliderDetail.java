@@ -3,10 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controller.Public;
+package Controller.Marketing;
 
-import DAl.MKTDAO;
+import DAL.SliderDAO;
 import Models.Slider;
+import Models.SliderWithAuthor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,21 +19,19 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ADMIN
  */
-public class EditSliderServlet extends HttpServlet {
+public class SliderDetail extends HttpServlet {
    
-    
-    
-    @Override
+      @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        int id = Integer.parseInt(request.getParameter("sliderId"));
-        Slider slider= new MKTDAO().getSliderById(id);
-        request.setAttribute("slider", slider);
-        request.getRequestDispatcher("Views/EditSlider.jsp").forward(request, response);
+          SliderWithAuthor sliderWithAuthor= new SliderDAO().getSliderByIdWithAuthor(id);
+        request.setAttribute("slider", sliderWithAuthor);
+        request.getRequestDispatcher("Views/SliderDetail.jsp").forward(request, response);
     } 
-
-   
-    
-
-   
+    public static void main(String[] args) {
+        int id = 1;
+          SliderWithAuthor sliderWithAuthor= new SliderDAO().getSliderByIdWithAuthor(id);
+          System.out.println(sliderWithAuthor.getSlider().getTitle());
+    }
 }

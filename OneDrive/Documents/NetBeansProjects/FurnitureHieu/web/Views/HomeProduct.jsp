@@ -64,8 +64,8 @@
                                     <c:forEach items="${requestScope.saleOffList}" var="saleoff">
                                         <c:if test="${saleoff != null && saleoff.product_id != null && saleoff.product_id == product.id}">
                                             <c:choose>
-                                                <c:when test="${saleoff.value != null && saleoff.value != 0}">
-                                                    <div class="product-sale"><span>-${saleoff.value}%</span></div>
+                                                <c:when test="${saleoff.getSaleoffvalue() != null && saleoff.getSaleoffvalue() != 0}">
+                                                    <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div></div>
@@ -106,11 +106,11 @@
                                                     <c:if test="${saleoff.product_id == product.id}">  
                                                         <c:set var="hasSale" value="true" />
                                                         <c:choose>
-                                                            <c:when test="${saleoff.value == 0}">
+                                                            <c:when test="${saleoff.getSaleoffvalue() == 0}">
                                                                 <span style="color: black">${product.price}₫</span>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <span>${product.price - product.price * saleoff.value / 100}₫</span>
+                                                                <span>${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
                                                                 <span class="pro-price-del">
                                                                     <del class="compare-price">
                                                                         ${product.price}₫

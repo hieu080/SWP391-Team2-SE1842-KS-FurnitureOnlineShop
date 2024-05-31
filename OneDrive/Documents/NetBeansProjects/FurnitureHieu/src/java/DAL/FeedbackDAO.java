@@ -26,9 +26,7 @@ public class FeedbackDAO extends DBContext {
         String sql = "SELECT * FROM Feedback";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int customerId = rs.getInt("customer_id");
@@ -53,8 +51,7 @@ public class FeedbackDAO extends DBContext {
         String sql = "INSERT INTO Feedback (customer_id, product_id, votescore, feedback, status) VALUES (?, ?, ?, ?, ?)";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, feedback.getCustomer_id());
             pstmt.setInt(2, feedback.getProduct_id());
             pstmt.setInt(3, feedback.getVotescore());
@@ -73,8 +70,7 @@ public class FeedbackDAO extends DBContext {
         String sql = "UPDATE Feedback SET votescore = ?, feedback = ?, status = ? WHERE id = ?";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, feedback.getVotescore());
             pstmt.setString(2, feedback.getFeedback());
             pstmt.setString(3, feedback.getStatus());
@@ -92,8 +88,7 @@ public class FeedbackDAO extends DBContext {
         String sql = "DELETE FROM Feedback WHERE id = ?";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, feedbackId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -102,5 +97,37 @@ public class FeedbackDAO extends DBContext {
             return false;
         }
     }
-}
 
+    public boolean sendFeedback(int customer_id, int product_id, int votescore, String feedback, String status) {
+        String sql = "INSERT INTO feedback (customer_id, product_id, votescore, feedback, status) VALUES (?, ?, ?, ?, ?)";
+
+        try (
+                PreparedStatement stm = connect.prepareStatement(sql)) {
+            stm.setInt(1, customer_id);
+            stm.setInt(2, product_id);
+            stm.setInt(3, votescore);
+            stm.setString(4, feedback);
+            stm.setString(5, status);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error sending feedback", e);
+            return false;
+        }
+    }
+
+    public boolean insertImageFb(int feedback_id, String image) {
+        String sql = "INSERT INTO imagefeedback (feedback_id, image) VALUES (?, ?)";
+
+        try (
+                PreparedStatement stm = connect.prepareStatement(sql)) {
+            stm.setInt(1, feedback_id);
+            stm.setString(2, image);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error inserting image feedback", e);
+            return false;
+        }
+    }
+}

@@ -4,12 +4,14 @@
  */
 package Controller.Public;
 
+import DAL.FeedbackDAO;
+import DAL.OrderDAO;
+import DAL.OrderDetailDAO;
+import DAL.ProductDAO;
+import DAL.UserDAO;
 import Models.Category;
 import Models.Product;
-import DAl.OrderDetailDao;
 import Models.User;
-import DAL.FeedbackDao;
-import DAl.CustomerDAO;
 import Models.Order;
 import Models.OrderDetail;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class Feedback extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerDAO dao = new CustomerDAO();
+        
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
         String orderIDStr = request.getParameter("order_id");
@@ -50,12 +52,17 @@ public class Feedback extends HttpServlet {
         }catch(NumberFormatException e){
             e.printStackTrace();
         }
-        Order listO = dao.getOrder(u.getId(), 1);
-        request.setAttribute("listO", listO);
-        ArrayList<OrderDetail> listD = dao.getOrderDetailList();
-        request.setAttribute("listD", listD);
-        ArrayList<Product> listP = dao.getProductList();
-        request.setAttribute("listP", listP);
+        OrderDAO orderDAO = new OrderDAO();
+        Order order = orderDAO.getOrder(u.getId(), order_id);
+        request.setAttribute("order", order);
+        
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        ArrayList<OrderDetail> listOrderDetails = orderDetailDAO.getOrderDetailsByOrderId(order_id);
+        request.setAttribute("listOrderDetails", listOrderDetails);
+        
+        ProductDAO productDAO = new ProductDAO();
+        ArrayList<Product> productList = productDAO.getProductList();
+        request.setAttribute("listP", productList);
         request.getRequestDispatcher("/Views/Feedback.jsp").forward(request, response);
         
     }
@@ -64,9 +71,8 @@ public class Feedback extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FeedbackDao fbdao = new FeedbackDao();
-        CustomerDAO csdao = new CustomerDAO();
-//        OrderDetailDao odd = new OrderDetailDao();
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
         String feedback = request.getParameter("feedback");
@@ -80,16 +86,17 @@ public class Feedback extends HttpServlet {
             e.printStackTrace();
         }
         
-        ArrayList<OrderDetail> listD = csdao.getOrderDetailList();
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
         ArrayList<Integer> productFb = new ArrayList<>();
-        for (OrderDetail orderDetail : listD) {
+        for (OrderDetail orderDetail : orderDetailList) {
             if(orderDetail.getOrder_id() == order_id){
                 productFb.add(orderDetail.getProduct_id());
             }
         }
         
         for (Integer integer : productFb) {
-            fbdao.sendfeedback(u.getId(), integer.intValue(), rate, feedback, "active");
+            feedbackDAO.sendFeedback(u.getId(), integer.intValue(), rate, feedback, "Active");
         }
         
         Part filePart = request.getPart("fbimg");
@@ -101,7 +108,7 @@ public class Feedback extends HttpServlet {
         String fileName = getFileName(filePart);
         
         for (Integer integer : productFb) {
-            fbdao.insertImageFb(integer.intValue(), fileName);
+            feedbackDAO.insertImageFb(integer.intValue(), fileName);
         }
         
 

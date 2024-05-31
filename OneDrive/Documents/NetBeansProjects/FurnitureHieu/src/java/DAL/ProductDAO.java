@@ -19,14 +19,15 @@ import java.util.logging.Logger;
 public class ProductDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(ProductDAO.class.getName());
-    
+
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList = productDAO.getProductList();
         for (Product product : productList) {
-            System.out.println(product.getName() + " "+ product.getQuantity());
+            System.out.println(product.getName() + " " + product.getQuantity());
         }
     }
+
     public boolean insertProduct(Product product) {
         String sql = "INSERT INTO product (category_id, brand_id, room_id, name, description, image, price, quantity, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
@@ -139,36 +140,36 @@ public class ProductDAO extends DBContext {
         return productList;
     }
 
-    public ArrayList<Product> filterProductList(String categoryStr, String priceStr, String colorStr, String sizeStr) {
+    public ArrayList<Product> filterProductList(String brandID, String roomID, String categoryID, String colorID, String priceStr) {
         ArrayList<Product> productList = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-            SELECT 
-                Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
-            FROM 
-                Product
-            JOIN 
-                Category ON Product.category_id = Category.id
-            JOIN 
-                Room ON Product.room_id = Room.id
-            JOIN 
-                ProductDetail ON Product.id = ProductDetail.product_id
-            WHERE 1=1
-            """);
+        SELECT 
+            Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
+        FROM 
+            Product
+        JOIN 
+            ProductDetail ON Product.id = ProductDetail.product_id
+        WHERE 1=1
+        """);
 
         List<Object> parameters = new ArrayList<>();
 
-        if (categoryStr != null && !categoryStr.isEmpty()) {
-            sql.append(" AND Category.category = ?");
-            parameters.add(categoryStr);
+        if (brandID != null && !brandID.isEmpty()) {
+            sql.append(" AND Product.brand_id = ?");
+            parameters.add(brandID);
         }
-        if (colorStr != null && !colorStr.isEmpty()) {
-            sql.append(" AND ProductDetail.color = ?");
-            parameters.add(colorStr);
+        if (roomID != null && !roomID.isEmpty()) {
+            sql.append(" AND Product.room_id = ?");
+            parameters.add(roomID);
         }
-        if (sizeStr != null && !sizeStr.isEmpty()) {
-            sql.append(" AND ProductDetail.size LIKE ?");
-            parameters.add("%" + sizeStr + "%");
+        if (categoryID != null && !categoryID.isEmpty()) {
+            sql.append(" AND Product.category_id = ?");
+            parameters.add(categoryID);
+        }
+        if (colorID != null && !colorID.isEmpty()) {
+            sql.append(" AND ProductDetail.color_id = ?");
+            parameters.add(colorID);
         }
         String priceCondition = parsePrice(priceStr);
         if (!priceCondition.isEmpty()) {
@@ -210,14 +211,11 @@ public class ProductDAO extends DBContext {
                 case "<500":
                     x = "< 500000";
                     break;
-                case "500<x<1000":
-                    x = "BETWEEN 500000 AND 1000000";
+                case "500<x<1500":
+                    x = "BETWEEN 500000 AND 1500000";
                     break;
-                case "1000<x<2000":
-                    x = "BETWEEN 1000000 AND 2000000";
-                    break;
-                case "2000<x<5000":
-                    x = "BETWEEN 2000000 AND 5000000";
+                case "1500<x<5000":
+                    x = "BETWEEN 1500000 AND 5000000";
                     break;
                 case ">5000":
                     x = "> 5000000";

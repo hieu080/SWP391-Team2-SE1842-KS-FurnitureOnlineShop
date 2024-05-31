@@ -9,6 +9,7 @@ package Models;
  * @author HELLO
  */
 public class User {
+
     private int id;
     private String fullname;
     private String gender;
@@ -23,6 +24,19 @@ public class User {
     public User() {
     }
 
+    public User(int id, String fullname, String gender, String avatar, String phonenumber, String address, String email, String password, int role_id, String status) {
+        this.id = id;
+        this.fullname = fullname;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.phonenumber = phonenumber;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+        this.role_id = role_id;
+        this.status = status;
+    }
+
     public User(String fullname, String gender, String avatar, String phonenumber, String address, String email, String password) {
         this.fullname = fullname;
         this.gender = gender;
@@ -31,10 +45,16 @@ public class User {
         this.address = address;
         this.email = email;
         this.password = password;
-        this.role_id = 1;
-        this.status = "Active";
     }
 
+    public User(String fullname, String gender, String avatar, String phonenumber, String address) {
+        this.fullname = fullname;
+        this.gender = gender;
+        this.avatar = avatar;
+        this.phonenumber = phonenumber;
+        this.address = address;
+    }
+    
     public int getId() {
         return id;
     }
@@ -104,7 +124,7 @@ public class User {
     }
 
     public void setRole_id(int role_id) {
-        this.role_id = role_id;
+this.role_id = role_id;
     }
 
     public String getStatus() {
@@ -114,6 +134,5 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-   
+
 }

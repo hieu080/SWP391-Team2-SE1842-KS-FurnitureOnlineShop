@@ -1,124 +1,113 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package Controllers;
+package Controller.Common;
 
-import DAl.CustomerDAO;
+import DAL.UserDAO;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
-/**
- *
- * @author vieta
- */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class UserProfile extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserProfile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private static final String UPLOAD_DIRECTORY = "image";
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-
-        request.getRequestDispatcher("Views/user-profile.jsp").forward(request, response);
-
+        request.getRequestDispatcher("Views/UserProfile.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerDAO dao = new CustomerDAO();
-        String msg = "";
-        HttpSession session = request.getSession();
+        UserDAO dao = new UserDAO();
+        HttpSession session = request.getSession(false);
         User u = (User) session.getAttribute("customer");
         String fullname = request.getParameter("fullname");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        String img = request.getParameter("img");
-        if (img.isEmpty() || img == null) {
-            img = u.getAvatar();
-        }
-        String a = "";
-        
-        if (phone != null) {
-            if (!phone.matches("[0-9]{10}")) {
-                msg = "phone number invalid";
-            } else {
-                a = dao.update(fullname, gender, img, phone, address, u.getId());
+
+        Part filePart = request.getPart("fbimg");
+        String fileName = getFileName(filePart);
+        String oldimage = u.getAvatar();
+        if (fileName.isEmpty() && fileName.equals("")) {
+            if (phone != null && !phone.isEmpty() && phone.matches("[0-9]{10}")) {
+
+                dao.update(fullname, gender, oldimage, phone, address, u.getId());
+
                 u = dao.getUserById(u.getId());
                 session.setAttribute("customer", u);
+                response.sendRedirect("HomePage");
+            } else {
+                String msg = "Phone number is invalid";
+                request.setAttribute("msg", msg);
+                request.getRequestDispatcher("Views/UserProfile.jsp").forward(request, response);
             }
+            return;
         }
-//        PrintWriter out = response.getWriter();
-//        out.print(userid);
-//        out.print(img);
-//        out.print(a);
-            response.sendRedirect("HomePage");
-        
-//        dao.update(fullname, gender, gender, phone, address, 0);
-//        request.setAttribute("msg", msg);
-//        request.getRequestDispatcher("Views/user-profile.jsp").forward(request, response);
+        // Tạo đường dẫn lưu file
+        String applicationPath = getServletContext().getRealPath("");
+        String destinationPath = applicationPath.replace("build\\", "");
 
+        String uploadFilePath = destinationPath + UPLOAD_DIRECTORY;
+
+        // Tạo thư mục nếu chưa tồn tại
+        File uploadDir = new File(uploadFilePath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        // Đường dẫn tới tệp đích
+        Path destinationFilePath = Paths.get(uploadFilePath + File.separator + fileName);
+
+        // Lưu file vào thư mục
+        try (InputStream fileContent = filePart.getInputStream()) {
+            Files.copy(fileContent, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        if (phone != null && !phone.isEmpty() && phone.matches("[0-9]{10}")) {
+            if (fileName != null && !fileName.isEmpty()) {
+                String img = UPLOAD_DIRECTORY + "/" + fileName;
+                dao.update(fullname, gender, img, phone, address, u.getId());
+            } else {
+                dao.update(fullname, gender, oldimage, phone, address, u.getId());
+            }
+
+            u = dao.getUserById(u.getId());
+            session.setAttribute("customer", u);
+            response.sendRedirect("HomePage");
+        } else {
+            String msg = "Phone number is invalid";
+            request.setAttribute("msg", msg);
+            request.getRequestDispatcher("Views/UserProfile.jsp").forward(request, response);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] elements = contentDisposition.split(";");
+        for (String element : elements) {
+            if (element.trim().startsWith("filename")) {
+                return element.substring(element.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
 }

@@ -32,6 +32,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,10 +118,52 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> productList = productDAO.getProductList();
+        HttpSession session = request.getSession();
+        List<Product> productList = (List<Product>) session.getAttribute("productList");
 
-                PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 16);
+        if (productList == null) {
+            ProductDAO productDAO = new ProductDAO();
+            productList = productDAO.getProductList();
+        }
+        Pagination(request, response, productList);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String search = request.getParameter("search");
+        String brandIDStr = request.getParameter("brand-filter");
+        String roomSIDtr = request.getParameter("room-filter");
+        String categoryIDStr = request.getParameter("category-filter");
+        String priceIDStr = request.getParameter("price-filter");
+        String colorIDStr = request.getParameter("color-filter");
+
+        ProductDAO productDAO = new ProductDAO();
+        ArrayList<Product> productList;
+        
+        if (search != null && !search.isEmpty()) {
+            productList = productDAO.searchProductByName(search);
+        } else {
+            productList = productDAO.filterProductList(brandIDStr, roomSIDtr, categoryIDStr, colorIDStr, priceIDStr);
+        }
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("productList", productList);
+        
+        Pagination(request, response, productList);
+    }
+
+    private void Pagination(HttpServletRequest request, HttpServletResponse response, List<Product> productList)
+            throws ServletException, IOException {
+        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 16);
 
         int[] pagenumber = paginationHelper.getPageNumbers();
         request.setAttribute("pagenumber", pagenumber);
@@ -135,76 +179,8 @@ public class ProductServlet extends HttpServlet {
             }
         }
 
-        ArrayList<Product> paginatedProductList = new ArrayList<>(paginationHelper.getPage(page));
-
+        List<Product> paginatedProductList = paginationHelper.getPage(page);
         request.setAttribute("productList", paginatedProductList);
         processRequest(request, response);
     }
-
-//    public static void main(String[] args) {
-//        ProductDAO productDAO = new ProductDAO();
-//        ArrayList<Product> productList = productDAO.getProductList();
-//
-//        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 6);
-//        ArrayList<Product> paginatedProductList = new ArrayList<>(paginationHelper.getPage(0));
-//        for (Product product : paginatedProductList) {
-//            System.out.println(product.getName());
-//        }
-//    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String search = request.getParameter("search");
-        String categoryStr = request.getParameter("brand-filter");
-        String priceStr = request.getParameter("cc");
-        String colorStr = request.getParameter("color-filter");
-        String sizeStr = request.getParameter("size-filter");
-        ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> productList;
-        if (search != null && !search.isEmpty()) {
-            productList = productDAO.searchProductByName(search);
-        } else {
-            productList = productDAO.filterProductList(categoryStr, priceStr, colorStr, sizeStr);
-        }
-
-        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 16);
-
-        int[] pagenumber = paginationHelper.getPageNumbers();
-        request.setAttribute("pagenumber", pagenumber);
-
-        String pageStr = request.getParameter("page");
-        int page = 0;
-
-        if (pageStr != null && !pageStr.isEmpty()) {
-            try {
-                page = Integer.parseInt(pageStr) - 1;
-            } catch (Exception e) {
-                page = 0;
-            }
-        }
-
-        ArrayList<Product> paginatedProductList = new ArrayList<>(paginationHelper.getPage(page));
-        request.setAttribute("productList", paginatedProductList);
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

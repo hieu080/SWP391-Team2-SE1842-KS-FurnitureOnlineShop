@@ -5,17 +5,21 @@
 
 package Controller.Public;
 
-import DAl.CustomerDAO;
-import DAl.MKTDAO;
+import DAL.BrandDAO;
+import DAL.CategoryDAO;
+import DAL.CategoryOfPostDAO;
+import DAL.PageDAO;
+import DAL.PostDAO;
+import DAL.RoomDAO;
+import DAL.SliderDAO;
 import Models.Brand;
 import Models.Category;
-import Models.CategoryPost;
+import Models.CategoryOfPost;
 import Models.Page;
 import Models.Post;
 import Models.Room;
 import Models.Slider;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,45 +35,44 @@ public class BlogListSearchedServlet extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CustomerDAO dao = new CustomerDAO();
-        CustomerDAO customerDAO = new CustomerDAO();
-        MKTDAO mktdao= new MKTDAO();
-        List<Slider> sliders = mktdao.getAllSlidersWith("show");
+        
+        SliderDAO sliderDAO = new SliderDAO();
+        List<Slider> sliders = sliderDAO.getAllSlidersWith("show");
         request.setAttribute("listslider", sliders);
         
-        ArrayList<Brand> brandList = customerDAO.getBrandList();
+        BrandDAO brandDao = new BrandDAO();
+        ArrayList<Brand> brandList = brandDao.getBrandList();
         request.setAttribute("brandList", brandList);
         
-        ArrayList<Room> roomList = customerDAO.getRoomList();
+        RoomDAO roomDAO = new RoomDAO();
+        ArrayList<Room> roomList = roomDAO.getRoomList();
         request.setAttribute("roomList", roomList);
         
-        ArrayList<Page> pageList = customerDAO.getPageList();
+        PageDAO pageDAO = new PageDAO();
+        ArrayList<Page> pageList = pageDAO.getPageList();
         request.setAttribute("pageList", pageList);
         
-        List<CategoryPost> categoryOfPost =  customerDAO.selectAllCategoryPosts();
+        CategoryOfPostDAO categoryOfPostDAO = new CategoryOfPostDAO();
+        List<CategoryOfPost> categoryOfPost = categoryOfPostDAO.getCategoryOfPostList();
         request.setAttribute("categoryOfPostList", categoryOfPost);
-        
-        
-        List<Post> postList = customerDAO.getListPost();
-        request.setAttribute("postList", postList);
-        
-         ArrayList<Category> categoryList = customerDAO.getCategoryList();
+       
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
         request.setAttribute("categoryList", categoryList);
-        
-        //list category
-        List<String> listCategory = dao.getListCategoryofPost();
-        request.setAttribute("listCategory", listCategory);
-        
+     
         //list post
-        List<Post> listPost = dao.getListPost();
-        request.setAttribute("listPost", listPost);
+        PostDAO postDAO = new PostDAO();
+        ArrayList<Post> newPostList = postDAO.getPostList();
+        request.setAttribute("newPostList", newPostList);
+        ArrayList<Post> postList = postDAO.getPostList();
+        request.setAttribute("postList", postList);
         
         //list post got by search
         String keyword = request.getParameter("keyword");
-        List<Post> listsearch = dao.getListPostbySearch(keyword);
-        request.setAttribute("listsearch", listsearch);
+        List<Post> PostListSearch = postDAO.getListPostbySearch(keyword);
+        request.setAttribute("PostListSearch", PostListSearch);
         
-        request.getRequestDispatcher("Views/blogListSearched.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/BlogListSearched.jsp").forward(request, response);
         
     } 
 

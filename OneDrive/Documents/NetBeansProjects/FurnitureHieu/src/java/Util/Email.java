@@ -57,7 +57,7 @@ public class Email {
                     + "  <h2>Welcome to Furniture!</h2>"
                     + "  <p>Thank you for joining our community of fashion enthusiasts.</p>"
                     + "  <p>Please click the link below to verify your email address:</p>"
-                    + "  <a href=\"http://localhost:8080/FurnitureWebShop/VerifyEmail?email=" + receiver + "\" style=\"display: inline-block; padding: 10px 20px; margin: 20px 0; background-color: #337ab7; color: white; text-decoration: none; border-radius: 5px;\">Verify Your Email</a>"
+                    + "  <a href=\"http://localhost:8080/FurnitureHieu/VerifyEmail?email=" + receiver + "\" style=\"display: inline-block; padding: 10px 20px; margin: 20px 0; background-color: #337ab7; color: white; text-decoration: none; border-radius: 5px;\">Verify Your Email</a>"
                     + "  <p>If you did not sign up for a Furniture account, please disregard this email.</p>"
                     + "</div>";
 
@@ -112,7 +112,7 @@ public class Email {
                     + "  <h2>Welcome to Furniture!</h2>"
                     + "  <p>Thank you for joining our community of fashion enthusiasts.</p>"
                     + "  <p>Please click the link below to verify your email address:</p>"
-                    + "  <a href=\"http://localhost:8080/FurnitureWebShop/VerifyResetEmail?email=" + receiver + "\" style=\"display: inline-block; padding: 10px 20px; margin: 20px 0; background-color: #337ab7; color: white; text-decoration: none; border-radius: 5px;\">Verify Your Email</a>"
+                    + "  <a href=\"http://localhost:8080/FurnitureHieu/VerifyResetEmail?email=" + receiver + "\" style=\"display: inline-block; padding: 10px 20px; margin: 20px 0; background-color: #337ab7; color: white; text-decoration: none; border-radius: 5px;\">Verify Your Email</a>"
                     
                     + "</div>";
 

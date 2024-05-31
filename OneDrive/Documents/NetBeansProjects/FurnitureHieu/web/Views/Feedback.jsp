@@ -153,10 +153,10 @@
                                 
                                 
                                     <div class="product-info">
-                                        <c:set var="order" value="${listO}"/>
+                                        <c:set var="order" value="${order}"/>
                                             <div class="row">
                                                 <div class="col-md-6">                                                 
-                                                    <c:forEach items="${listD}" var="orderDetail">
+                                                    <c:forEach items="${listOrderDetails}" var="orderDetail">
                                                         <c:if test="${orderDetail.order_id == order.id}">
                                                             <c:forEach items="${listP}" var="product">
                                                                 <c:if test="${product.id == orderDetail.product_id}">

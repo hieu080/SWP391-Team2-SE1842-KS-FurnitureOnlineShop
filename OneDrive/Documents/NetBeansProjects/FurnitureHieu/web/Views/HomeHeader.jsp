@@ -260,7 +260,7 @@
                                                     </div>
                                                     <ul class="list-unstyled">
                                                         <li style="font-size: 14px"><span>${sessionScope.customer.fullname}</span></li>
-                                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserProfileServlet">Tài khoản của bạn</a></li>
+                                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserProfile">Tài khoản của bạn</a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassword">Thay đổi mật khẩu </a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>
                                                     </ul>
@@ -299,10 +299,10 @@
                                                     </span>
                                                 </span>
                                             </a>
-                                            <%@ include file="doimatkhau.jsp" %>
-                                            <%@ include file="resetPassword.jsp" %>
-                                            <%@ include file="register.jsp" %>
-                                            <%@ include file="login.jsp" %>
+                                            <%@ include file="ForgetPassword.jsp" %>
+                                            <%@ include file="ResetPassword.jsp" %>
+                                            <%@ include file="Register.jsp" %>
+                                            <%@ include file="Login.jsp" %>
                                             
                                         </c:otherwise>
                                     </c:choose>

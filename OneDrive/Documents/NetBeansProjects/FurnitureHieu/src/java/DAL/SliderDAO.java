@@ -5,6 +5,8 @@
 package DAL;
 
 import Models.Slider;
+import Models.SliderWithAuthor;
+import Models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +24,7 @@ public class SliderDAO extends DBContext{
      * Phương thức để thêm một slider mới vào cơ sở dữ liệu
      */
     public void addSlider(Slider slider) {
-        String query = "INSERT INTO slider (image,author_id title, link, status, note) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO slider (image,author_id ,title, link, status, note) VALUES (?, ?, ?, ?, ?,?)";
         try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
             preparedStatement.setString(1, slider.getImage());
             preparedStatement.setInt(2, slider.getAuthor_id());
@@ -120,7 +122,7 @@ public class SliderDAO extends DBContext{
     /* List slider with status and author */
     public List<Slider> getAllSlidersWith(String status, int author_id) {
         List<Slider> sliders = new ArrayList<>();
-        String query = "SELECT * FROM slider WHERE status = ? AND author_id";
+        String query = "SELECT * FROM slider WHERE status = ? AND author_id=? ";
 
         try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
 
@@ -255,6 +257,7 @@ public class SliderDAO extends DBContext{
                 while (resultSet.next()) {
                     Slider slider = new Slider();
                     slider.setId(resultSet.getInt("id"));
+                    slider.setAuthor_id(resultSet.getInt("author_id"));
                     slider.setTitle(resultSet.getString("title"));
                     slider.setImage(resultSet.getString("image"));
                     slider.setLink(resultSet.getString("link"));
@@ -329,4 +332,48 @@ public class SliderDAO extends DBContext{
     /**
      * Phương thức để lấy một slider theo id từ cơ sở dữ liệu
      */
+    
+    // Phương thức để join hai bảng Slider và User và lấy dữ liệu Slider theo id
+    public SliderWithAuthor getSliderByIdWithAuthor(int id) {
+        String sql = "SELECT s.id, s.author_id, s.title, s.image, s.link, s.status, s.note, "
+                   + "u.fullname, u.gender, u.avatar, u.phonenumber, u.address, u.email, u.role_id, u.status as status "
+                   + "FROM Slider s "
+                   + "JOIN User u ON s.author_id = u.id "
+                   + "WHERE s.id = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Slider slider = new Slider();
+                    slider.setId(resultSet.getInt("id"));
+                    slider.setAuthor_id(resultSet.getInt("author_id"));
+                    slider.setTitle(resultSet.getString("title"));
+                    slider.setImage(resultSet.getString("image"));
+                    slider.setLink(resultSet.getString("link"));
+                    slider.setStatus(resultSet.getString("status"));
+                    slider.setNotes(resultSet.getString("note"));
+
+                    // Tạo một đối tượng User và thiết lập các thuộc tính
+                    User author = new User();
+                    author.setId(resultSet.getInt("author_id"));
+                    author.setFullname(resultSet.getString("fullname"));
+                    author.setGender(resultSet.getString("gender"));
+                    author.setAvatar(resultSet.getString("avatar"));
+                    author.setPhonenumber(resultSet.getString("phonenumber"));
+                    author.setAddress(resultSet.getString("address"));
+                    author.setEmail(resultSet.getString("email"));
+                    author.setRole_id(resultSet.getInt("role_id"));
+                    author.setStatus(resultSet.getString("status"));
+
+                    // Gán đối tượng User vào Slider (giả sử Slider có thuộc tính author)
+                    SliderWithAuthor sliderWithAuthor= new SliderWithAuthor(author, slider);
+
+                    return sliderWithAuthor;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

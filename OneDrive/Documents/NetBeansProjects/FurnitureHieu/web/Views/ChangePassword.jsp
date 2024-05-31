@@ -76,7 +76,7 @@
         <div class="wrapper">
 
             
-            <form method="post">
+            <form action="${pageContext.request.contextPath}/ChangePassword" method="post">
                 
                 <p >${mess}</p>
                 <h1>Thay Đổi Mật Khẩu</h1>

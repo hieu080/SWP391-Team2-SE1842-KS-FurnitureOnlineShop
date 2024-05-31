@@ -22,12 +22,66 @@ public class PostDAO extends DBContext {
 
 //    public static void main(String[] args) {
 //        PostDAO postDAO = new PostDAO();
-//         ArrayList<Post> list = postDAO.getPostList();
-//         for (Post post : list) {
-//             System.out.println(post.toString());
+//        ArrayList<Post> list = postDAO.getNewPostList();
+//        for (Post post : list) {
+//            System.out.println(post.getTitle());
 //        }
 //    }
     //get list of all posts
+
+    public ArrayList<Post> getNewPostList() {
+        String sql = "SELECT * FROM Post ORDER BY updatedtime DESC";
+        ArrayList<Post> list = new ArrayList<>();
+
+        try (PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setCategory_id(rs.getInt("category_id"));
+                p.setMkt_id(rs.getInt("mkt_id"));
+                p.setTitle(rs.getString("title"));
+                p.setSubtitle(rs.getString("subtitle"));
+                p.setThumbnail(rs.getString("thumbnail"));
+                p.setContent(rs.getString("content"));
+                p.setUpdatedtime(rs.getString("updatedtime"));
+                p.setStatus(rs.getString("status"));
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving new post list", ex);
+        }
+
+        return list;
+    }
+
+    public ArrayList<Post> getPostListByFilter(int categoryOfPost_id) {
+        String sql = "SELECT * FROM Post WHERE category_id = ?";
+        ArrayList<Post> list = new ArrayList<>();
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, categoryOfPost_id);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Post p = new Post();
+                    p.setId(rs.getInt("id"));
+                    p.setCategory_id(rs.getInt("category_id"));
+                    p.setMkt_id(rs.getInt("mkt_id"));
+                    p.setTitle(rs.getString("title"));
+                    p.setSubtitle(rs.getString("subtitle"));
+                    p.setThumbnail(rs.getString("thumbnail"));
+                    p.setContent(rs.getString("content"));
+                    p.setUpdatedtime(rs.getString("updatedtime"));
+                    p.setStatus(rs.getString("status"));
+                    list.add(p);
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving post list by filter", ex);
+        }
+
+        return list;
+    }
+
     public ArrayList<Post> getPostList() {
         String sql = "SELECT * FROM Post";
         ArrayList<Post> list = new ArrayList<>();
@@ -38,11 +92,11 @@ public class PostDAO extends DBContext {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
                 p.setCategory_id(rs.getInt("category_id"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
                 p.setContent(rs.getString("content"));
-                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
                 p.setStatus(rs.getString("status"));
                 list.add(p);
@@ -65,11 +119,11 @@ public class PostDAO extends DBContext {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
                 p.setCategory_id(rs.getInt("category_id"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
                 p.setContent(rs.getString("content"));
-                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
                 p.setStatus(rs.getString("status"));
                 return p;
@@ -96,11 +150,11 @@ public class PostDAO extends DBContext {
                 Post p = new Post();
                 p.setId(rs.getInt("id"));
                 p.setCategory_id(rs.getInt("category_id"));
+                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setTitle(rs.getString("title"));
                 p.setSubtitle(rs.getString("subtitle"));
                 p.setThumbnail(rs.getString("thumbnail"));
                 p.setContent(rs.getString("content"));
-                p.setMkt_id(rs.getInt("mkt_id"));
                 p.setUpdatedtime(rs.getString("updatedtime"));
                 p.setStatus(rs.getString("status"));
                 list.add(p);

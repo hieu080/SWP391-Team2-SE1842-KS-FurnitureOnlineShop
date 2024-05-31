@@ -212,11 +212,8 @@
                                                         <div class="layered">
                                                             <form method="post" >
                                                                 <div class="layer_filter-container">
-
-
-
-                                                                    <div class="layer_filter-title hidden-xs hidden-sm">
-                                                                        <h2 class="title_filter">
+                                                                    <div class="layer_filter-title hidden-xs hidden-sm col-md-2">
+                                                                        <div class="title_filter">
                                                                             <span class="icon_title"><svg viewBox="0 0 20 20">
                                                                                 <path fill="none" stroke-width="2"
                                                                                       stroke-linejoin="round"
@@ -224,13 +221,53 @@
                                                                                       d="M12 9v8l-4-4V9L2 3h16z"></path>
                                                                                 </svg></span>
                                                                             <input type="submit" value="Bộ lọc">
-                                                                        </h2>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="layer_filter-group">
                                                                         <div class="row clearfix">
-                                                                            <!-- ./filter brand -->
 
-                                                                            <div class="col-md-3 ">
+                                                                            <!-- ./filter brand -->
+                                                                            <div class="col-md-2">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>Thương hiệu</span><span
+                                                                                            class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i></span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                        <ul class="check-box-list clearfix">
+                                                                                            <c:forEach items="${requestScope.brandList}" var="brand">
+                                                                                                <li>
+                                                                                                    <input type="radio" value="${brand.id}" name="brand-filter" /> ${brand.brandname}
+                                                                                                </li>
+                                                                                            </c:forEach>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="group-filter">
+                                                                                    <div
+                                                                                        class="filter_group_title dropdown-filter">
+                                                                                        <span>Phòng</span><span
+                                                                                            class="icon-controls"><i
+                                                                                                class="fa fa-chevron-down"></i></span>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                        <ul class="check-box-list clearfix">
+                                                                                            <c:forEach items="${requestScope.roomList}" var="room">
+                                                                                                <li>
+                                                                                                    <input type="radio" value="${room.id}" name="room-filter" /> ${room.roomname}
+                                                                                                </li>
+                                                                                            </c:forEach>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2 ">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -243,11 +280,9 @@
                                                                                         <ul class="">
                                                                                             <c:forEach items="${requestScope.categoryList}" var="category">
                                                                                                 <li>
-                                                                                                    <input type="radio" id="data-brand-p${category.id}" value="${category.category}" name="brand-filter">
-                                                                                                    <label for="data-brand-p${category.id}">${category.category}</label>   
+                                                                                                    <input type="radio" value="${category.id}" name="category-filter"> ${category.category}
                                                                                                 </li>
                                                                                             </c:forEach>
-
                                                                                         </ul>
                                                                                     </div>
                                                                                 </div>
@@ -255,7 +290,7 @@
 
                                                                             <!-- ./filter price -->
 
-                                                                            <div class="col-md-3 ">
+                                                                            <div class="col-md-2 ">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -267,44 +302,16 @@
                                                                                         class="filter_group_content bl-filter filter-price">
                                                                                         <ul class="check-box-list">
                                                                                             <li>
-                                                                                                <input type="radio" id="p1"
-                                                                                                       name="cc"
-                                                                                                       value="<500" />
-                                                                                                <label for="p1">
-                                                                                                    <span>Dưới</span> 500,000₫
-                                                                                                </label>
+                                                                                                <input type="radio" name="price-filter" value="<500" /> < 500.000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" id="p2"
-                                                                                                       name="cc"
-                                                                                                       value="500<x<1000"/>
-                                                                                                <label for="p2">
-                                                                                                    500,000₫ - 1,000,000₫
-                                                                                                </label>
+                                                                                                <input type="radio" name="price-filter" value="500<x<1500"/> 500,000₫ - 1,500,000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" id="p3"
-                                                                                                       name="cc"
-                                                                                                       value="1000<x<2000" />
-                                                                                                <label for="p3">
-                                                                                                    1,000,000₫ - 2,000,000₫
-                                                                                                </label>
+                                                                                                <input type="radio" name="price-filter" value="1500<x<5000" /> 1,500,000₫ - 5,000,000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" id="p4"
-                                                                                                       name="cc"
-                                                                                                       value="2000<x<5000"/>
-                                                                                                <label for="p4">
-                                                                                                    2,000,000₫ - 5,000,000₫
-                                                                                                </label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="p5"
-                                                                                                       name="cc"
-                                                                                                       value=">5000" />
-                                                                                                <label for="p5">
-                                                                                                    <span>Trên</span> 5,000,000₫
-                                                                                                </label>
+                                                                                                <input type="radio" name="price-filter" value=">5000" /> > 5,000,000₫
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -313,7 +320,7 @@
 
                                                                             <!-- ./filter color -->
 
-                                                                            <div class="col-md-3 ">
+                                                                            <div class="col-md-2 ">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -325,118 +332,15 @@
                                                                                     <div
                                                                                         class="filter_group_content color-filter">
                                                                                         <ul class="check-box-list clearfix">
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p1" value="Black" name="color-filter" data-color="(variant:product contains Màu đen)" />
-                                                                                                <label for="data-color-p1" style="background-color: #000000">Màu đen</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p2" value="White" name="color-filter" data-color="(variant:product contains Màu trắng)" />
-                                                                                                <label for="data-color-p2" style="background-color: #FFFFFF">Màu trắng</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p3" value="Yellow" name="color-filter" data-color="(variant:product contains Màu vàng)" />
-                                                                                                <label for="data-color-p3" style="background-color: #FFFF00">Màu vàng</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p4" value="Red" name="color-filter" data-color="(variant:product contains Màu đỏ)" />
-                                                                                                <label for="data-color-p4" style="background-color: #FF0000">Màu đỏ</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p5" value="Blue" name="color-filter" data-color="(variant:product contains Màu xanh dương)" />
-                                                                                                <label for="data-color-p5" style="background-color: #0000FF">Màu xanh dương</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p6" value="Green" name="color-filter" data-color="(variant:product contains Màu xanh lá)" />
-                                                                                                <label for="data-color-p6" style="background-color: #008000">Màu xanh lá</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p7" value="Purple" name="color-filter" data-color="(variant:product contains Màu tím)" />
-                                                                                                <label for="data-color-p7" style="background-color: #800080">Màu tím</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p8" value="Orange" name="color-filter" data-color="(variant:product contains Màu cam)" />
-                                                                                                <label for="data-color-p8" style="background-color: #FFA500">Màu cam</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio" id="data-color-p9" value="Pink" name="color-filter" data-color="(variant:product contains Màu hồng)" />
-                                                                                                <label for="data-color-p9" style="background-color: #FFC0CB">Màu hồng</label>
-                                                                                            </li>
+                                                                                            <c:forEach items="${requestScope.colorList}" var="color">
+                                                                                                <li>
+                                                                                                    <input type="radio" value="${color.id}" name="color-filter"/>${color.colorname}
+                                                                                                </li>
+                                                                                            </c:forEach>
 
                                                                                         </ul>
                                                                                     </div>
 
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <!-- ./filter size -->
-
-                                                                            <div class="col-md-3">
-                                                                                <div class="group-filter">
-                                                                                    <div
-                                                                                        class="filter_group_title dropdown-filter">
-                                                                                        <span>Kích thước</span><span
-                                                                                            class="icon-controls"><i
-                                                                                                class="fa fa-chevron-down"></i></span>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="filter_group_content filter-size s-filter">
-                                                                                        <ul class="check-box-list clearfix">
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p1"
-                                                                                                       value="90"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product=90cm)" />
-                                                                                                <label
-                                                                                                    for="data-size-p1">90cm</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p2"
-                                                                                                       value="120"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product=1m2)" />
-                                                                                                <label
-                                                                                                    for="data-size-p2">1m2</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p3"
-                                                                                                       value=" 140"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product= 1m4)" />
-                                                                                                <label for="data-size-p3">
-                                                                                                    1m4</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p4"
-                                                                                                       value=" 160"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product= 1m6)" />
-                                                                                                <label for="data-size-p4">
-                                                                                                    1m6</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p5"
-                                                                                                       value=" 180"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product= 1m8)" />
-                                                                                                <label for="data-size-p5">
-                                                                                                    1m8</label>
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="radio"
-                                                                                                       id="data-size-p6"
-                                                                                                       value=" 200"
-                                                                                                       name="size-filter"
-                                                                                                       data-size="(variant:product= 2m)" />
-                                                                                                <label for="data-size-p5">
-                                                                                                    2m</label>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
 
@@ -452,132 +356,132 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                     <!-- list product -->
                                     <div class="container">
                                         <div class="row filter-here">
-                                           
-                                                <c:forEach items="${requestScope.productList}" var="product">
-                                                    <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
-                                                        <div class="product-block product-resize site-animation single-product">
-                                                            <div class="product-img fade-box">
-                                                                <c:forEach items="${requestScope.saleOffList}" var="saleoff">
-                                                                    <c:if test="${saleoff.product_id == product.id}">
 
-                                                                        <c:choose>
-                                                                            <c:when test="${saleoff.getSaleoffvalue() != 0}">
-                                                                                <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <div></div>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                            <c:forEach items="${requestScope.productList}" var="product">
+                                                <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
+                                                    <div class="product-block product-resize site-animation single-product">
+                                                        <div class="product-img fade-box">
+                                                            <c:forEach items="${requestScope.saleOffList}" var="saleoff">
+                                                                <c:if test="${saleoff.product_id == product.id}">
 
-                                                                <div class="tag-loop">
-                                                                    <div class="icon icon_hot">
-                                                                        <img loading="lazy" decoding="async"
-                                                                             src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
-                                                                             alt="icon hot" />
-                                                                    </div>
+                                                                    <c:choose>
+                                                                        <c:when test="${saleoff.getSaleoffvalue() != 0}">
+                                                                            <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <div></div>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </c:if>
+                                                            </c:forEach>
+
+                                                            <div class="tag-loop">
+                                                                <div class="icon icon_hot">
+                                                                    <img loading="lazy" decoding="async"
+                                                                         src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
+                                                                         alt="icon hot" />
                                                                 </div>
-                                                                <a href="#"
-                                                                   title="${product.name}" class="image-resize">
-                                                                    <picture class="loop-one-img ">
-                                                                        <img loading="lazy" decoding="async" width="480"
-                                                                             height="480" class="img-loop"
-                                                                             alt="${product.name}"
-                                                                             src="image/product/${product.image}" />
-                                                                    </picture>
-                                                                </a>
                                                             </div>
-                                                            <div class="product-detail clearfix">
-                                                                <div class="box-pro-detail">
-                                                                    <h3 class="pro-name">
-                                                                        <a href="#"
-                                                                           title="${product.name}">
-                                                                            ${product.name}
-                                                                        </a>
-                                                                    </h3>
-                                                                    <div class="box-pro-prices">
-                                                                        <p class="pro-price highlight">
-                                                                            <c:set var="hasSale" value="false" />
-                                                                            <c:forEach items="${requestScope.saleOffList}" var="saleoff">
-                                                                                <c:if test="${saleoff.product_id == product.id}">  
-                                                                                    <c:set var="hasSale" value="true" />
-                                                                                    <c:choose>
-                                                                                        <c:when test="${saleoff.getSaleoffvalue() == 0}">
-                                                                                            <span style="color: black">${product.price}₫</span>
-                                                                                        </c:when>
-                                                                                        <c:otherwise>
-                                                                                            <span>${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
-                                                                                            <span class="pro-price-del">
-                                                                                                <del class="compare-price">
-                                                                                                    ${product.price}₫
-                                                                                                </del>
-                                                                                            </span>
-                                                                                        </c:otherwise>
-                                                                                    </c:choose>
-                                                                                </c:if>
-                                                                            </c:forEach>
-                                                                            <c:if test="${!hasSale}">
-                                                                                <span style="color: black">${product.price}₫</span>
-                                                                            </c:if>
-                                                                        </p>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
-                                                                            <c:set var="totalRating" value="0" scope="page" />
-                                                                            <c:set var="reviewCount" value="0" scope="page" />
-
-                                                                            <c:forEach items="${requestScope.feedbackList}" var="feedback">
-                                                                                <c:if test="${feedback.product_id == product.id}">
-                                                                                    <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
-                                                                                    <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
-                                                                                </c:if>
-                                                                            </c:forEach>
-
-                                                                            <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
-
-                                                                            <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
-                                                                                <div class="rating"></div>
-                                                                                <span class="num-reviews"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <c:set var="quantitySold" value="0" scope="page" /> 
-                                                                        <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
-                                                                            <c:if test="${orderDetail.product_id == product.id}">
-                                                                                <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                            <a href="#"
+                                                               title="${product.name}" class="image-resize">
+                                                                <picture class="loop-one-img ">
+                                                                    <img loading="lazy" decoding="async" width="480"
+                                                                         height="480" class="img-loop"
+                                                                         alt="${product.name}"
+                                                                         src="image/product/${product.image}" />
+                                                                </picture>
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-detail clearfix">
+                                                            <div class="box-pro-detail">
+                                                                <h3 class="pro-name">
+                                                                    <a href="#"
+                                                                       title="${product.name}">
+                                                                        ${product.name}
+                                                                    </a>
+                                                                </h3>
+                                                                <div class="box-pro-prices">
+                                                                    <p class="pro-price highlight">
+                                                                        <c:set var="hasSale" value="false" />
+                                                                        <c:forEach items="${requestScope.saleOffList}" var="saleoff">
+                                                                            <c:if test="${saleoff.product_id == product.id}">  
+                                                                                <c:set var="hasSale" value="true" />
+                                                                                <c:choose>
+                                                                                    <c:when test="${saleoff.getSaleoffvalue() == 0}">
+                                                                                        <span style="color: black">${product.price}₫</span>
+                                                                                    </c:when>
+                                                                                    <c:otherwise>
+                                                                                        <span>${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
+                                                                                        <span class="pro-price-del">
+                                                                                            <del class="compare-price">
+                                                                                                ${product.price}₫
+                                                                                            </del>
+                                                                                        </span>
+                                                                                    </c:otherwise>
+                                                                                </c:choose>
                                                                             </c:if>
                                                                         </c:forEach>
-                                                                        <div
-                                                                            class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
-                                                                            <div class="cmpText">Đã bán ${quantitySold}</div>
+                                                                        <c:if test="${!hasSale}">
+                                                                            <span style="color: black">${product.price}₫</span>
+                                                                        </c:if>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
+                                                                        <c:set var="totalRating" value="0" scope="page" />
+                                                                        <c:set var="reviewCount" value="0" scope="page" />
+
+                                                                        <c:forEach items="${requestScope.feedbackList}" var="feedback">
+                                                                            <c:if test="${feedback.product_id == product.id}">
+                                                                                <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
+                                                                                <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
+                                                                            </c:if>
+                                                                        </c:forEach>
+
+                                                                        <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
+
+                                                                        <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
+                                                                            <div class="rating"></div>
+                                                                            <span class="num-reviews"></span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="product-quantity">
-                                                                        <div>Số lượng: ${product.getQuantity()}</div>
-                                                                        <div class="product-addtocart">
-                                                                            <a href="#" class="cart-button">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                     width="20" height="20" fill="currentColor"
-                                                                                     class="bi bi-cart" viewBox="0 0 16 16">
-                                                                                <path
-                                                                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                                                </svg>Add to cart
-                                                                            </a>
-                                                                        </div>
+                                                                    <c:set var="quantitySold" value="0" scope="page" /> 
+                                                                    <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
+                                                                        <c:if test="${orderDetail.product_id == product.id}">
+                                                                            <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    <div
+                                                                        class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
+                                                                        <div class="cmpText">Đã bán ${quantitySold}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-quantity">
+                                                                    <div>Số lượng: ${product.getQuantity()}</div>
+                                                                    <div class="product-addtocart">
+                                                                        <a href="#" class="cart-button">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                 width="20" height="20" fill="currentColor"
+                                                                                 class="bi bi-cart" viewBox="0 0 16 16">
+                                                                            <path
+                                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                                                            </svg>Add to cart
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </c:forEach>
-                                            
+                                                </div>
+                                            </c:forEach>
+
                                         </div>
                                     </div>
                                     <div class="sortpagibar pagi clearfix text-center">

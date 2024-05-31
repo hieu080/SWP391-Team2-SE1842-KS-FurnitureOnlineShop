@@ -93,7 +93,7 @@
                 </div>
                 <%-- Form quên mật khẩu --%>
                 <div class="reset">
-                    <form action="/FurnitureWebShop/VerifyResetEmail" method="post" >
+                    <form action="${pageContext.request.contextPath}/VerifyResetEmail" method="post" >
 
                         <div class="form-group">
                             <label for="email">Nhập mật khẩu mới</label>

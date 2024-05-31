@@ -13,46 +13,11 @@ import java.sql.SQLException;
  *
  * @author HELLO
  */
-public class UserRoleDAO extends DBContext{
-    private int id;
-    private String rolename;
-    private String status;
+public class UserRoleDAO extends DBContext {
 
-    public UserRoleDAO() {
-    }
-
-    public UserRoleDAO(String rolename, String status) {
-        this.rolename = rolename;
-        this.status = status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-   public UserRole getUserRoleByID(int id) {
+    public UserRole getUserRoleByID(int id) {
         UserRole userRole = null;
-        String query = "SELECT * FROM user_roles WHERE id = ?";
+        String query = "SELECT * FROM userrole WHERE id = ?";
         try (PreparedStatement ps = connect.prepareStatement(query)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -68,6 +33,10 @@ public class UserRoleDAO extends DBContext{
         }
         return userRole;
     }
-    
-    
+
+//    public static void main(String[] args) {
+//        UserRoleDAO userRoleDAO = new UserRoleDAO();
+//        UserRole u = userRoleDAO.getUserRoleByID(2);
+//        System.out.println(u.getId());
+//    }
 }

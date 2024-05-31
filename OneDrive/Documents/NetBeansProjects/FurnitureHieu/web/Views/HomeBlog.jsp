@@ -57,7 +57,7 @@
                                                 </picture>
                                             </a>
                                             <div class="post--date">
-                                                <span class="date">${post.category}</span>
+                                                <span class="date">${post.category_id}</span>
                                             </div>
                                         </div>
                                         <div class="post-body">

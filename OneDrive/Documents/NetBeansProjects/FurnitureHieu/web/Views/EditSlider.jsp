@@ -19,7 +19,7 @@
                     <h2>Edit Slider</h2>
                 </div>
                 <div class="card-body">
-                    <form action="${pageContext.request.contextPath}/UpdateSliderServlet" method="post" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/SliderUpdate" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="sliderid" value="${slider.id}">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title:</label>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="backLink" class="form-label">Backlink:</label>
-                            <input type="text" class="form-control" id="backLink" name="backLink" value="${slider.backLink}">
+                            <input type="text" class="form-control" id="backLink" name="backLink" value="${slider.link}">
                         </div>
                         <div class="mb-3">
                             <label for="status" class="form-label">Status:</label>
@@ -50,7 +50,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Update Slider</button>
-                        <a href="SliderServlet" class="btn btn-secondary">Cancel</a>
+                        <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -1,93 +1,82 @@
-package Controller.Public;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+package Controller.Public;
 
+import DAL.BrandDAO;
+import DAL.CategoryDAO;
 import DAL.CategoryOfPostDAO;
+import DAL.PageDAO;
 import DAL.PostDAO;
+import DAL.RoomDAO;
+import DAL.SliderDAO;
 import DAL.UserDAO;
+import Models.Brand;
+import Models.Category;
 import Models.CategoryOfPost;
+import Models.Page;
 import Models.Post;
+import Models.Room;
+import Models.Slider;
+import Models.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author DELL
+ * @author ADMIN
  */
 public class BlogDetailServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CategoryOfPostDAO categoryOfPostDAO = new CategoryOfPostDAO();
-        PostDAO pdao = new PostDAO();
-        UserDAO udao = new UserDAO();
-        //list category
-        List<CategoryOfPost> listCategory = categoryOfPostDAO.getListCategoryofPost();
-        request.setAttribute("listCategory", listCategory);
+        SliderDAO sliderDAO = new SliderDAO();
+        List<Slider> sliders = sliderDAO.getAllSlidersWith("show");
+        request.setAttribute("listslider", sliders);
 
-        //list post
-        List<Post> listPost = pdao.getListPost();
-        request.setAttribute("listPost", listPost);
+        BrandDAO brandDao = new BrandDAO();
+        ArrayList<Brand> brandList = brandDao.getBrandList();
+        request.setAttribute("brandList", brandList);
+
+        RoomDAO roomDAO = new RoomDAO();
+        ArrayList<Room> roomList = roomDAO.getRoomList();
+        request.setAttribute("roomList", roomList);
+
+        PageDAO pageDAO = new PageDAO();
+        ArrayList<Page> pageList = pageDAO.getPageList();
+        request.setAttribute("pageList", pageList);
+
+        CategoryOfPostDAO categoryOfPostDAO = new CategoryOfPostDAO();
+        List<CategoryOfPost> categoryOfPost = categoryOfPostDAO.getCategoryOfPostList();
+        request.setAttribute("categoryOfPostList", categoryOfPost);
+
+        PostDAO postDAO = new PostDAO();
+        ArrayList<Post> newPostList = postDAO.getPostList();
+        request.setAttribute("newPostList", newPostList);
+        
+        ArrayList<Post> postList = postDAO.getPostList();
+        request.setAttribute("postList", postList);
+
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
+        request.setAttribute("categoryList", categoryList);
+        
+        UserDAO userDAO = new UserDAO();
+        ArrayList<User> userList = userDAO.getUserList();
+        request.setAttribute("userList", userList);
         
         //post detail
         String id = request.getParameter("id");
-        Post p = pdao.getPostbyID(id);
-        String author = udao.getUserbyID(String.valueOf(p.getMkt_id())).getFullname();
-        request.setAttribute("author", author);
+        Post p = postDAO.getPostByID(id);
         request.setAttribute("post", p);
         request.getRequestDispatcher("Views/BlogDetails.jsp").forward(request, response);
     } 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }

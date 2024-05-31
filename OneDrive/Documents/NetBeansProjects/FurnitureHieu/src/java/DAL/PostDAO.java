@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -109,6 +108,32 @@ public class PostDAO extends DBContext {
         return list;
     }
 
+    //get post detail by id
+    public Post getPostByID(String id) {
+        String sql = "SELECT * from Post WHERE id=?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setCategory_id(rs.getInt("category_id"));
+                p.setMkt_id(rs.getInt("mkt_id"));
+                p.setTitle(rs.getString("title"));
+                p.setSubtitle(rs.getString("subtitle"));
+                p.setThumbnail(rs.getString("thumbnail"));
+                p.setContent(rs.getString("content"));
+                p.setUpdatedtime(rs.getString("updatedtime"));
+                p.setStatus(rs.getString("status"));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     //get list of post by keyword searched
     public ArrayList<Post> getListPostbySearch(String keyword) {
         String sql = "SELECT p.*, c.category, u.fullname\n"
@@ -139,57 +164,5 @@ public class PostDAO extends DBContext {
         }
         return list;
     }
-    
-    //get list of all posts
-    public List<Post> getListPost() {
-        String sql = "SELECT * from Post";
-        List<Post> list = new ArrayList<>();
-        try {
-            PreparedStatement statement = connect.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Post p = new Post();
-                p.setId(rs.getInt("id"));
-                p.setCategory_id(rs.getInt("category_id"));
-                p.setTitle(rs.getString("title"));
-                p.setSubtitle(rs.getString("subtitle"));
-                p.setThumbnail(rs.getString("thumbnail"));
-                p.setContent(rs.getString("content"));
-                p.setMkt_id(rs.getInt("mkt_id"));
-                p.setUpdatedtime(rs.getString("updatedtime"));
-                p.setStatus(rs.getString("status"));
-                list.add(p);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
 
-    //get post detail by id
-    public Post getPostbyID(String id) {
-        String sql = "SELECT * from Post where id=?";
-        try {
-            PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, id);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                Post p = new Post();
-                p.setId(rs.getInt("id"));
-                p.setCategory_id(rs.getInt("category_id"));
-                p.setTitle(rs.getString("title"));
-                p.setSubtitle(rs.getString("subtitle"));
-                p.setThumbnail(rs.getString("thumbnail"));
-                p.setContent(rs.getString("content"));
-                p.setMkt_id(rs.getInt("mkt_id"));
-                p.setUpdatedtime(rs.getString("updatedtime"));
-                p.setStatus(rs.getString("status"));
-                return p;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
 }

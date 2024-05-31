@@ -187,7 +187,7 @@
                                         <div class="site-nav-container">
                                             <p class="titlebox">Tìm kiếm</p>
                                             <div class="wpo-wrapper-search">
-                                                <form action="${pageContext.request.contextPath}/ProductServlet" method="post"
+                                                <form action="${pageContext.request.contextPath}/ProductServlet" method="Post"
                                                       class="searchform searchform-categoris ultimate-search">
                                                     <div class="wpo-search-inner">
                                                         <input type="hidden" name="type" value="product" />

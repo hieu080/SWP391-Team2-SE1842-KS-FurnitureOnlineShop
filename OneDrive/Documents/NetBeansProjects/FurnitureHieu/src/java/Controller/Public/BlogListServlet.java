@@ -4,21 +4,32 @@
  */
 package Controller.Public;
 
+import DAL.BrandDAO;
+import DAL.CategoryDAO;
 import DAL.CategoryOfPostDAO;
+import DAL.PageDAO;
 import DAL.PostDAO;
+import DAL.RoomDAO;
+import DAL.SliderDAO;
+import Models.Brand;
+import Models.Category;
 import Models.CategoryOfPost;
+import Models.Page;
 import Models.Post;
+import Models.Room;
+import Models.Slider;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author DELL
+ * @author ADMIN
  */
 public class BlogListServlet extends HttpServlet {
 
@@ -33,24 +44,35 @@ public class BlogListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CategoryOfPostDAO cdao = new CategoryOfPostDAO();
-        PostDAO pdao = new PostDAO();
-        //list category
-        List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
-        request.setAttribute("listCategory", listCategory);
+        SliderDAO sliderDAO = new SliderDAO();
+        List<Slider> sliders = sliderDAO.getAllSlidersWith("show");
+        request.setAttribute("listslider", sliders);
 
-        //list post
-        List<Post> listPost = pdao.getListPost();
-        request.setAttribute("listPost", listPost);
+        BrandDAO brandDao = new BrandDAO();
+        ArrayList<Brand> brandList = brandDao.getBrandList();
+        request.setAttribute("brandList", brandList);
 
-        //selected category(select from blogdetail.jsp)
-        String categoryId = request.getParameter("category");
-        request.setAttribute("catId", categoryId);
-        if (categoryId!=null && !categoryId.equals("0")) {
-            request.setAttribute("catname", cdao.getCategoryOfPostByID(categoryId));
-        }
+        RoomDAO roomDAO = new RoomDAO();
+        ArrayList<Room> roomList = roomDAO.getRoomList();
+        request.setAttribute("roomList", roomList);
 
-        request.getRequestDispatcher("Views/BlogList.jsp").forward(request, response);
+        PageDAO pageDAO = new PageDAO();
+        ArrayList<Page> pageList = pageDAO.getPageList();
+        request.setAttribute("pageList", pageList);
+
+        CategoryOfPostDAO categoryOfPostDAO = new CategoryOfPostDAO();
+        List<CategoryOfPost> categoryOfPost = categoryOfPostDAO.getCategoryOfPostList();
+        request.setAttribute("categoryOfPostList", categoryOfPost);
+
+        PostDAO postDAO = new PostDAO();
+        ArrayList<Post> newPostList = postDAO.getPostList();
+        request.setAttribute("newPostList", newPostList);
+        ArrayList<Post> postList = postDAO.getPostList();
+        request.setAttribute("postList", postList);
+
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
+        request.setAttribute("categoryList", categoryList);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +87,9 @@ public class BlogListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
+        request.getRequestDispatcher("Views/BlogList.jsp").forward(request, response);
 
     }
 
@@ -80,17 +104,8 @@ public class BlogListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
+        request.getRequestDispatcher("Views/BlogDetails.jsp").forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

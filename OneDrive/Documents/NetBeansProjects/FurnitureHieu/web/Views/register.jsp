@@ -25,7 +25,7 @@
             <div style="width: 400px;" aria-labelledby="dropdownMenuButton">
                 <div class="container register-container">
                     <h2>Đăng kí</h2>
-                    <form method="post" action="/FurnitureWebShop/RegisterServlet" id="signupForm">
+                    <form method="post" action="${pageContext.request.contextPath}/RegisterServlet" id="signupForm">
                         <div class="form-group">
                             <label for="fullname">Họ và tên</label>
                             <input type="text" class="form-control" id="fullname" name="fullname" required>

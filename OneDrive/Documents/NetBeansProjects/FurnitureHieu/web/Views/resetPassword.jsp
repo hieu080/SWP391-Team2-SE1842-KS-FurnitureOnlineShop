@@ -107,7 +107,7 @@
                     </div>
                     <%-- Form quên mật khẩu --%>
                     <div class="customerReset">
-                        <form action="/FurnitureWebShop/VerifyEmail" method="post" id="forgotPasswordForm" style="display:block;">
+                        <form action="${pageContext.request.contextPath}/VerifyEmail" method="post" id="forgotPasswordForm" style="display:block;">
 
                             <div class="form-group">
                                 <label for="email">Nhập địa chỉ email</label>

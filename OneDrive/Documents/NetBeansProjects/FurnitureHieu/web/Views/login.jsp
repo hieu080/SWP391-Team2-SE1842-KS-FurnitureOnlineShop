@@ -30,7 +30,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="customLogin">
-                            <form action="/FurnitureWebShop/LoginServlet" method="post" id="loginForm">
+                            <form action="${pageContext.request.contextPath}/LoginServlet" method="post" id="loginForm">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" class="form-control" id="email" name="email" required>

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <title>Page Layout</title>
@@ -40,8 +39,6 @@
                             </select>
                         </form>
                     </div>
-
-
                     <!-- hien thi new post (dung foreach) -->
                     <c:forEach items="${listPost}" var="p">
                         <a href="blogdetail?id=${p.getId()}" class="text-decoration-none text-black">
@@ -61,9 +58,7 @@
                             </div>
                         </a>
                     </c:forEach>
-
                 </div>
-
                 <!-- hien thi list post theo ket qua tim kiem -->         
                 <div class="col-lg-9 mt-5 ps-5">
                     <!--thong bao ket qua tim kiem cho tu khoa-->

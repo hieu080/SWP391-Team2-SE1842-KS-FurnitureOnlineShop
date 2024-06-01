@@ -119,6 +119,12 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        
+        String clearfilter = request.getParameter("clearfilter");
+        if (clearfilter != null && !clearfilter.isEmpty()) {
+            session.removeAttribute("productList");
+        }
+        
         List<Product> productList = (List<Product>) session.getAttribute("productList");
 
         if (productList == null) {
@@ -157,13 +163,14 @@ public class ProductServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.setAttribute("productList", productList);
+        request.setAttribute("productList", productList);
         
         Pagination(request, response, productList);
     }
 
     private void Pagination(HttpServletRequest request, HttpServletResponse response, List<Product> productList)
             throws ServletException, IOException {
-        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 16);
+        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 4);
 
         int[] pagenumber = paginationHelper.getPageNumbers();
         request.setAttribute("pagenumber", pagenumber);

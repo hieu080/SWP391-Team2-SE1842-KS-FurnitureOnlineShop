@@ -186,25 +186,6 @@
                                                     <div class="alert-no-filter"></div>
 
                                                 </div>
-                                                <div class="col-md-3 col-sm-12 col-xs-12">
-                                                    <div class="collection_fillter_sortby">
-
-                                                        <div class="collection_fillterby visible-xs visible-sm">
-                                                            <div class="layer_filter-title box_style">
-                                                                <p class="title_filter">
-                                                                    <span class="icon_title"><svg viewBox="0 0 20 20">
-                                                                        <path fill="none" stroke-width="2"
-                                                                              stroke-linejoin="round"
-                                                                              stroke-miterlimit="10"
-                                                                              d="M12 9v8l-4-4V9L2 3h16z"></path>
-                                                                        </svg></span>
-                                                                    Bộ lọc
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
                                             </div>
                                             <div class="wrapper_layered_filter">
                                                 <div class="wrap-filter">
@@ -212,22 +193,23 @@
                                                         <div class="layered">
                                                             <form method="post" >
                                                                 <div class="layer_filter-container">
-                                                                    <div class="layer_filter-title hidden-xs hidden-sm col-md-2">
+                                                                    <div class="layer_filter-title hidden-xs hidden-sm">
                                                                         <div class="title_filter">
-                                                                            <span class="icon_title"><svg viewBox="0 0 20 20">
+                                                                            <span class="icon_title"><svg viewBox="0 0 20 20" style="margin-bottom: 20px;">
                                                                                 <path fill="none" stroke-width="2"
                                                                                       stroke-linejoin="round"
                                                                                       stroke-miterlimit="10"
                                                                                       d="M12 9v8l-4-4V9L2 3h16z"></path>
                                                                                 </svg></span>
-                                                                            <input type="submit" value="Bộ lọc">
+                                                                            <button type="submit">Bộ lọc</button>
+                                                                            <button><a href="${pageContext.request.contextPath}/ProductServlet?clearfilter=yes">Bỏ lọc</a></button>
                                                                         </div>
                                                                     </div>
                                                                     <div class="layer_filter-group">
                                                                         <div class="row clearfix">
 
                                                                             <!-- ./filter brand -->
-                                                                            <div class="col-md-2">
+                                                                            <div class="col-md-3">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -240,7 +222,10 @@
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.brandList}" var="brand">
                                                                                                 <li>
-                                                                                                    <input type="radio" value="${brand.id}" name="brand-filter" /> ${brand.brandname}
+                                                                                                    <div>
+                                                                                                        <input type="checkbox" value="${brand.id}" name="brand-filter" style="display: inline-block"/> ${brand.brandname}
+                                                                                                    </div>
+                                                                                                    
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -290,7 +275,7 @@
 
                                                                             <!-- ./filter price -->
 
-                                                                            <div class="col-md-2 ">
+                                                                            <div class="col-md-3 ">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -349,8 +334,8 @@
 
                                                                 </div>
                                                             </form>
+                                                            
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>

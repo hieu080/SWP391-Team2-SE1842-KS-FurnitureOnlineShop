@@ -20,6 +20,13 @@ public class FeedbackDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(FeedbackDAO.class.getName());
 
+    public static void main(String[] args) {
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        ArrayList<Feedback> feedbackList = feedbackDAO.getFeedbackList();
+        for (Feedback feedback : feedbackList) {
+            System.out.println(feedback.getVotescore());
+        }
+    }
     // Phương thức getFeedbackList
     public ArrayList<Feedback> getFeedbackList() {
         ArrayList<Feedback> feedbackList = new ArrayList<>();

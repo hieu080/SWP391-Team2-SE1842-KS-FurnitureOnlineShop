@@ -17,6 +17,7 @@ import Models.OrderDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,8 +36,14 @@ import java.util.List;
  *
  * @author vieta
  */
+
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class Feedback extends HttpServlet {
-    private static final String UPLOAD_DIRECTORY = "images/imagefeedback";
+    private static final String UPLOAD_DIRECTORY = "image/imagefeedback";
     
     
     @Override
@@ -45,13 +52,13 @@ public class Feedback extends HttpServlet {
         
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
-        String orderIDStr = request.getParameter("order_id");
-        int order_id = 0;
-        try{
-            order_id = Integer.parseInt(orderIDStr);
-        }catch(NumberFormatException e){
-            e.printStackTrace();
-        }
+       // String orderIDStr = request.getParameter("order_id");
+        int order_id = 1;
+//        try{
+//            order_id = Integer.parseInt(orderIDStr);
+//        }catch(NumberFormatException e){
+//            e.printStackTrace();
+//        }
         OrderDAO orderDAO = new OrderDAO();
         Order order = orderDAO.getOrder(u.getId(), order_id);
         request.setAttribute("order", order);
@@ -76,15 +83,21 @@ public class Feedback extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
         String feedback = request.getParameter("feedback");
-        int rate = Integer.parseInt(request.getParameter("rate"));
+        String rateStr = request.getParameter("rating");
+        int rate = 0;
         
-        String orderIDStr = request.getParameter("order_id");
-        int order_id = 0;
-        try{
-            order_id = Integer.parseInt(orderIDStr);
-        }catch(NumberFormatException e){
-            e.printStackTrace();
+        try {
+            rate= Integer.parseInt(rateStr);
+        } catch (Exception e) {
         }
+        
+        //String orderIDStr = request.getParameter("order_id");
+        int order_id = 1;
+//        try{
+//            order_id = Integer.parseInt(orderIDStr);
+//        }catch(NumberFormatException e){
+//            e.printStackTrace();
+//        }
         
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
@@ -130,6 +143,7 @@ public class Feedback extends HttpServlet {
         try (InputStream fileContent = filePart.getInputStream()) {
             Files.copy(fileContent, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
+        response.sendRedirect("HomePage");
     }
 
     private String getFileName(Part part) {

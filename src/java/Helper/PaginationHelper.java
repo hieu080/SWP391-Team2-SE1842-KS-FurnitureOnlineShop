@@ -1,5 +1,7 @@
 package Helper;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,9 @@ public class PaginationHelper<T> {
 
     private List<T> items;
     private int pageSize;
+
+    public PaginationHelper() {
+    }
 
     public PaginationHelper(List<T> items, int pageSize) {
         this.items = items;
@@ -37,5 +42,28 @@ public class PaginationHelper<T> {
             pageNumbers[i] = i + 1;
         }
         return pageNumbers;
+    }
+    
+    public void Pagination(HttpServletRequest request, List<T> list, ServletContext context, String itemsPerPage, String attribute){
+        ConfigReaderHelper configReaderHelper = new ConfigReaderHelper();
+        String CONFIG_FILE_PATH = context.getRealPath("/");
+        int pageSize = configReaderHelper.getValueOfItemsPerPage(CONFIG_FILE_PATH, itemsPerPage);
+        PaginationHelper<T> paginationHelper = new PaginationHelper<>(list, pageSize);
+        int[] pagenumber = paginationHelper.getPageNumbers();
+        request.setAttribute("pagenumber", pagenumber);
+
+        String pageStr = request.getParameter("page");
+        int page = 0;
+
+        if (pageStr != null && !pageStr.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageStr) - 1;
+            } catch (NumberFormatException e) {
+                page = 0; // default to first page if there's an error in parsing
+            }
+        }
+
+        List<T> paginatedProductList = paginationHelper.getPage(page);
+        request.setAttribute(attribute, paginatedProductList);
     }
 }

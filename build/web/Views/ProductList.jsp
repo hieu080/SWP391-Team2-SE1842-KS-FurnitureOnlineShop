@@ -248,7 +248,9 @@
                                                                                             <c:forEach items="${requestScope.brandList}" var="brand">
                                                                                                 <li style="margin-right: 40px">
                                                                                                     <div>
-                                                                                                        <input type="checkbox" value="${brand.id}" name="brand-filter" style="display: inline-block"/> ${brand.brandname}
+                                                                                                        <input type="checkbox" value="${brand.id}" name="brand-filter" 
+                                                                                                               <c:if test="${not empty selectedBrandList and selectedBrandList.contains(brand.id)}">checked</c:if>
+                                                                                                               style="display: inline-block"/> ${brand.brandname}
                                                                                                     </div>
 
                                                                                                 </li>
@@ -270,7 +272,9 @@
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.roomList}" var="room">
                                                                                                 <li>
-                                                                                                    <input type="checkbox" value="${room.id}" name="room-filter" style="display: inline-block"/> ${room.roomname}
+                                                                                                    <input type="checkbox" value="${room.id}" name="room-filter"
+                                                                                                           <c:if test="${not empty selectedRoomList and selectedRoomList.contains(room.id)}">checked</c:if>
+                                                                                                           style="display: inline-block" /> ${room.roomname}
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -290,7 +294,9 @@
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.categoryList}" var="category">
                                                                                                 <li style="margin-right: 30px">
-                                                                                                    <input type="checkbox" value="${category.id}" name="category-filter" style="display: inline-block"/> ${category.category}
+                                                                                                    <input type="checkbox" value="${category.id}" name="category-filter"
+                                                                                                           <c:if test="${not empty selectedCategoryList and selectedCategoryList.contains(category.id)}">checked</c:if>
+                                                                                                           style="display: inline-block" /> ${category.category}
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -308,43 +314,52 @@
                                                                                             class="icon-controls"><i
                                                                                                 class="fa fa-chevron-down"></i></span>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                    <div class="filter_group_content filter-size s-filter">
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <li>
-                                                                                                <input type="checkbox" name="price-filter" value="<500" style="display: inline-block" /> < 500.000₫
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="checkbox" name="price-filter" value="500<x<1500" style="display: inline-block"/> 500,000₫ - 1,500,000₫
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="checkbox" name="price-filter" value="1500<x<5000" style="display: inline-block"/> 1,500,000₫ - 5,000,000₫
-                                                                                            </li>
-                                                                                            <li>
-                                                                                                <input type="checkbox" name="price-filter" value=">5000" style="display: inline-block"/> > 5,000,000₫
-                                                                                            </li>
-                                                                                        </ul>
+                                                                                                <input type="checkbox" name="price-filter" value="<500"
+                                                                                                       <c:if test="${not empty selectedPriceList and selectedPriceList.contains('<500')}">checked</c:if>
+                                                                                                           style="display: inline-block" /> < 500.000₫
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <input type="checkbox" name="price-filter" value="500<x<1500"
+                                                                                                    <c:if test="${not empty selectedPriceList and selectedPriceList.contains('500<x<1500')}">checked</c:if>
+                                                                                                        style="display: inline-block" /> 500,000₫ - 1,500,000₫
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <input type="checkbox" name="price-filter" value="1500<x<5000"
+                                                                                                    <c:if test="${not empty selectedPriceList and selectedPriceList.contains('1500<x<5000')}">checked</c:if>
+                                                                                                        style="display: inline-block" /> 1,500,000₫ - 5,000,000₫
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                    <input type="checkbox" name="price-filter" value=">5000"
+                                                                                                    <c:if test="${not empty selectedPriceList and selectedPriceList.contains('>5000')}">checked</c:if>
+                                                                                                        style="display: inline-block" /> > 5,000,000₫
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
 
-                                                                            <!-- ./filter color -->
+                                                                                <!-- ./filter color -->
 
-                                                                            <div class="col-md-2 ">
-                                                                                <div class="group-filter">
-                                                                                    <div
-                                                                                        class="filter_group_title dropdown-filter">
-                                                                                        <span>Màu sắc</span><span
-                                                                                            class="icon-controls"><i
-                                                                                                class="fa fa-chevron-down"></i>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="filter_group_content color-filter">
-                                                                                        <ul class="check-box-list clearfix">
+                                                                                <div class="col-md-2 ">
+                                                                                    <div class="group-filter">
+                                                                                        <div
+                                                                                            class="filter_group_title dropdown-filter">
+                                                                                            <span>Màu sắc</span><span
+                                                                                                class="icon-controls"><i
+                                                                                                    class="fa fa-chevron-down"></i>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="filter_group_content color-filter">
+                                                                                            <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.colorList}" var="color">
                                                                                                 <li style="margin-right: 25px">
-                                                                                                    <input type="checkbox" value="${color.id}" name="color-filter" style="display: inline-block"/>${color.colorname}
+                                                                                                    <input type="checkbox" value="${color.id}" name="color-filter"
+                                                                                                           <c:if test="${not empty selectedColorList and selectedColorList.contains(color.id)}">checked</c:if>
+                                                                                                           style="display: inline-block" /> ${color.colorname}
                                                                                                 </li>
                                                                                             </c:forEach>
 

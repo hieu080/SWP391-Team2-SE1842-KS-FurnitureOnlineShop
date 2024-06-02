@@ -38,7 +38,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -161,7 +163,20 @@ public class ProductServlet extends HttpServlet {
         String[] categoryIDStr = request.getParameterValues("category-filter");
         String[] priceIDStr = request.getParameterValues("price-filter");
         String[] colorIDStr = request.getParameterValues("color-filter");
+        
+        List<Integer> selectedBrandList = brandIDStr != null ? Arrays.stream(brandIDStr).map(Integer::parseInt).collect(Collectors.toList()) : null;
+        List<Integer> selectedRoomList = roomSIDtr != null ? Arrays.stream(roomSIDtr).map(Integer::parseInt).collect(Collectors.toList()) : null;
+        List<Integer> selectedCategoryList = categoryIDStr != null ? Arrays.stream(categoryIDStr).map(Integer::parseInt).collect(Collectors.toList()) : null;
+        List<String> selectedPriceList = priceIDStr != null ? Arrays.asList(priceIDStr) : null;
+        List<Integer> selectedColorList = colorIDStr != null ? Arrays.stream(colorIDStr).map(Integer::parseInt).collect(Collectors.toList()) : null;
 
+        // Đặt các thuộc tính này vào request scope
+        request.setAttribute("selectedBrandList", selectedBrandList);
+        request.setAttribute("selectedRoomList", selectedRoomList);
+        request.setAttribute("selectedCategoryList", selectedCategoryList);
+        request.setAttribute("selectedPriceList", selectedPriceList);
+        request.setAttribute("selectedColorList", selectedColorList);
+        
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList;
 

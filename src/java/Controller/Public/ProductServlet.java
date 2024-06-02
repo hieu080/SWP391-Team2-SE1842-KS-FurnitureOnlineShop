@@ -97,14 +97,7 @@ public class ProductServlet extends HttpServlet {
 
         request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
-//    
-//    public static void main(String[] args) {
-//        SaleOffDAO saleOffDAO = new SaleOffDAO();
-//        ArrayList<SaleOff> list = saleOffDAO.getSaleOffList();
-//        for (SaleOff saleOff : list) {
-//            System.out.println(saleOff.getSaleoffvalue());
-//        }
-//    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -170,6 +163,7 @@ public class ProductServlet extends HttpServlet {
 
     private void Pagination(HttpServletRequest request, HttpServletResponse response, List<Product> productList)
             throws ServletException, IOException {
+        
         PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 4);
 
         int[] pagenumber = paginationHelper.getPageNumbers();

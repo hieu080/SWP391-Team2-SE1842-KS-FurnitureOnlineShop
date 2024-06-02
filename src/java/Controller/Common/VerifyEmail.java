@@ -18,7 +18,7 @@ import DAL.SaleOffDAO;
 import DAL.SliderDAO;
 import DAL.UserDAO;
 import Helper.PaginationHelper;
-import util.Email;
+import Util.Email;
 import Models.Brand;
 import Models.Category;
 import Models.CategoryOfPost;

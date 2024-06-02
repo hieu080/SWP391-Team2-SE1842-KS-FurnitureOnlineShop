@@ -182,9 +182,17 @@
                                                     <h1 class="title">
                                                         Tất cả sản phẩm Furniture
                                                     </h1>
-
                                                     <div class="alert-no-filter"></div>
-
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <form action="${pageContext.request.contextPath}/ProductServlet">
+                                                        <select name="sortby">
+                                                            <option value="nameAsc"></option>
+                                                            <option value="nameDesc"></option>
+                                                            <option value="priceAsc"></option>
+                                                            <option value="priceDesc"></option>
+                                                        </select>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="wrapper_layered_filter">
@@ -201,7 +209,7 @@
                                                                                       stroke-miterlimit="10"
                                                                                       d="M12 9v8l-4-4V9L2 3h16z"></path>
                                                                                 </svg></span>
-                                                                            <button type="submit">Bộ lọc</button>
+                                                                            <button type="submit">Lọc</button>
                                                                             <button><a href="${pageContext.request.contextPath}/ProductServlet?clearfilter=yes">Bỏ lọc</a></button>
                                                                         </div>
                                                                     </div>

@@ -174,27 +174,45 @@
                         <div class="container">
                             <div class="row">
                                 <div id="collection-body" class="wrap-collection-body clearfix">
-
-                                    <div class="container">
-                                        <div class="wrap-collection-title">
-                                            <div class="heading-collection row">
-                                                <div class="col-md-9 col-sm-12 col-xs-12">
-                                                    <h1 class="title">
-                                                        Tất cả sản phẩm Furniture
-                                                    </h1>
-                                                    <div class="alert-no-filter"></div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <form action="${pageContext.request.contextPath}/ProductServlet">
-                                                        <select name="sortby">
-                                                            <option value="nameAsc"></option>
-                                                            <option value="nameDesc"></option>
-                                                            <option value="priceAsc"></option>
-                                                            <option value="priceDesc"></option>
-                                                        </select>
-                                                    </form>
+                                    <div class="wrapper_layered_filter">
+                                        <div class="wrap-filter">
+                                            <div class="box_sidebar">
+                                                <div class="layered">
+                                                    <div class="layer_filter-container">
+                                                        <div class="container">
+                                                            <div class="wrap-collection-title">
+                                                                <div class="heading-collection row">
+                                                                    <div class="col-md-10 col-sm-12 col-xs-12">
+                                                                        <h1 class="title">
+                                                                            Tất cả sản phẩm Furniture
+                                                                        </h1>
+                                                                        <div class="alert-no-filter"></div>
+                                                                    </div>
+                                                                    <div class="layer_filter-group col-md-2">
+                                                                        <div class="clearfix">
+                                                                            <div class="group-filter">
+                                                                                <div
+                                                                                    class="filter_group_title dropdown-filter">
+                                                                                    <span>Sắp xếp</span><span
+                                                                                        class="icon-controls"><i
+                                                                                            class="fa fa-chevron-down"></i></span>
+                                                                                </div>
+                                                                                <div class="filter_group_content filter-size s-filter">
+                                                                                    <ul class="check-box-list clearfix">
+                                                                                        <li style="margin-right: 50px; margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceAsc">Giá tăng dần</a></li>
+                                                                                        <li><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceDesc">Giá giảm dần</a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                             <div class="wrapper_layered_filter">
                                                 <div class="wrap-filter">
                                                     <div class="box_sidebar">
@@ -225,15 +243,14 @@
                                                                                             class="icon-controls"><i
                                                                                                 class="fa fa-chevron-down"></i></span>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                    <div class="filter_group_content filter-size s-filter">
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.brandList}" var="brand">
-                                                                                                <li>
+                                                                                                <li style="margin-right: 40px">
                                                                                                     <div>
                                                                                                         <input type="checkbox" value="${brand.id}" name="brand-filter" style="display: inline-block"/> ${brand.brandname}
                                                                                                     </div>
-                                                                                                    
+
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -253,7 +270,7 @@
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.roomList}" var="room">
                                                                                                 <li>
-                                                                                                    <input type="radio" value="${room.id}" name="room-filter" /> ${room.roomname}
+                                                                                                    <input type="checkbox" value="${room.id}" name="room-filter" style="display: inline-block"/> ${room.roomname}
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -269,11 +286,11 @@
                                                                                                 class="fa fa-chevron-down"></i></span>
                                                                                     </div>
                                                                                     <div
-                                                                                        class="filter_group_content bl-filter filter-brand">
-                                                                                        <ul class="">
+                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                        <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.categoryList}" var="category">
-                                                                                                <li>
-                                                                                                    <input type="radio" value="${category.id}" name="category-filter"> ${category.category}
+                                                                                                <li style="margin-right: 30px">
+                                                                                                    <input type="checkbox" value="${category.id}" name="category-filter" style="display: inline-block"/> ${category.category}
                                                                                                 </li>
                                                                                             </c:forEach>
                                                                                         </ul>
@@ -292,19 +309,19 @@
                                                                                                 class="fa fa-chevron-down"></i></span>
                                                                                     </div>
                                                                                     <div
-                                                                                        class="filter_group_content bl-filter filter-price">
-                                                                                        <ul class="check-box-list">
+                                                                                        class="filter_group_content filter-size s-filter">
+                                                                                        <ul class="check-box-list clearfix">
                                                                                             <li>
-                                                                                                <input type="radio" name="price-filter" value="<500" /> < 500.000₫
+                                                                                                <input type="checkbox" name="price-filter" value="<500" style="display: inline-block" /> < 500.000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" name="price-filter" value="500<x<1500"/> 500,000₫ - 1,500,000₫
+                                                                                                <input type="checkbox" name="price-filter" value="500<x<1500" style="display: inline-block"/> 500,000₫ - 1,500,000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" name="price-filter" value="1500<x<5000" /> 1,500,000₫ - 5,000,000₫
+                                                                                                <input type="checkbox" name="price-filter" value="1500<x<5000" style="display: inline-block"/> 1,500,000₫ - 5,000,000₫
                                                                                             </li>
                                                                                             <li>
-                                                                                                <input type="radio" name="price-filter" value=">5000" /> > 5,000,000₫
+                                                                                                <input type="checkbox" name="price-filter" value=">5000" style="display: inline-block"/> > 5,000,000₫
                                                                                             </li>
                                                                                         </ul>
                                                                                     </div>
@@ -326,8 +343,8 @@
                                                                                         class="filter_group_content color-filter">
                                                                                         <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.colorList}" var="color">
-                                                                                                <li>
-                                                                                                    <input type="radio" value="${color.id}" name="color-filter"/>${color.colorname}
+                                                                                                <li style="margin-right: 25px">
+                                                                                                    <input type="checkbox" value="${color.id}" name="color-filter" style="display: inline-block"/>${color.colorname}
                                                                                                 </li>
                                                                                             </c:forEach>
 
@@ -342,7 +359,7 @@
 
                                                                 </div>
                                                             </form>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>

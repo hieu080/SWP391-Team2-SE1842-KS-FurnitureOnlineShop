@@ -8,6 +8,7 @@ import Models.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -135,40 +136,48 @@ public class ProductDAO extends DBContext {
         return productList;
     }
 
-    public ArrayList<Product> filterProductList(String brandID, String roomID, String categoryID, String colorID, String priceStr) {
+    public ArrayList<Product> filterProductList(String[] brandIDs, String[] roomIDs, String[] categoryIDs, String[] colorIDs, String[] priceStrs) {
         ArrayList<Product> productList = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-        SELECT 
-            Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
-        FROM 
-            Product
-        JOIN 
-            ProductDetail ON Product.id = ProductDetail.product_id
-        WHERE 1=1
-        """);
+    SELECT 
+        Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
+    FROM 
+        Product
+    JOIN 
+        ProductDetail ON Product.id = ProductDetail.product_id
+    WHERE 1=1
+    """);
 
         List<Object> parameters = new ArrayList<>();
 
-        if (brandID != null && !brandID.isEmpty()) {
-            sql.append(" AND Product.brand_id = ?");
-            parameters.add(brandID);
+        if (brandIDs != null && brandIDs.length > 0) {
+            sql.append(" AND Product.brand_id IN (");
+            appendPlaceholders(sql, brandIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(brandIDs));
         }
-        if (roomID != null && !roomID.isEmpty()) {
-            sql.append(" AND Product.room_id = ?");
-            parameters.add(roomID);
+        if (roomIDs != null && roomIDs.length > 0) {
+            sql.append(" AND Product.room_id IN (");
+            appendPlaceholders(sql, roomIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(roomIDs));
         }
-        if (categoryID != null && !categoryID.isEmpty()) {
-            sql.append(" AND Product.category_id = ?");
-            parameters.add(categoryID);
+        if (categoryIDs != null && categoryIDs.length > 0) {
+            sql.append(" AND Product.category_id IN (");
+            appendPlaceholders(sql, categoryIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(categoryIDs));
         }
-        if (colorID != null && !colorID.isEmpty()) {
-            sql.append(" AND ProductDetail.color_id = ?");
-            parameters.add(colorID);
+        if (colorIDs != null && colorIDs.length > 0) {
+            sql.append(" AND ProductDetail.color_id IN (");
+            appendPlaceholders(sql, colorIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(colorIDs));
         }
-        String priceCondition = parsePrice(priceStr);
+        String priceCondition = parsePrices(priceStrs);
         if (!priceCondition.isEmpty()) {
-            sql.append(" AND Product.price ").append(priceCondition);
+            sql.append(" AND (").append(priceCondition).append(")");
         }
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql.toString())) {
@@ -199,25 +208,37 @@ public class ProductDAO extends DBContext {
         return productList;
     }
 
-    private String parsePrice(String priceStr) {
-        String x = "";
-        if (priceStr != null && !priceStr.isEmpty()) {
+    private void appendPlaceholders(StringBuilder sql, int count) {
+        for (int i = 0; i < count; i++) {
+            sql.append("?");
+            if (i < count - 1) {
+                sql.append(", ");
+            }
+        }
+    }
+
+    private String parsePrices(String[] priceStrs) {
+        if (priceStrs == null || priceStrs.length == 0) {
+            return "";
+        }
+        List<String> conditions = new ArrayList<>();
+        for (String priceStr : priceStrs) {
             switch (priceStr) {
                 case "<500":
-                    x = "< 500000";
+                    conditions.add("Product.price < 500000");
                     break;
                 case "500<x<1500":
-                    x = "BETWEEN 500000 AND 1500000";
+                    conditions.add("Product.price BETWEEN 500000 AND 1500000");
                     break;
                 case "1500<x<5000":
-                    x = "BETWEEN 1500000 AND 5000000";
+                    conditions.add("Product.price BETWEEN 1500000 AND 5000000");
                     break;
                 case ">5000":
-                    x = "> 5000000";
+                    conditions.add("Product.price > 5000000");
                     break;
             }
         }
-        return x;
+        return String.join(" OR ", conditions);
     }
 
     public static void main(String[] args) {

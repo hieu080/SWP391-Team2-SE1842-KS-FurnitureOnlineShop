@@ -413,7 +413,7 @@
 
                                     </li>
                                     <li class="has-submenu  levl-1">
-                                        <a href="${pageContext.request.contextPath}/ProductServlet" title="Sản Phẩm">
+                                        <a href="${pageContext.request.contextPath}/ProductServlet?reload=yes" title="Sản Phẩm">
                                             Sản Phẩm
 
                                             <label class="menu__label">NEW</label>

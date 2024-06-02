@@ -15,6 +15,8 @@ import DAL.PostDAO;
 import DAL.ProductDAO;
 import DAL.RoomDAO;
 import DAL.SaleOffDAO;
+import Helper.ComparatorHelper;
+import Helper.ConfigReaderHelper;
 import Helper.PaginationHelper;
 import Models.Brand;
 import Models.Category;
@@ -27,6 +29,7 @@ import Models.Post;
 import Models.Product;
 import Models.Room;
 import Models.SaleOff;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -98,7 +101,6 @@ public class ProductServlet extends HttpServlet {
         request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -112,19 +114,34 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         String clearfilter = request.getParameter("clearfilter");
-        if (clearfilter != null && !clearfilter.isEmpty()) {
+        String reload = request.getParameter("reload");
+
+        if ((clearfilter != null && !clearfilter.isEmpty()) || (reload != null && !reload.isEmpty())) {
             session.removeAttribute("productList");
         }
-        
-        List<Product> productList = (List<Product>) session.getAttribute("productList");
+
+        ArrayList<Product> productList = (ArrayList<Product>) session.getAttribute("productList");
 
         if (productList == null) {
             ProductDAO productDAO = new ProductDAO();
             productList = productDAO.getProductList();
         }
-        Pagination(request, response, productList);
+
+        String sortby = request.getParameter("sortby");
+        ComparatorHelper comparatorHelper = new ComparatorHelper();
+        if (sortby != null && !sortby.isEmpty()) {
+            productList = comparatorHelper.sortProductList(productList, sortby);
+            session.setAttribute("productList", productList);
+        }
+
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerProductListPage";
+        String attribute = "productList";
+        paginationHelper.Pagination(request, productList, context, itemsPerPage, attribute);
+        processRequest(request, response);
     }
 
     /**
@@ -139,49 +156,30 @@ public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String search = request.getParameter("search");
-        String brandIDStr = request.getParameter("brand-filter");
-        String roomSIDtr = request.getParameter("room-filter");
-        String categoryIDStr = request.getParameter("category-filter");
-        String priceIDStr = request.getParameter("price-filter");
-        String colorIDStr = request.getParameter("color-filter");
+        String[] brandIDStr = request.getParameterValues("brand-filter");
+        String[] roomSIDtr = request.getParameterValues("room-filter");
+        String[] categoryIDStr = request.getParameterValues("category-filter");
+        String[] priceIDStr = request.getParameterValues("price-filter");
+        String[] colorIDStr = request.getParameterValues("color-filter");
 
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList;
-        
+
         if (search != null && !search.isEmpty()) {
             productList = productDAO.searchProductByName(search);
         } else {
             productList = productDAO.filterProductList(brandIDStr, roomSIDtr, categoryIDStr, colorIDStr, priceIDStr);
         }
-        
+
         HttpSession session = request.getSession();
         session.setAttribute("productList", productList);
         request.setAttribute("productList", productList);
-        
-        Pagination(request, response, productList);
-    }
-
-    private void Pagination(HttpServletRequest request, HttpServletResponse response, List<Product> productList)
-            throws ServletException, IOException {
-        
-        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 4);
-
-        int[] pagenumber = paginationHelper.getPageNumbers();
-        request.setAttribute("pagenumber", pagenumber);
-
-        String pageStr = request.getParameter("page");
-        int page = 0;
-
-        if (pageStr != null && !pageStr.isEmpty()) {
-            try {
-                page = Integer.parseInt(pageStr) - 1;
-            } catch (NumberFormatException e) {
-                page = 0; // default to first page if there's an error in parsing
-            }
-        }
-
-        List<Product> paginatedProductList = paginationHelper.getPage(page);
-        request.setAttribute("productList", paginatedProductList);
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerProductListPage";
+        String attribute = "productList";
+        paginationHelper.Pagination(request, productList, context, itemsPerPage, attribute);
         processRequest(request, response);
+        
     }
 }

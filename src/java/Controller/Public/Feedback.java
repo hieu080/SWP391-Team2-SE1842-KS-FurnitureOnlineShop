@@ -91,20 +91,14 @@ public class Feedback extends HttpServlet {
         } catch (Exception e) {
         }
         
-        //String orderIDStr = request.getParameter("order_id");
         int order_id = 1;
-//        try{
-//            order_id = Integer.parseInt(orderIDStr);
-//        }catch(NumberFormatException e){
-//            e.printStackTrace();
-//        }
         
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
         ArrayList<Integer> productFb = new ArrayList<>();
         for (OrderDetail orderDetail : orderDetailList) {
             if(orderDetail.getOrder_id() == order_id){
-                productFb.add(orderDetail.getProduct_id());
+                productFb.add(orderDetail.getProductdetail_id());
             }
         }
         

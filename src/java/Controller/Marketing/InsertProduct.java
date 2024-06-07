@@ -4,16 +4,20 @@
  */
 package Controller.Marketing;
 
+import DAL.AttachedImageDAO;
 import DAL.BrandDAO;
 import DAL.CategoryDAO;
 import DAL.ColorDAO;
 import DAL.ProductDAO;
+import DAL.ProductDetailDAO;
 import DAL.RoomDAO;
 import Helper.FileUploadHelper;
+import Models.AttachedImage;
 import Models.Brand;
 import Models.Category;
 import Models.Color;
 import Models.Product;
+import Models.ProductDetail;
 import Models.Room;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -74,6 +78,7 @@ public class InsertProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 
@@ -89,7 +94,8 @@ public class InsertProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FileUploadHelper fileUpload = new FileUploadHelper();
-        String fileName = fileUpload.uploadFileAndReturnFileName(request, response, UPLOAD_DIRECTORY);
+        String image = "image";
+        String fileName = fileUpload.uploadFileAndReturnFileName(request, response, image, UPLOAD_DIRECTORY);
 
         String category_idStr = request.getParameter("category_id");
         String brand_idStr = request.getParameter("brand_id");
@@ -104,6 +110,7 @@ public class InsertProduct extends HttpServlet {
         int room_id = 0;
         int quantity = 0;
         double price = 0;
+
         try {
             category_id = Integer.parseInt(category_idStr);
         } catch (Exception e) {
@@ -129,16 +136,11 @@ public class InsertProduct extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         Product product = new Product(category_id, brand_id, room_id, name, description, fileName, price, quantity);
         ProductDAO productDAO = new ProductDAO();
-        String ms;
-        if (productDAO.insertProduct(product) == true) {
-            ms = "Insert successfully";
-        } else {
-            ms = "Fail";
-        }
-        request.setAttribute("ms", ms);
+        productDAO.insertProduct(product);
+
         processRequest(request, response);
     }
 

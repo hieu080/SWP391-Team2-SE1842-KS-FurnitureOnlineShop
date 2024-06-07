@@ -17,8 +17,8 @@ public class FileUploadHelper {
     public FileUploadHelper() {
     }
     
-    public String uploadFileAndReturnFileName(HttpServletRequest request, HttpServletResponse response, String UPLOAD_DIRECTORY) throws ServletException, IOException {
-        Part filePart = request.getPart("image");
+    public String uploadFileAndReturnFileName(HttpServletRequest request, HttpServletResponse response,String name, String UPLOAD_DIRECTORY) throws ServletException, IOException {
+        Part filePart = request.getPart(name);
         if (filePart == null || filePart.getSize() == 0) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "File not provided or empty.");
             return null;

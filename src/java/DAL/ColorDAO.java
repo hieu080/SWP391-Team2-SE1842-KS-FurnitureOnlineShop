@@ -17,7 +17,7 @@ import java.util.logging.Level;
 public class ColorDAO extends DBContext {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(ColorDAO.class.getName());
-    
+
 //    public static void main(String[] args) {
 //        ColorDAO colorDAO = new ColorDAO();
 //        ArrayList<Color> colorList = colorDAO.getColorList();
@@ -29,13 +29,13 @@ public class ColorDAO extends DBContext {
         ArrayList<Color> colorList = new ArrayList<>();
         String sql = "SELECT * FROM color";
 
-        try (PreparedStatement pstmt = connect.prepareStatement(sql); 
-             ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String colorname = rs.getString("colorname");
-                Color color = new Color(colorname);
+                String colorcode = rs.getString("colorcode");
+                Color color = new Color(colorname, colorcode);
                 color.setId(id);
                 colorList.add(color);
             }
@@ -48,9 +48,10 @@ public class ColorDAO extends DBContext {
     }
 
     public boolean insertColor(Color color) {
-        String sql = "INSERT INTO color (colorname) VALUES (?)";
+        String sql = "INSERT INTO color (colorname, colorcode) VALUES (?, ?)";
         try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setString(1, color.getColorname());
+            pstmt.setString(2, color.getColorcode());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (Exception ex) {
@@ -60,10 +61,11 @@ public class ColorDAO extends DBContext {
     }
 
     public boolean updateColor(Color color) {
-        String sql = "UPDATE color SET colorname = ? WHERE id = ?";
+        String sql = "UPDATE color SET colorname = ?, colorcode = ? WHERE id = ?";
         try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setString(1, color.getColorname());
-            pstmt.setInt(2, color.getId());
+            pstmt.setString(2, color.getColorcode());
+            pstmt.setInt(3, color.getId());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (Exception ex) {

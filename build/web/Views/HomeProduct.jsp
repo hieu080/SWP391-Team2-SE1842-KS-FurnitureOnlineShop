@@ -24,6 +24,89 @@
 
         <script defer fetchpriority="low"
         src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+                <style>
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .w-100 {
+                width: 100% !important;
+            }
+
+            .d-flex-owl {
+                display: flex !important;
+                overflow: hidden !important;
+            }
+
+            .d-flex-owl>* {
+                min-width: 100% !important;
+            }
+
+            .rating {
+                position: relative;
+                display: inline-block;
+                font-size: 24px;
+                line-height: 1;
+            }
+
+            .rating::before {
+                content: "★★★★★";
+                color: #e3e3e3;
+                /* Màu của sao không được đánh giá */
+            }
+
+            .rating::after {
+                content: "★★★★★";
+                color: #ffc107;
+                /* Màu của sao được đánh giá */
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 0;
+            }
+
+            .num-reviews {
+                font-size: 14px;
+                /* Kích thước chữ của số lượng đánh giá */
+                color: #333;
+                /* Màu chữ của số lượng đánh giá */
+            }
+
+
+            .product-addtocart {
+                display: inline-block;
+            }
+
+            .cart-button {
+                background-color: orange;
+                /* Màu cam */
+                padding: 10px 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                color: white;
+                display: flex;
+                align-items: center;
+            }
+
+            .cart-button:hover {
+                background-color: darkorange;
+                /* Màu cam khi di chuột vào */
+            }
+
+            .cart-button svg {
+                margin-right: 5px;
+            }
+
+            .product-quantity{
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -62,9 +145,10 @@
                             <div class="product-block product-resize site-animation single-product">
                                 <div class="product-img fade-box">
                                     <c:forEach items="${requestScope.saleOffList}" var="saleoff">
-                                        <c:if test="${saleoff != null && saleoff.product_id != null && saleoff.product_id == product.id}">
+                                        <c:if test="${saleoff.product_id == product.id}">
+
                                             <c:choose>
-                                                <c:when test="${saleoff.getSaleoffvalue() != null && saleoff.getSaleoffvalue() != 0}">
+                                                <c:when test="${saleoff.getSaleoffvalue() != 0}">
                                                     <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
                                                 </c:when>
                                                 <c:otherwise>
@@ -102,7 +186,7 @@
                                         <div class="box-pro-prices">
                                             <p class="pro-price highlight">
                                                 <c:set var="hasSale" value="false" />
-                                                <c:forEach items="${requestScope.saleList}" var="saleoff">
+                                                <c:forEach items="${requestScope.saleOffList}" var="saleoff">
                                                     <c:if test="${saleoff.product_id == product.id}">  
                                                         <c:set var="hasSale" value="true" />
                                                         <c:choose>
@@ -128,28 +212,27 @@
 
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
-                                                <c:set var="totalRating" value="0" scope="page" />
                                                 <c:set var="reviewCount" value="0" scope="page" />
 
                                                 <c:forEach items="${requestScope.feedbackList}" var="feedback">
                                                     <c:if test="${feedback.product_id == product.id}">
-                                                        <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
                                                         <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
                                                     </c:if>
                                                 </c:forEach>
-
-                                                <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
-
-                                                <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
+                                                <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="${reviewCount}">
                                                     <div class="rating"></div>
                                                     <span class="num-reviews"></span>
                                                 </div>
                                             </div>
                                             <c:set var="quantitySold" value="0" scope="page" /> 
                                             <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
-                                                <c:if test="${orderDetail.product_id == product.id}">
-                                                    <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
-                                                </c:if>
+                                                <c:forEach items="${requestScope.productDetailList}" var="productDetail">
+                                                    <c:if test="${orderDetail.productdetail_id == productDetail.id}">
+                                                        <c:if test="${productDetail.product_id == product.id}">
+                                                            <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:forEach>
                                             </c:forEach>
                                             <div
                                                 class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
@@ -157,31 +240,16 @@
                                             </div>
                                         </div>
                                         <div class="product-quantity">
-                                            <div>Số lượng: ${product.quantity}</div>
+                                            <div>Số lượng: ${product.getQuantity()}</div>
                                             <div class="product-addtocart">
-                                                <c:choose>
-                                                    <c:when test="${sessionScope.customer != null}"> 
-                                                        <a href="#"  class="cart-button">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                 width="20" height="20" fill="currentColor"
-                                                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                            </svg>Add to cart
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="#" onclick="showlogin()" class="cart-button">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                 width="20" height="20" fill="currentColor"
-                                                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                            </svg>Add to cart
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
-
+                                                <a href="#" class="cart-button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         width="20" height="20" fill="currentColor"
+                                                         class="bi bi-cart" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                                    </svg>Add to cart
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -189,20 +257,46 @@
                             </div>
                         </div>
                     </c:forEach>
-
                 </div>
             </div>
-
-
         </section>
 
-        <!-- Banner trang chủ -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ratingContainers = document.querySelectorAll('.rating-container');
+                ratingContainers.forEach(function (container) {
+                    var ratingValue = parseFloat(container.getAttribute('data-rating'));
+                    var numReviews = container.getAttribute('data-num-reviews');
 
+                    // Cập nhật chiều rộng của sao đã đánh giá
+                    var ratingElement = container.querySelector('.rating');
+                    var starPercentage = (ratingValue / 5) * 100;
+                    ratingElement.style.setProperty('--rating-width', starPercentage + '%');
 
+                    // Cập nhật số lượng đánh giá
+                    var numReviewsElement = container.querySelector('.num-reviews');
+                    numReviewsElement.textContent = '(' + numReviews + ')';
+                });
+            });
+
+        </script>
         <!-- Bootstrap JS and dependencies -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            .rating::after {
+                content: "★★★★★";
+                color: #ffc107;
+                /* Màu của sao được đánh giá */
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                width: var(--rating-width);
+            }
+        </style>
 
     </body>
 

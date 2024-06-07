@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Helper/PaginationHelper.java</file>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Marketing/InsertProduct.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/ProductList.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/OrderDetailDAO.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/HomePage.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/HomeProduct.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/Feedback.java</file>
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/ProductServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Models/OrderDetail.java</file>
         </group>
     </open-files>
 </project-private>

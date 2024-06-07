@@ -15,6 +15,7 @@ public class Product {
     private int room_id;
     private String name;
     private String description;
+    private double staravg;
     private String image;
     private double price;
     private int quantity;
@@ -29,6 +30,7 @@ public class Product {
         this.room_id = room_id;
         this.name = name;
         this.description = description;
+        this.staravg = 0;
         this.image = image;
         this.price = price;
         this.quantity = quantity;
@@ -81,6 +83,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getStaravg() {
+        return staravg;
+    }
+
+    public void setStaravg(double staravg) {
+        this.staravg = staravg;
     }
 
     public String getImage() {

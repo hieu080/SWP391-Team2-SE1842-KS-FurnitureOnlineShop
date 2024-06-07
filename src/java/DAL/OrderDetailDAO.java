@@ -22,13 +22,13 @@ public class OrderDetailDAO extends DBContext {
 
     // Phương thức insertOrderDetail
     public boolean insertOrderDetail(OrderDetail orderDetail) {
-        String sql = "INSERT INTO OrderDetail (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO OrderDetail (order_id, productdetail_id, quantity, price) VALUES (?, ?, ?, ?)";
 
         try (
             PreparedStatement pstmt = connect.prepareStatement(sql)
         ) {
             pstmt.setInt(1, orderDetail.getOrder_id());
-            pstmt.setInt(2, orderDetail.getProduct_id());
+            pstmt.setInt(2, orderDetail.getProductdetail_id());
             pstmt.setInt(3, orderDetail.getQuantity());
             pstmt.setDouble(4, orderDetail.getPrice());
             int affectedRows = pstmt.executeUpdate();
@@ -87,7 +87,7 @@ public class OrderDetailDAO extends DBContext {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setId(rs.getInt("id"));
                 orderDetail.setOrder_id(rs.getInt("order_id"));
-                orderDetail.setProduct_id(rs.getInt("product_id"));
+                orderDetail.setProductdetail_id(rs.getInt("productdetail_id"));
                 orderDetail.setQuantity(rs.getInt("quantity"));
                 orderDetail.setPrice(rs.getDouble("price"));
                 orderDetails.add(orderDetail);
@@ -111,7 +111,7 @@ public class OrderDetailDAO extends DBContext {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setId(rs.getInt("id"));
                 orderDetail.setOrder_id(rs.getInt("order_id"));
-                orderDetail.setProduct_id(rs.getInt("product_id"));
+                orderDetail.setProductdetail_id(rs.getInt("productdetail_id"));
                 orderDetail.setQuantity(rs.getInt("quantity"));
                 orderDetail.setPrice(rs.getDouble("price"));
                 orderDetails.add(orderDetail);

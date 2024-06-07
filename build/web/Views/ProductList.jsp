@@ -460,28 +460,27 @@
 
                                                                 <div class="row">
                                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
-                                                                        <c:set var="totalRating" value="0" scope="page" />
                                                                         <c:set var="reviewCount" value="0" scope="page" />
 
                                                                         <c:forEach items="${requestScope.feedbackList}" var="feedback">
                                                                             <c:if test="${feedback.product_id == product.id}">
-                                                                                <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
                                                                                 <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
                                                                             </c:if>
                                                                         </c:forEach>
-
-                                                                        <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
-
-                                                                        <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
+                                                                        <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="${reviewCount}">
                                                                             <div class="rating"></div>
                                                                             <span class="num-reviews"></span>
                                                                         </div>
                                                                     </div>
                                                                     <c:set var="quantitySold" value="0" scope="page" /> 
                                                                     <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
-                                                                        <c:if test="${orderDetail.product_id == product.id}">
-                                                                            <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
-                                                                        </c:if>
+                                                                        <c:forEach items="${requestScope.productDetailList}" var="productDetail">
+                                                                            <c:if test="${orderDetail.productdetail_id == productDetail.id}">
+                                                                                <c:if test="${productDetail.product_id == product.id}">
+                                                                                    <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                                                </c:if>
+                                                                            </c:if>
+                                                                        </c:forEach>
                                                                     </c:forEach>
                                                                     <div
                                                                         class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">

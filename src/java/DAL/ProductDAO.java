@@ -43,18 +43,19 @@ public class ProductDAO extends DBContext {
     }
 
     public boolean updateProduct(Product product) {
-        String sql = "UPDATE product SET category_id = ?, brand_id = ?, room_id = ?, name = ?, description = ?, image = ?, price = ?, quantity = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE product SET category_id = ?, brand_id = ?, room_id = ?, name = ?, description = ?, staravg = ?, image = ?, price = ?, quantity = ?, status = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setInt(1, product.getCategory_id());
             preparedStatement.setInt(2, product.getBrand_id());
             preparedStatement.setInt(3, product.getRoom_id());
             preparedStatement.setString(4, product.getName());
             preparedStatement.setString(5, product.getDescription());
-            preparedStatement.setString(6, product.getImage());
-            preparedStatement.setDouble(7, product.getPrice());
-            preparedStatement.setInt(8, product.getQuantity());
-            preparedStatement.setString(9, product.getStatus());
-            preparedStatement.setInt(10, product.getId());
+            preparedStatement.setDouble(6, product.getStaravg());
+            preparedStatement.setString(7, product.getImage());
+            preparedStatement.setDouble(8, product.getPrice());
+            preparedStatement.setInt(9, product.getQuantity());
+            preparedStatement.setString(10, product.getStatus());
+            preparedStatement.setInt(11, product.getId());
 
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
@@ -90,6 +91,7 @@ public class ProductDAO extends DBContext {
                 product.setRoom_id(resultSet.getInt("room_id"));
                 product.setName(resultSet.getString("name"));
                 product.setDescription(resultSet.getString("description"));
+                product.setStaravg(resultSet.getDouble("staravg"));
                 product.setImage(resultSet.getString("image"));
                 product.setPrice(resultSet.getDouble("price"));
                 product.setQuantity(resultSet.getInt("quantity"));
@@ -121,6 +123,7 @@ public class ProductDAO extends DBContext {
                     product.setRoom_id(resultSet.getInt("room_id"));
                     product.setName(resultSet.getString("name"));
                     product.setDescription(resultSet.getString("description"));
+                    product.setStaravg(resultSet.getDouble("staravg"));
                     product.setImage(resultSet.getString("image"));
                     product.setPrice(resultSet.getDouble("price"));
                     product.setQuantity(resultSet.getInt("quantity"));
@@ -141,7 +144,7 @@ public class ProductDAO extends DBContext {
 
         StringBuilder sql = new StringBuilder("""
     SELECT 
-        Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.image, Product.price, Product.quantity, Product.status
+        Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.staravg, Product.image, Product.price, Product.quantity, Product.status
     FROM 
         Product
     JOIN 
@@ -194,6 +197,80 @@ public class ProductDAO extends DBContext {
                     product.setRoom_id(rs.getInt("room_id"));
                     product.setName(rs.getString("name"));
                     product.setDescription(rs.getString("description"));
+                    product.setStaravg(rs.getDouble("staravg"));
+                    product.setImage(rs.getString("image"));
+                    product.setPrice(rs.getDouble("price"));
+                    product.setQuantity(rs.getInt("quantity"));
+                    product.setStatus(rs.getString("status"));
+
+                    productList.add(product);
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list.", ex);
+        }
+        return productList;
+    }
+
+    public ArrayList<Product> filterProductListMKT(String[] brandIDs, String[] roomIDs, String[] categoryIDs, String[] statusStrs, String[] priceStrs) {
+        ArrayList<Product> productList = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("""
+    SELECT 
+        Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.staravg, Product.image, Product.price, Product.quantity, Product.status
+    FROM 
+        Product
+    JOIN 
+        ProductDetail ON Product.id = ProductDetail.product_id
+    WHERE 1=1
+    """);
+
+        List<Object> parameters = new ArrayList<>();
+
+        if (brandIDs != null && brandIDs.length > 0) {
+            sql.append(" AND Product.brand_id IN (");
+            appendPlaceholders(sql, brandIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(brandIDs));
+        }
+        if (roomIDs != null && roomIDs.length > 0) {
+            sql.append(" AND Product.room_id IN (");
+            appendPlaceholders(sql, roomIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(roomIDs));
+        }
+        if (categoryIDs != null && categoryIDs.length > 0) {
+            sql.append(" AND Product.category_id IN (");
+            appendPlaceholders(sql, categoryIDs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(categoryIDs));
+        }
+        if (statusStrs != null && statusStrs.length > 0) {
+            sql.append(" AND Product.status IN (");
+            appendPlaceholders(sql, statusStrs.length);
+            sql.append(")");
+            parameters.addAll(Arrays.asList(statusStrs));
+        }
+        String priceCondition = parsePrices(priceStrs);
+        if (!priceCondition.isEmpty()) {
+            sql.append(" AND (").append(priceCondition).append(")");
+        }
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql.toString())) {
+            for (int i = 0; i < parameters.size(); i++) {
+                pstmt.setObject(i + 1, parameters.get(i));
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Product product = new Product();
+                    product.setId(rs.getInt("id"));
+                    product.setCategory_id(rs.getInt("category_id"));
+                    product.setBrand_id(rs.getInt("brand_id"));
+                    product.setRoom_id(rs.getInt("room_id"));
+                    product.setName(rs.getString("name"));
+                    product.setDescription(rs.getString("description"));
+                    product.setStaravg(rs.getDouble("staravg"));
                     product.setImage(rs.getString("image"));
                     product.setPrice(rs.getDouble("price"));
                     product.setQuantity(rs.getInt("quantity"));
@@ -239,6 +316,37 @@ public class ProductDAO extends DBContext {
             }
         }
         return String.join(" OR ", conditions);
+    }
+
+    public Product getProductByID(int id) {
+        Product product = null;
+        String query = "SELECT * FROM product WHERE id = ?";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            // Đặt giá trị cho tham số trước khi thực thi truy vấn
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    product = new Product();
+                    product.setId(resultSet.getInt("id"));
+                    product.setCategory_id(resultSet.getInt("category_id"));
+                    product.setBrand_id(resultSet.getInt("brand_id"));
+                    product.setRoom_id(resultSet.getInt("room_id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setStaravg(resultSet.getDouble("staravg"));
+                    product.setImage(resultSet.getString("image"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantity(resultSet.getInt("quantity"));
+                    product.setStatus(resultSet.getString("status"));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product by ID", e);
+        }
+
+        return product;
     }
 
     public static void main(String[] args) {

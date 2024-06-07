@@ -16,11 +16,23 @@ public class ComparatorHelper {
         return Comparator.comparingDouble(Product::getPrice).reversed();
     }
 
+    public static Comparator<Product> sortByQuantityAsc() {
+        return Comparator.comparingInt(Product::getQuantity);
+    }
+
+    public static Comparator<Product> sortByQuantityDesc() {
+        return Comparator.comparingInt(Product::getQuantity).reversed();
+    }
+
     public ArrayList<Product> sortProductList(ArrayList<Product> productList, String sortby) {
         if (sortby.equals("priceAsc")) {
             Collections.sort(productList, ComparatorHelper.sortByPriceAsc());
-        }else{
+        } else if (sortby.equals("priceDesc")) {
             Collections.sort(productList, ComparatorHelper.sortByPriceDesc());
+        } else if (sortby.equals("quantityAsc")) {
+            Collections.sort(productList, ComparatorHelper.sortByQuantityAsc());
+        } else if (sortby.equals("quantityDesc")) {
+            Collections.sort(productList, ComparatorHelper.sortByQuantityDesc());
         }
         return productList;
     }

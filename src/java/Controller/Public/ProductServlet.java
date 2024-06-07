@@ -13,6 +13,7 @@ import DAL.OrderDetailDAO;
 import DAL.PageDAO;
 import DAL.PostDAO;
 import DAL.ProductDAO;
+import DAL.ProductDetailDAO;
 import DAL.RoomDAO;
 import DAL.SaleOffDAO;
 import Helper.ComparatorHelper;
@@ -27,6 +28,7 @@ import Models.OrderDetail;
 import Models.Page;
 import Models.Post;
 import Models.Product;
+import Models.ProductDetail;
 import Models.Room;
 import Models.SaleOff;
 import jakarta.servlet.ServletContext;
@@ -100,7 +102,11 @@ public class ProductServlet extends HttpServlet {
         ArrayList<Color> colorList = colorDAO.getColorList();
         request.setAttribute("colorList", colorList);
 
-        request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
+        request.setAttribute("productDetailList", productDetailList);
+        
+        request.getRequestDispatcher("Views/newjsp.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

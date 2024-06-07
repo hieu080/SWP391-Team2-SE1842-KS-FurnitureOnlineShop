@@ -42,7 +42,7 @@
             Price:
             <input type="text" name="price"><br/>
             Quantity:
-            <input type="text" name="quatity"><br/>
+            <input type="text" name="quantity"><br/>
             <input type="submit" value="Insert">
         </form>
     </body>

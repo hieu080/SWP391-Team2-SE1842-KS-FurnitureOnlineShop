@@ -620,7 +620,7 @@
         
         <c:forEach items="${orderList}" var="order">
             <c:forEach items="${orderDetailList}" var="orderDetai">
-                <c:if test="${productDetail.order_id == }"
+                <c:if test="${productDetail.order_id ==d }"
             </c:forEach>
         </c:forEach>
         

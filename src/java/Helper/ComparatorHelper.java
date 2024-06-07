@@ -24,6 +24,14 @@ public class ComparatorHelper {
         return Comparator.comparingInt(Product::getQuantity).reversed();
     }
 
+    public static Comparator<Product> sortByStarAsc() {
+        return Comparator.comparingDouble(Product::getStaravg);
+    }
+
+    public static Comparator<Product> sortByStarDesc() {
+        return Comparator.comparingDouble(Product::getStaravg).reversed();
+    }
+
     public ArrayList<Product> sortProductList(ArrayList<Product> productList, String sortby) {
         if (sortby.equals("priceAsc")) {
             Collections.sort(productList, ComparatorHelper.sortByPriceAsc());
@@ -33,6 +41,10 @@ public class ComparatorHelper {
             Collections.sort(productList, ComparatorHelper.sortByQuantityAsc());
         } else if (sortby.equals("quantityDesc")) {
             Collections.sort(productList, ComparatorHelper.sortByQuantityDesc());
+        } else if (sortby.equals("starAsc")) {
+            Collections.sort(productList, ComparatorHelper.sortByStarAsc());
+        } else if (sortby.equals("starDesc")) {
+            Collections.sort(productList, ComparatorHelper.sortByStarDesc());
         }
         return productList;
     }
@@ -40,11 +52,11 @@ public class ComparatorHelper {
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> products = productDAO.getProductList();
-        String sortby = "priceDesc";
+        String sortby = "starDesc";
         ComparatorHelper comparatorHelper = new ComparatorHelper();
         products = comparatorHelper.sortProductList(products, sortby);
         for (Product product : products) {
-            System.out.println(product.getPrice());
+            System.out.println(product.getStaravg());
         }
     }
 }

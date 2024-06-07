@@ -18,13 +18,13 @@ public class ColorDAO extends DBContext {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(ColorDAO.class.getName());
 
-//    public static void main(String[] args) {
-//        ColorDAO colorDAO = new ColorDAO();
-//        ArrayList<Color> colorList = colorDAO.getColorList();
-//        for (Color color : colorList) {
-//            System.out.println(color.toString());
-//        }
-//    }
+    public static void main(String[] args) {
+        ColorDAO colorDAO = new ColorDAO();
+        ArrayList<Color> colorList = colorDAO.getColorList();
+        for (Color color : colorList) {
+            System.out.println(color.getColorcode());
+        }
+    }
     public ArrayList<Color> getColorList() {
         ArrayList<Color> colorList = new ArrayList<>();
         String sql = "SELECT * FROM color";

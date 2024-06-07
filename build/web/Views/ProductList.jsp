@@ -79,6 +79,7 @@
 
             .product-addtocart {
                 display: inline-block;
+                margin-left: 50px;
             }
 
             .cart-button {
@@ -109,7 +110,26 @@
 
         </style>
 
+        <style>
+            .color-checkbox {
+                display: inline-block;
+                cursor: pointer;
+                margin: 5px;
+            }
 
+            .color-circle {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: inline-block;
+                border: 2px solid #ddd;
+                box-sizing: border-box;
+            }
+
+            .color-checkbox input[type="checkbox"]:checked + .color-circle {
+                border: 2px solid #000;
+            }
+        </style>
     </head>
 
     <body id="nội-thất-moho" class="collection">
@@ -199,8 +219,10 @@
                                                                                 </div>
                                                                                 <div class="filter_group_content filter-size s-filter">
                                                                                     <ul class="check-box-list clearfix">
-                                                                                        <li style="margin-right: 50px; margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceAsc">Giá tăng dần</a></li>
-                                                                                        <li><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceDesc">Giá giảm dần</a></li>
+                                                                                        <li style="margin-right: 50px ;margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceAsc">Giá tăng dần</a></li>
+                                                                                        <li style="margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=priceDesc">Giá giảm dần</a></li>
+                                                                                        <li style="margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=starAsc">Số sao tăng dần</a></li>
+                                                                                        <li style="margin-bottom: 5px "><a href="${pageContext.request.contextPath}/ProductServlet?sortby=starDesc">Số sao giảm dần</a></li>
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
@@ -235,7 +257,7 @@
                                                                         <div class="row clearfix">
 
                                                                             <!-- ./filter brand -->
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-2">
                                                                                 <div class="group-filter">
                                                                                     <div
                                                                                         class="filter_group_title dropdown-filter">
@@ -316,22 +338,22 @@
                                                                                     </div>
                                                                                     <div class="filter_group_content filter-size s-filter">
                                                                                         <ul class="check-box-list clearfix">
-                                                                                            <li>
+                                                                                            <li style="margin-right: 15px">
                                                                                                 <input type="checkbox" name="price-filter" value="<500"
                                                                                                        <c:if test="${not empty selectedPriceList and selectedPriceList.contains('<500')}">checked</c:if>
                                                                                                            style="display: inline-block" /> < 500.000₫
                                                                                                 </li>
-                                                                                                <li>
+                                                                                                <li style="margin-right: 15px">
                                                                                                     <input type="checkbox" name="price-filter" value="500<x<1500"
                                                                                                     <c:if test="${not empty selectedPriceList and selectedPriceList.contains('500<x<1500')}">checked</c:if>
                                                                                                         style="display: inline-block" /> 500,000₫ - 1,500,000₫
                                                                                                 </li>
-                                                                                                <li>
+                                                                                                <li style="margin-right: 15px">
                                                                                                     <input type="checkbox" name="price-filter" value="1500<x<5000"
                                                                                                     <c:if test="${not empty selectedPriceList and selectedPriceList.contains('1500<x<5000')}">checked</c:if>
                                                                                                         style="display: inline-block" /> 1,500,000₫ - 5,000,000₫
                                                                                                 </li>
-                                                                                                <li>
+                                                                                                <li style="margin-right: 15px">
                                                                                                     <input type="checkbox" name="price-filter" value=">5000"
                                                                                                     <c:if test="${not empty selectedPriceList and selectedPriceList.contains('>5000')}">checked</c:if>
                                                                                                         style="display: inline-block" /> > 5,000,000₫
@@ -356,15 +378,19 @@
                                                                                             class="filter_group_content color-filter">
                                                                                             <ul class="check-box-list clearfix">
                                                                                             <c:forEach items="${requestScope.colorList}" var="color">
-                                                                                                <li style="margin-right: 25px">
-                                                                                                    <input type="checkbox" value="${color.id}" name="color-filter"
-                                                                                                           <c:if test="${not empty selectedColorList and selectedColorList.contains(color.id)}">checked</c:if>
-                                                                                                           style="display: inline-block" /> ${color.colorname}
+                                                                                                <li style="margin-right: 5px">
+                                                                                                    <label class="color-checkbox">
+                                                                                                        <input type="checkbox" value="${color.id}" name="color-filter"
+                                                                                                               <c:if test="${not empty selectedColorList and selectedColorList.contains(color.id)}">checked</c:if>
+                                                                                                                   style="display: none;" />
+                                                                                                               <span class="color-circle" style="background-color:${color.colorcode};"></span>
+                                                                                                    </label>${color.colorname}
                                                                                                 </li>
                                                                                             </c:forEach>
 
                                                                                         </ul>
                                                                                     </div>
+
 
                                                                                 </div>
                                                                             </div>
@@ -488,7 +514,23 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-quantity">
-                                                                    <div>Số lượng: ${product.getQuantity()}</div>
+                                                                    <div>
+                                                                        <div>Số lượng: ${product.getQuantity()}</div>
+                                                                        <span>
+                                                                            <c:forEach items="${productDetailList}" var="productDetail">
+                                                                                <c:if test="${product.id == productDetail.product_id}">
+                                                                                    <c:forEach items="${colorList}" var="color">
+                                                                                        <c:if test="${productDetail.color_id == color.id}">
+                                                                                            <label class="color-checkbox">
+                                                                                                <input type="checkbox" name="color" value="${color.id}" style="display: none;">
+                                                                                                <span class="color-circle" style="background-color:${color.colorcode};"></span>
+                                                                                            </label>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                        </span>
+                                                                    </div>
                                                                     <div class="product-addtocart">
                                                                         <a href="#" class="cart-button">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"

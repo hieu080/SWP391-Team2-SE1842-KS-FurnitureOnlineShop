@@ -6,8 +6,10 @@ package Controller.Public;
 
 import DAL.CategoryOfPostDAO;
 import DAL.PostDAO;
+import Helper.PaginationHelper;
 import Models.CategoryOfPost;
 import Models.Post;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -39,17 +41,31 @@ public class BlogListServlet extends HttpServlet {
         List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
 
-        //list post
-        List<Post> listPost = pdao.getListPost();
-        request.setAttribute("listPost", listPost);
+        //list new post
+        List<Post> listNewPost = pdao.getNewPostList();
+        request.setAttribute("listNewPost", listNewPost);
 
-        //selected category(select from blogdetail.jsp)
+        //selected category and list post tuong ung
+        List<Post> listPost = null;
         String categoryId = request.getParameter("category");
+        String catname="";
         request.setAttribute("catId", categoryId);
         if (categoryId!=null && !categoryId.equals("0")) {
-            request.setAttribute("catname", cdao.getCategoryOfPostByID(categoryId));
-        }
-
+            catname=cdao.getCategoryOfPostByID(categoryId).getCategory();
+            listPost=pdao.getPostListByCategoryId(categoryId);
+        }else{
+            catname="All";
+            listPost=pdao.getPostList();
+        } 
+        request.setAttribute("catname", catname);
+        request.setAttribute("listPost", listPost);
+        
+        //phan trang
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerPostList";
+        String attribute = "listPost";
+        paginationHelper.Pagination(request, listPost, context, itemsPerPage, attribute);
         request.getRequestDispatcher("Views/BlogList.jsp").forward(request, response);
     }
 

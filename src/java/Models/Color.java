@@ -11,12 +11,14 @@ package Models;
 public class Color {
     private int id;
     private String colorname;
+    private String colorcode;
 
     public Color() {
     }
 
-    public Color(String colorname) {
+    public Color(String colorname, String colorcode) {
         this.colorname = colorname;
+        this.colorcode = colorcode;
     }
 
     public int getId() {
@@ -33,6 +35,14 @@ public class Color {
 
     public void setColorname(String colorname) {
         this.colorname = colorname;
+    }
+
+    public String getColorcode() {
+        return colorcode;
+    }
+
+    public void setColorcode(String colorcode) {
+        this.colorcode = colorcode;
     }
     
     

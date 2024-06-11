@@ -21,7 +21,7 @@ public class DBContext {
     public DBContext() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/furnitureShop";
+            String url = "jdbc:mysql://localhost:3306/furniture";
             String username = "root";
             String password = "123456";
 

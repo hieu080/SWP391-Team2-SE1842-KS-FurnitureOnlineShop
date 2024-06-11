@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -64,10 +63,7 @@
                             </div>
                         </a>
                     </c:forEach>
-
                 </div>
-
-
                 <!-- hien thi Post detail -->         
                 <div class="col-lg-9 mt-5 ps-5">
                     <!-- thumbnail -->

@@ -64,6 +64,11 @@ public class Address {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" + "id=" + id + ", customer_id=" + customer_id + ", phonenumber=" + phonenumber + ", address=" + address + ", status=" + status + '}';
+    }
     
     
 }

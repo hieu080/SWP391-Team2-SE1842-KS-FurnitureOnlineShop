@@ -52,8 +52,26 @@ public class ProductDetailDAO extends DBContext {
         return null;
     }
 
+    //Read product detail lastest insert
+    public ProductDetail getProductDetailLastest() {
+        String query = "SELECT * FROM ProductDetail ORDER BY id DESC LIMIT 1";
+        try (PreparedStatement stmt = connect.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    ProductDetail productDetail = new ProductDetail(rs.getInt("product_id"), rs.getInt("color_id"), rs.getInt("quantity"));
+                    productDetail.setId(rs.getInt("id"));
+                    productDetail.setStatus(rs.getString("status"));
+                    return productDetail;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product detail", e);
+        }
+        return null;
+    }
+
     // Update
-    public void updateProductDetail(ProductDetail productDetail) {
+    public boolean updateProductDetail(ProductDetail productDetail) {
         String query = "UPDATE ProductDetail SET product_id = ?, color_id = ?, quantity = ?, status = ? WHERE id = ?";
         try (PreparedStatement stmt = connect.prepareStatement(query)) {
             stmt.setInt(1, productDetail.getProduct_id());
@@ -61,9 +79,11 @@ public class ProductDetailDAO extends DBContext {
             stmt.setInt(3, productDetail.getQuantity());
             stmt.setString(4, productDetail.getStatus());
             stmt.setInt(5, productDetail.getId());
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu có ít nhất một dòng được cập nhật
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error updating product detail", e);
+            return false; // Trả về false nếu có lỗi xảy ra
         }
     }
 
@@ -94,12 +114,16 @@ public class ProductDetailDAO extends DBContext {
         }
         return productDetails;
     }
-    
+
     public static void main(String[] args) {
+        ProductDetail productDetail = new ProductDetail();
+        productDetail.setId(1);
+        productDetail.setProduct_id(1);
+        productDetail.setColor_id(2);
+        productDetail.setQuantity(15);
+        productDetail.setStatus("Active");
+
         ProductDetailDAO pddao = new ProductDetailDAO();
-        ArrayList<ProductDetail> productDetails= pddao.getAllProductDetails();
-        for (ProductDetail productDetail : productDetails) {
-            System.out.println(productDetail.getProduct_id());
-        }
+        pddao.updateProductDetail(productDetail);
     }
 }

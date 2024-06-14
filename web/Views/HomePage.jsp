@@ -109,6 +109,26 @@
                 max-width: none !important; /* Không giới hạn độ rộng */
             }
         </style>
+        <style>
+            .color-checkbox {
+                display: inline-block;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            .color-circle {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: inline-block;
+                border: 2px solid #ddd;
+                box-sizing: border-box;
+            }
+
+            .color-checkbox input[type="checkbox"]:checked + .color-circle {
+                border: 2px solid #000;
+            }
+        </style>
 
     </head>
 
@@ -123,11 +143,6 @@
         <main class="mainContent-theme main-index ">
             <%@ include file="HomeSlider.jsp" %>
 
-            <!-- Bootstrap JS and dependencies -->
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
             <%@ include file="HomeRoom.jsp" %>
             <%@ include file="HomeProduct.jsp" %>
 
@@ -137,7 +152,42 @@
         <%@ include file="HomeFooter.jsp" %>
 
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ratingContainers = document.querySelectorAll('.rating-container');
+                ratingContainers.forEach(function (container) {
+                    var ratingValue = parseFloat(container.getAttribute('data-rating'));
+                    var numReviews = container.getAttribute('data-num-reviews');
 
+                    // Cập nhật chiều rộng của sao đã đánh giá
+                    var ratingElement = container.querySelector('.rating');
+                    var starPercentage = (ratingValue / 5) * 100;
+                    ratingElement.style.setProperty('--rating-width', starPercentage + '%');
+
+                    // Cập nhật số lượng đánh giá
+                    var numReviewsElement = container.querySelector('.num-reviews');
+                    numReviewsElement.textContent = '(' + numReviews + ')';
+                });
+            });
+
+        </script>
+        <!-- Bootstrap JS and dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            .rating::after {
+                content: "★★★★★";
+                color: #ffc107;
+                /* Màu của sao được đánh giá */
+                position: absolute;
+                top: 0;
+                left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                width: var(--rating-width);
+            }
+        </style>
 
     </body>
 

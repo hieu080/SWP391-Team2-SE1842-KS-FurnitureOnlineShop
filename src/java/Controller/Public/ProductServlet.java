@@ -103,9 +103,9 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("colorList", colorList);
 
         ProductDetailDAO pddao = new ProductDetailDAO();
-        ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
+        ArrayList<ProductDetail> productDetailList = pddao.getAllProductDetails();
         request.setAttribute("productDetailList", productDetailList);
-        
+
         request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
 
@@ -135,13 +135,14 @@ public class ProductServlet extends HttpServlet {
         if (productList == null) {
             ProductDAO productDAO = new ProductDAO();
             productList = productDAO.getProductList();
+            session.setAttribute("productList", productList); // Lưu danh sách vào session sau khi lấy từ cơ sở dữ liệu
         }
 
         String sortby = request.getParameter("sortby");
         ComparatorHelper comparatorHelper = new ComparatorHelper();
         if (sortby != null && !sortby.isEmpty()) {
             productList = comparatorHelper.sortProductList(productList, sortby);
-            session.setAttribute("productList", productList);
+            session.setAttribute("productList", productList); // Cập nhật lại danh sách sau khi sắp xếp vào session
         }
 
         PaginationHelper paginationHelper = new PaginationHelper();
@@ -149,6 +150,7 @@ public class ProductServlet extends HttpServlet {
         String itemsPerPage = "itemsPerProductListPage";
         String attribute = "productList";
         paginationHelper.Pagination(request, productList, context, itemsPerPage, attribute);
+
         processRequest(request, response);
     }
 
@@ -169,7 +171,7 @@ public class ProductServlet extends HttpServlet {
         String[] categoryIDStr = request.getParameterValues("category-filter");
         String[] priceIDStr = request.getParameterValues("price-filter");
         String[] colorIDStr = request.getParameterValues("color-filter");
-        
+
         List<Integer> selectedBrandList = brandIDStr != null ? Arrays.stream(brandIDStr).map(Integer::parseInt).collect(Collectors.toList()) : null;
         List<Integer> selectedRoomList = roomSIDtr != null ? Arrays.stream(roomSIDtr).map(Integer::parseInt).collect(Collectors.toList()) : null;
         List<Integer> selectedCategoryList = categoryIDStr != null ? Arrays.stream(categoryIDStr).map(Integer::parseInt).collect(Collectors.toList()) : null;
@@ -182,7 +184,7 @@ public class ProductServlet extends HttpServlet {
         request.setAttribute("selectedCategoryList", selectedCategoryList);
         request.setAttribute("selectedPriceList", selectedPriceList);
         request.setAttribute("selectedColorList", selectedColorList);
-        
+
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList;
 
@@ -201,6 +203,6 @@ public class ProductServlet extends HttpServlet {
         String attribute = "productList";
         paginationHelper.Pagination(request, productList, context, itemsPerPage, attribute);
         processRequest(request, response);
-        
+
     }
 }

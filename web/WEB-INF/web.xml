@@ -88,6 +88,10 @@
         <servlet-name>InsertProductDetail</servlet-name>
         <servlet-class>Controller.Marketing.InsertProductDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <servlet-class>Controller.Marketing.ManageProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
@@ -175,5 +179,9 @@
     <servlet-mapping>
         <servlet-name>InsertProductDetail</servlet-name>
         <url-pattern>/InsertProductDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProductServlet</servlet-name>
+        <url-pattern>/ManageProductServlet</url-pattern>
     </servlet-mapping>
 </web-app>

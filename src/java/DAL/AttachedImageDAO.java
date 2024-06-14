@@ -88,4 +88,13 @@ public class AttachedImageDAO extends DBContext{
         return attachedImages;
     }
     
+    public static void main(String[] args) {
+        ArrayList<AttachedImage> attachedImages = new ArrayList<>();
+        AttachedImageDAO attachedImageDAO = new AttachedImageDAO();
+        attachedImages = attachedImageDAO.getAllAttachedImages();
+        for (AttachedImage attachedImage : attachedImages) {
+            System.out.println(attachedImage.getImage());
+        }
+    }
+    
 }

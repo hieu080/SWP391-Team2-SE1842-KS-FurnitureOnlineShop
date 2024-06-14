@@ -5,20 +5,28 @@
 
 package Controller.Marketing;
 
+import DAL.AttachedImageDAO;
 import DAL.BrandDAO;
 import DAL.CategoryDAO;
+import DAL.ColorDAO;
 import DAL.ProductDAO;
+import DAL.ProductDetailDAO;
 import DAL.RoomDAO;
 import Helper.ComparatorHelper;
+import Helper.FileUploadHelper;
 import Helper.PaginationHelper;
+import Models.AttachedImage;
 import Models.Brand;
 import Models.Category;
+import Models.Color;
 import Models.Product;
+import Models.ProductDetail;
 import Models.Room;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,8 +40,14 @@ import java.util.stream.Collectors;
  *
  * @author HELLO
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
+
 public class ProductListMKTServlet extends HttpServlet {
-   
+    private static final String UPLOAD_DIRECTORY = "image/product";
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -54,9 +68,22 @@ public class ProductListMKTServlet extends HttpServlet {
         CategoryDAO categoryDAO = new CategoryDAO();
         ArrayList<Category> categoryList = categoryDAO.getCategoryList();
         request.setAttribute("categoryList", categoryList);
+        
+        ColorDAO colorDAO = new ColorDAO();
+        ArrayList<Color> colorList = colorDAO.getColorList();
+        request.setAttribute("colorList", colorList);
 
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
+        request.setAttribute("productDetailList", productDetailList);
+        
+        AttachedImageDAO attachedImageDAO = new AttachedImageDAO();
+        ArrayList<AttachedImage> attachedImageList = attachedImageDAO.getAllAttachedImages();
+        request.setAttribute("attachedImageList", attachedImageList);
+        
         request.getRequestDispatcher("Views/ProductListMKT.jsp").forward(request, response);
     } 
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -132,7 +159,10 @@ public class ProductListMKTServlet extends HttpServlet {
         
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList;
-
+        
+        
+        
+                
         if (search != null && !search.isEmpty()) {
             productList = productDAO.searchProductByName(search);
         } else {

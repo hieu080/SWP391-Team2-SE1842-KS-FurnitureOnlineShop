@@ -43,19 +43,18 @@ public class ProductDAO extends DBContext {
     }
 
     public boolean updateProduct(Product product) {
-        String sql = "UPDATE product SET category_id = ?, brand_id = ?, room_id = ?, name = ?, description = ?, staravg = ?, image = ?, price = ?, quantity = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE product SET category_id = ?, brand_id = ?, room_id = ?, name = ?, description = ?, image = ?, price = ?, quantity = ?, status = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setInt(1, product.getCategory_id());
             preparedStatement.setInt(2, product.getBrand_id());
             preparedStatement.setInt(3, product.getRoom_id());
             preparedStatement.setString(4, product.getName());
             preparedStatement.setString(5, product.getDescription());
-            preparedStatement.setDouble(6, product.getStaravg());
-            preparedStatement.setString(7, product.getImage());
-            preparedStatement.setDouble(8, product.getPrice());
-            preparedStatement.setInt(9, product.getQuantity());
-            preparedStatement.setString(10, product.getStatus());
-            preparedStatement.setInt(11, product.getId());
+            preparedStatement.setString(6, product.getImage());
+            preparedStatement.setDouble(7, product.getPrice());
+            preparedStatement.setInt(8, product.getQuantity());
+            preparedStatement.setString(9, product.getStatus());
+            preparedStatement.setInt(10, product.getId());
 
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
@@ -143,7 +142,7 @@ public class ProductDAO extends DBContext {
         ArrayList<Product> productList = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-    SELECT 
+    SELECT DISTINCT
         Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.staravg, Product.image, Product.price, Product.quantity, Product.status
     FROM 
         Product
@@ -216,7 +215,7 @@ public class ProductDAO extends DBContext {
         ArrayList<Product> productList = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder("""
-    SELECT 
+    SELECT DISTINCT
         Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.staravg, Product.image, Product.price, Product.quantity, Product.status
     FROM 
         Product
@@ -350,11 +349,20 @@ public class ProductDAO extends DBContext {
     }
 
     public static void main(String[] args) {
+        Product neProduct = new Product();
+        neProduct.setId(1);
+        neProduct.setCategory_id(2);
+        neProduct.setBrand_id(4);
+        neProduct.setRoom_id(2);
+        neProduct.setName("Giường Ngủ Gỗ Cao Su NEXO 301");
+        neProduct.setDescription(" <b>Kích thước phủ bì:</b> 169cm X 222cm X 90cm<br/>     Chân giường cao 15cm <br/><b>Vật liệu chính:</b><br/>     - Đầu giường: Gỗ cao su tự nhiên, MDF Veneer tràm chuẩn CARB-P2 <br/>- Chân giường: Gỗ cao su tự nhiên <br/> - Thân giường: Gỗ cao su nhiên, MDF veneer tràm chuẩn CARB-P2<br/>- Tấm phản: Gỗ plywood chuẩn CARB-P2 (*)<br/><i>(*) Tiêu chuẩn California Air Resources Board xuất khẩu Mỹ,<br/> đảm bảo gỗ không độc hại, an toàn cho sức khỏe</i> ");
+        neProduct.setPrice(9999000.00);
+        neProduct.setStaravg(5);
+        neProduct.setQuantity(15);
+        neProduct.setStatus("Active");
+        neProduct.setImage("pro_1m6_noi_that_moho_giuong_ngu_go_nexo_6_62c16af1d98e4e91a23b258a8c448be6_master.jpg");
         ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> list = productDAO.searchProductByName("IKEA");
-        for (Product product : list) {
-            System.out.println(product.getName());
-        }
+        productDAO.updateProduct(neProduct);    
     }
 
 }

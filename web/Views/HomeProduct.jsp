@@ -125,65 +125,25 @@
                                                 </c:if>
                                             </p>
                                         </div>
-
-                                        <div class="row">
+                                                
+                                                
+                                                <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
-                                                <c:set var="totalRating" value="0" scope="page" />
                                                 <c:set var="reviewCount" value="0" scope="page" />
 
                                                 <c:forEach items="${requestScope.feedbackList}" var="feedback">
                                                     <c:if test="${feedback.product_id == product.id}">
-                                                        <c:set var="totalRating" value="${totalRating + feedback.votescore}" scope="page" />
                                                         <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
                                                     </c:if>
                                                 </c:forEach>
-
-                                                <c:set var="averageRating" value="${reviewCount != 0 ? totalRating / reviewCount : 0}" scope="page" />
-
-                                                <div class="rating-container" data-rating="${averageRating}" data-num-reviews="${reviewCount}">
-                                                    <div class="rating"></div>
-                                                    <span class="num-reviews"></span>
-                                                </div>
+                                                
+                                                <div>Số lượng: ${product.getQuantity()}</div>
                                             </div>
-                                            <c:set var="quantitySold" value="0" scope="page" /> 
-                                            <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
-                                                <c:if test="${orderDetail.product_id == product.id}">
-                                                    <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
-                                                </c:if>
-                                            </c:forEach>
-                                            <div
-                                                class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
-                                                <div class="cmpText">Đã bán ${quantitySold}</div>
-                                            </div>
+                                            
+                                            
                                         </div>
-                                        <div class="product-quantity">
-                                            <div>Số lượng: ${product.quantity}</div>
-                                            <div class="product-addtocart">
-                                                <c:choose>
-                                                    <c:when test="${sessionScope.customer != null}"> 
-                                                        <a href="#"  class="cart-button">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                 width="20" height="20" fill="currentColor"
-                                                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                            </svg>Add to cart
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="#" onclick="showlogin()" class="cart-button">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                 width="20" height="20" fill="currentColor"
-                                                                 class="bi bi-cart" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                                                            </svg>Add to cart
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
-
-                                            </div>
-                                        </div>
+                                       
+                                        
                                     </div>
                                 </div>
                             </div>

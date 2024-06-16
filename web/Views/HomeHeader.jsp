@@ -11,8 +11,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="preload stylesheet" as="style" fetchpriority="low"
-              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+       
         <link rel="preload stylesheet" as="style" fetchpriority="low"
               href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
@@ -92,6 +91,13 @@
                 position: absolute;
                 z-index: 1000;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            .a.dropdown-menu {
+
+                position: absolute;
+                inset: 0px auto auto 0px;
+                margin: 0px;
+                transform: translate(-300px, 42px);
             }
         </style>
     </head>
@@ -314,7 +320,8 @@
                                 <div class="wrapper-cart header-action">
                                     <c:choose>
                                         <c:when test="${sessionScope.customer != null}">
-                                            <a class="header-action-toggle" href="${pageContext.request.contextPath}/ShoppingCart" id="site-cart-handle" aria-label="3 Giỏ hàng">
+                                             <%@ include file="CartDropDown.jsp" %>
+                                            <a class="header-action-toggle"  href="#" data-bs-toggle="dropdown" aria-expanded="false" id="site-cart-handle" aria-label="3 Giỏ hàng">
                                                 <span class="box-icon">
                                                     <svg class="svg-ico-cart" enable-background="new 0 0 512 512" height="512"
                                                          viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
@@ -332,11 +339,12 @@
                                                         </svg>
                                                     </span>
                                                     <span class="box-text">
-                                                        <span class="count-holder">0</span>
+                                                        <span class="count-holder">${requestScope.countcart}</span>
                                                     </span>
                                                 </span>
                                                 <span class="icon-box-text">Giỏ hàng</span>
                                             </a>
+                                                   
                                         </c:when>
                                         <c:otherwise>
                                             <a class="header-action-toggle" href="#"  onclick="showlogin()" id="site-cart-handle-sucess" aria-label="3 Giỏ hàng">

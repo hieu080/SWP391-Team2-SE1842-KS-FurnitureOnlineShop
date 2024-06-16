@@ -7,6 +7,7 @@ package DAL;
 import Models.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -239,6 +240,36 @@ public class ProductDAO extends DBContext {
             }
         }
         return String.join(" OR ", conditions);
+    }
+
+    // Phương thức để lấy danh sách sản phẩm theo id của brand hoặc category
+    public List<Product> getByBrandOrCategoryId(int brandId, int categoryId) throws SQLException  {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM product WHERE brand_id = ? OR category_id = ?";
+
+        try (PreparedStatement stmt = connect.prepareStatement(query)) {
+            stmt.setInt(1, brandId);
+            stmt.setInt(2, categoryId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setCategory_id(rs.getInt("category_id"));
+                product.setBrand_id(rs.getInt("brand_id"));
+                product.setRoom_id(rs.getInt("room_id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                
+                product.setImage(rs.getString("image"));
+                product.setPrice(rs.getDouble("price"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setStatus(rs.getString("status"));
+                products.add(product);
+            }
+        }
+
+        return products;
     }
 
     public static void main(String[] args) {

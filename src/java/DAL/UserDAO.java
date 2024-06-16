@@ -21,13 +21,7 @@ public class UserDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(UserDAO.class.getName());
     
-//    public static void main(String[] args) {
-//        UserDAO userDAO = new UserDAO();
-//        ArrayList<User> userList = userDAO.getUserList();
-//        for (User user : userList) {
-//            System.out.println(user.getFullname());
-//        }
-//    }
+
     public ArrayList<User> getUserList() {
         ArrayList<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM User";

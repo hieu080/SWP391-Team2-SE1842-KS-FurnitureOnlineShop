@@ -114,7 +114,7 @@
 
     <body id="nội-thất-moho" class="collection">
         <div class="main-body  layoutProduct_scroll ">
-            <%@include file="HomeHeader.jsp" %>
+            <%@ include file="HomeHeader.jsp" %>
             <style>
                 .dangongu {
                     display: none
@@ -527,7 +527,7 @@
             </main>
         </div>
 
-        <%@include file="HomeFooter.jsp" %>
+        <%@ include file="HomeFooter.jsp" %>
         <div class="addThis_listSharing hidden-xs">
             <ul class="addThis_listing">
             </ul>

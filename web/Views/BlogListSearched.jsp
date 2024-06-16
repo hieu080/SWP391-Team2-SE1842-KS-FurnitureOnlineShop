@@ -9,6 +9,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
     <body>
         <%@ include file="HomeHeader.jsp" %>
         <div class="container">
@@ -40,8 +41,8 @@
                         </form>
                     </div>
                     <!-- hien thi new post (dung foreach) -->
-                    <c:forEach items="${listPost}" var="p">
-                        <a href="blogdetail?id=${p.getId()}" class="text-decoration-none text-black">
+                    <c:forEach items="${listNewPost}" var="p">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border p-2">
                                 <div class="col-lg-5 pt-3">
                                     <img src="${p.getThumbnail()}"
@@ -73,7 +74,7 @@
 
                     <!--list post-->
                     <c:forEach items="${listsearch}" var="p">
-                        <a href="blogdetail?id=${p.getId()}" class="text-decoration-none text-black">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border-bottom p-2 post-item">
                                 <div class="col-lg-5">
                                     <img src="${p.getThumbnail()}"
@@ -91,14 +92,21 @@
                             </div>
                         </a>
                     </c:forEach>
+                    <div>
+                        <div id="pagination" class="clearfix">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <c:forEach var="page" items="${pagenumber}">
+                                    <a class="page-node" href="BlogListSearchedServlet?page=${page}&&keyword=${param.keyword}" aria-label="Trang ${page}">${page}</a>
+                                </c:forEach>
+                                <span class="page-node ">&hellip;</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- footer -->
-            <div class="row text-center bg-primary">
-                <h1>footer</h1>
-            </div>
 
         </div>
         <%@ include file="HomeFooter.jsp" %>

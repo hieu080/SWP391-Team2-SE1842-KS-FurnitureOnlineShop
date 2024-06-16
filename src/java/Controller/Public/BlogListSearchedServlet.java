@@ -7,8 +7,10 @@ package Controller.Public;
 
 import DAL.CategoryOfPostDAO;
 import DAL.PostDAO;
+import Helper.PaginationHelper;
 import Models.CategoryOfPost;
 import Models.Post;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -38,14 +40,21 @@ public class BlogListSearchedServlet extends HttpServlet {
         List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
 
-        //list post
-        List<Post> listPost = pdao.getListPost();
-        request.setAttribute("listPost", listPost);
+        //list new post
+        List<Post> listNewPost = pdao.getNewPostList();
+        request.setAttribute("listNewPost", listNewPost);
         
         //list post got by search
         String keyword = request.getParameter("keyword");
         List<Post> listsearch = pdao.getListPostbySearch(keyword);
         request.setAttribute("listsearch", listsearch);
+        
+        //phan trang
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerPostList";
+        String attribute = "listsearch";
+        paginationHelper.Pagination(request, listsearch, context, itemsPerPage, attribute);
         
         request.getRequestDispatcher("Views/BlogListSearched.jsp").forward(request, response);
         

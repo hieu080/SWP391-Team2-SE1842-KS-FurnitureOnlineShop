@@ -14,6 +14,7 @@
                 max-width: 100%;
             }
         </style>
+    </head>
     <body>
         <%@ include file="HomeHeader.jsp" %>
         <div class="container">
@@ -45,8 +46,8 @@
 
 
                     <!-- hien thi new post (dung foreach) -->
-                    <c:forEach items="${listPost}" var="p">
-                        <a href="blogdetail?id=${p.getId()}" class="text-decoration-none text-black">
+                    <c:forEach items="${listNewPost}" var="p">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border p-2">
                                 <div class="col-lg-5 pt-3">
                                     <img src="${p.getThumbnail()}"

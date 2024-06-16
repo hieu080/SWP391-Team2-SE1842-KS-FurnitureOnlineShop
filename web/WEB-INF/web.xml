@@ -88,6 +88,26 @@
         <servlet-name>InsertProductDetail</servlet-name>
         <servlet-class>Controller.Marketing.InsertProductDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostsList</servlet-name>
+        <servlet-class>Controller.Marketing.PostsList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDetails</servlet-name>
+        <servlet-class>Controller.Marketing.PostDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomersList</servlet-name>
+        <servlet-class>Controller.Marketing.CustomersList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerDetails</servlet-name>
+        <servlet-class>Controller.Marketing.CustomerDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPost</servlet-name>
+        <servlet-class>Controller.Marketing.NewPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
@@ -175,5 +195,25 @@
     <servlet-mapping>
         <servlet-name>InsertProductDetail</servlet-name>
         <url-pattern>/InsertProductDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostsList</servlet-name>
+        <url-pattern>/PostsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetails</servlet-name>
+        <url-pattern>/PostDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomersList</servlet-name>
+        <url-pattern>/CustomersList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetails</servlet-name>
+        <url-pattern>/CustomerDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPost</servlet-name>
+        <url-pattern>/NewPost</url-pattern>
     </servlet-mapping>
 </web-app>

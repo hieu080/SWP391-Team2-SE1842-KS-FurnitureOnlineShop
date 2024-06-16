@@ -23,7 +23,7 @@
                             <input type="text" class="col-lg-9" 
                                    value="${param.keyword}"
                                    placeholder="Nhập tên tác giả, nội dung..."name="keyword">
-                            <button type="submit" class="col-lg-2 ms-2"><i class=" fas fa-search"></i></button>
+                            <button type="submit" class="col-lg-2 ms-2">🔍</button>
                         </form>
                     </div>
 
@@ -44,9 +44,9 @@
                     <c:forEach items="${listNewPost}" var="p">
                         <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border p-2">
-                                <div class="col-lg-5 pt-3">
+                                <div class="col-lg-5 pt-3" style="width:100px;height:60px">
                                     <img src="${p.getThumbnail()}"
-                                         alt="anhdep" class="img-fluid">
+                                         alt="anhdep" style="width:100%;height:100%">
                                 </div>
                                 <div class="col-lg-7">  
                                     <c:forEach items="${listCategory}" var="category">
@@ -76,9 +76,9 @@
                     <c:forEach items="${listsearch}" var="p">
                         <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border-bottom p-2 post-item">
-                                <div class="col-lg-5">
+                                <div class="col-lg-5" style="width:350px;height:200px">
                                     <img src="${p.getThumbnail()}"
-                                         alt="anhdep" class="img-fluid">
+                                         alt="anhdep" style="width:100%;height:100%">
                                 </div>
                                 <div class="col-lg-7">
                                     <c:forEach items="${listCategory}" var="category">

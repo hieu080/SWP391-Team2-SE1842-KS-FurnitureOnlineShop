@@ -8,7 +8,10 @@ package DAL;
  *
  * @author HELLO
  */
+import Models.Order;
 import Models.OrderDetail;
+import Models.Product;
+import Models.ProductDetail;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,8 +28,7 @@ public class OrderDetailDAO extends DBContext {
         String sql = "INSERT INTO OrderDetail (order_id, productdetail_id, quantity, price) VALUES (?, ?, ?, ?)";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, orderDetail.getOrder_id());
             pstmt.setInt(2, orderDetail.getProductdetail_id());
             pstmt.setInt(3, orderDetail.getQuantity());
@@ -44,8 +46,7 @@ public class OrderDetailDAO extends DBContext {
         String sql = "UPDATE OrderDetail SET quantity = ?, price = ? WHERE id = ?";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, orderDetail.getQuantity());
             pstmt.setDouble(2, orderDetail.getPrice());
             pstmt.setInt(3, orderDetail.getId());
@@ -62,8 +63,7 @@ public class OrderDetailDAO extends DBContext {
         String sql = "DELETE FROM OrderDetail WHERE id = ?";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, orderDetailId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -79,8 +79,7 @@ public class OrderDetailDAO extends DBContext {
         String sql = "SELECT * FROM OrderDetail WHERE order_id = ?";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql)
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
             pstmt.setInt(1, orderId);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -98,15 +97,55 @@ public class OrderDetailDAO extends DBContext {
 
         return orderDetails;
     }
-    
+
+    public ArrayList<OrderDetail> MyOrderDetails(int[] order_IDs) {
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+        if (order_IDs == null || order_IDs.length == 0) {
+            return orderDetails; // Return empty list if no order_IDs are provided
+        }
+
+        // Build the SQL query dynamically based on the number of order_IDs
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM OrderDetail WHERE order_id IN (");
+        for (int i = 0; i < order_IDs.length; i++) {
+            sqlBuilder.append("?");
+            if (i < order_IDs.length - 1) {
+                sqlBuilder.append(", ");
+            }
+        }
+        sqlBuilder.append(")");
+
+        String sql = sqlBuilder.toString();
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            // Set the order_IDs in the PreparedStatement
+            for (int i = 0; i < order_IDs.length; i++) {
+                statement.setInt(i + 1, order_IDs[i]);
+            }
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    OrderDetail od = new OrderDetail();
+                    od.setId(rs.getInt("id"));
+                    od.setOrder_id(rs.getInt("order_id"));
+                    od.setProductdetail_id(rs.getInt("productdetail_id"));
+                    od.setQuantity(rs.getInt("quantity"));
+                    od.setPrice(rs.getDouble("price"));
+                    orderDetails.add(od);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Add appropriate error handling here
+        }
+
+        return orderDetails;
+    }
+
     public ArrayList<OrderDetail> getOrderDetailsList() {
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         String sql = "SELECT * FROM OrderDetail";
 
         try (
-            PreparedStatement pstmt = connect.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()
-        ) {
+                PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setId(rs.getInt("id"));
@@ -121,5 +160,42 @@ public class OrderDetailDAO extends DBContext {
         }
 
         return orderDetails;
+    }
+
+    public static void main(String[] args) {
+//        OrderDAO orderDAO = new OrderDAO();
+//        ArrayList<Order> orderList = orderDAO.myOrder(1);
+//        int[] order_IDs = new int[orderList.size()];
+//        for (int i = 0; i < orderList.size(); i++) {
+//            order_IDs[i] = orderList.get(i).getId();
+//        }
+//        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+//
+//        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsByOrderId(1);
+//        ProductDetailDAO prDetailDAO = new ProductDetailDAO();
+//        ArrayList<ProductDetail> productDetailList = prDetailDAO.getAllProductDetails();
+//        ProductDAO prDAO = new ProductDAO();
+//        ArrayList<Product> productList = prDAO.getProductList();
+//        for (Order order : orderList) {
+//            for (OrderDetail orderDetail : orderDetailList) {
+//                if (order.getId() == orderDetail.getOrder_id()) {
+//                    for (ProductDetail productDetail : productDetailList) {
+//                        if (productDetail.getId() == orderDetail.getProductdetail_id()) {
+//                            for (Product product : productList) {
+//                                if (product.getId() == productDetail.getProduct_id()) {
+//                                    System.out.println("Hello");
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+        //for (ProductDetail productDetail : productDetailList) {
+//            for (OrderDetail orderDetail : orderDetailList) {
+//                System.out.println(orderDetail.toString());
+//            }
+        //}
     }
 }

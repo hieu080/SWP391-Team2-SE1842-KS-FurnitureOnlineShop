@@ -106,7 +106,7 @@ public class ProductServlet extends HttpServlet {
         ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
         request.setAttribute("productDetailList", productDetailList);
         
-        request.getRequestDispatcher("Views/newjsp.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

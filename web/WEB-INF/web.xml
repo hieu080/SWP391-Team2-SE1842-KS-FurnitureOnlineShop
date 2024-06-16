@@ -83,30 +83,26 @@
     <servlet>
         <servlet-name>ProductListMKTServlet</servlet-name>
         <servlet-class>Controller.Marketing.ProductListMKTServlet</servlet-class>
+    </servlet> 
+    <servlet>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <servlet-class>Controller.Customer.MyOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyOrderInformationServlet</servlet-name>
+        <servlet-class>Controller.Customer.MyOrderInformationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderListServlet</servlet-name>
+        <servlet-class>Controller.Sale.OrderListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>InsertProductDetail</servlet-name>
         <servlet-class>Controller.Marketing.InsertProductDetail</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostsList</servlet-name>
-        <servlet-class>Controller.Marketing.PostsList</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PostDetails</servlet-name>
-        <servlet-class>Controller.Marketing.PostDetails</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CustomersList</servlet-name>
-        <servlet-class>Controller.Marketing.CustomersList</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CustomerDetails</servlet-name>
-        <servlet-class>Controller.Marketing.CustomerDetails</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NewPost</servlet-name>
-        <servlet-class>Controller.Marketing.NewPost</servlet-class>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <servlet-class>Controller.Sale.OrderDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
@@ -195,6 +191,22 @@
     <servlet-mapping>
         <servlet-name>InsertProductDetail</servlet-name>
         <url-pattern>/InsertProductDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrderServlet</servlet-name>
+        <url-pattern>/MyOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrderInformationServlet</servlet-name>
+        <url-pattern>/MyOrderInformationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderListServlet</servlet-name>
+        <url-pattern>/OrderListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <url-pattern>/OrderDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostsList</servlet-name>

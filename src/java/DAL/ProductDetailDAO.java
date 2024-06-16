@@ -115,6 +115,34 @@ public class ProductDetailDAO extends DBContext {
         return productDetails;
     }
 
+    //List by productId
+    public ArrayList<ProductDetail> getProductDetailsByProductId(int id) {
+        ArrayList<ProductDetail> productDetails = new ArrayList<>();
+        String query = "SELECT * FROM ProductDetail WHERE product_id = ?";
+
+        try (PreparedStatement stmt = connect.prepareStatement(query)) {
+            // Thiết lập giá trị cho tham số truy vấn
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    ProductDetail productDetail = new ProductDetail(
+                            rs.getInt("product_id"),
+                            rs.getInt("color_id"),
+                            rs.getInt("quantity")
+                    );
+                    productDetail.setId(rs.getInt("id"));
+                    productDetail.setStatus(rs.getString("status"));
+                    productDetails.add(productDetail);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product details", e);
+        }
+
+        return productDetails;
+    }
+
     public static void main(String[] args) {
         ProductDetail productDetail = new ProductDetail();
         productDetail.setId(1);

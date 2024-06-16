@@ -36,23 +36,22 @@ import java.util.List;
  *
  * @author vieta
  */
-
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
         maxFileSize = 1024 * 1024 * 10, // 10 MB
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
 public class Feedback extends HttpServlet {
+
     private static final String UPLOAD_DIRECTORY = "image/imagefeedback";
-    
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
-       // String orderIDStr = request.getParameter("order_id");
+        // String orderIDStr = request.getParameter("order_id");
         int order_id = 1;
 //        try{
 //            order_id = Integer.parseInt(orderIDStr);
@@ -62,50 +61,55 @@ public class Feedback extends HttpServlet {
         OrderDAO orderDAO = new OrderDAO();
         Order order = orderDAO.getOrder(u.getId(), order_id);
         request.setAttribute("order", order);
-        
+
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> listOrderDetails = orderDetailDAO.getOrderDetailsByOrderId(order_id);
         request.setAttribute("listOrderDetails", listOrderDetails);
-        
+
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList = productDAO.getProductList();
         request.setAttribute("listP", productList);
         request.getRequestDispatcher("/Views/Feedback.jsp").forward(request, response);
-        
+
     }
-    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-        
+
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
         String feedback = request.getParameter("feedback");
         String rateStr = request.getParameter("rating");
         int rate = 0;
-        
+
         try {
-            rate= Integer.parseInt(rateStr);
+            rate = Integer.parseInt(rateStr);
         } catch (Exception e) {
         }
-        
+
+        //String orderIDStr = request.getParameter("order_id");
         int order_id = 1;
-        
+//        try{
+//            order_id = Integer.parseInt(orderIDStr);
+//        }catch(NumberFormatException e){
+//            e.printStackTrace();
+//        }
+
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
         ArrayList<Integer> productFb = new ArrayList<>();
         for (OrderDetail orderDetail : orderDetailList) {
-            if(orderDetail.getOrder_id() == order_id){
+            if (orderDetail.getOrder_id() == order_id) {
                 productFb.add(orderDetail.getProductdetail_id());
             }
         }
-        
+
         for (Integer integer : productFb) {
             feedbackDAO.sendFeedback(u.getId(), integer.intValue(), rate, feedback, "Active");
         }
-        
+
         Part filePart = request.getPart("fbimg");
         if (filePart == null || filePart.getSize() == 0) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "File not provided or empty.");
@@ -113,11 +117,10 @@ public class Feedback extends HttpServlet {
         }
 
         String fileName = getFileName(filePart);
-        
+
         for (Integer integer : productFb) {
             feedbackDAO.insertImageFb(integer.intValue(), fileName);
         }
-        
 
         // Tạo đường dẫn lưu file
         String applicationPath = getServletContext().getRealPath("");
@@ -150,7 +153,5 @@ public class Feedback extends HttpServlet {
         }
         return null;
     }
-
-    
 
 }

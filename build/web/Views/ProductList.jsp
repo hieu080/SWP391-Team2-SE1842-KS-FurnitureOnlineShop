@@ -436,7 +436,7 @@
                                                                 <div class="icon icon_hot">
                                                                     <img loading="lazy" decoding="async"
                                                                          src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
-                                                                         alt="icon hot" />
+                                                                         alt="icon hot"/>
                                                                 </div>
                                                             </div>
                                                             <a href="#"

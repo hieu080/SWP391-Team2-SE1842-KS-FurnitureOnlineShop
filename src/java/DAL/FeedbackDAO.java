@@ -21,12 +21,39 @@ public class FeedbackDAO extends DBContext {
     private static final Logger LOGGER = Logger.getLogger(FeedbackDAO.class.getName());
 
     public static void main(String[] args) {
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        ArrayList<Feedback> feedbackList = feedbackDAO.getFeedbackList();
-        for (Feedback feedback : feedbackList) {
-            System.out.println(feedback.getVotescore());
-        }
+        FeedbackDAO fdao = new FeedbackDAO();
+        fdao.deleteFeedback(1);
     }
+
+    public ArrayList<Feedback> getFeedbackListByProductId(int productId) {
+        ArrayList<Feedback> feedbackList = new ArrayList<>();
+        String sql = "SELECT * FROM Feedback WHERE product_id = ? AND status = 'None'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
+            pstmt.setInt(1, productId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int customerId = rs.getInt("customer_id");
+                int productIdFromDb = rs.getInt("product_id"); // Rename to productIdFromDb to avoid conflict
+                int voteScore = rs.getInt("votescore");
+                String feedbackStr = rs.getString("feedback");
+                String status = rs.getString("status");
+
+                Feedback feedback = new Feedback(customerId, productIdFromDb, voteScore, feedbackStr);
+                feedback.setId(id);
+                feedback.setStatus(status);
+
+                feedbackList.add(feedback);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving feedback list", ex);
+        }
+
+        return feedbackList;
+    }
+
     // Phương thức getFeedbackList
     public ArrayList<Feedback> getFeedbackList() {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
@@ -92,7 +119,7 @@ public class FeedbackDAO extends DBContext {
 
     // Phương thức deleteFeedback
     public boolean deleteFeedback(int feedbackId) {
-        String sql = "DELETE FROM Feedback WHERE id = ?";
+        String sql = "UPDATE Feedback SET status = 'Hide' WHERE id = ?";
 
         try (
                 PreparedStatement pstmt = connect.prepareStatement(sql)) {
@@ -104,6 +131,7 @@ public class FeedbackDAO extends DBContext {
             return false;
         }
     }
+    
 
     public boolean sendFeedback(int customer_id, int product_id, int votescore, String feedback, String status) {
         String sql = "INSERT INTO feedback (customer_id, product_id, votescore, feedback, status) VALUES (?, ?, ?, ?, ?)";

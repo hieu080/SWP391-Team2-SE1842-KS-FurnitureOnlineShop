@@ -27,113 +27,104 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
         <style>
-            /* feedback.css */
-            .feedback-content {
-                background-color: #f9f9f9;
-                padding: 30px;
-                border-radius: 5px;
+            /* Căn giữa và tạo khoảng cách */
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #f9f9f9;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
             }
 
+            /* Kiểu dáng tiêu đề */
             .feedback-content h1 {
-                color: #333;
-                font-size: 24px;
-                margin-bottom: 20px;
                 text-align: center;
-            }
-
-            .feedback-content .main-content {
-                margin-top: 20px;
-            }
-
-            .feedback-content .product-info {
+                font-size: 2em;
                 margin-bottom: 20px;
-            }
-
-            .feedback-content .product-info h3 {
                 color: #333;
-                font-size: 18px;
-                margin-bottom: 10px;
             }
 
-            .feedback-content .product-info p {
-                color: #666;
-                font-size: 14px;
+            /* Định dạng thông tin sản phẩm */
+            .product-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
             }
 
-            .feedback-content textarea {
+            .product-image {
+                width: 60px;
+                height: 70px;
+                margin-right: 10px;
+                border-radius: 4px;
+            }
+
+            .product-name {
+                font-size: 1em;
+                color: #555;
+            }
+
+            /* Kiểu dáng form */
+            .feedback-form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .feedback-form label {
+                margin-top: 10px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .feedback-textarea {
                 width: 100%;
-                height: 100px;
+                height: 80px;
                 padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
                 resize: vertical;
             }
 
-            .feedback-content .rate {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 10px;
+            .rate-select {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
             }
 
-            .feedback-content .rate input[type="radio"] {
-                display: none;
+            .file-input {
+                margin-top: 5px;
             }
 
-            .feedback-content .rate label {
-                font-size: 20px;
-                color: #ccc;
-                cursor: pointer;
-            }
-
-            .feedback-content .rate input[type="radio"]:checked + label {
-                color: #ffc107;
-            }
-
-            .feedback-content .rate label:hover,
-            .feedback-content .rate label:hover ~ label {
-                color: #ffcd3c;
-            }
-
-            .feedback-content .submit {
-                background-color: #5cb85c;
-                color: #fff;
-                border: none;
-                padding: 10px 20px;
-                font-size: 16px;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .feedback-content .submit:hover {
-                background-color: #4cae4c;
-            }
-
-            .feedback-content #curAvt {
+            .submit-btn {
                 margin-top: 20px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                max-width: 100%;
+                padding: 10px;
+                background: #5cb85c;
+                border: none;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.3s;
             }
 
-            .feedback-content #invalid,
-            .feedback-content #invalid1 {
-                color: red;
-                font-size: 14px;
-                margin-top: 10px;
+            .submit-btn:hover {
+                background: #4cae4c;
             }
 
-            .feedback-content input[type="file"] {
-                margin-top: 10px;
+            @media (max-width: 768px) {
+                .product-item, .feedback-form {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
             }
-
-            .feedback-content span {
-                display: block;
-                margin-bottom: 10px;
-                font-size: 14px;
-                color: #666;
-            }
+            .avatar-preview {
+            display: block;
+            width: 200px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin: 10px;
+        }
 
         </style>
     </head><!--/head-->
@@ -150,53 +141,88 @@
                         <div class="feedback-content">
                             <h1>Đánh Giá Sản Phẩm</h1>
                             <div class="main-content">
-                                
-                                
-                                    <div class="product-info">
-                                        <c:set var="order" value="${order}"/>
-                                            <div class="row">
-                                                <div class="col-md-6">                                                 
-                                                    <c:forEach items="${listOrderDetails}" var="orderDetail">
-                                                        <c:if test="${orderDetail.order_id == order.id}">
-                                                            <c:forEach items="${listP}" var="product">
-                                                                <c:if test="${product.id == orderDetail.product_id}">
-                                                                    <div>
-                                                                        <img src="images/product/${product.image}" width="60px" height="70px" alt="${product.name}"/>
-                                                                        <p>${product.name}</p>
-                                                                    </div>
-                                                                </c:if>
-                                                            </c:forEach>
+
+
+                                <div class="product-info">
+                                    <c:set var="order" value="${order}"/>
+                                    <div class="row">
+                                        <div class="col-md-6">                                                 
+                                            <c:forEach items="${listOrderDetails}" var="orderDetail">
+                                                <c:if test="${orderDetail.order_id == order.id}">
+                                                    <c:forEach items="${listP}" var="product">
+                                                        <c:if test="${product.id == orderDetail.product_id}">
+                                                            <div>
+                                                                <img src="images/product/${product.image}" width="60px" height="70px" alt="${product.name}"/>
+                                                                <p>${product.name}</p>
+                                                            </div>
                                                         </c:if>
                                                     </c:forEach>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <form action="Feedback" method="post" onsubmit="return checkInput();" enctype="multipart/form-data">
-                                                        <span><b>Đánh giá: </b></span>
-                                                        <textarea name="feedback" id="feedbackContent"></textarea>
-                                                        <input type="hidden" name="order_id" value="${order.id}">
-                                                        <span id="invalid" style="color: red;">${sessionScope['messc']}</span>
-                                                        <div><b>Chất lượng sản phẩm: </b></div>
-                                                        <div class="rate">
-                                                            <select name="rating">
-                                                                <option value="1">⭐</option>
-                                                                <option value="2">⭐⭐</option>
-                                                                <option value="3">⭐⭐⭐</option>
-                                                                <option value="4">⭐⭐⭐⭐</option>
-                                                                <option value="5">⭐⭐⭐⭐⭐</option>
-                                                            </select>
-                                                        </div><br><br>
-                                                        <span><b>Thêm hình ảnh </b></span>
-                                                        <input type="file" id="fbimg" name="fbimg" accept="image/*"><br>
-                                                        <span id="invalid1" style="color: red;"></span><br>
-                                                        <input name="img" id="sendimg" type="hidden">
-                                                        <input name="pid" value="${product.id}" type="hidden">
-                                                        <img id="curAvt" style="width: 100%;" src="">
-                                                        <input type="submit" value="Gửi" class="submit">
-                                                    </form>
-                                                </div>
-                                            </div>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="Feedback" method="post" onsubmit="return checkInput();" enctype="multipart/form-data">
+                                                <span><b>Đánh giá: </b></span>
+                                                <textarea name="feedback" id="feedbackContent"></textarea>
+                                                <input type="hidden" name="order_id" value="${order.id}">
+                                                <span id="invalid" style="color: red;">${sessionScope['messc']}</span>
+                                                <div><b>Chất lượng sản phẩm: </b></div>
+                                                <div class="rate">
+                                                    <select name="rating">
+                                                        <option value="1">⭐</option>
+                                                        <option value="2">⭐⭐</option>
+                                                        <option value="3">⭐⭐⭐</option>
+                                                        <option value="4">⭐⭐⭐⭐</option>
+                                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                                    </select>
+                                                </div><br><br>
+                                                <span><b>Thêm hình ảnh </b></span>
+                                                <!--                                                <input type="file" id="fbimg" name="fbimg" accept="image/*" multiple><br>-->
+                                                <input type="file" class="form-control-file" id="avatar" multiple accept="image/*">
+                                                <div id="imageContainer"></div>
+
+                                                <script>
+                                                    document.getElementById('avatar').addEventListener('change', function (event) {
+                                                        const imageContainer = document.getElementById('imageContainer');
+                                                        imageContainer.innerHTML = ''; // Clear any previous images
+                                                        const files = event.target.files;
+
+                                                        for (let i = 0; i < files.length; i++) {
+                                                            const file = files[i];
+
+                                                            if (file.type.startsWith('image/')) {
+                                                                const reader = new FileReader();
+
+                                                                reader.onload = function (e) {
+                                                                    const img = document.createElement('img');
+                                                                    img.src = e.target.result;
+                                                                    img.className = 'avatar-preview';
+                                                                    imageContainer.appendChild(img);
+                                                                };
+
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        }
+                                                    });
+                                                </script>
+                                                <script>
+                                                    function previewAvatar(event) {
+                                                        const [file] = event.target.files;
+                                                        if (file) {
+                                                            document.getElementById('avatarPreview').src = URL.createObjectURL(file);
+                                                        }
+                                                    }
+                                                </script>
+                                                <span id="invalid1" style="color: red;"></span><br>
+                                                <input name="img" id="sendimg" type="hidden">
+                                                <input name="pid" value="${product.id}" type="hidden">
+                                                <img id="curAvt" style="width: 100%;" src="">
+                                                <input type="submit" value="Gửi" class="submit">
+                                            </form>
+                                        </div>
                                     </div>
-                                
+                                </div>
+
 
                             </div>
                         </div>

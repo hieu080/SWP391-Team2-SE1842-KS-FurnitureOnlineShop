@@ -10,11 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
+
 /**
  *
  * @author HELLO
  */
-public class AttachedImageDAO extends DBContext{
+public class AttachedImageDAO extends DBContext {
+
     private static final Logger LOGGER = Logger.getLogger(AttachedImageDAO.class.getName());
 
     // Create
@@ -75,8 +77,7 @@ public class AttachedImageDAO extends DBContext{
     public ArrayList<AttachedImage> getAllAttachedImages() {
         ArrayList<AttachedImage> attachedImages = new ArrayList<>();
         String query = "SELECT * FROM AttachedImage";
-        try (PreparedStatement stmt = connect.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = connect.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 AttachedImage attachedImage = new AttachedImage(rs.getInt("productdetail_id"), rs.getString("image"));
                 attachedImage.setId(rs.getInt("id"));
@@ -87,7 +88,42 @@ public class AttachedImageDAO extends DBContext{
         }
         return attachedImages;
     }
-    
+
+    // List All by product detail id
+    public ArrayList<AttachedImage> getAttachedImagesByProductDetailId(int[] arr) {
+        ArrayList<AttachedImage> attachedImages = new ArrayList<>();
+
+        // Xây dựng chuỗi tham số
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM AttachedImage WHERE productdetail_id IN (");
+        for (int i = 0; i < arr.length; i++) {
+            queryBuilder.append("?");
+            if (i < arr.length - 1) {
+                queryBuilder.append(",");
+            }
+        }
+        queryBuilder.append(")");
+        String query = queryBuilder.toString();
+
+        try (PreparedStatement stmt = connect.prepareStatement(query)) {
+            // Thiết lập giá trị cho các tham số truy vấn
+            for (int i = 0; i < arr.length; i++) {
+                stmt.setInt(i + 1, arr[i]);
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AttachedImage attachedImage = new AttachedImage(rs.getInt("productdetail_id"), rs.getString("image"));
+                    attachedImage.setId(rs.getInt("id"));
+                    attachedImages.add(attachedImage);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving attached images", e);
+        }
+
+        return attachedImages;
+    }
+
     public static void main(String[] args) {
         ArrayList<AttachedImage> attachedImages = new ArrayList<>();
         AttachedImageDAO attachedImageDAO = new AttachedImageDAO();
@@ -96,5 +132,5 @@ public class AttachedImageDAO extends DBContext{
             System.out.println(attachedImage.getImage());
         }
     }
-    
+
 }

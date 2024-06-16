@@ -208,4 +208,24 @@
         <servlet-name>OrderDetailServlet</servlet-name>
         <url-pattern>/OrderDetailServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostsList</servlet-name>
+        <url-pattern>/PostsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDetails</servlet-name>
+        <url-pattern>/PostDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomersList</servlet-name>
+        <url-pattern>/CustomersList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetails</servlet-name>
+        <url-pattern>/CustomerDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPost</servlet-name>
+        <url-pattern>/NewPost</url-pattern>
+    </servlet-mapping>
 </web-app>

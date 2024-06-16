@@ -185,6 +185,10 @@
         <url-pattern>/Feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProductListMKTServlet</servlet-name>
+        <url-pattern>/ProductListMKTServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
         <url-pattern>/MyOrderServlet</url-pattern>
     </servlet-mapping>

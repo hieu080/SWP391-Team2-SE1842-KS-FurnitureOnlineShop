@@ -97,6 +97,10 @@
         <servlet-class>Controller.Sale.OrderListServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>InsertProductDetail</servlet-name>
+        <servlet-class>Controller.Marketing.InsertProductDetail</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>OrderDetailServlet</servlet-name>
         <servlet-class>Controller.Sale.OrderDetailServlet</servlet-class>
     </servlet>

@@ -80,10 +80,10 @@
         <servlet-name>Feedback</servlet-name>
         <servlet-class>Controller.Public.Feedback</servlet-class>
     </servlet>
-
-
-
-    
+    <servlet>
+        <servlet-name>ProductListMKTServlet</servlet-name>
+        <servlet-class>Controller.Marketing.ProductListMKTServlet</servlet-class>
+    </servlet> 
     <servlet>
         <servlet-name>MyOrderServlet</servlet-name>
         <servlet-class>Controller.Customer.MyOrderServlet</servlet-class>

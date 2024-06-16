@@ -149,8 +149,10 @@
                                         <div class="col-md-6">                                                 
                                             <c:forEach items="${listOrderDetails}" var="orderDetail">
                                                 <c:if test="${orderDetail.order_id == order.id}">
+                                                    <c:set var="productdetail_id" value="${OrderDetail.productdetail_id}"/>
+                                                    <c:set var="product_id" value="${ProductDetailDAO.getProductIdByProductDetailId(productdetail_id)}"/>
                                                     <c:forEach items="${listP}" var="product">
-                                                        <c:if test="${product.id == orderDetail.product_id}">
+                                                        <c:if test="${product.id == product_id}">
                                                             <div>
                                                                 <img src="images/product/${product.image}" width="60px" height="70px" alt="${product.name}"/>
                                                                 <p>${product.name}</p>

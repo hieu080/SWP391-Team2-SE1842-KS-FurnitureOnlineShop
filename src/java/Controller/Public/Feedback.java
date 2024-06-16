@@ -8,6 +8,7 @@ import DAL.FeedbackDAO;
 import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import DAL.ProductDAO;
+import DAL.ProductDetailDAO;
 import DAL.UserDAO;
 import Models.Category;
 import Models.Product;
@@ -89,22 +90,19 @@ public class Feedback extends HttpServlet {
         } catch (Exception e) {
         }
 
-        //String orderIDStr = request.getParameter("order_id");
         int order_id = 1;
-//        try{
-//            order_id = Integer.parseInt(orderIDStr);
-//        }catch(NumberFormatException e){
-//            e.printStackTrace();
-//        }
+
 
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
         ArrayList<Integer> productFb = new ArrayList<>();
         for (OrderDetail orderDetail : orderDetailList) {
-            if (orderDetail.getOrder_id() == order_id) {
-                productFb.add(orderDetail.getProductdetail_id());
-            }
+            int productdetail_id = orderDetail.getProductdetail_id();
+            int product_id = productDetailDAO.getProductIdByProductDetailId(productdetail_id);
+            productFb.add(product_id);
         }
+
 
         for (Integer integer : productFb) {
             feedbackDAO.sendFeedback(u.getId(), integer.intValue(), rate, feedback, "Active");

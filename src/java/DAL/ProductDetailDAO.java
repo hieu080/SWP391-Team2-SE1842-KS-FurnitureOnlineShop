@@ -142,6 +142,25 @@ public class ProductDetailDAO extends DBContext {
 
         return productDetails;
     }
+    
+    public int getProductIdByProductDetailId(int id) {
+        int productId = -1;
+        String sql = "SELECT product_id FROM ProductDetail WHERE id = ?";
+
+        try {
+
+            
+            PreparedStatement pstmt = connect.prepareStatement(sql);  
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                productId = rs.getInt("product_id");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return productId;
+    }
 
     public static void main(String[] args) {
         ProductDetail productDetail = new ProductDetail();

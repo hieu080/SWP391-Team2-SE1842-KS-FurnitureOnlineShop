@@ -66,6 +66,33 @@
                 overflow: hidden;
                 width: 0;
             }
+            .feedback-rating {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: center;
+            }
+            .feedback-rating input {
+                display: none;
+            }
+            .feedback-rating label {
+                font-size: 2rem;
+                color: #ccc;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+            .feedback-rating input:checked ~ label,
+            .feedback-rating input:hover ~ label,
+            .feedback-rating label:hover,
+            .feedback-rating label:hover ~ label {
+                color: #f5b301;
+            }
+
+            .avatar-preview {
+                height: 100px;
+                width: 100px;  /* Fixed height and width for images */
+                object-fit: cover; /* Cover the div without stretching */
+                margin-top: 10px;
+            }
         </style>
 
     </head>
@@ -135,6 +162,7 @@
 
             <div style="border: solid 2px black">
                 <div class="row">
+
                     <div id="feedback-all" style="display: block;">
                         <c:forEach items="${requestScope.feedbacksOfProduct}" var="feedbackProduct">
                             <c:forEach items="${requestScope.userList}" var="user">
@@ -147,7 +175,7 @@
                                                     <div>
                                                         <div>
                                                             <c:if test="${customer.id == user.id}">
-                                                                <a style="margin-right: 10px;" href="#" data-toggle="modal" data-target="#editFeedbackModal">Edit</a>
+                                                                <a style="margin-right: 10px;" href="#" data-toggle="modal" data-target="#editFeedbackModal_${feedbackProduct.id}">Edit</a>
                                                                 <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                             </c:if>
                                                             <c:if test="${customer.role_id == 4}">
@@ -157,7 +185,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                     <div class="rating"></div>
                                                 </div>
 
@@ -178,6 +206,55 @@
                                     </div>
                                 </c:if>
                             </c:forEach>
+                            <!-- Modal sửa feedback -->
+                            <div class="modal" id="editFeedbackModal_${feedbackProduct.id}" data-backdrop="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Sửa Feedback</h3>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form action="Feedback" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="feedbackContent"><b>Feedback: </b></label>
+                                                    <textarea class="form-control" name="feedback" id="feedbackContent" rows="7">${feedbackProduct.feedback}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><b>Đánh giá: </b></label>
+                                                    <div class="feedback-rating">
+                                                        <input type="radio" id="star5_${feedbackProduct.id}" name="rating" value="5" <c:if test="${feedbackProduct.votescore == 5}">checked</c:if>><label for="star5_${feedbackProduct.id}">★</label>
+                                                        <input type="radio" id="star4_${feedbackProduct.id}" name="rating" value="4" <c:if test="${feedbackProduct.votescore == 4}">checked</c:if>><label for="star4_${feedbackProduct.id}">★</label>
+                                                        <input type="radio" id="star3_${feedbackProduct.id}" name="rating" value="3" <c:if test="${feedbackProduct.votescore == 3}">checked</c:if>><label for="star3_${feedbackProduct.id}">★</label>
+                                                        <input type="radio" id="star2_${feedbackProduct.id}" name="rating" value="2" <c:if test="${feedbackProduct.votescore == 2}">checked</c:if>><label for="star2_${feedbackProduct.id}">★</label>
+                                                        <input type="radio" id="star1_${feedbackProduct.id}" name="rating" value="1" <c:if test="${feedbackProduct.votescore == 1}">checked</c:if>><label for="star1_${feedbackProduct.id}">★</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="avatar"><b>Ảnh đính kèm: </b></label>
+
+                                                    </div>
+                                                    <div class="row" id="imageContainer">
+                                                    <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                        <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                            <div class="col-md-3">
+                                                                <img class="fit-image avatar-preview" src="image/imagefeedback/${imageFeedback.image}" alt="image" />
+                                                                <input type="file" class="form-control-file" id="avatar_${imageFeedback.id}" accept="image/*">
+                                                            </div>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </div>
+                                                <div class="form-group" style="margin-top: 15px; display: flex; justify-content: center">
+                                                    <input type="submit" value="Lưu" class="btn btn-primary">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Kết thúc modal -->
                         </c:forEach>
                     </div>
 
@@ -205,7 +282,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                    <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                         <div class="rating"></div>
                                                     </div>
 
@@ -254,7 +331,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                    <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                         <div class="rating"></div>
                                                     </div>
 
@@ -303,7 +380,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                    <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                         <div class="rating"></div>
                                                     </div>
 
@@ -352,7 +429,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                    <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                         <div class="rating"></div>
                                                     </div>
 
@@ -401,7 +478,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="feedback-rating" data-rating="${feedbackProduct.votescore}">
+                                                    <div class="feedback-rating-star" data-rating="${feedbackProduct.votescore}">
                                                         <div class="rating"></div>
                                                     </div>
 
@@ -431,6 +508,7 @@
         </div>
     </div>
 
+
     <div class="modal fade" id="deleteFeedbackModal" data-backdrop="false" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -454,9 +532,8 @@
     </div>
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
-            var ratingContainers = document.querySelectorAll('.feedback-rating');
+            var ratingContainers = document.querySelectorAll('.feedback-rating-star');
             ratingContainers.forEach(function (container) {
                 var ratingValue = parseFloat(container.getAttribute('data-rating'));
                 // Cập nhật chiều rộng của sao đã đánh giá
@@ -474,23 +551,47 @@
                 console.error('Element with id "deleteFeedbackId" not found.');
             }
         }
-        
-        function showFeedbackSection(sectionId) {
-        // Hide all sections except feedback-all
-        document.getElementById('feedback-five-star').style.display = 'none';
-        document.getElementById('feedback-four-star').style.display = 'none';
-        document.getElementById('feedback-three-star').style.display = 'none';
-        document.getElementById('feedback-two-star').style.display = 'none';
-        document.getElementById('feedback-one-star').style.display = 'none';
 
-        if (sectionId === 'feedback-all') {
-            document.getElementById('feedback-all').style.display = 'block';
-        } else {
-            document.getElementById('feedback-all').style.display = 'none';
-            document.getElementById(sectionId).style.display = 'block';
+        function showFeedbackSection(sectionId) {
+            // Hide all sections except feedback-all
+            document.getElementById('feedback-five-star').style.display = 'none';
+            document.getElementById('feedback-four-star').style.display = 'none';
+            document.getElementById('feedback-three-star').style.display = 'none';
+            document.getElementById('feedback-two-star').style.display = 'none';
+            document.getElementById('feedback-one-star').style.display = 'none';
+
+            if (sectionId === 'feedback-all') {
+                document.getElementById('feedback-all').style.display = 'block';
+            } else {
+                document.getElementById('feedback-all').style.display = 'none';
+                document.getElementById(sectionId).style.display = 'block';
+            }
         }
-    }
+
+        // Lắng nghe sự kiện khi có thay đổi trên input type="file"
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputs = document.querySelectorAll('input[type="file"]');
+            inputs.forEach(input => {
+                input.addEventListener("change", function () {
+                    const file = this.files[0]; // Lấy file đầu tiên trong danh sách đã chọn
+                    const imgPreview = this.parentElement.querySelector('.avatar-preview'); // Tìm thẻ <img> trong cùng một cấp cha
+
+                    if (file) {
+                        const reader = new FileReader(); // Đối tượng đọc file
+                        reader.onload = function (e) {
+                            imgPreview.src = e.target.result; // Gán đường dẫn của file vào thuộc tính src của thẻ <img>
+                        };
+                        reader.readAsDataURL(file); // Đọc file dưới dạng URL data
+                    }
+                });
+            });
+        });
+
     </script>
+
+
+
+
     <style>
         .rating::after {
             content: "★★★★★";

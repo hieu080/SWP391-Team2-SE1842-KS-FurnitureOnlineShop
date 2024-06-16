@@ -188,6 +188,10 @@
         <servlet-name>ProductListMKTServlet</servlet-name>
         <url-pattern>/ProductListMKTServlet</url-pattern>
     </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>InsertProductDetail</servlet-name>
+        <url-pattern>/InsertProductDetail</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
         <url-pattern>/MyOrderServlet</url-pattern>

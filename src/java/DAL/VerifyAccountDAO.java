@@ -15,11 +15,10 @@ import java.util.logging.Logger;
  *
  * @author HELLO
  */
-public class VerifyAccountDAO extends DBContext{
-    
+public class VerifyAccountDAO extends DBContext {
+
     private static final Logger LOGGER = Logger.getLogger(VerifyAccountDAO.class.getName());
-    
-    
+
     public void insertVerifyCustomer(String fullname, String gender, String phonenumber, String address, String email, String password) {
         String mysql = "INSERT INTO `furniture`.`verifyaccount` "
                 + "(`fullname`, `gender`, `phonenumber`, `address`, `email`, `password`, `time`) "
@@ -36,7 +35,7 @@ public class VerifyAccountDAO extends DBContext{
             LOGGER.log(Level.SEVERE, "Error inserting verified customer", e);
         }
     }
-    
+
     public boolean checkVerifyEmail(String email) {
         String mysql = "SELECT COUNT(*) FROM furniture.verifyaccount WHERE email = ?";
         try (PreparedStatement statement = connect.prepareStatement(mysql)) {
@@ -52,5 +51,8 @@ public class VerifyAccountDAO extends DBContext{
         }
         return false;
     }
-    
+
+        
+   
+
 }

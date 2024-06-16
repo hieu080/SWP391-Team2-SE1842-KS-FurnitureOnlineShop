@@ -155,7 +155,7 @@
                                                         <strong>Full name: ${user.fullname}</strong><br>
                                                         Gender: ${user.gender}<br>
                                                         Email: ${user.email}<br>
-                                                        Phone: ${user.phonenumber}<br>
+                                                        Phone: ${address.phonenumber}<br>
                                                         Address: ${address.address}<br>
                                                         <!--                                                        <abbr title="Phone">P:</abbr> (123) 456-7890-->
                                                     </address>

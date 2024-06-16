@@ -87,8 +87,8 @@ public class MyOrderInformationServlet extends HttpServlet {
         order_IDs[0] = order_id;
 
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.MyOrderDetails(order_IDs);
+        
         ProductDetailDAO prDetailDAO = new ProductDetailDAO();
         ArrayList<ProductDetail> productDetailList = prDetailDAO.getAllProductDetails();
         ProductDAO prDAO = new ProductDAO();

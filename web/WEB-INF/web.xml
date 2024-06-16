@@ -88,6 +88,14 @@
         <servlet-name>MyOrderInformationServlet</servlet-name>
         <servlet-class>Controller.Customer.MyOrderInformationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderListServlet</servlet-name>
+        <servlet-class>Controller.Sale.OrderListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <servlet-class>Controller.Sale.OrderDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
@@ -175,5 +183,13 @@
     <servlet-mapping>
         <servlet-name>MyOrderInformationServlet</servlet-name>
         <url-pattern>/MyOrderInformationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderListServlet</servlet-name>
+        <url-pattern>/OrderListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <url-pattern>/OrderDetailServlet</url-pattern>
     </servlet-mapping>
 </web-app>

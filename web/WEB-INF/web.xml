@@ -132,6 +132,10 @@
         <servlet-name>FeedBackDetail</servlet-name>
         <servlet-class>Controller.Marketing.FeedBackDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedBackList</servlet-name>
+        <servlet-class>Controller.Marketing.FeedBackList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>FeedBackDetail</servlet-name>
         <url-pattern>/FeedBackDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedBackList</servlet-name>
+        <url-pattern>/FeedBackList</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>HomePage</welcome-file>

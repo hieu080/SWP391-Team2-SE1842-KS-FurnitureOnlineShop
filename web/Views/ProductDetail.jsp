@@ -364,6 +364,7 @@
                                             <c:otherwise>
                                                 <span class="pro-price">${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
                                                 <del>${product.price}₫</del>
+                                                <input type="hidden" id="pricesale" name="price" value="${product.price - product.price * saleoff.getSaleoffvalue() / 100}">
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
@@ -402,7 +403,7 @@
                             </div>
                             <div class="quantity-area clearfix" style="margin-top:15px">
                                 <input type="button" value="-" onclick="minusQuantity()" class="qty-btn">
-                                <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector" readonly>
+                                <input type="text" id="quantityproduct" name="quantity" value="1" min="1" class="quantity-selector" readonly>
                                 <input type="button" value="+" onclick="plusQuantity()" class="qty-btn">
                             </div>
                             <p id="warningMessage" style="color: red; display: none;"></p>
@@ -420,7 +421,14 @@
                     </div>
                 </div>
             </main>
+
         </div>
+        <form id="hiddenForm" action="${pageContext.request.contextPath}/AddToCart" method="get" style="display: none;">
+            <input type="hidden" id="productDetailId" name="productDetailId" value="">
+            <input type="hidden" id="quantity" name="quantity" value="">
+            <input type="hidden" id="price" name="price" value="">
+            <input type="hidden" id="action" name="action" value="">
+        </form>
         <%@include file="ProductFeedback.jsp" %>
         <%@ include file="HomeProduct.jsp" %>
         <%@ include file="HomeFooter.jsp" %>
@@ -508,7 +516,7 @@
                     warningMessage.style.display = 'block';  // Show warning message
                 }
             }
-            
+
             function setFeedbackId(feedbackId) {
                 var feedbackIdInput = document.getElementById('deleteFeedbackId');
                 if (feedbackIdInput) {
@@ -517,6 +525,32 @@
                     console.error('Element with id "deleteFeedbackId" not found.');
                 }
             }
+            document.querySelector('.add-to-cartProduct').addEventListener('click', function () {
+               var selectedRadio = document.querySelector('input[name="color"]:checked');
+                var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
+                var quantity = document.getElementById('quantityproduct').value;
+                var price = document.getElementById('pricesale').value;
+
+                document.getElementById('productDetailId').value = productDetailId;
+                document.getElementById('quantity').value = quantity;
+                document.getElementById('price').value = price;
+
+                document.getElementById('hiddenForm').submit();
+            });
+
+            document.getElementById('buy_now').addEventListener('click', function () {
+                var selectedRadio = document.querySelector('input[name="color"]:checked');
+                var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
+                var quantity = document.getElementById('quantityproduct').value;
+                var price = document.getElementById('pricesale').value;
+
+                document.getElementById('productDetailId').value = productDetailId;
+                document.getElementById('quantity').value = quantity;
+                document.getElementById('price').value = price;
+                document.getElementById('action').value = "buynow";
+
+                document.getElementById('hiddenForm').submit();
+            });
 
         </script>
 

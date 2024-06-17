@@ -11,17 +11,22 @@ package Models;
 public class Address {
     private int id;
     private int customer_id;
+    private String fullname;
     private String phonenumber;
     private String address;
+    private String addressdetail;
     private String status;
 
     public Address() {
     }
 
-    public Address(int customer_id, String phonenumber, String address, String status) {
+    public Address(int id, int customer_id, String fullname, String phonenumber, String address, String addressdetail, String status) {
+        this.id = id;
         this.customer_id = customer_id;
+        this.fullname = fullname;
         this.phonenumber = phonenumber;
         this.address = address;
+        this.addressdetail = addressdetail;
         this.status = status;
     }
 
@@ -41,6 +46,14 @@ public class Address {
         this.customer_id = customer_id;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
     public String getPhonenumber() {
         return phonenumber;
     }
@@ -57,6 +70,14 @@ public class Address {
         this.address = address;
     }
 
+    public String getAddressdetail() {
+        return addressdetail;
+    }
+
+    public void setAddressdetail(String addressdetail) {
+        this.addressdetail = addressdetail;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -64,7 +85,7 @@ public class Address {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     
 }
 

@@ -7,9 +7,11 @@ package Controller.Marketing;
 import DAL.SliderDAO;
 import DAL.UserDAO;
 import DAL.UserRoleDAO;
+import Helper.PaginationHelper;
 import Models.Slider;
 import Models.User;
 import Models.UserRole;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,18 +35,19 @@ public class SliderList extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         String status = request.getParameter("status");
+        String search = "";
+        if (request.getParameter("search") != null) {
+            search = request.getParameter("search").trim();
+        } else {
+            search = request.getParameter("search");
+        }
         if (session != null) {
             User user = ((User) session.getAttribute("customer"));
             SliderDAO sliderDAO = new SliderDAO();
             List<Slider> sliders = new ArrayList<>();
 
             UserRole role = new UserRoleDAO().getUserRoleByID(user.getRole_id());
-            String search = "";
-            if (request.getParameter("search") != null) {
-                search = request.getParameter("search").trim();
-            } else {
-                search = request.getParameter("search");
-            }
+
             if (role.getRolename().equals("Marketer")) {
 
                 if (status != null && !"all".equals(status) && search != null && !search.isEmpty()) {
@@ -67,17 +72,49 @@ public class SliderList extends HttpServlet {
             } else {
                 request.getRequestDispatcher("error.jsp");
             }
-
+            String sort = request.getParameter("sort");
             if (!sliders.isEmpty()) {
+                if (sort != null&&!sort.equals("all")) {
+                    if (sort.equals("id")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getId));
+                    }
+                    if (sort.equals("id_desc")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getId).reversed());
+                    }
+                    if (sort.equals("title")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getTitle));
+                    }
+                    if (sort.equals("title_desc")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getTitle).reversed());
+                    }
+                    if (sort.equals("backlink")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getLink));
+                    }
+                    if (sort.equals("backlink_desc")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getLink).reversed());
+                    }
+                    if (sort.equals("author_id")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getAuthor_id));
+                    }
+                    if (sort.equals("author_id_desc")) {
+                        Collections.sort(sliders, Comparator.comparing(Slider::getAuthor_id).reversed());
+                    }
+                    
+                }
                 request.setAttribute("listslider", sliders);
+                PaginationHelper paginationHelper = new PaginationHelper();
+                String itemsPerPage = "itemsPerSliderPage";
+                ServletContext context = getServletContext();
+                String attribute = "listslider";
+                paginationHelper.Pagination(request, sliders, context, itemsPerPage, attribute);
             } else {
                 request.setAttribute("listempty", "List is empty!");
             }
-
+            request.setAttribute("sort", sort);
             request.setAttribute("st", status);
             request.setAttribute("search", search);
             request.getRequestDispatcher("Views/SliderList.jsp").forward(request, response);
-        }else{
+        } else {
             response.sendRedirect("HomePage");
         }
     }

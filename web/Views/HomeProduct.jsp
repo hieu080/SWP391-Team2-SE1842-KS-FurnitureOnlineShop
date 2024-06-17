@@ -107,6 +107,26 @@
             }
 
         </style>
+                <style>
+            .color-checkbox {
+                display: inline-block;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            .color-circle {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: inline-block;
+                border: 2px solid #ddd;
+                box-sizing: border-box;
+            }
+
+            .color-checkbox input[type="checkbox"]:checked + .color-circle {
+                border: 2px solid #000;
+            }
+        </style>
     </head>
 
     <body>
@@ -165,7 +185,7 @@
                                                  alt="icon hot" />
                                         </div>
                                     </div>
-                                    <a href="#"
+                                    <a href="ProductDetailServlet?productId=${product.id}"
                                        title="${product.name}" class="image-resize">
                                         <picture class="loop-one-img ">
                                             <img loading="lazy" decoding="async" width="480"

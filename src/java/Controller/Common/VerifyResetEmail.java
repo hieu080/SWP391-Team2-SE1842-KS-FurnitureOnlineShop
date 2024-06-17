@@ -13,6 +13,7 @@ import DAL.OrderDetailDAO;
 import DAL.PageDAO;
 import DAL.PostDAO;
 import DAL.ProductDAO;
+import DAL.ProductDetailDAO;
 import DAL.RoomDAO;
 import DAL.SaleOffDAO;
 import DAL.SliderDAO;
@@ -27,6 +28,7 @@ import Models.OrderDetail;
 import Models.Page;
 import Models.Post;
 import Models.Product;
+import Models.ProductDetail;
 import Models.Room;
 import Models.SaleOff;
 import Models.Slider;
@@ -96,6 +98,10 @@ public class VerifyResetEmail extends HttpServlet {
         ArrayList<Category> categoryList = categoryDAO.getCategoryList();
         request.setAttribute("categoryList", categoryList);
 
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
+        request.setAttribute("productDetailList", productDetailList);
+        
         ColorDAO colorDAO = new ColorDAO();
         ArrayList<Color> colorList = colorDAO.getColorList();
         request.setAttribute("colorList", colorList);

@@ -17,12 +17,12 @@
         <link rel="preload stylesheet" as="style" fetchpriority="low" href="css/style-theme.scss.css">
         <link rel="stylesheet" href="css/style.css">
         <!--+++++++++++++++++++++++++  JS ++++++++++++++++++++++++-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script defer fetchpriority="low" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+            <script defer fetchpriority="low" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"></script>
 
-        <script defer fetchpriority="low" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+            <script defer fetchpriority="low" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
         <style>
@@ -439,7 +439,7 @@
                                                                          alt="icon hot"/>
                                                                 </div>
                                                             </div>
-                                                            <a href="#"
+                                                            <a href="ProductDetailServlet?productId=${product.id}"
                                                                title="${product.name}" class="image-resize">
                                                                 <picture class="loop-one-img ">
                                                                     <img loading="lazy" decoding="async" width="480"

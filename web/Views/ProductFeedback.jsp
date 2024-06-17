@@ -161,13 +161,13 @@
             <c:set var="customer" value="${requestScope.customer}"/>
 
             <div style="border: solid 2px black">
-                <div class="row">
+                <div >
 
-                    <div id="feedback-all" style="display: block;">
+                    <div id="feedback-all"  style="display: block;">
                         <c:forEach items="${requestScope.feedbacksOfProduct}" var="feedbackProduct">
                             <c:forEach items="${requestScope.userList}" var="user">
                                 <c:if test="${feedbackProduct.customer_id == user.id}">
-                                    <div class="col-md-6">
+                                    <div>
                                         <div style="margin: 10px; border: solid; border-radius: 10px;">
                                             <div style="margin: 10px">
                                                 <div class="d-flex" style="justify-content: space-between">
@@ -193,13 +193,16 @@
                                                     <div class="col-md-12">
                                                         <p>${feedbackProduct.feedback}</p>
                                                     </div>
-                                                    <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                        <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                            <div class="col-md-3">
-                                                                <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
-                                                            </div>
-                                                        </c:if>
-                                                    </c:forEach>
+                                                    <div class="col-md-12" style="display: flex">
+                                                        <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                            <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                                <div>
+                                                                    <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
+                                                                </div>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -264,7 +267,7 @@
                             <c:if test="${feedbackProduct.votescore == 5}">
                                 <c:forEach items="${requestScope.userList}" var="user">
                                     <c:if test="${feedbackProduct.customer_id == user.id}">
-                                        <div class="col-md-6">
+                                        <div>
                                             <div style="margin: 10px; border: solid; border-radius: 10px;">
                                                 <div style="margin: 10px">
                                                     <div class="d-flex" style="justify-content: space-between">
@@ -290,13 +293,16 @@
                                                         <div class="col-md-12">
                                                             <p>${feedbackProduct.feedback}</p>
                                                         </div>
-                                                        <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                            <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                                <div class="col-md-3">
-                                                                    <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
-                                                                </div>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                        <div class="col-md-12" style="display: flex">
+                                                            <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                                <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                                    <div>
+                                                                        <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -313,7 +319,7 @@
                             <c:if test="${feedbackProduct.votescore == 4}">
                                 <c:forEach items="${requestScope.userList}" var="user">
                                     <c:if test="${feedbackProduct.customer_id == user.id}">
-                                        <div class="col-md-6">
+                                        <div>
                                             <div style="margin: 10px; border: solid; border-radius: 10px;">
                                                 <div style="margin: 10px">
                                                     <div class="d-flex" style="justify-content: space-between">
@@ -339,13 +345,16 @@
                                                         <div class="col-md-12">
                                                             <p>${feedbackProduct.feedback}</p>
                                                         </div>
-                                                        <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                            <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                                <div class="col-md-3">
-                                                                    <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
-                                                                </div>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                        <div class="col-md-12" style="display: flex">
+                                                            <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                                <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                                    <div>
+                                                                        <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,7 +371,7 @@
                             <c:if test="${feedbackProduct.votescore == 3}">
                                 <c:forEach items="${requestScope.userList}" var="user">
                                     <c:if test="${feedbackProduct.customer_id == user.id}">
-                                        <div class="col-md-6">
+                                        <div>
                                             <div style="margin: 10px; border: solid; border-radius: 10px;">
                                                 <div style="margin: 10px">
                                                     <div class="d-flex" style="justify-content: space-between">
@@ -388,13 +397,16 @@
                                                         <div class="col-md-12">
                                                             <p>${feedbackProduct.feedback}</p>
                                                         </div>
-                                                        <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                            <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                                <div class="col-md-3">
-                                                                    <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
-                                                                </div>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                        <div class="col-md-12" style="display: flex">
+                                                            <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                                <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                                    <div>
+                                                                        <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -411,7 +423,7 @@
                             <c:if test="${feedbackProduct.votescore == 2}">
                                 <c:forEach items="${requestScope.userList}" var="user">
                                     <c:if test="${feedbackProduct.customer_id == user.id}">
-                                        <div class="col-md-6">
+                                        <div>
                                             <div style="margin: 10px; border: solid; border-radius: 10px;">
                                                 <div style="margin: 10px">
                                                     <div class="d-flex" style="justify-content: space-between">
@@ -437,13 +449,16 @@
                                                         <div class="col-md-12">
                                                             <p>${feedbackProduct.feedback}</p>
                                                         </div>
-                                                        <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                            <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                                <div class="col-md-3">
-                                                                    <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
-                                                                </div>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                        <div class="col-md-12" style="display: flex">
+                                                            <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
+                                                                <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
+                                                                    <div>
+                                                                        <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
+                                                                    </div>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -460,7 +475,7 @@
                             <c:if test="${feedbackProduct.votescore == 1}">
                                 <c:forEach items="${requestScope.userList}" var="user">
                                     <c:if test="${feedbackProduct.customer_id == user.id}">
-                                        <div class="col-md-6">
+                                        <div>
                                             <div style="margin: 10px; border: solid; border-radius: 10px;">
                                                 <div style="margin: 10px">
                                                     <div class="d-flex" style="justify-content: space-between">
@@ -483,17 +498,20 @@
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-12">
-                                                            <p>${feedbackProduct.feedback}</p>
-                                                        </div>
+                                                    <div class="col-md-12">
+                                                        <p>${feedbackProduct.feedback}</p>
+                                                    </div>
+                                                    <div class="col-md-12" style="display: flex">
                                                         <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
                                                             <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                                <div class="col-md-3">
+                                                                <div>
                                                                     <img class="fit-image" src="image/imagefeedback/${imageFeedback.image}" alt="image" width="150px" height="150px"/>
                                                                 </div>
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>
+                                                    
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

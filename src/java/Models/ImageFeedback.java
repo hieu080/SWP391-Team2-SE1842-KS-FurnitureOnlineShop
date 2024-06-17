@@ -9,11 +9,18 @@ package Models;
  * @author HELLO
  */
 public class ImageFeedback {
+
     private int id;
     private int feedback_id;
     private String image;
 
     public ImageFeedback() {
+    }
+
+    public ImageFeedback(int id, int feedback_id, String image) {
+        this.id = id;
+        this.feedback_id = feedback_id;
+        this.image = image;
     }
 
     public ImageFeedback(int feedback_id, String image) {
@@ -44,6 +51,5 @@ public class ImageFeedback {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
+
 }

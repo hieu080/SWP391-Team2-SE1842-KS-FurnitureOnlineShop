@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Models.CustomerChanges;
 import Models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -284,4 +285,267 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public ArrayList<User> getMarketerList() {
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM User u, UserRole ur where "
+                + "u.role_id=ur.id and ur.rolename='Marketing'";
+
+        try (
+                PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhonenumber(rs.getString("phonenumber"));
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setStatus(rs.getString("status"));
+
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving user list", ex);
+        }
+
+        return userList;
+    }
+
+    //get list of customer user
+    public ArrayList<User> getCustomerList() {
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM User u, UserRole ur where "
+                + "u.role_id=ur.id and ur.rolename='Customer'";
+
+        try (
+                PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhonenumber(rs.getString("phonenumber"));
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setStatus(rs.getString("status"));
+
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving user list", ex);
+        }
+
+        return userList;
+    }
+
+    //get list customer by status filter
+    public ArrayList<User> getCustomerListbyStatus(String status) {
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM User u, UserRole ur where "
+                + "u.role_id=ur.id and ur.rolename='Customer' and u.status=?";
+
+        try (
+                PreparedStatement statement = connect.prepareStatement(sql);) {
+            statement.setString(1, status);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhonenumber(rs.getString("phonenumber"));
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setStatus(rs.getString("status"));
+
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving user list", ex);
+        }
+
+        return userList;
+    }
+
+    ///tao tai khoan cho khach hang (marketing)
+    public boolean createAcc(String fullname, String gender, String phone, String add, String email, String pass) {
+        String sql = "INSERT INTO `furniture`.`user`\n"
+                + "(`fullname`,\n"
+                + "`gender`,\n"
+                + "`phonenumber`,\n"
+                + "`address`,\n"
+                + "`email`,\n"
+                + "`password`,\n"
+                + "`role_id`,\n"
+                + "`status`)\n"
+                + "VALUES\n"
+                + "(?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "1,\n"
+                + "'active')";
+        if (checkAccount(email)) {
+            return false;
+        }
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setString(1, fullname);
+            statement.setString(2, gender);
+            statement.setString(3, phone);
+            statement.setString(4, add);
+            statement.setString(5, email);
+            statement.setString(6, pass);
+
+            statement.executeUpdate();
+
+            return true;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving user list", ex);
+        }
+        return false;
+    }
+
+    //update account cua khach hang(mkt)
+    public boolean updateCustomer(String id, String name, String gender, String phone, String add, String email) {
+        String sql = "UPDATE `furniture`.`user`\n"
+                + "SET\n"
+                + "`fullname` = ?,\n"
+                + "`gender` = ?,\n"
+                + "`phonenumber` = ?,\n"
+                + "`address` = ?,\n"
+                + "`email` = ?\n"
+                + "WHERE `id` = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setString(2, gender);
+            statement.setString(3, phone);
+            statement.setString(4, add);
+            statement.setString(5, email);
+            statement.setString(6, id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    /// lay danh sach status
+    public List<String> getListStatus() {
+        String sql = "select distinct status from user";
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String s = "";
+                s = rs.getString("status");
+                list.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    //lay ra danh sach customerchanges by customerid
+    public List<CustomerChanges> getListCustomerChangesbyId(String id){
+        String sql= "select * from customerchanges where customer_id=?";
+        List<CustomerChanges> list = new ArrayList<>();
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                CustomerChanges cc = new CustomerChanges();
+                cc.setFullname(rs.getString("fullname"));
+                cc.setEmail(rs.getString("email"));
+                cc.setAddress(rs.getString("address"));
+                cc.setPhone(rs.getString("phone"));
+                cc.setGender(rs.getString("gender"));
+                cc.setUpdatedby(rs.getInt("updatedby"));
+                cc.setUpdateddate(rs.getString("updateddate"));
+                list.add(cc);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+        
+    }
+    
+
+    //cap nhat vao bang customerchanges sau khi update
+    public void addToCustomerChanges(CustomerChanges cc) {
+        String sql = "INSERT INTO `furniture`.`customerchanges`\n"
+                + "(`email`,\n"
+                + "`fullname`,\n"
+                + "`gender`,\n"
+                + "`phone`,\n"
+                + "`address`,\n"
+                + "`updatedby`,\n"
+                + "`customer_id`)\n"
+                + "VALUES\n"
+                + "(?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?,\n"
+                + "?);";
+        
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setString(1, cc.getEmail());
+            statement.setString(2, cc.getFullname());
+            statement.setString(3, cc.getGender());
+            statement.setString(4, cc.getPhone());
+            statement.setString(5, cc.getAddress());
+            statement.setInt(6, cc.getUpdatedby());
+            statement.setInt(7, cc.getCustomer_id());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String getUserNameByID(int id) {
+        String query = "SELECT fullname FROM user WHERE id = ?";
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public User getUserById1(int uid) {
+        try (PreparedStatement stm = connect.prepareStatement("SELECT * FROM user WHERE id = ?")) {
+            stm.setInt(1, uid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getString(10));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

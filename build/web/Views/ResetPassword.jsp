@@ -1,9 +1,3 @@
-<%-- 
-    Document   : resetPassword
-    Created on : May 26, 2024, 12:27:02 AM
-    Author     : admin
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -96,10 +90,7 @@
     <body>
         <div class="box" id="box3" style="display: ${showemail}">
             <div style="width: 400px;" aria-labelledby="dropdownMenuButton">
-
-
                 <!-- Modal content-->
-
                 <div class="container" style="width : 400px;">
                     <div class="modal-header">
                         
@@ -108,7 +99,6 @@
                     <%-- Form quên mật khẩu --%>
                     <div class="customerReset">
                         <form action="${pageContext.request.contextPath}/VerifyEmail" method="post" id="forgotPasswordForm" style="display:block;">
-
                             <div class="form-group">
                                 <label for="email">Nhập địa chỉ email</label>
                                 <input type="email" id="email" name="email" required>
@@ -128,11 +118,8 @@
                         </div>
                     </c:if>
                     </div>
-
-
                 </div>    
             </div>
         </div>    
-
     </body>
 </html>

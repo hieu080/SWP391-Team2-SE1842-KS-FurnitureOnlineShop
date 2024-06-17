@@ -25,7 +25,7 @@ import java.nio.file.StandardCopyOption;
 )
 public class UserProfile extends HttpServlet {
 
-    private static final String UPLOAD_DIRECTORY = "image";
+    private static final String UPLOAD_DIRECTORY = "image/avatar";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

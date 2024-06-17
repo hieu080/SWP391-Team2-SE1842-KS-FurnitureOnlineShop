@@ -148,18 +148,21 @@ public class ProductDetailServlet extends HttpServlet {
         ArrayList<Product> paginatedProductList = new ArrayList<>(paginationHelper.getPage(page));
         request.setAttribute("productList", paginatedProductList);
 
-//        int productId = tryParseInt(request.getParameter("productId"), 0);
-        int productId = 1;
+        int productId = tryParseInt(request.getParameter("productId"), 0);
         Product product = productDAO.getProductByID(productId);
         request.setAttribute("product", product);
 
         ProductDetailDAO pddao = new ProductDetailDAO();
-        ArrayList<ProductDetail> productDetailList = pddao.getProductDetailsByProductId(productId);
+
+        ArrayList<ProductDetail> productDetailList = pddao.getAllProductDetails();
         request.setAttribute("productDetailList", productDetailList);
 
-        int[] pdetailIdArr = new int[productDetailList.size()];
+        ArrayList<ProductDetail> productDetailofProduct = pddao.getProductDetailsByProductId(productId);
+        request.setAttribute("productDetailofProduct", productDetailofProduct);
+
+        int[] pdetailIdArr = new int[productDetailofProduct.size()];
         for (int i = 0; i < pdetailIdArr.length; i++) {
-            pdetailIdArr[i] = productDetailList.get(i).getId();
+            pdetailIdArr[i] = productDetailofProduct.get(i).getId();
         }
 
         AttachedImageDAO attachedImageDAO = new AttachedImageDAO();

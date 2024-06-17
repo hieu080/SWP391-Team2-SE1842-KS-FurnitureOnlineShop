@@ -347,7 +347,23 @@ public class ProductDAO extends DBContext {
 
         return product;
     }
+    
+    public String getProductName(int id){
+        String query = "SELECT name FROM product WHERE id LIKE ?";
 
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
+        }
+        return null;
+    }
     public static void main(String[] args) {
         Product neProduct = new Product();
         neProduct.setId(1);

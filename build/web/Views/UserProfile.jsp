@@ -97,7 +97,7 @@
         .header-bottom .mainmenu ul.nav > li > a {
             color: #696763;
             font-size: 16px;
-}
+        }
 
         .header-bottom .mainmenu ul.nav > li > a:hover,
         .header-bottom .mainmenu ul.nav > li.active > a {
@@ -165,7 +165,7 @@
                                     <div style="border-radius: 50%; width: 150px; height: 150px;">
                                         <c:choose>
                                             <c:when test="${not empty sessionScope.customer.avatar}">
-                                                <img id="curAvt" style="width: 100%;"  src="${customer.avatar}">
+                                                <img id="curAvt" style="width: 100%;"  src="image/avatar/${customer.avatar}">
                                             </c:when>
                                             <c:otherwise>
                                                 <h3>No Session</h3>
@@ -176,7 +176,7 @@
                                     <form action="${pageContext.request.contextPath}/UserProfile" method="post" enctype="multipart/form-data">
                                         <label>Ảnh đại diện</label>   <input type="file" style="background-color: white;" id="fbimg" name="fbimg"   accept="image/*><br>
                                                                              <span  id="invalid1" style="color: red;" > </span>
-<input name="img" id="sendimg" type="hidden" >
+                                        <input name="img" id="sendimg" type="hidden" >
                                         <label>Họ tên</label>  <input style=" width: 300px;" type="text" placeholder="" value="${sessionScope.customer.fullname}" name="fullname" required="" maxlength="50"/><br>
                                         <label>Số điện thoại</label>      <input type="text" placeholder="" value="${sessionScope.customer.phonenumber}" name="phone"required="" maxlength="11"/>
                                         <label>Địa chỉ</label>     <input type="text" placeholder="" value="${sessionScope.customer.address}" name="address" required="" maxlength="100"/>
@@ -226,7 +226,7 @@
                     a = 1;
                 }
                 if (img.value == "") {
-document.getElementById("invalid1").innerHTML = "Please choose 1 picture!"
+                    document.getElementById("invalid1").innerHTML = "Please choose 1 picture!"
                     a = 1;
                 }
                 console.log(1);
@@ -237,7 +237,7 @@ document.getElementById("invalid1").innerHTML = "Please choose 1 picture!"
                 }
 
             }
-           
+
             function uploadError() {
                 alert('Please upload photo file < 5MB')
                 document.getElementById("fbimg").files[0].value = ''

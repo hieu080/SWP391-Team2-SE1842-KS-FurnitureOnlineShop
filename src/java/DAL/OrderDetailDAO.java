@@ -122,4 +122,46 @@ public class OrderDetailDAO extends DBContext {
 
         return orderDetails;
     }
+    
+    public ArrayList<OrderDetail> MyOrderDetails(int[] order_IDs) {
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+        if (order_IDs == null || order_IDs.length == 0) {
+            return orderDetails; // Return empty list if no order_IDs are provided
+        }
+
+        // Build the SQL query dynamically based on the number of order_IDs
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM OrderDetail WHERE order_id IN (");
+        for (int i = 0; i < order_IDs.length; i++) {
+            sqlBuilder.append("?");
+            if (i < order_IDs.length - 1) {
+                sqlBuilder.append(", ");
+            }
+        }
+        sqlBuilder.append(")");
+
+        String sql = sqlBuilder.toString();
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            // Set the order_IDs in the PreparedStatement
+            for (int i = 0; i < order_IDs.length; i++) {
+                statement.setInt(i + 1, order_IDs[i]);
+            }
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    OrderDetail od = new OrderDetail();
+                    od.setId(rs.getInt("id"));
+                    od.setOrder_id(rs.getInt("order_id"));
+                    od.setProductdetail_id(rs.getInt("productdetail_id"));
+                    od.setQuantity(rs.getInt("quantity"));
+                    od.setPrice(rs.getDouble("price"));
+                    orderDetails.add(od);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Add appropriate error handling here
+        }
+
+        return orderDetails;
+    }
 }

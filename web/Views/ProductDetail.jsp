@@ -286,7 +286,7 @@
                 <div class="container">
                     <div class="row" style="margin-top: 30px">
                         <div class="col-md-7 row">
-                            <c:forEach items="${productDetailList}" var="productDetail">
+                            <c:forEach items="${productDetailofProduct}" var="productDetail">
                                 <c:if test="${product.id == productDetail.product_id}">
                                     <div class="col-md-3" id="productDetail_${productDetail.id}" style="display: none;">
                                         <c:forEach items="${requestScope.attachedImageList}" var="attachedImage">
@@ -323,7 +323,13 @@
                                 </c:forEach>
                             </c:forEach>
                             <div class="d-flex" style="justify-content: space-between">
-                                <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="85">
+                                <c:set var="reviewCount" value="0" scope="page" />
+                                <c:forEach items="${requestScope.feedbackList}" var="feedback">
+                                    <c:if test="${feedback.product_id == product.id}">
+                                        <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
+                                    </c:if>
+                                </c:forEach>
+                                <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="${reviewCount}">
                                     <div class="rating"></div>
                                     <span class="num-reviews"></span>
                                 </div>
@@ -376,7 +382,7 @@
                                 <div id="colorName" style="margin-bottom: 10px">Color Name</div>
                                 <div style="display: flex;">
                                     <c:set var="hasChecked" value="false" scope="page"/>
-                                    <c:forEach items="${productDetailList}" var="productDetail">
+                                    <c:forEach items="${productDetailofProduct}" var="productDetail">
                                         <c:if test="${product.id == productDetail.product_id}">
                                             <c:forEach items="${colorList}" var="color" varStatus="loop">
                                                 <c:if test="${productDetail.color_id == color.id}">
@@ -508,7 +514,7 @@
                     warningMessage.style.display = 'block';  // Show warning message
                 }
             }
-            
+
             function setFeedbackId(feedbackId) {
                 var feedbackIdInput = document.getElementById('deleteFeedbackId');
                 if (feedbackIdInput) {

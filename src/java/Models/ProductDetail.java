@@ -12,15 +12,18 @@ public class ProductDetail {
     private int id;
     private int product_id;
     private int color_id;
+    private int quantity;
     private String status;
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int product_id, int color_id) {
+    public ProductDetail(int id, int product_id, int color_id, int quantity, String status) {
+        this.id = id;
         this.product_id = product_id;
         this.color_id = color_id;
-        this.status = "Active";
+        this.quantity = quantity;
+        this.status = status;
     }
 
     public int getId() {
@@ -47,6 +50,14 @@ public class ProductDetail {
         this.color_id = color_id;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -54,6 +65,7 @@ public class ProductDetail {
     public void setStatus(String status) {
         this.status = status;
     }
+
     
     
 }

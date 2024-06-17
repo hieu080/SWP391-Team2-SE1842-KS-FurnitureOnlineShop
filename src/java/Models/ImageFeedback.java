@@ -16,6 +16,12 @@ public class ImageFeedback {
     public ImageFeedback() {
     }
 
+    public ImageFeedback(int id, int feedback_id, String image) {
+        this.id = id;
+        this.feedback_id = feedback_id;
+        this.image = image;
+    }
+
     public ImageFeedback(int feedback_id, String image) {
         this.feedback_id = feedback_id;
         this.image = image;

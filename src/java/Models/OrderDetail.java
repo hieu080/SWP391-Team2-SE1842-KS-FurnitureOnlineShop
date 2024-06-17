@@ -11,16 +11,17 @@ package Models;
 public class OrderDetail {
     private int id;
     private int order_id;
-    private int product_id;
+    private int productdetail_id ;
     private int quantity;
     private double price;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int order_id, int product_id, int quantity, double price) {
+    public OrderDetail(int id, int order_id, int productdetail_id, int quantity, double price) {
+        this.id = id;
         this.order_id = order_id;
-        this.product_id = product_id;
+        this.productdetail_id = productdetail_id;
         this.quantity = quantity;
         this.price = price;
     }
@@ -41,12 +42,12 @@ public class OrderDetail {
         this.order_id = order_id;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductdetail_id() {
+        return productdetail_id;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductdetail_id(int productdetail_id) {
+        this.productdetail_id = productdetail_id;
     }
 
     public int getQuantity() {
@@ -64,6 +65,8 @@ public class OrderDetail {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    
     
     
 }

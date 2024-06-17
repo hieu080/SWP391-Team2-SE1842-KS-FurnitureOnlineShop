@@ -5,6 +5,8 @@
 package DAL;
 
 import Models.User;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -271,7 +274,7 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public User getUserById(int uid) {
+    public User getUserById1(int uid) {
         try (PreparedStatement stm = connect.prepareStatement("SELECT * FROM user WHERE id = ?")) {
             stm.setInt(1, uid);
             ResultSet rs = stm.executeQuery();
@@ -282,6 +285,41 @@ public class UserDAO extends DBContext {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public String getUserNameByID(int id) {
+        String query = "SELECT fullname FROM user WHERE id = ?";
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean verify(String inputPassword, String hashPassWord) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(inputPassword.getBytes());
+            byte[] digest = md.digest();
+            String myChecksum = DatatypeConverter
+                    .printHexBinary(digest).toUpperCase();
+            System.out.println(myChecksum);
+            return hashPassWord.equals(myChecksum);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        UserDAO ud = new UserDAO();
+        System.out.println(ud.getUserById1(1).getFullname());
     }
 
 }

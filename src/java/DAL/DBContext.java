@@ -27,11 +27,16 @@ public class DBContext {
 
             // Tạo kết nối
             connect = DriverManager.getConnection(url, username, password);
+            System.out.println("thanh cong");
         } catch (ClassNotFoundException ex) {
             LOGGER.log(Level.SEVERE, "Can't not connect to database", ex);
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Can't not connect to database", ex);
         }
         
-    }     
+    } 
+    public static void main(String[] args) {
+        DBContext db = new DBContext();
+    }
+    
 }

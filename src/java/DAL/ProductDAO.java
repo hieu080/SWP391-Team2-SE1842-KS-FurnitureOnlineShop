@@ -240,13 +240,28 @@ public class ProductDAO extends DBContext {
         }
         return String.join(" OR ", conditions);
     }
+    
+    public String getProductName(int id){
+        String query = "SELECT name FROM product WHERE id LIKE ?";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();
-        ArrayList<Product> list = productDAO.searchProductByName("IKEA");
-        for (Product product : list) {
-            System.out.println(product.getName());
-        }
+        String name = productDAO.getProductName(1);
+        System.out.println(name);
     }
 
 }

@@ -9,6 +9,8 @@ package DAL;
  * @author HELLO
  */
 import Models.Feedback;
+import Models.User;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,13 +22,13 @@ public class FeedbackDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(FeedbackDAO.class.getName());
 
-    public static void main(String[] args) {
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        ArrayList<Feedback> feedbackList = feedbackDAO.getFeedbackList();
-        for (Feedback feedback : feedbackList) {
-            System.out.println(feedback.getVotescore());
-        }
-    }
+//    public static void main(String[] args) {
+//        FeedbackDAO feedbackDAO = new FeedbackDAO();
+//        ArrayList<Feedback> feedbackList = feedbackDAO.getFeedbackList();
+//        for (Feedback feedback : feedbackList) {
+//            System.out.println(feedback.getVotescore());
+//        }
+//    }
     // Phương thức getFeedbackList
     public ArrayList<Feedback> getFeedbackList() {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
@@ -136,5 +138,123 @@ public class FeedbackDAO extends DBContext {
             LOGGER.log(Level.SEVERE, "Error inserting image feedback", e);
             return false;
         }
+    }
+
+    public ArrayList<Feedback> SearchList(int vote, String status, String customer_name, String product_name, String Description, int index, int pagesize) {
+        ArrayList<Feedback> feedbackList = new ArrayList<>();
+        //String sql11 = "select * from feedback where status like '%Active%' and votescore = 5 and feedback like '%jkahsahjks%'  limit 5 offset 5;";
+        UserDAO ud = new UserDAO();
+        ProductDAO pd = new ProductDAO();
+        String sql = "select * from feedback \n"
+                + "where ";
+        if (status.length() != 0) {
+            sql += " status like'%" + status + "%' and ";
+        }
+        if (vote == 0) {
+            sql += " feedback like '%" + Description + "%'\n"
+                    + "order by id asc\n"
+                    + "limit " + pagesize + " offset " + (index - 1) * pagesize;
+        } else {
+            sql += "  votescore = " + vote + " and feedback like '%" + Description + "%'\n"
+                    + "order by id asc\n"
+                    + "limit " + pagesize + " offset " + (index - 1) * pagesize;
+        }
+        System.out.println(sql);
+
+        try (
+                PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int customerId = rs.getInt("customer_id");
+                //System.out.println(ud.getUserNameByID(customerId)+" "+customer_name);
+                //System.out.println(ud.getUserNameByID(customerId).contains(customer_name));
+                String customer_name_str = ud.getUserNameByID(customerId);
+                if (!customer_name_str.contains(customer_name)) {
+                    continue;
+                }
+                int productId = rs.getInt("product_id");
+                String product_name_str = pd.getProductName(productId);
+                if (!product_name_str.contains(product_name)) {
+                    continue;
+                }
+                int voteScore = rs.getInt("votescore");
+                String feedbackStr = rs.getString("feedback");
+                String status1 = rs.getString("status");
+                Feedback feedback = new Feedback(customerId, productId, voteScore, feedbackStr);
+                feedback.setId(id);
+                feedback.setStatus(status1);
+                feedback.setCustomer_Name(customer_name_str);
+                feedback.setProduct_Name(product_name_str);
+                feedbackList.add(feedback);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving feedback list", ex);
+        }
+
+        return feedbackList;
+    }
+
+    public Feedback GetFeedbackByID(int id_re) {
+        UserDAO ud = new UserDAO();
+        ProductDAO pd = new ProductDAO();
+        String sql = "select * from feedback where id= " + id_re;
+        try (
+                PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int customerId = rs.getInt("customer_id");
+                //System.out.println(customerId+"sang");
+                User u = ud.getUserById1(customerId);
+                String customer_name_str = ud.getUserNameByID(customerId);
+                int productId = rs.getInt("product_id");
+                String product_name_str = pd.getProductName(productId);
+                int voteScore = rs.getInt("votescore");
+                String feedbackStr = rs.getString("feedback");
+                String status1 = rs.getString("status");
+                Feedback feedback = new Feedback(customerId, productId, voteScore, feedbackStr);
+                feedback.setId(id);
+                feedback.setStatus(status1);
+                feedback.setCustomer_Name(customer_name_str);
+                feedback.setProduct_Name(product_name_str);
+                feedback.setUser(u);
+                return feedback;
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving feedback list", ex);
+        }
+        return null;
+    }
+
+    public boolean changeStatus(int id, String status) {
+        String sql = "update feedback set status = '" + status + "' where id = " + id;
+        try (
+                PreparedStatement pstmt = connect.prepareStatement(sql)) {
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error updating feedback", ex);
+            return false;
+        }
+    }
+    
+    public String getImageFeedback(int id) throws SQLException{
+        String sql = "select image from ImageFeedback where id = ?";
+        try{  
+            PreparedStatement pstmt = connect.prepareStatement(sql); 
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);            
+        }
+        }
+            catch(SQLException e){
+                    
+                    }
+            return null;
+    }
+
+    public static void main(String[] args) {
+        FeedbackDAO fd = new FeedbackDAO();
+        System.out.println(fd.SearchList(3, "Active", "Quốc", "toys", "xau", 1, 6).get(0).getCustomer_Name());
     }
 }

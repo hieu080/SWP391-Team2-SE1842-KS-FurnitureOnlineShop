@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : May 20, 2024, 12:16:13 AM
-    Author     : admin
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
@@ -12,13 +6,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login/Sign Up</title>
         <!--        <link rel="stylesheet" href="css/style.css">-->
-
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
     </head>
     <body>
 
@@ -58,9 +49,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
     </body>
 </html>

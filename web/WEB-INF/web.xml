@@ -80,6 +80,18 @@
         <servlet-name>Feedback</servlet-name>
         <servlet-class>Controller.Public.Feedback</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedBackList</servlet-name>
+        <servlet-class>Controller.Marketing.FeedBackList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedBackDetail</servlet-name>
+        <servlet-class>Controller.Marketing.FeedBackDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusFeedback</servlet-name>
+        <servlet-class>Controller.Marketing.ChangeStatusFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
@@ -160,6 +172,16 @@
         <servlet-name>Feedback</servlet-name>
         <url-pattern>/Feedback</url-pattern>
     </servlet-mapping>
-    
-    
+    <servlet-mapping>
+        <servlet-name>FeedBackList</servlet-name>
+        <url-pattern>/FeedBackList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedBackDetail</servlet-name>
+        <url-pattern>/FeedBackDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusFeedback</servlet-name>
+        <url-pattern>/ChangeStatusFeedback</url-pattern>
+    </servlet-mapping>
 </web-app>

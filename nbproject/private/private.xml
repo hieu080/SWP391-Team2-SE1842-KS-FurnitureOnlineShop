@@ -3,9 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Helper/PaginationHelper.java</file>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Marketing/InsertProduct.java</file>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/ProductServlet.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/FeedbackDetail.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/HomeSlider.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/ProductDetailDAO.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/OrderDetailDAO.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/FeedBacksList.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/FeedbackDAO.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/Feedback.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/HomePage.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/Feedback.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/temp.jsp</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Models/OrderDetail.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Models/Feedback.java</file>
+            <file>file:/D:/5Th-Summer24/Project/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Marketing/FeedBackList.java</file>
         </group>
     </open-files>
 </project-private>

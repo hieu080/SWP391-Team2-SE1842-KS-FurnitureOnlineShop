@@ -215,6 +215,7 @@
                 </tr>
                 <tr>
                     <td><a class="button-link" href="FeedBackList">Back to list</a></td>
+                    <!--<td><form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${feedback.getId()}"><button class="btn" style="background-color: ">Change Status</button></form></td>--> 
                     <td><form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${feedback.getId()}"><button class="btn" style="background-color: ">Change Status</button></form></td>
                 </tr>
                     </table>

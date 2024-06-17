@@ -57,6 +57,10 @@ public class BlogListServlet extends HttpServlet {
             catname="All";
             listPost=pdao.getPostList();
         } 
+        String key = request.getParameter("keyword");
+        if(key!=null){
+            listPost=pdao.getListPostbySearch(key);
+        }
         request.setAttribute("catname", catname);
         request.setAttribute("listPost", listPost);
         

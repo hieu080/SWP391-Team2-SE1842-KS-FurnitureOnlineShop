@@ -5,8 +5,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Page Layout</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <%@ include file="HomeHeader.jsp" %>
@@ -17,9 +17,9 @@
 
                     <!-- search bar -->
                     <div class="row mb-5" id="search">
-                        <form action="BlogListSearchedServlet">
+                        <form action="BlogListServlet">
                             <input type="text" class="col-lg-9" placeholder="Nhập tên tác giả, nội dung..." name="keyword">
-                            <button type="submit" class="col-lg-2 ms-2">🔍</button>
+                            <button type="submit" class="col-lg-2 ms-2 btn btn-info">🔍</button>
                         </form>
                     </div>
 
@@ -64,7 +64,17 @@
                 <!-- hien thi list post theo category -->         
 
                 <div class="col-lg-9 mt-5 ps-5">
-                    <!-- category -->
+                    <c:if test="${param.keyword!=null}">
+                        <c:choose>
+                            <c:when test="${listPost==null}">
+                                <h3>Không tìm thấy kết quả cho "${param.keyword}"</h3>
+                            </c:when>
+                            <c:otherwise>
+                                <h3>Kết quả tìm kiếm cho: "${param.keyword}"</h3>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <!-- category -->          
                     <div>
                         <h2>${catname}</h2>
                     </div>
@@ -74,7 +84,7 @@
                         <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
                             <div class="row border-bottom p-2 post-item ${p.getCategory_id()}">
                                 <div class="col-lg-5" style="width:350px;height:200px">
-                                    <img src="${p.getThumbnail()}"
+                                    <img src="image/post/${p.getThumbnail()}"
                                          alt="anhdep" style="width:100%;height:100%">
                                 </div>
                                 <div class="col-lg-7">

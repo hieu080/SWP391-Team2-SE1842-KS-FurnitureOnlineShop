@@ -24,7 +24,7 @@
 
                     <!-- search bar -->
                     <div class="row mb-5" id="search">
-                        <form action="BlogListSearchedServlet">
+                        <form action="BlogListServlet">
                             <input type="text" class="col-lg-9" placeholder="Nhập tên tác giả, nội dung..."name="keyword">
                             <button type="submit" class="col-lg-2 ms-2">🔍</button>
                         </form>
@@ -69,7 +69,7 @@
                 <div class="col-lg-9 mt-5 ps-5">
                     <!-- thumbnail -->
                     <div class="pb-5" style="width:800px;height:500px">
-                        <img src="${post.getThumbnail()}"
+                        <img src="image/post/${post.getThumbnail()}"
                              alt="anhdep" style="width:100%;height:100%">
                     </div>
 

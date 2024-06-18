@@ -4,8 +4,10 @@
  */
 package Controller.Public;
 
+import Controller.Customer.CartDetail;
 import DAL.AttachedImageDAO;
 import DAL.BrandDAO;
+import DAL.CartItemDAO;
 import DAL.CategoryDAO;
 import DAL.CategoryOfPostDAO;
 import DAL.ColorDAO;
@@ -24,6 +26,7 @@ import DAL.UserRoleDAO;
 import Helper.PaginationHelper;
 import Models.AttachedImage;
 import Models.Brand;
+import Models.CartItemWithDetail;
 import Models.Category;
 import Models.CategoryOfPost;
 import Models.Color;
@@ -46,8 +49,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -171,6 +177,34 @@ public class ProductDetailServlet extends HttpServlet {
 
         ArrayList<Feedback> feedbacksOfProduct = feedbackDAO.getFeedbackListByProductId(productId);
         request.setAttribute("feedbacksOfProduct", feedbacksOfProduct);
+        
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user1 = (User) session.getAttribute("customer");
+
+            CartItemDAO cartItemDAO = new CartItemDAO();
+            try {
+                request.setAttribute("countcart", cartItemDAO.countCartItemsByCustomerId(user1.getId()));
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
+            try {
+                cartItemWithDetails = cartItemDAO.getCartItemsDetail(user.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("listcartdetail", cartItemWithDetails);
+            double sumtotalprice = 0;
+            try {
+                sumtotalprice = cartItemDAO.getTotalCostNoStatus();
+            } catch (SQLException ex) {
+                Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             request.setAttribute("sumtotalprice", sumtotalprice);
+        }
+        
 
         request.getRequestDispatcher("Views/ProductDetail.jsp").forward(request, response);
     }

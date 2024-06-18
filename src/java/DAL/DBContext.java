@@ -23,7 +23,7 @@ public class DBContext {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/furniture";
             String username = "root";
-            String password = "123456";
+            String password = "";
 
             // Tạo kết nối
             connect = DriverManager.getConnection(url, username, password);

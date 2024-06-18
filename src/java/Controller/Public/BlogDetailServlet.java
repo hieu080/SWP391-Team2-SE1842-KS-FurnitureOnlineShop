@@ -6,18 +6,27 @@ package Controller.Public;
  */
 
 
+import Controller.Customer.CartDetail;
+import DAL.CartItemDAO;
 import DAL.CategoryOfPostDAO;
 import DAL.PostDAO;
 import DAL.UserDAO;
+import Models.CartItemWithDetail;
 import Models.CategoryOfPost;
 import Models.Post;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -51,6 +60,34 @@ public class BlogDetailServlet extends HttpServlet {
         String author = udao.getUserbyID(String.valueOf(p.getMkt_id())).getFullname();
         request.setAttribute("author", author);
         request.setAttribute("post", p);
+        
+      
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("customer");
+
+            CartItemDAO cartItemDAO = new CartItemDAO();
+            try {
+                request.setAttribute("countcart", cartItemDAO.countCartItemsByCustomerId(user.getId()));
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
+            try {
+                cartItemWithDetails = cartItemDAO.getCartItemsDetail(user.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("listcartdetail", cartItemWithDetails);
+            double sumtotalprice = 0;
+            try {
+                sumtotalprice = cartItemDAO.getTotalCostNoStatus();
+            } catch (SQLException ex) {
+                Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             request.setAttribute("sumtotalprice", sumtotalprice);
+        }
         request.getRequestDispatcher("Views/BlogDetails.jsp").forward(request, response);
     } 
 

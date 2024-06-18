@@ -151,17 +151,17 @@ public class Feedback extends HttpServlet {
         }
         return null;
     }
-    public static void main(String[] args) {
-        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
-        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
-        ArrayList<Integer> productFb = new ArrayList<>();
-        for (OrderDetail orderDetail : orderDetailList) {
-            int productdetail_id = orderDetail.getProductdetail_id();
-            int product_id = productDetailDAO.getProductIdByProductDetailId(productdetail_id);
-           for (Integer integer : productFb) {
-            feedbackDAO.insertImageFb(integer.intValue(), fileName);
-        }
-        }
-    }
+//    public static void main(String[] args) {
+//        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+//        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+//        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
+//        ArrayList<Integer> productFb = new ArrayList<>();
+//        for (OrderDetail orderDetail : orderDetailList) {
+//            int productdetail_id = orderDetail.getProductdetail_id();
+//            int product_id = productDetailDAO.getProductIdByProductDetailId(productdetail_id);
+//           for (Integer integer : productFb) {
+//            feedbackDAO.insertImageFb(integer.intValue(), fileName);
+//        }
+//        }
+//    }
 }

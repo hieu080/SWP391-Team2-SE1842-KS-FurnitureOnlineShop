@@ -4,7 +4,9 @@
  */
 package Controller.Public;
 
+import Controller.Customer.CartDetail;
 import DAL.BrandDAO;
+import DAL.CartItemDAO;
 import DAL.CategoryDAO;
 import DAL.CategoryOfPostDAO;
 import DAL.ColorDAO;
@@ -20,6 +22,7 @@ import Helper.ComparatorHelper;
 import Helper.ConfigReaderHelper;
 import Helper.PaginationHelper;
 import Models.Brand;
+import Models.CartItemWithDetail;
 import Models.Category;
 import Models.CategoryOfPost;
 import Models.Color;
@@ -31,6 +34,7 @@ import Models.Product;
 import Models.ProductDetail;
 import Models.Room;
 import Models.SaleOff;
+import Models.User;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -39,9 +43,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -105,6 +112,34 @@ public class ProductServlet extends HttpServlet {
         ProductDetailDAO pddao = new ProductDetailDAO();
         ArrayList<ProductDetail> productDetailList = pddao.getAllProductDetails();
         request.setAttribute("productDetailList", productDetailList);
+        
+        
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("customer");
+
+            CartItemDAO cartItemDAO = new CartItemDAO();
+            try {
+                request.setAttribute("countcart", cartItemDAO.countCartItemsByCustomerId(user.getId()));
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
+            try {
+                cartItemWithDetails = cartItemDAO.getCartItemsDetail(user.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("listcartdetail", cartItemWithDetails);
+            double sumtotalprice = 0;
+            try {
+                sumtotalprice = cartItemDAO.getTotalCostNoStatus();
+            } catch (SQLException ex) {
+                Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             request.setAttribute("sumtotalprice", sumtotalprice);
+        }
 
         request.getRequestDispatcher("Views/ProductList.jsp").forward(request, response);
     }

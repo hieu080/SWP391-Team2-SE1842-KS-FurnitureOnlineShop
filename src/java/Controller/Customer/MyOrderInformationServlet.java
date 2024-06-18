@@ -27,6 +27,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -104,7 +105,7 @@ public class MyOrderInformationServlet extends HttpServlet {
         ArrayList<Category> categoryList = categoryDAO.getCategoryList();
 
         AddressDAO addressDAO = new AddressDAO();
-        ArrayList<Address> address = addressDAO.getAddressList();
+        List<Address> address = addressDAO.getAllAddresses();
 
         request.setAttribute("address", address);
         request.setAttribute("categoryList", categoryList);

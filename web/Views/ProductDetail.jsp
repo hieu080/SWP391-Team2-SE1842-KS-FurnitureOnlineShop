@@ -370,6 +370,10 @@
                                             <c:otherwise>
                                                 <span class="pro-price">${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
                                                 <del>${product.price}₫</del>
+                                                <div style="display: none">
+                                                    <input type="hidden" id="priceunit" name="priceunit" value="${product.price - product.price * saleoff.getSaleoffvalue() / 100}">
+                                                </div>
+
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
@@ -426,6 +430,12 @@
                     </div>
                 </div>
             </main>
+            <form id="hiddenForm" action="${pageContext.request.contextPath}/AddToCart" method="get" style="display: none;">
+                <input type="hidden" id="productDetailId" name="productDetailId" value="">
+                <input type="hidden" id="quantityproduct" name="quantityproduct" value="">
+                <input type="hidden" id="price" name="price" value="">
+                <input type="hidden" id="action" name="action" value="">
+            </form>
         </div>
         <%@include file="ProductFeedback.jsp" %>
         <%@ include file="HomeProduct.jsp" %>
@@ -523,7 +533,32 @@
                     console.error('Element with id "deleteFeedbackId" not found.');
                 }
             }
+            document.querySelector('.add-to-cartProduct').addEventListener('click', function () {
+                var selectedRadio = document.querySelector('input[name="color"]:checked');
+                var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
+                var quantity = document.getElementById('quantity').value;
+                var price =  document.getElementById('priceunit').value;
 
+                document.getElementById('productDetailId').value = productDetailId;
+                document.getElementById('quantityproduct').value = quantity;
+                document.getElementById('price').value = price;
+
+                document.getElementById('hiddenForm').submit();
+            });
+
+            document.getElementById('buy_now').addEventListener('click', function () {
+                var selectedRadio = document.querySelector('input[name="color"]:checked');
+                var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
+                var quantity = document.getElementById('quantity').value;
+                var price =  document.getElementById('priceunit').value;
+
+                document.getElementById('productDetailId').value = productDetailId;
+                document.getElementById('quantityproduct').value = quantity;
+                document.getElementById('price').value = price;
+                 document.getElementById('action').value ="buynow";
+
+                document.getElementById('hiddenForm').submit();
+            });
         </script>
 
 

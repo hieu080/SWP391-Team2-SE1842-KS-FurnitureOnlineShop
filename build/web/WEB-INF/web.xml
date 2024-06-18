@@ -133,6 +133,46 @@
         <servlet-class>Controller.Marketing.FeedBackDetail</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>Controller.Customer.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartDetail</servlet-name>
+        <servlet-class>Controller.Customer.CartDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartQuantity</servlet-name>
+        <servlet-class>Controller.Customer.UpdateCartQuantity</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartItem</servlet-name>
+        <servlet-class>Controller.Customer.DeleteCartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartItemStatus</servlet-name>
+        <servlet-class>Controller.Customer.UpdateCartItemStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartContact</servlet-name>
+        <servlet-class>Controller.Customer.CartContact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAddressCartContact</servlet-name>
+        <servlet-class>Controller.Customer.UpdateAddressCartContact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewAddress</servlet-name>
+        <servlet-class>Controller.Customer.AddNewAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAddress</servlet-name>
+        <servlet-class>Controller.Customer.UpdateAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MoreProduct</servlet-name>
+        <servlet-class>Controller.Customer.MoreProduct</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FeedBackList</servlet-name>
         <servlet-class>Controller.Marketing.FeedBackList</servlet-class>
     </servlet>
@@ -272,7 +312,49 @@
         <servlet-name>FeedBackList</servlet-name>
         <url-pattern>/FeedBackList</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartDetail</servlet-name>
+        <url-pattern>/CartDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartQuantity</servlet-name>
+        <url-pattern>/UpdateCartQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartItem</servlet-name>
+        <url-pattern>/DeleteCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartItemStatus</servlet-name>
+        <url-pattern>/UpdateCartItemStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartContact</servlet-name>
+        <url-pattern>/CartContact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAddressCartContact</servlet-name>
+        <url-pattern>/UpdateAddressCartContact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewAddress</servlet-name>
+        <url-pattern>/AddNewAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAddress</servlet-name>
+        <url-pattern>/UpdateAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MoreProduct</servlet-name>
+        <url-pattern>/MoreProduct</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>HomePage</welcome-file>
+        <welcome-file>
+            HomePage
+        </welcome-file>
     </welcome-file-list>
 </web-app>

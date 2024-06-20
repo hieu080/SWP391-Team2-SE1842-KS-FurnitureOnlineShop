@@ -23,13 +23,12 @@ public class OrderDAO extends DBContext{
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(OrderDAO.class.getName());
     
-        public Order getOrder(int customer_id, int order_id) {
+        public Order getOrder(int order_id) {
         Order od = new Order();
-        String sql = "SELECT * FROM furniture.order WHERE id = ? AND customer_id = ?"; // Đổi "order" thành "orders" nếu bảng có tên là "orders".
+        String sql = "SELECT * FROM furniture.order WHERE id = ?"; // Đổi "order" thành "orders" nếu bảng có tên là "orders".
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
-            pstmt.setInt(1, order_id); // Sử dụng setInt thay vì setString cho giá trị int.
-            pstmt.setInt(2, customer_id);
+            pstmt.setInt(1, order_id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     od.setId(rs.getInt("id"));

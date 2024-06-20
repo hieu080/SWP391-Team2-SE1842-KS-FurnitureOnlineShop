@@ -323,11 +323,12 @@ public class CartItemDAO extends DBContext {
         return null;
     }
 
-    public double getTotalCost() throws SQLException {
-        String sql = "SELECT SUM(totalcost) FROM CartItem WHERE status='selected'";
+    public double getTotalCost(int customerid) throws SQLException {
+        String sql = "SELECT SUM(totalcost) FROM CartItem WHERE status='selected' AND customer_id= ?";
 
         double totalCost = 0.0;
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, customerid);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 totalCost = resultSet.getDouble(1);
@@ -339,12 +340,14 @@ public class CartItemDAO extends DBContext {
 
         return totalCost;
     }
-    public double getTotalCostNoStatus() throws SQLException {
-        String sql = "SELECT SUM(totalcost) FROM CartItem";
+    public double getTotalCostNoStatus(int customerid) throws SQLException {
+        String sql = "SELECT SUM(totalcost) FROM CartItem where customer_id=? ";
 
         double totalCost = 0.0;
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, customerid);
             ResultSet resultSet = statement.executeQuery();
+            
             if (resultSet.next()) {
                 totalCost = resultSet.getDouble(1);
             }

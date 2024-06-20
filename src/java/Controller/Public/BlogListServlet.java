@@ -79,7 +79,7 @@ public class BlogListServlet extends HttpServlet {
             request.setAttribute("listcartdetail", cartItemWithDetails);
             double sumtotalprice = 0;
             try {
-                sumtotalprice = cartItemDAO.getTotalCostNoStatus();
+                sumtotalprice = cartItemDAO.getTotalCostNoStatus(user.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
             }

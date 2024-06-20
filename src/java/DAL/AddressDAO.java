@@ -180,7 +180,7 @@ public class AddressDAO extends DBContext {
     // Get all addresses
     public List<Address> getAllAddresses() {
         List<Address> addresses = new ArrayList<>();
-        String sql = "SELECT * FROM addresses";
+        String sql = "SELECT * FROM address";
 
         try (
                 PreparedStatement stmt = connect.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {

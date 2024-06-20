@@ -38,16 +38,18 @@ public class ChangePassword extends HttpServlet {
         String renewpass = request.getParameter("renewpass");
         UserDAO userDAO = new UserDAO();
         User u = (User) session.getAttribute("customer");
-        PrintWriter out = response.getWriter();
-        
         if (!oldpass.equals(u.getPassword())) {
             request.setAttribute("mess", "Old pass not correct");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else if (!newpass.equals(renewpass)) {
             request.setAttribute("mess", "Renew pass not match with pass");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
+        } else if (newpass.equals(oldpass)) {
+            request.setAttribute("mess", "New password cannot be the same as the old password");
+            request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else {
-            userDAO.changePass(String.valueOf(u.getId()), newpass);
+            UserDAO dao = new UserDAO();
+            dao.changePass(String.valueOf(u.getId()), newpass);
             request.setAttribute("mess", "Change password sucessfully!");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         }

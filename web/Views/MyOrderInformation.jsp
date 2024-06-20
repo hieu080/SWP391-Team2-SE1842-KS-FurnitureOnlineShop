@@ -173,7 +173,7 @@
 
                                                 <h3 class="h6">Thông tin người nhận</h3>
                                                 <address>
-                                                    <strong>Full name: ${user.fullname}</strong><br>
+                                                    <strong>Full name: ${address.fullname}</strong><br>
                                                     Gender: ${user.gender}<br>
                                                     Email: ${user.email}<br>
                                                     Phone: ${address.phonenumber}<br>

@@ -198,7 +198,7 @@ public class ProductDetailServlet extends HttpServlet {
             request.setAttribute("listcartdetail", cartItemWithDetails);
             double sumtotalprice = 0;
             try {
-                sumtotalprice = cartItemDAO.getTotalCostNoStatus();
+                sumtotalprice = cartItemDAO.getTotalCostNoStatus(user1.getId());
             } catch (SQLException ex) {
                 Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
             }

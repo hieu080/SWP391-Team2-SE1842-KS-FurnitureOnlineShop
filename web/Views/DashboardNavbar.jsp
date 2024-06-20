@@ -73,6 +73,7 @@
                             <li class="sidebar-item"><a class="sidebar-link" href="PostsList">Post List</a></li>
                             <li class="sidebar-item"><a class="sidebar-link" href="ProductListMKTServlet">Product List</a></li>
                             <li class="sidebar-item"><a class="sidebar-link" href="OrderListServlet">Order List</a></li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="FeedBackList">Feedback List</a></li>
                         </ul>
                     </li>
                 </ul>

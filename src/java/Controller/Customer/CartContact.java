@@ -138,7 +138,7 @@ public class CartContact extends HttpServlet {
         request.setAttribute("paymentmethodList", paymentMethods);
         double sumtotalprice = 0;
         try {
-            sumtotalprice = cartItemDAO.getTotalCost();
+            sumtotalprice = cartItemDAO.getTotalCost(customer.getId());
         } catch (SQLException ex) {
             Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
         }

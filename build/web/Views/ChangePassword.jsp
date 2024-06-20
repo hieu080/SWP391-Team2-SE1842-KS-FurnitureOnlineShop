@@ -19,7 +19,7 @@
                 justify-content: center;
                 align-items: center;
                 min-height: 100vh;
-                background: url("/NoiThat/assets/img/banner-phong-khach.jpg")no-repeat;
+                background: url("/FurnitureHieu/image/banner-phong-khach.jpg")no-repeat;
                 background-size: cover;
                 background-position: center;
             }
@@ -70,37 +70,52 @@
                 color: #444;
                 font-weight: 600;
             }
+            .col-md-12 {
+                padding: 2px;
+                margin-bottom: 20px; /* Điều chỉnh khoảng cách phía dưới */
+            }
+
+            .d-flex {
+                display: flex;
+                gap: 30px; /* Điều chỉnh khoảng cách giữa các phần tử con */
+            }
+
+
+
         </style>
     </head>
     <body>
         <div class="wrapper">
 
-            
+
             <form action="${pageContext.request.contextPath}/ChangePassword" method="post">
-                
-                <p >${mess}</p>
                 <h1>Thay Đổi Mật Khẩu</h1>
                 <div class="input-box">
-                    <input type="input" placeholder="Mật khẩu cũ" name="oldpass"
-                           required><!-- comment -->
+                    <input type="password" placeholder="Mật khẩu cũ" name="oldpass"
+                           required> 
 
                 </div>
                 <div class="input-box">
-                    <input type="input" name="newpass"
-                           placeholder="Mật khẩu mới" required><!-- comment -->
+                    <input type="password" name="newpass"
+                           placeholder="Mật khẩu mới" required 
+                           pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                           title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt."> 
 
                 </div>
                 <div class="input-box">
-                    <input type="input" name="renewpass"
+                    <input type="password" name="renewpass"
                            placeholder="Nhập lại mật khẩu mới" required>
-
+                </div>
+                <div  class="col-md-12" style="padding: 2px;">           
+                    <p style="color: red;">${mess}</p>
                 </div>
                 <div class="d-flex">
-                <button class="btn" ><a href="HomePage" target="target">Trang chủ</a></button>
-                <button type="submit" class="btn">Lưu</button>
+                    <button class="btn" ><a href="HomePage" target="target">Trang chủ</a></button>
+                    <button type="submit" class="btn">Lưu</button>
                 </div>
-
+                
             </form>
+                
         </div>
     </div>
 </body>

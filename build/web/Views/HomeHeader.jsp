@@ -263,6 +263,7 @@
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserProfile">Tài khoản của bạn</a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MyOrderServlet">Đơn hàng của tôi</a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassword">Thay đổi mật khẩu </a></li>
+                                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/OrderListServlet">Dashboard</a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>
                                                     </ul>
                                                 </div>

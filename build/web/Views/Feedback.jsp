@@ -11,125 +11,68 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
         <title>Feedback</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/prettyPhoto.css" rel="stylesheet">
-        <link href="css/price-range.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/responsive.css" rel="stylesheet">    
-        <link rel="shortcut icon" href="images/ico/favicon.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
-            /* Căn giữa và tạo khoảng cách */
-            .container {
-                max-width: 900px;
-                margin: 0 auto;
-                padding: 20px;
-                background: #f9f9f9;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
-            }
-
-            /* Kiểu dáng tiêu đề */
-            .feedback-content h1 {
-                text-align: center;
-                font-size: 2em;
-                margin-bottom: 20px;
-                color: #333;
-            }
-
-            /* Định dạng thông tin sản phẩm */
-            .product-item {
+            .feedback-rating {
                 display: flex;
-                align-items: center;
-                margin-bottom: 15px;
+                flex-direction: row-reverse;
+                justify-content: center;
             }
-
-            .product-image {
-                width: 60px;
-                height: 70px;
-                margin-right: 10px;
-                border-radius: 4px;
+            .feedback-rating input {
+                display: none;
             }
-
-            .product-name {
-                font-size: 1em;
-                color: #555;
-            }
-
-            /* Kiểu dáng form */
-            .feedback-form {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .feedback-form label {
-                margin-top: 10px;
-                font-weight: bold;
-                color: #333;
-            }
-
-            .feedback-textarea {
-                width: 100%;
-                height: 80px;
-                padding: 10px;
-                margin-top: 5px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                resize: vertical;
-            }
-
-            .rate-select {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-
-            .file-input {
-                margin-top: 5px;
-            }
-
-            .submit-btn {
-                margin-top: 20px;
-                padding: 10px;
-                background: #5cb85c;
-                border: none;
-                color: white;
-                border-radius: 4px;
+            .feedback-rating label {
+                font-size: 2rem;
+                color: #ccc;
                 cursor: pointer;
-                transition: background 0.3s;
+                transition: color 0.2s;
+            }
+            .feedback-rating input:checked ~ label,
+            .feedback-rating input:hover ~ label,
+            .feedback-rating label:hover,
+            .feedback-rating label:hover ~ label {
+                color: #f5b301;
             }
 
-            .submit-btn:hover {
-                background: #4cae4c;
-            }
-
-            @media (max-width: 768px) {
-                .product-item, .feedback-form {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-            }
             .avatar-preview {
-            display: block;
-            width: 200px; /* Adjust the width as needed */
-            height: auto; /* Maintain aspect ratio */
-            margin: 10px;
-        }
-
+                height: 100px;
+                width: 100px;  /* Fixed height and width for images */
+                object-fit: cover; /* Cover the div without stretching */
+                margin-top: 10px;
+            }
         </style>
     </head><!--/head-->
 
     <body>
+        <div class="">
+            <form action="Feedback" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="feedbackContent"><b>Đánh giá: </b></label>
+                    <textarea class="form-control" name="feedback" id="feedbackContent" rows="7"></textarea>
+                </div>
+                <div class="form-group">
+                    <label><b>Chất lượng sản phẩm: </b></label>
+                    <div class="feedback-rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="avatar"><b>Thêm hình ảnh </b></label>
+                    <input type="file" class="form-control-file" id="avatar" multiple accept="image/*">
+                </div>
+                <div class="row" id="imageContainer"></div>
+                <div class="form-group" style="margin-top: 15px; display: flex; justify-content: center">
+                    <input type="submit" value="Đánh giá" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+
 
 
         <section style="margin-top: 100px;" id="form"><!--form-->
@@ -141,25 +84,23 @@
                         <div class="feedback-content">
                             <h1>Đánh Giá Sản Phẩm</h1>
                             <div class="main-content">
-
-
                                 <div class="product-info">
                                     <c:set var="order" value="${order}"/>
                                     <div class="row">
                                         <div class="col-md-6">                                                 
                                             <c:forEach items="${listOrderDetails}" var="orderDetail">
-                                                <c:if test="${orderDetail.order_id == order.id}">
-                                                    <c:set var="productdetail_id" value="${OrderDetail.productdetail_id}"/>
-                                                    <c:set var="product_id" value="${ProductDetailDAO.getProductIdByProductDetailId(productdetail_id)}"/>
-                                                    <c:forEach items="${listP}" var="product">
-                                                        <c:if test="${product.id == product_id}">
-                                                            <div>
-                                                                <img src="images/product/${product.image}" width="60px" height="70px" alt="${product.name}"/>
-                                                                <p>${product.name}</p>
-                                                            </div>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </c:if>
+                                                <c:forEach items="${productDetailList}" var="productDetail">
+                                                    <c:if test="${productDetail.id == orderDetail.productdetail_id}">
+                                                        <c:forEach items="${listP}" var="product">
+                                                            <c:if test="${product.id == productDetail.product_id}">
+                                                                <div>
+                                                                    <img src="image/product/${product.image}" width="60px" height="70px" alt="${product.name}"/>
+                                                                    <p>${product.name}</p>
+                                                                </div>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:forEach>
                                             </c:forEach>
                                         </div>
                                         <div class="col-md-6">
@@ -300,12 +241,32 @@
                 return true;
             }
         </script>
+<script>
+        document.getElementById('avatar').addEventListener('change', function (event) {
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = ''; // Clear any previous images
+            const files = event.target.files;
 
-        <script src="js/jquery.js"></script>
-        <script src="js/price-range.js"></script>
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.prettyPhoto.js"></script>
-        <script src="js/main.js"></script>
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const colDiv = document.createElement('div');
+                        colDiv.className = 'col-md-3';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'avatar-preview';
+                        colDiv.appendChild(img);
+                        imageContainer.appendChild(colDiv);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    </script>
     </body>
 </html>

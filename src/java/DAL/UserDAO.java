@@ -548,4 +548,10 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
+    
+    public static void main(String[] args) {
+        UserDAO u = new UserDAO();
+        CustomerChanges cc = new CustomerChanges("123", "123", "123", "123", "123", 1, 9);
+        u.addToCustomerChanges(cc);
+    }
 }

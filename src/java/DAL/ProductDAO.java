@@ -147,7 +147,7 @@ public class ProductDAO extends DBContext {
         Product.id, Product.category_id, Product.brand_id, Product.room_id, Product.name, Product.description, Product.staravg, Product.image, Product.price, Product.quantity, Product.status
     FROM 
         Product
-    JOIN 
+    JOIN     
         ProductDetail ON Product.id = ProductDetail.product_id
     WHERE 1=1
     """);

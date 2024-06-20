@@ -84,7 +84,7 @@ public class PostDAO extends DBContext {
     }
 
     public ArrayList<Post> getPostList() {
-        String sql = "SELECT * FROM Post";
+            String sql = "SELECT * FROM Post";
         ArrayList<Post> list = new ArrayList<>();
 
         try (PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {

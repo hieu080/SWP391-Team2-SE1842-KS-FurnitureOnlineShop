@@ -124,12 +124,9 @@ public class ProductDetailServlet extends HttpServlet {
         ArrayList<ImageFeedback> imageFeedbackList = ifdao.getAllImageFeedbackList();
         request.setAttribute("imageFeedbackList", imageFeedbackList);
 
-//        HttpSession session = request.getSession(false);
-//        User user = (User) session.getAttribute("customer");
-        User user = new User();
-        user.setFullname("CustomerTest");
-        user.setId(1);
-        user.setRole_id(1);
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("customer");
+
         request.setAttribute("customer", user);
 
         ProductDAO productDAO = new ProductDAO();
@@ -178,7 +175,6 @@ public class ProductDetailServlet extends HttpServlet {
         ArrayList<Feedback> feedbacksOfProduct = feedbackDAO.getFeedbackListByProductId(productId);
         request.setAttribute("feedbacksOfProduct", feedbacksOfProduct);
         
-        HttpSession session = request.getSession(false);
         if (session != null) {
             User user1 = (User) session.getAttribute("customer");
 

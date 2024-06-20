@@ -276,4 +276,20 @@ public class FeedbackDAO extends DBContext {
         }
         return null;
     }
+    
+    public int getFeedbackWithMaxId() {
+        int fbid = 0;
+        String sql = "SELECT id FROM Feedback ORDER BY id DESC LIMIT 1";
+
+        try (PreparedStatement stm = connect.prepareStatement(sql)) {
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                fbid = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fbid;
+    }
 }

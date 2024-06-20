@@ -175,7 +175,6 @@
                                                     <div>
                                                         <div>
                                                             <c:if test="${customer.id == user.id}">
-                                                                <a style="margin-right: 10px;" href="#" data-toggle="modal" data-target="#editFeedbackModal_${feedbackProduct.id}">Edit</a>
                                                                 <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                             </c:if>
                                                             <c:if test="${customer.role_id == 4}">
@@ -209,55 +208,6 @@
                                     </div>
                                 </c:if>
                             </c:forEach>
-                            <!-- Modal sửa feedback -->
-                            <div class="modal" id="editFeedbackModal_${feedbackProduct.id}" data-backdrop="false">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">Sửa Feedback</h3>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <!-- Modal Body -->
-                                        <div class="modal-body">
-                                            <form action="Feedback" method="post" enctype="multipart/form-data">
-                                                <div class="form-group">
-                                                    <label for="feedbackContent"><b>Feedback: </b></label>
-                                                    <textarea class="form-control" name="feedback" id="feedbackContent" rows="7">${feedbackProduct.feedback}</textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label><b>Đánh giá: </b></label>
-                                                    <div class="feedback-rating">
-                                                        <input type="radio" id="star5_${feedbackProduct.id}" name="rating" value="5" <c:if test="${feedbackProduct.votescore == 5}">checked</c:if>><label for="star5_${feedbackProduct.id}">★</label>
-                                                        <input type="radio" id="star4_${feedbackProduct.id}" name="rating" value="4" <c:if test="${feedbackProduct.votescore == 4}">checked</c:if>><label for="star4_${feedbackProduct.id}">★</label>
-                                                        <input type="radio" id="star3_${feedbackProduct.id}" name="rating" value="3" <c:if test="${feedbackProduct.votescore == 3}">checked</c:if>><label for="star3_${feedbackProduct.id}">★</label>
-                                                        <input type="radio" id="star2_${feedbackProduct.id}" name="rating" value="2" <c:if test="${feedbackProduct.votescore == 2}">checked</c:if>><label for="star2_${feedbackProduct.id}">★</label>
-                                                        <input type="radio" id="star1_${feedbackProduct.id}" name="rating" value="1" <c:if test="${feedbackProduct.votescore == 1}">checked</c:if>><label for="star1_${feedbackProduct.id}">★</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="avatar"><b>Ảnh đính kèm: </b></label>
-
-                                                    </div>
-                                                    <div class="row" id="imageContainer">
-                                                    <c:forEach items="${requestScope.imageFeedbackList}" var="imageFeedback">
-                                                        <c:if test="${imageFeedback.feedback_id == feedbackProduct.id}">
-                                                            <div class="col-md-3">
-                                                                <img class="fit-image avatar-preview" src="image/imagefeedback/${imageFeedback.image}" alt="image" />
-                                                                <input type="file" class="form-control-file" id="avatar_${imageFeedback.id}" accept="image/*">
-                                                            </div>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </div>
-                                                <div class="form-group" style="margin-top: 15px; display: flex; justify-content: center">
-                                                    <input type="submit" value="Lưu" class="btn btn-primary">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Kết thúc modal -->
                         </c:forEach>
                     </div>
 
@@ -275,7 +225,6 @@
                                                         <div>
                                                             <div>
                                                                 <c:if test="${customer.id == user.id}">
-                                                                    <a style="margin-right: 10px;">Edit</a>
                                                                     <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                                 </c:if>
                                                                 <c:if test="${customer.role_id == 4}">
@@ -327,7 +276,6 @@
                                                         <div>
                                                             <div>
                                                                 <c:if test="${customer.id == user.id}">
-                                                                    <a style="margin-right: 10px;">Edit</a>
                                                                     <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                                 </c:if>
                                                                 <c:if test="${customer.role_id == 4}">
@@ -379,7 +327,6 @@
                                                         <div>
                                                             <div>
                                                                 <c:if test="${customer.id == user.id}">
-                                                                    <a style="margin-right: 10px;">Edit</a>
                                                                     <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                                 </c:if>
                                                                 <c:if test="${customer.role_id == 4}">
@@ -431,7 +378,6 @@
                                                         <div>
                                                             <div>
                                                                 <c:if test="${customer.id == user.id}">
-                                                                    <a style="margin-right: 10px;">Edit</a>
                                                                     <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                                 </c:if>
                                                                 <c:if test="${customer.role_id == 4}">
@@ -483,7 +429,6 @@
                                                         <div>
                                                             <div>
                                                                 <c:if test="${customer.id == user.id}">
-                                                                    <a style="margin-right: 10px;">Edit</a>
                                                                     <a href="#" data-toggle="modal" data-target="#deleteFeedbackModal" onclick="setFeedbackId(${feedbackProduct.id})">Delete</a>
                                                                 </c:if>
                                                                 <c:if test="${customer.role_id == 4}">

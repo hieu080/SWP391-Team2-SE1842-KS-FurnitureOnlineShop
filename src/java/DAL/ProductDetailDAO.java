@@ -144,7 +144,7 @@ public class ProductDetailDAO extends DBContext {
     }
     
     public int getProductIdByProductDetailId(int id) {
-        int productId = -1;
+        int productId = 0;
         String sql = "SELECT product_id FROM ProductDetail WHERE id = ?";
 
         try {
@@ -163,14 +163,9 @@ public class ProductDetailDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        ProductDetail productDetail = new ProductDetail();
-        productDetail.setId(1);
-        productDetail.setProduct_id(1);
-        productDetail.setColor_id(2);
-        productDetail.setQuantity(15);
-        productDetail.setStatus("Active");
-
+        int id = 3;
         ProductDetailDAO pddao = new ProductDetailDAO();
-        pddao.updateProductDetail(productDetail);
+        int result = pddao.getProductIdByProductDetailId(id);
+        System.out.println(result);
     }
 }

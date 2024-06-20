@@ -66,82 +66,72 @@ public class Feedback extends HttpServlet {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> listOrderDetails = orderDetailDAO.getOrderDetailsByOrderId(order_id);
         request.setAttribute("listOrderDetails", listOrderDetails);
-        
+
         ProductDetailDAO productDetailDAO = new ProductDetailDAO();
         ArrayList<ProductDetail> productDetailList = new ArrayList<>();
         for (OrderDetail OrderDetail : listOrderDetails) {
             productDetailList.add(productDetailDAO.getProductDetail(OrderDetail.getProductdetail_id()));
         }
-        
+
         ProductDetailDAO pddao = new ProductDetailDAO();
         int[] productId = new int[listOrderDetails.size()];
-        for (int i : productId) {
+        for (int i = 0; i < productId.length; i++) {
             productId[i] = pddao.getProductIdByProductDetailId(listOrderDetails.get(i).getProductdetail_id());
         }
-        
+
         request.setAttribute("productDetailList", productDetailList);
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList = new ArrayList<>();
-        
+
         for (int pid : productId) {
             productList.add(productDAO.getProductByID(pid));
         }
-        
+
         request.setAttribute("listP", productList);
         request.getRequestDispatcher("/Views/Feedback.jsp").forward(request, response);
 
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-
+        FileUploadHelper fileUploadHelper = new FileUploadHelper();
+        PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
-        String feedback = request.getParameter("feedback");
-        String rateStr = request.getParameter("rating");
-        int rate = 0;
 
-        try {
-            rate = Integer.parseInt(rateStr);
-        } catch (Exception e) {
-            // Xử lý ngoại lệ nếu cần thiết
-        }
+        int count = 0;
+        while (true) {
+            String productIdStr = request.getParameter("productId_" + count);
+            if (productIdStr == null) {
+                break;
+            }
+            int productId = tryParseInt(productIdStr, 0);
+            String feedback = request.getParameter("feedback_" + count);
+            int rating = tryParseInt(request.getParameter("rating_" + count), 0);
+            int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
 
-        int order_id = 1; // Bạn có thể lấy giá trị order_id từ yêu cầu hoặc phiên làm việc
-
-        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-        ProductDetailDAO productDetailDAO = new ProductDetailDAO();
-        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
-        ArrayList<Integer> productFb = new ArrayList<>();
-        for (OrderDetail orderDetail : orderDetailList) {
-            int productdetail_id = orderDetail.getProductdetail_id();
-            int product_id = productDetailDAO.getProductIdByProductDetailId(productdetail_id);
-            productFb.add(product_id);
-        }
-
-        for (Integer integer : productFb) {
-            feedbackDAO.sendFeedback(u.getId(), integer.intValue(), rate, feedback, "Active");
-        }
-
-        // Sử dụng hàm uploadFilesAndReturnFileNames từ lớp FileUploadHelper
-        FileUploadHelper fileUploadHelper = new FileUploadHelper();
-        String[] fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, "fbimg", UPLOAD_DIRECTORY);
-
-        // Kiểm tra nếu không có tệp nào được tải lên
-        if (fileNames == null || fileNames.length == 0) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Files not provided or empty.");
-            return;
-        }
-
-        // Lưu tên các tệp vào cơ sở dữ liệu
-        for (String fileName : fileNames) {
-            for (Integer integer : productFb) {
-                feedbackDAO.insertImageFb(integer.intValue(), fileName);
+            String image = "imgfeedback_" + count;
+            Part filePart = request.getPart(image);
+            String[] fileNames = new String[fileCount];
+            if (filePart != null && filePart.getSize() > 0) {
+                fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, "fbimg", UPLOAD_DIRECTORY);
+            }
+            for (String fileName : fileNames) {
+                out.println(fileName);
             }
         }
 
-        response.sendRedirect("HomePage");
+        
+    }
+
+    private int tryParseInt(String value, int defaultValue) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
     }
 
 }

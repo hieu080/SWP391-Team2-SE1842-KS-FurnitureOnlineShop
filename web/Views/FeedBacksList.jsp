@@ -162,10 +162,10 @@
                                                 <a href="/FurnitureHieu/FeedBackDetail?id=${f.getId()}">View</a>
                                             </td>
                                             <td>
-                                                <c:if test="${f.getStatus()=='Active'}">
+                                                <c:if test="${f.getStatus()=='None'}">
                                                     <form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${f.getId()}"><button style="background-color: green;border: 0px; border-radius: 4px;">Change Status</button></form>
                                                     </c:if>
-                                                    <c:if test="${f.getStatus()!='Active'}">
+                                                    <c:if test="${f.getStatus()!='None'}">
                                                     <form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${f.getId()}"><button style="background-color: #c65d5a; border: 0px; border-radius: 4px;">Change Status</button></form>
                                                     </c:if>
                                             </td>

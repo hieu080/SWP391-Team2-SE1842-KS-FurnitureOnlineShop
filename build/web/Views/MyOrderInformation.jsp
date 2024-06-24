@@ -58,6 +58,7 @@
     <%@include file="HomeHeader.jsp" %>
     <div class="breadcrumb-shop">
         <div class="container">
+
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
                     <ol class="breadcrumb breadcrumb-arrows" itemscope
@@ -117,7 +118,8 @@
                                                     <c:forEach var="product" items="${productList}">
                                                         <c:if test="${product.id == productDetail.product_id}">
                                                             <c:forEach var="user" items="${userList}"> 
-                                                            </c:forEach>   
+                                                            </c:forEach> 
+                                                            <input type="hidden" id="id" name="id" value="${productDetail.id}">
                                                             <tr>
                                                                 <td>
                                                                     <div class="d-flex mb-2">
@@ -143,6 +145,9 @@
                                                                 <td>${orderDetail.quantity}</td>
                                                                 <td class="text-end" style="text-decoration: line-through;">${product.price} </td>
                                                                 <td class="text-end">${orderDetail.price}</td>
+                                                            <div style="display: none">
+                                                                <input type="hidden" id="priceunit" name="priceunit" value="${orderDetail.price}">
+                                                            </div>
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>
@@ -185,7 +190,7 @@
                                                         <c:when test="${order.status == 'Order'}">
                                                             <button class="btn btn-secondary" style="width: 80px; height: 30px; margin-right: 20px">${order.status}</button>
 
-                                                            <button class="btn btn-primary" style="width: 80px; height: 30px;"><a href="ShoppingCart" >Update Order</a></button>
+                                                            <button id="buy_now"class="btn btn-primary" style="width: 80px; height: 30px;margin-top: 0;"> Update Order</a></button>
                                                             <button class="btn btn-danger" onclick="confirmCancelOrder()" style="width: 80px; height: 30px; margin-left: 20px">Cancel Order</button>
                                                         </c:when>
                                                         <c:when test="${order.status == 'Cancel'}">
@@ -193,10 +198,20 @@
                                                         </c:when>
                                                         <c:when test="${order.status == 'Done'}">
                                                             <button class="btn btn-success" style="width: 80px; height: 30px; margin-right: 10px"><a href="link-to-your-page" >${order.status}</a></button>
-                                                            <button class="btn btn-primary" style="width: 80px; height: 30px; margin-left: 10px "><a href="Feedback?order_id=${order.id}" >Feedback</a></button>
+                                                                <c:set var="hasFeedback" value="false" />
+                                                                <c:forEach items="${requestScope.historyFeedbackOrder}" var="history">
+                                                                    <c:if test="${order.id == history}">
+                                                                        <c:set var="hasFeedback" value="true" />
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${!hasFeedback}">
+                                                                <button class="btn btn-primary" style="width: 80px; height: 30px; margin-left: 10px">
+                                                                    <a href="FeedbackServlet?order_id=${order.id}" style="color: white; text-decoration: none;">Feedback</a>
+                                                                </button>
+                                                            </c:if>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <button class="btn btn-secondary" style="width: 80px; height: 30px;">${order.status}</button>
+                                                            <button class="btn btn-warning" style="width: 80px; height: 30px;">${order.status}</button>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </div>
@@ -212,6 +227,12 @@
             </div>
         </div>
     </div>
+    <form id="hiddenForm" action="${pageContext.request.contextPath}/AddToCart" method="get" style="display: none;">
+        <input type="hidden" id="productDetailId" name="productDetailId" value="">
+        <input type="hidden" id="quantityproduct" name="quantityproduct" value="">
+        <input type="hidden" id="price" name="price" value="">
+        <input type="hidden" id="action" name="action" value="">
+    </form>
     <%@include file="HomeFooter.jsp" %>
     <script>
         function confirmCancelOrder() {
@@ -238,7 +259,19 @@
                 // Người dùng chọn No, không làm gì cả
             }
         }
+        document.getElementById('buy_now').addEventListener('click', function () {
+            
+            var productDetailId = document.getElementById('id').value;
+            var quantity = 1;
+            var price = document.getElementById('priceunit').value;
 
+            document.getElementById('productDetailId').value = productDetailId;
+            document.getElementById('quantityproduct').value = quantity;
+            document.getElementById('price').value = price;
+            document.getElementById('action').value = "buynow";
+
+            document.getElementById('hiddenForm').submit();
+        });
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

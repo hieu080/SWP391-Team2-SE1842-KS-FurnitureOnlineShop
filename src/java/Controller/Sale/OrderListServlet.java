@@ -118,6 +118,7 @@ public class OrderListServlet extends HttpServlet {
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.MyOrderDetails(order_IDs);
         request.setAttribute("orderDetailList", orderDetailList);
         request.setAttribute("orderList", orderList);
+        
         PaginationHelper paginationHelper = new PaginationHelper();
         ServletContext context = getServletContext();
         String itemsPerPage = "itemsPerOrderList";
@@ -171,12 +172,18 @@ public class OrderListServlet extends HttpServlet {
         for (int i = 0; i < orderList.size(); i++) {
             order_IDs[i] = orderList.get(i).getId();
         }
-        ServletContext context = getServletContext();
+        
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderDetail> orderDetailList = orderDetailDAO.MyOrderDetails(order_IDs);
         request.setAttribute("orderDetailList", orderDetailList);
         request.setAttribute("orderList", orderList);
         request.setAttribute("selectStatusList", selectStatusList);
+        
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerOrderList";
+        String attribute = "orderList";
+        paginationHelper.Pagination(request, orderList, context, itemsPerPage, attribute);
         processRequest(request, response);
 
     }

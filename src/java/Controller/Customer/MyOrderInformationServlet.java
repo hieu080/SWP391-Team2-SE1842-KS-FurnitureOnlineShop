@@ -7,6 +7,7 @@ package Controller.Customer;
 import DAL.AddressDAO;
 import DAL.CategoryDAO;
 import DAL.ColorDAO;
+import DAL.FeedbackDAO;
 import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import DAL.ProductDAO;
@@ -106,6 +107,9 @@ public class MyOrderInformationServlet extends HttpServlet {
 
         AddressDAO addressDAO = new AddressDAO();
         List<Address> address = addressDAO.getAllAddresses();
+        
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        int[] historyFeedbackOrder = feedbackDAO.getHistory();
 
         request.setAttribute("address", address);
         request.setAttribute("categoryList", categoryList);
@@ -115,10 +119,11 @@ public class MyOrderInformationServlet extends HttpServlet {
         request.setAttribute("productList", productList);
         request.setAttribute("orderDetailList", orderDetailList);
         request.setAttribute("order", order);
-
+        request.setAttribute("historyFeedbackOrder", historyFeedbackOrder);
+        
         request.getRequestDispatcher("Views/MyOrderInformation.jsp").forward(request, response);
     }
-    
+
 
     /**
      * Handles the HTTP <code>POST</code> method.

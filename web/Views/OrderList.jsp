@@ -372,7 +372,7 @@
                                                     <button style="width: 80px; height: 30px" class="btn btn-success">Done</button>
                                                 </c:when>
                                                 <c:when test="${order.status == 'Confirmed'}">
-                                                    <button style="width: 80px; height: 30px" class="btn btn-danger">Confirmed</button>
+                                                    <button style="width: 100px; height: 30px" class="btn btn-warning">Confirmed</button>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <button style="width: 80px; height: 30px" class="btn btn-secondary">${order.status}</button>

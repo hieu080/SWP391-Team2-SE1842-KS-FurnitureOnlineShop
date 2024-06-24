@@ -12,50 +12,56 @@
         <link rel="stylesheet" href="resources/styles.css">
     </head>
     <body>
-        <div class="container mt-5">
-            <h1 class="mb-4">Edit Slider</h1>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Edit Slider</h2>
-                </div>
-                <div class="card-body">
-                    <form action="${pageContext.request.contextPath}/SliderUpdate" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="sliderid" value="${slider.id}">
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title" value="${slider.title}">
+        <div class="wrapper">
+            <%@include file="DashboardNavbar.jsp" %>
+            <div class="main">
+                <%@include file="DashboardHeader.jsp" %>
+                <div class="container mt-5">
+                    <h1 class="mb-4">Edit Slider</h1>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Edit Slider</h2>
                         </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image:</label>
-                            <input type="file" class="form-control" id="image" name="imageslider" accept="image/*">
-                        </div>
-                        <div class="mb-3">
-                            <img id="preview" src="${slider.image}" alt="${slider.title}" class="img-fluid" style="max-height: 300px;">
-                            <input type="hidden" name="sliderimage" value="${slider.image}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="backLink" class="form-label">Backlink:</label>
-                            <input type="text" class="form-control" id="backLink" name="backLink" value="${slider.link}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status:</label>
-                            <select class="form-select" id="status" name="status">
-                                <option value="show" <c:if test="${slider.status eq 'show'}">selected</c:if>>Show</option>
-                                <option value="hide" <c:if test="${slider.status eq 'hide'}">selected</c:if>>Hide</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="notes" class="form-label">Notes:</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3">${slider.notes}</textarea>
-                        </div>
+                        <div class="card-body">
+                            <form action="${pageContext.request.contextPath}/SliderUpdate" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="sliderid" value="${slider.id}">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title:</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="${slider.title}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Image:</label>
+                                    <input type="file" class="form-control" id="image" name="imageslider" accept="image/*">
+                                </div>
+                                <div class="mb-3">
+                                    <img id="preview" src="${slider.image}" alt="${slider.title}" class="img-fluid" style="max-height: 300px;">
+                                    <input type="hidden" name="sliderimage" value="${slider.image}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="backLink" class="form-label">Backlink:</label>
+                                    <input type="text" class="form-control" id="backLink" name="backLink" value="${slider.link}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status:</label>
+                                    <select class="form-select" id="status" name="status">
+                                        <option value="show" <c:if test="${slider.status eq 'show'}">selected</c:if>>Show</option>
+                                        <option value="hide" <c:if test="${slider.status eq 'hide'}">selected</c:if>>Hide</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="notes" class="form-label">Notes:</label>
+                                        <textarea class="form-control" id="notes" name="notes" rows="3">${slider.notes}</textarea>
+                                </div>
 
-                        <button type="submit" class="btn btn-primary">Update Slider</button>
-                        <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
-                    </form>
+                                <button type="submit" class="btn btn-primary">Update Slider</button>
+                                <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <%@include file="DashboardFooter.jsp" %>
         <!-- Bootstrap JavaScript và các tệp script tùy chỉnh khác -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="resources/scripts.js"></script>
@@ -73,3 +79,5 @@
         </script>
     </body>
 </html>
+
+

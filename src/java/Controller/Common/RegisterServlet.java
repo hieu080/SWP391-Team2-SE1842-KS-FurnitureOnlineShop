@@ -143,6 +143,12 @@ public class RegisterServlet extends HttpServlet {
         processRequest(request, response);
         UserDAO userDAO = new UserDAO();
         if (userDAO.checkAccount(email) == true) {
+            request.setAttribute("fullname", fullname);
+            request.setAttribute("gender", gender);
+            request.setAttribute("phone", phone);
+            request.setAttribute("address", address);
+            request.setAttribute("email", email);
+            request.setAttribute("password", password);
             request.setAttribute("error", "Tài khoản đã tồn tại.");
             request.setAttribute("showregister", "block");
             request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);

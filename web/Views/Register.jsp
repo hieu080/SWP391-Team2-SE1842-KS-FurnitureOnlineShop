@@ -28,36 +28,41 @@
                     <form method="post" action="${pageContext.request.contextPath}/RegisterServlet" id="signupForm">
                         <div class="form-group">
                             <label for="fullname">Họ và tên</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" required>
+                            <input type="text" class="form-control" id="fullname" name="fullname" required value="${param.fullname}">
                         </div>
                         <div class="form-group">
                             <label for="gender">Giới tính</label>
-                            <input type="text" class="form-control" id="gender" name="gender" required>
+                            <input type="text" class="form-control" id="gender" name="gender" required value="${param.gender}">
                         </div>
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required>
+                            <input type="text" class="form-control" id="phone" name="phone" required value="${param.phone}">
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
-                            <input type="text" class="form-control" id="address" name="address" required>
+                            <input type="text" class="form-control" id="address" name="address" required value="${param.address}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required value="${param.email}">
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="password" class="form-control" id="password" name="password" required
                                    pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
-                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
+                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt."
+                                   value="${param.password}">
                         </div>
                         <div class="form-group">
                             <label for="pass">Nhập lại mật khẩu</label>
-                            <input type="password" class="form-control" id="pass" name="pass" required>
+                            <input type="password" class="form-control" id="pass" name="pass" required value="${param.pass}">
+                        </div>
+                        <div>
+                            <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility()"> Hiển thị mật khẩu
                         </div>
                         <button type="submit" class="btn btn-primary">Đăng kí</button>
                         <p>Bạn có muốn tạo 1 tài khoản? <a href="#" onclick="toggleDiv('box1', 'box2')">Đăng nhập</a></p>
+                        
                     </form>
                     <c:if test="${not empty requestScope.error}">
                         <div class="alert alert-danger" role="alert">
@@ -72,5 +77,17 @@
                 </div>
             </div>
         </div>
+        <script>
+            function togglePasswordVisibility() {
+                var passwordFields = document.querySelectorAll('input[type="password"]');
+                passwordFields.forEach(function (passwordField) {
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                    } else {
+                        passwordField.type = "password";
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

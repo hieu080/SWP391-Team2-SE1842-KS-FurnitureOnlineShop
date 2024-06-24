@@ -483,6 +483,7 @@
                     <p>Are you sure you want to delete this feedback?</p>
                     <form id="deleteFeedbackForm" action="ProductDetailServlet" method="post"> <!-- Adjust action URL as needed -->
                         <input type="hidden" name="action" value="deleteFeedback">
+                        <input type="hidden" name="productId" value="${product.id}">
                         <input type="hidden" id="deleteFeedbackId" name="deleteFeedbackId" value="">
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-danger mx-2" style="width: 70px;">Yes</button>

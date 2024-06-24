@@ -12,48 +12,55 @@
         <link rel="stylesheet" href="resources/styles.css">
     </head>
     <body>
-        <div class="container mt-5">
-            <h1 class="mb-4">Insert Slider</h1>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Insert Slider</h2>
-                </div>
-                <div class="card-body">
-                    <form action="${pageContext.request.contextPath}/SliderInsert" method="post" enctype="multipart/form-data">
-                        <span id="error-message" style="color: red">${error}</span>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
+        <div class="wrapper">
+            <%@include file="DashboardNavbar.jsp" %>
+            <div class="main">
+                <%@include file="DashboardHeader.jsp" %>
+                <div class="container mt-5">
+                    <h1 class="mb-4">Insert Slider</h1>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Insert Slider</h2>
                         </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image:</label>
-                            <input type="file" class="form-control" id="image" name="imageslider" accept="image/*" required>
+                        <div class="card-body">
+                            <form action="${pageContext.request.contextPath}/SliderInsert" method="post" enctype="multipart/form-data">
+                                <span id="error-message" style="color: red">${error}</span>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title:</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Image:</label>
+                                    <input type="file" class="form-control" id="image" name="imageslider" accept="image/*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <img id="preview" src="" alt="$" class="img-fluid" style="display: none; max-height: 300px;">
+                                    <input type="hidden" name="sliderimage">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="backLink" class="form-label">Backlink:</label>
+                                    <input type="text" class="form-control" id="backLink" name="backLink" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status:</label>
+                                    <select class="form-select" id="status" name="status">
+                                        <option value="show">Show</option>
+                                        <option value="hide">Hide</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Notes:</label>
+                                    <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Insert Slider</button>
+                                <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <img id="preview" src="" alt="$" class="img-fluid" style="display: none; max-height: 300px;">
-                            <input type="hidden" name="sliderimage">
-                        </div>
-                        <div class="mb-3">
-                            <label for="backLink" class="form-label">Backlink:</label>
-                            <input type="text" class="form-control" id="backLink" name="backLink" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status:</label>
-                            <select class="form-select" id="status" name="status">
-                                <option value="show">Show</option>
-                                <option value="hide">Hide</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="notes" class="form-label">Notes:</label>
-                            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Insert Slider</button>
-                        <a href="${pageContext.request.contextPath}/SliderList" class="btn btn-secondary">Cancel</a>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <%@include file="DashboardFooter.jsp" %>
 
         <!-- Bootstrap JavaScript và các tệp script tùy chỉnh khác -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -71,10 +78,10 @@
                 }
             });
 
-            window.onload = function() {
+            window.onload = function () {
                 var errorMessage = document.getElementById('error-message');
                 if (errorMessage.innerHTML.trim() !== '') {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         errorMessage.style.display = 'none';
                     }, 3000); // 3000 milliseconds = 3 giây
                 }
@@ -82,3 +89,5 @@
         </script>
     </body>
 </html>
+
+

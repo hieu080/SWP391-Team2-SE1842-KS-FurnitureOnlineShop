@@ -15,6 +15,8 @@ import Models.Category;
 import Models.Product;
 import Models.User;
 import Models.Order;
+import Models.Feedback;
+import Models.ImageFeedback;
 import Models.OrderDetail;
 import Models.ProductDetail;
 import java.io.IOException;
@@ -44,7 +46,7 @@ import java.util.List;
         maxFileSize = 1024 * 1024 * 10, // 10 MB
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
-public class Feedback extends HttpServlet {
+public class FeedbackServlet extends HttpServlet {
 
     private static final String UPLOAD_DIRECTORY = "image/imagefeedback";
 
@@ -97,9 +99,12 @@ public class Feedback extends HttpServlet {
             throws ServletException, IOException {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         FileUploadHelper fileUploadHelper = new FileUploadHelper();
-        PrintWriter out = response.getWriter();
+
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("customer");
+
+        int feedbackId = feedbackDAO.getFeedbackWithMaxId();
+        int orderId = tryParseInt(request.getParameter("orderId"), 0);
 
         int count = 0;
         while (true) {
@@ -107,23 +112,35 @@ public class Feedback extends HttpServlet {
             if (productIdStr == null) {
                 break;
             }
-            int productId = tryParseInt(productIdStr, 0);
-            String feedback = request.getParameter("feedback_" + count);
-            int rating = tryParseInt(request.getParameter("rating_" + count), 0);
-            int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
 
-            String image = "imgfeedback_" + count;
-            Part filePart = request.getPart(image);
-            String[] fileNames = new String[fileCount];
-            if (filePart != null && filePart.getSize() > 0) {
-                fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, "fbimg", UPLOAD_DIRECTORY);
-            }
-            for (String fileName : fileNames) {
-                out.println(fileName);
+            int productId = tryParseInt(productIdStr, 0);
+            String feedbackStr = request.getParameter("feedback_" + count);
+            int rating = tryParseInt(request.getParameter("rating_" + count), 0);
+
+            if (feedbackStr != null && !feedbackStr.isEmpty() && rating > 0) {
+                Feedback feedback = new Feedback(u.getId(), productId, rating, feedbackStr);
+                feedbackDAO.insertFeedback(feedback);
+
+                int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
+                String image = "imgfeedback_" + count;
+                Part filePart = request.getPart(image);
+                String[] fileNames = new String[fileCount];
+                if (filePart != null && filePart.getSize() > 0) {
+                    fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, image, UPLOAD_DIRECTORY);
+                }
+
+                for (String fileName : fileNames) {
+                    ImageFeedback imageFeedback = new ImageFeedback(feedbackId, fileName);
+                    feedbackDAO.insertImageFb(feedbackId, fileName);
+                }
+                count++;
             }
         }
+        ProductDAO pdao = new ProductDAO();
+        pdao.updateScoreOfProduct();
+        feedbackDAO.insertHistory(orderId, feedbackId);
+        response.sendRedirect("HomePage");
 
-        
     }
 
     private int tryParseInt(String value, int defaultValue) {

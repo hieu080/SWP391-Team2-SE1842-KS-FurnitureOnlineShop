@@ -245,6 +245,7 @@
             <%@include file="DashboardHeader.jsp" %>
             <div class="container-fluid" style="margin-top: 15px">
                 <div class="container">
+                    <a href="OrderListServlet" class="btn btn-primary" style="margin-bottom: 15px"> < Back to list</a>
                     <div class="row">
                         <div class="col-md-8">
                             <!-- Details -->
@@ -343,11 +344,11 @@
                                                                     <button class="btn btn-danger" style="width: 80px; height: 30px;">${order.status}</button>
                                                                 </c:when>
                                                                 <c:when test="${order.status == 'Done'}">
-                                                                    <button class="btn btn-success" style="width: 80px; height: 30px; margin-right: 10px"><a href="link-to-your-page" >${order.status}</a></button>
-                                                                    <button class="btn btn-primary" style="width: 80px; height: 30px; margin-left: 10px "><a href="Feedback?order_id=${order.id}" >Feedback</a></button>
+                                                                    <button class="btn btn-success" style="width: 80px; height: 30px; margin-right: 10px;"><a href="link-to-your-page" style="text-decoration: none; color: white" >${order.status}</a></button>
+                                                                 
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <button class="btn btn-secondary" style="width: 80px; height: 30px;">${order.status}</button>
+                                                                    <button class="btn btn-warning" style="width: 100px; height: 30px;">${order.status}</button>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </div>

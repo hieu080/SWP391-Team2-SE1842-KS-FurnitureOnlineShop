@@ -39,18 +39,18 @@ public class ChangePassword extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User u = (User) session.getAttribute("customer");
         if (!oldpass.equals(u.getPassword())) {
-            request.setAttribute("mess", "Old pass not correct");
+            request.setAttribute("mess", "Mật khẩu cũ không đúng");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else if (!newpass.equals(renewpass)) {
-            request.setAttribute("mess", "Renew pass not match with pass");
+            request.setAttribute("mess", "Mật khẩu mới không khớp");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else if (newpass.equals(oldpass)) {
-            request.setAttribute("mess", "New password cannot be the same as the old password");
+            request.setAttribute("mess", "Mật khẩu mới không được trùng với mật khẩu cũ");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else {
             UserDAO dao = new UserDAO();
             dao.changePass(String.valueOf(u.getId()), newpass);
-            request.setAttribute("mess", "Change password sucessfully!");
+            request.setAttribute("mess", "Thay đổi mật khẩu thành công");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         }
     }

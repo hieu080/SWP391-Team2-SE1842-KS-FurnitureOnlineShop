@@ -3,10 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/Feedback.java</file>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/newjsp.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Common/RegisterServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/FeedbackServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/MyOrder.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/InsertSlider.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/MyOrderInformation.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/Login.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/ResetPassword.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/Register.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/FeedbackDetail.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Marketing/SliderList.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/CartDropDown.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/UserProfile.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/CartItemDAO.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/ProductDetail.jsp</file>
             <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/Feedback.jsp</file>
-            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/ProductDetailDAO.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/config.properties</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/ChangePassword.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Customer/DeleteCartItem.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/OrderDetail.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/SliderDetail.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/ProductDetailServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/CartDetail.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/OrderList.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Models/Order.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Common/UserProfile.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/DAL/PaymentMethodDAO.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/ProductFeedback.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Public/HomePage.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/SliderList.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/src/java/Controller/Sale/OrderListServlet.java</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/CartContact.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/DashboardNavbar.jsp</file>
+            <file>file:/C:/Users/HELLO/OneDrive/Documents/NetBeansProjects/FurnitureHieu/Iter2/SWP391-Team2-SE1842-KS-FurnitureOnlineShop/web/Views/EditSlider.jsp</file>
         </group>
     </open-files>
 </project-private>

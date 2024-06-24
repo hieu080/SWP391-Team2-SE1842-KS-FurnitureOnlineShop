@@ -175,7 +175,7 @@
                                         <button style="width: 80px; height: 30px" class="btn btn-success">Done</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button style="width: 80px; height: 30px" class="btn btn-secondary">${order.status}</button>
+                                        <button style="width: 80px; height: 30px" class="btn btn-warning">${order.status}</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

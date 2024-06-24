@@ -26,21 +26,36 @@
                 <div class="d-flex align-items-center row">
                     <div class="col-5">
                         <a href="${pageContext.request.contextPath}/HomePage" class="d-flex align-items-center text-dark text-decoration-none">
-                            <div>
-                                <!-- Add your logo here -->
-                                <img src="image/furniture-high-resolution-logo-transparent.png" style="height: 48px;" alt="Logo"
-                                     class="img-fluid">
+                            <div class="d-flex">
+                                <svg style="width: 50px;height: 35px"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
+                                </svg>
+                                <h2 style="color: green; margin: 0" >Furniture</h2>
                             </div>
-                            <div style="background-color: #f2f2f2;padding: 20px 0; border-left: 3px solid #000;margin-left: 3%;margin-right: 2%;">
-                            </div>
-                            <div class="ml-2 d-flex align-items-center">
-                                <h2>Thanh Toán </h2>
+                            <div style="background-color: #f2f2f2; padding: 20px 0; border-left: 3px solid #000; margin-left: 3%;margin-right: 2%;"></div>
+                            <div class="ml-2">
+                                <h3 class="m-0">Thanh Toán</h3>
                             </div>
                         </a>
                     </div>
                     <div class="col-2"></div>
                     <div class="ml-auto col-5">
-
+                        <form action="${pageContext.request.contextPath}/ProductServlet" method="post" class="form-inline">
+                            <input type="hidden" name="type" value="product" />
+                            <div class="input-group w-100">
+                                <input style=" height: 40px ;font-size: 20px " required id="inputSearchAuto" name="search" maxlength="40" autocomplete="off"
+                                       type="text" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+                                <div class="input-group-append">
+                                    <button style=" width: 40px;height: 40px" type="submit" class="btn btn-primary" title="Tìm kiếm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-search" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -130,20 +145,20 @@
                                                                 <label for="fullName" class="form-label">Họ và tên</label>
                                                                 <input type="text" class="form-control" id="fullName" name="fullname"
                                                                        placeholder="Họ và tên" autocomplete="name"
-                                                                       maxlength="64">
+                                                                       maxlength="64" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="phoneNumber" class="form-label">Số điện
                                                                     thoại</label>
                                                                 <input type="text" class="form-control" id="addPhoneNumber" name="phonenumber"
                                                                        placeholder="Số điện thoại"
-                                                                       autocomplete="user-address-phone">
+                                                                       autocomplete="user-address-phone" required>
                                                                 <div class="invalid-feedback" id="phoneError1">Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam hợp lệ.</div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="province" class="form-label">Tỉnh/Thành
                                                                     phố</label>
-                                                                <select class="form-control" id="province" name="tinh">
+                                                                <select class="form-control" id="province" name="tinh" required>
                                                                     <option value="">Chọn Tỉnh/Thành phố</option>
                                                                     <option value="Hà Nội">Hà Nội</option>
                                                                     <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
@@ -152,14 +167,14 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="district" class="form-label">Quận/Huyện</label>
-                                                                <select class="form-control" id="district" disabled name="huyen">
+                                                                <select class="form-control" id="district" disabled name="huyen" required>
                                                                     <option value="">Chọn Quận/Huyện</option>
                                                                     <!-- Options will be loaded based on selected province -->
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="ward" class="form-label">Phường/Xã</label>
-                                                                <select class="form-control" id="ward" disabled name="xa">
+                                                                <select class="form-control" id="ward" disabled name="xa" required>
                                                                     <option value="">Chọn Phường/Xã</option>
                                                                     <!-- Options will be loaded based on selected district -->
                                                                 </select>
@@ -170,7 +185,7 @@
                                                                 <textarea class="form-control" id="specificAddress" rows="2"
                                                                           placeholder="Địa chỉ cụ thể"
                                                                           autocomplete="user-street-address"
-                                                                          maxlength="128" name="addressdetail"></textarea>
+                                                                          maxlength="128" name="addressdetail" required></textarea>
                                                             </div>
                                                             <div>
                                                                 <input type="checkbox" name="status" value="default">
@@ -224,11 +239,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                                                <input type="text" class="form-control" id="editPhoneNumber" name="phonenumber" value="${address.phonenumber}" placeholder="Số điện thoại" autocomplete="user-address-phone">
+                                                <input type="text" class="form-control" required id="editPhoneNumber" name="phonenumber" value="${address.phonenumber}" placeholder="Số điện thoại" autocomplete="user-address-phone">
                                             </div>
                                             <div class="form-group">
                                                 <label for="province" class="form-label">Tỉnh/Thành phố</label>
-                                                <select class="form-control" id="province1" name="tinh">
+                                                <select class="form-control" id="province1" name="tinh" required>
                                                     <option value="">Chọn Tỉnh/Thành phố</option>
                                                     <option value="Hà Nội">Hà Nội</option>
                                                     <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
@@ -237,21 +252,21 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="district" class="form-label">Quận/Huyện</label>
-                                                <select class="form-control" id="district1" disabled name="huyen">
+                                                <select class="form-control" id="district1" disabled name="huyen" required>
                                                     <option value="">Chọn Quận/Huyện</option>
                                                     <!-- Options will be loaded based on selected province -->
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="ward" class="form-label">Phường/Xã</label>
-                                                <select class="form-control" id="ward1" disabled name="xa">
+                                                <select class="form-control" id="ward1" disabled name="xa" required>
                                                     <option value="">Chọn Phường/Xã</option>
                                                     <!-- Options will be loaded based on selected district -->
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="specificAddress" class="form-label">Địa chỉ cụ thể</label>
-                                                <textarea class="form-control" id="specificAddress" rows="2" placeholder="Địa chỉ cụ thể" autocomplete="user-street-address" maxlength="128" name="addressdetail">${address.addressdetail}</textarea>
+                                                <textarea class="form-control" required id="specificAddress" rows="2" placeholder="Địa chỉ cụ thể" autocomplete="user-street-address" maxlength="128" name="addressdetail">${address.addressdetail}</textarea>
                                             </div>
                                             <div>
                                                 <c:choose>
@@ -463,7 +478,94 @@
             </div>
         </div>
 
-        <%@ include file="HomeFooter.jsp" %>
+                <footer class="mainFooter mainfooter-toolbar" style="background-color: #f2f2f2;" >
+
+            <div class="footer-container">
+                <div class="container">
+                    <div class="row footer-container--content">
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-bd">
+                            <div class="widget-footer">
+                                <h4 class="footer-title">Nội Thất MOHO</h4>
+                                <div class="footer-content">
+
+                                    <p>Nội Thất MOHO là thương hiệu đến từ Savimex với gần 40 năm kinh nghiệm trong việc
+                                        sản xuất và xuất khẩu nội thất đạt chuẩn quốc tế.</p>
+
+
+                                    <div class="fBlock-logo-bct">
+                                        <a href="http://online.gov.vn/(X(1)S(x0oiui2u3epcjwy4z2xlko03))/Home/WebDetails/60567?AspxAutoDetectCookieSupport=1"
+                                           class="fade-box" aria-label="Bộ Công Thương">
+                                            <img class="lazyload"
+                                                 data-src="//theme.hstatic.net/200000065946/1001187274/14/logo_bct.png?v=582"
+                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                                                 alt="Bộ Công Thương">
+                                        </a>
+                                    </div>
+
+                                    <a href="//www.dmca.com/Protection/Status.aspx?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
+                                       title="DMCA.com Protection Status" class="dmca-badge"> <img loading="lazy"
+                                                                                                decoding="async"
+                                                                                                src="https://images.dmca.com/Badges/dmca_protected_18_120.png?ID=c870a589-fd82-4c14-9e41-c3891ec42fb5"
+                                                                                                alt="DMCA.com Protection Status" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-bd">
+                            <div class="widget-footer footer-linklist">
+                                <h4 class="footer-title">
+                                    Dịch Vụ
+                                </h4>
+                                <div class="footer-content">
+                                    <ul class="menuFooter-list">
+
+                                        <c:forEach items="${pageList}" var="page">
+
+                                            <li class="">
+                                                <a href="/pages/chinh-sach-ban-hang" title="Chính Sách Bán Hàng">
+                                                    ${page.name}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-bd clea-mean">
+                            <div class="widget-footer footer-contact">
+                                <h4 class="footer-title">
+                                    Thông tin liên hệ
+                                </h4>
+                                <div class="footer-content">
+                                    <ul class="contactList">
+                                        <li class="contact" style="padding-left: 0;"></i>Showroom: 162 HT17, P. Hiệp Thành,
+                                            Q. 12, TP. HCM (Nằm
+                                            trong khuôn viên công ty SAVIMEX phía sau bến xe buýt Hiệp Thành) | Hotline:
+                                            0971 141 140</p>
+                                            </i>Experience Store 1: S05.03-S18 phân khu The Rainbow | Vinhomes Grand
+                                            Park, TP. Thủ Đức | Hotline: 0931 880 424</p>
+                                            </i>Experience Store 2: S3.03-Sh15 phân khu Sapphire | Vinhomes Smart City,
+                                            Hà Nội | Hotline: 0909 665 728</p>
+                                            </i>Experience Store 3: S2.09-Sh19 phân khu Sapphire | Vinhomes Ocean Park,
+                                            Hà Nội | Hotline: 0938 108 772</p>
+                                        </li>
+                                        <li class="contact" style="padding-left: 0;"> </i>097 114 1140 (Hotline/Zalo)</p>
+                                            </i> 0902 415 359 (Đội
+                                            Giao Hàng)</p>
+                                        </li>
+
+                                        <li class="contact" style="padding-left: 0;">cskh@moho.com.vn </p>Công Ty Cổ Phần
+                                            Hợp Tác Kinh Tế Và
+                                            Xuất Nhập Khẩu Savimex - STK: 0071001303667 - Vietcombank CN HCM</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -625,3 +727,4 @@
     </body>
 
 </html>
+

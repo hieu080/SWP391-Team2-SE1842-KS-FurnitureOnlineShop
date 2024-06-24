@@ -30,6 +30,9 @@
                                     <label for="password">Mật khẩu</label>
                                     <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
+                                <div>
+                                    <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility()"> Hiển thị mật khẩu
+                                </div>
                                 <button type="submit" class="btn btn-primary">Đăng nhập</button>
                                 <a href="#" onclick="toggleDiv('box3', 'box1')">Quên mật khẩu </a>
                                 <p>Bạn chưa có tài khoản? <a href="#" onclick="toggleDiv('box2', 'box1')">Đăng kí</a></p>
@@ -49,6 +52,18 @@
                 </div>
             </div>
         </div>
+        <script>
+            function togglePasswordVisibility() {
+                var passwordFields = document.querySelectorAll('input[type="password"]');
+                passwordFields.forEach(function (passwordField) {
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                    } else {
+                        passwordField.type = "password";
+                    }
+                });
+            }
+        </script>
 
     </body>
 </html>

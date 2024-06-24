@@ -84,7 +84,7 @@ public class UserProfile extends HttpServlet {
 
         if (phone != null && !phone.isEmpty() && phone.matches("[0-9]{10}")) {
             if (fileName != null && !fileName.isEmpty()) {
-                String img = UPLOAD_DIRECTORY + "/" + fileName;
+                String img =  fileName;
                 dao.update(fullname, gender, img, phone, address, u.getId());
             } else {
                 dao.update(fullname, gender, oldimage, phone, address, u.getId());

@@ -48,7 +48,7 @@ public class SliderList extends HttpServlet {
 
             UserRole role = new UserRoleDAO().getUserRoleByID(user.getRole_id());
 
-            if (role.getRolename().equals("Marketer")) {
+            if (role.getRolename().equals("Marketing")) {
 
                 if (status != null && !"all".equals(status) && search != null && !search.isEmpty()) {
                     sliders = sliderDAO.getAllSlidersWithStatusAndSearch(status, search, user.getId());

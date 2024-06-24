@@ -59,10 +59,10 @@ public class ChangeStatusFeedback extends HttpServlet {
         String id_str = request.getParameter("id");
         int id  =  Integer.parseInt(id_str);
         Feedback f = fd.GetFeedbackByID(id);
-        if(f.getStatus().equals("Active")){
-            fd.changeStatus(id, "Deactive");
+        if(f.getStatus().equals("None")){
+            fd.changeStatus(id, "Hide");
         }else{
-            fd.changeStatus(id, "Active");
+            fd.changeStatus(id, "None");
         }
         response.sendRedirect("/FurnitureHieu/FeedBackDetail?id="+id);
     } 

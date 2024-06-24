@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,9 +24,11 @@ public class FeedbackDAO extends DBContext {
 
     public static void main(String[] args) {
         FeedbackDAO fdao = new FeedbackDAO();
-        fdao.deleteFeedback(1);
+        ArrayList<Feedback> feedbacks = fdao.getFeedbackListByProductId(5);
+        for (Feedback feedback : feedbacks) {
+            System.out.println(feedback.getId());
+        }
     }
-
     public ArrayList<Feedback> getFeedbackListByProductId(int productId) {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
         String sql = "SELECT * FROM Feedback WHERE product_id = ? AND status = 'None'";
@@ -276,7 +279,7 @@ public class FeedbackDAO extends DBContext {
         }
         return null;
     }
-    
+
     public int getFeedbackWithMaxId() {
         int fbid = 0;
         String sql = "SELECT id FROM Feedback ORDER BY id DESC LIMIT 1";
@@ -292,4 +295,41 @@ public class FeedbackDAO extends DBContext {
 
         return fbid;
     }
+
+    public void insertHistory(int orderId, int feedbackId) {
+        String sql = "INSERT INTO HistoryOrderFeedback (order_id, feedback_id) VALUES (?, ?)";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+            // Đặt các tham số cho câu lệnh SQL
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.setInt(2, feedbackId);
+
+            // Thi hành câu lệnh SQL
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+    }
+    
+
+    public int[] getHistory() {
+        String sql = "SELECT order_id FROM HistoryOrderFeedback";
+        List<Integer> orderIds = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int orderId = resultSet.getInt("order_id");
+                orderIds.add(orderId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+
+        // Chuyển danh sách orderIds thành mảng
+        return orderIds.stream().mapToInt(i -> i).toArray();
+    }
+
 }

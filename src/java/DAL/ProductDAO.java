@@ -348,8 +348,8 @@ public class ProductDAO extends DBContext {
 
         return product;
     }
-    
-    public String getProductName(int id){
+
+    public String getProductName(int id) {
         String query = "SELECT name FROM product WHERE id LIKE ?";
 
         try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
@@ -365,8 +365,9 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
+
     // Phương thức để lấy danh sách sản phẩm theo id của brand hoặc category
-    public List<Product> getByBrandOrCategoryId(int brandId, int categoryId) throws SQLException  {
+    public List<Product> getByBrandOrCategoryId(int brandId, int categoryId) throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM product WHERE brand_id = ? OR category_id = ?";
 
@@ -383,7 +384,7 @@ public class ProductDAO extends DBContext {
                 product.setRoom_id(rs.getInt("room_id"));
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
-                
+
                 product.setImage(rs.getString("image"));
                 product.setPrice(rs.getDouble("price"));
                 product.setQuantity(rs.getInt("quantity"));
@@ -395,21 +396,26 @@ public class ProductDAO extends DBContext {
         return products;
     }
 
+    public void updateScoreOfProduct() {
+        String sql = "UPDATE Product p "
+                + "JOIN ( "
+                + "    SELECT product_id, AVG(votescore) as avg_score "
+                + "    FROM Feedback "
+                + "    GROUP BY product_id "
+                + ") f ON p.id = f.product_id "
+                + "SET p.staravg = f.avg_score";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+            // Thi hành câu lệnh SQL
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+    }
+
     public static void main(String[] args) {
-        Product neProduct = new Product();
-        neProduct.setId(1);
-        neProduct.setCategory_id(2);
-        neProduct.setBrand_id(4);
-        neProduct.setRoom_id(2);
-        neProduct.setName("Giường Ngủ Gỗ Cao Su NEXO 301");
-        neProduct.setDescription(" <b>Kích thước phủ bì:</b> 169cm X 222cm X 90cm<br/>     Chân giường cao 15cm <br/><b>Vật liệu chính:</b><br/>     - Đầu giường: Gỗ cao su tự nhiên, MDF Veneer tràm chuẩn CARB-P2 <br/>- Chân giường: Gỗ cao su tự nhiên <br/> - Thân giường: Gỗ cao su nhiên, MDF veneer tràm chuẩn CARB-P2<br/>- Tấm phản: Gỗ plywood chuẩn CARB-P2 (*)<br/><i>(*) Tiêu chuẩn California Air Resources Board xuất khẩu Mỹ,<br/> đảm bảo gỗ không độc hại, an toàn cho sức khỏe</i> ");
-        neProduct.setPrice(9999000.00);
-        neProduct.setStaravg(5);
-        neProduct.setQuantity(15);
-        neProduct.setStatus("Active");
-        neProduct.setImage("pro_1m6_noi_that_moho_giuong_ngu_go_nexo_6_62c16af1d98e4e91a23b258a8c448be6_master.jpg");
-        ProductDAO productDAO = new ProductDAO();
-        productDAO.updateProduct(neProduct);    
+        ProductDAO pdao = new ProductDAO();
+        pdao.updateScoreOfProduct();
     }
 
 }

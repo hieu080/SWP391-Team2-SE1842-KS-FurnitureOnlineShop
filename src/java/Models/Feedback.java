@@ -30,7 +30,7 @@ public class Feedback {
         this.product_id = product_id;
         this.votescore = votescore;
         this.feedback = feedback;
-        this.status = "Active";
+        this.status = "None";
     }
 
     public int getId() {

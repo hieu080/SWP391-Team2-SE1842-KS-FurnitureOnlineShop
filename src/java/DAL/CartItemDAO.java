@@ -359,7 +359,7 @@ public class CartItemDAO extends DBContext {
         return totalCost;
     }
 
-    public void deleteAllCartItem() throws SQLException {
+    public void deleteAllCartItem(int customerid) throws SQLException {
         String query = "DELETE FROM CartItem ";
         try (PreparedStatement ps = connect.prepareStatement(query)) {
 

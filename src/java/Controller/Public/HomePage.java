@@ -131,29 +131,31 @@ public class HomePage extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             User user = (User) session.getAttribute("customer");
+            if (user != null) {
 
-            CartItemDAO cartItemDAO = new CartItemDAO();
-            try {
-                request.setAttribute("countcart", cartItemDAO.countCartItemsByCustomerId(user.getId()));
-            } catch (SQLException ex) {
-                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
-            try {
-                cartItemWithDetails = cartItemDAO.getCartItemsDetail(user.getId());
-            } catch (SQLException ex) {
-                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                CartItemDAO cartItemDAO = new CartItemDAO();
+                try {
+                    request.setAttribute("countcart", cartItemDAO.countCartItemsByCustomerId(user.getId()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
+                try {
+                    cartItemWithDetails = cartItemDAO.getCartItemsDetail(user.getId());
+                } catch (SQLException ex) {
+                    Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-            request.setAttribute("listcartdetail", cartItemWithDetails);
-            double sumtotalprice = 0;
-            try {
-                sumtotalprice = cartItemDAO.getTotalCostNoStatus(user.getId());
-            } catch (SQLException ex) {
-                Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("listcartdetail", cartItemWithDetails);
+                double sumtotalprice = 0;
+                try {
+                    sumtotalprice = cartItemDAO.getTotalCostNoStatus(user.getId());
+                } catch (SQLException ex) {
+                    Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                request.setAttribute("sumtotalprice", sumtotalprice);
             }
-             request.setAttribute("sumtotalprice", sumtotalprice);
-        }
+        }   
         
         request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
 

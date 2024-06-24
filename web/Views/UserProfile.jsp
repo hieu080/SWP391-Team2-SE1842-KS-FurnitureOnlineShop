@@ -145,6 +145,7 @@
         }
         .btn btn-default{
             color: blue;
+            margin-left: 20px;
         }
 
     </style>
@@ -186,6 +187,7 @@
                                         <p style="color: red;">${mess}</p>
                                         <p style="color: red;">${msg}</p>
                                         <button type="submit" class="btn btn-default">Lưu</button>
+                                        <button style="margin-left: 30px" onclick="window.location.href='${pageContext.request.contextPath}/HomePage'" class="btn btn-default">Trang chủ</button>
                                     </form>
                                 </div>
                             </c:when>

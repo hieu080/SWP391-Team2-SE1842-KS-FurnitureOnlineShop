@@ -45,10 +45,6 @@
         <servlet-class>Controller.Common.VerifyResetEmail</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Feedback</servlet-name>
-        <servlet-class>Controller.Public.Feedback</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>BlogListServlet</servlet-name>
         <servlet-class>Controller.Public.BlogListServlet</servlet-class>
     </servlet>
@@ -176,6 +172,10 @@
         <servlet-name>FeedBackList</servlet-name>
         <servlet-class>Controller.Marketing.FeedBackList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>Controller.Public.FeedbackServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -219,10 +219,6 @@
     <servlet-mapping>
         <servlet-name>VerifyResetEmail</servlet-name>
         <url-pattern>/VerifyResetEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Feedback</servlet-name>
-        <url-pattern>/Feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogListServlet</servlet-name>
@@ -351,6 +347,10 @@
     <servlet-mapping>
         <servlet-name>MoreProduct</servlet-name>
         <url-pattern>/MoreProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/FeedbackServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

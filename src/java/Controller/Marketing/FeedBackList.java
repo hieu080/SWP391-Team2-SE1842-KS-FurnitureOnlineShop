@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -56,6 +57,8 @@ public class FeedBackList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private final  int PageSize = 6;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,7 +78,6 @@ public class FeedBackList extends HttpServlet {
         int index;
         try {
             index = Integer.parseInt(index_str);
-
         } catch (Exception ex) {
             index = 1;
         }
@@ -84,21 +86,25 @@ public class FeedBackList extends HttpServlet {
         String description = request.getParameter("description") == (null) ? "" : request.getParameter("description");
         request.setAttribute("description", description);
         FeedbackDAO fd = new FeedbackDAO();
-        ArrayList<Feedback> list = fd.SearchList(rate, status, customername, productname, description, index, 6);
-        int total = fd.SearchList(rate, status, customername, productname, description, 1, 999999).size();
-        int number_page = (int) Math.ceil((double) total / 6);
+        List<Feedback> list = fd.searchFeedbacks(rate, status, customername, productname, description, (index-1)*PageSize, PageSize);
+        int total = fd.countFeedbacks(rate, status, customername, productname, description);
+        int number_page = (int) Math.ceil((double) total / PageSize);
         if (index > number_page) {
             index = number_page;
         }
-        if (index < number_page) {
+        if (index < 0) {
             index = 1;
         }
         request.setAttribute("index", index);
-
+       
         request.setAttribute("numberpage", number_page);
         request.setAttribute("fl", list);
         PrintWriter out = response.getWriter();
         out.print(list.size());
+        out.print(fd.s);
+        out.print(number_page);
+        out.print("sang:  "+index+":");
+        out.print(total);
         request.getRequestDispatcher("./Views/FeedBacksList.jsp").forward(request, response);
     }
 

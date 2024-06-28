@@ -89,13 +89,13 @@
 
                                 <p>Status:</p>
                                 <select name="status" style="width: 90px; height: 20px; margin-top: 13px; margin-left: 10px; margin-right: 10px;">
-                                    <option value="Active" <c:if test="${status=='Active'}">selected=""</c:if>>
-                                            Active
+                                    <option value="None" <c:if test="${status=='None'}">selected=""</c:if>>
+                                            None
                                         </option>
-                                        <option value="Deactive" <c:if test="${status=='Deactive'}">selected=""</c:if>>
-                                            Deactive
+                                        <option value="Hide" <c:if test="${status=='Hide'}">selected=""</c:if>>
+                                            Hide
                                         </option>
-                                        <option value="all" <c:if test="${status!='Deactive'&&status!='Active'}">selected=""</c:if>>
+                                        <option value="all" <c:if test="${status!='Hide'&&status!='None'}">selected=""</c:if>>
                                             All
                                         </option>
                                     </select>

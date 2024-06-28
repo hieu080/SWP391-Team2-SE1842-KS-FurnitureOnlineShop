@@ -69,7 +69,7 @@ public class FeedBackDetail extends HttpServlet {
         List<ImageFeedback> li = ifd.getImageFeedbackList(id);
         request.setAttribute("imgs", li);
         //======================================
-        request.getRequestDispatcher("Views/FeedbackDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("./Views/FeedbackDetail.jsp").forward(request, response);
     } 
 
     /** 

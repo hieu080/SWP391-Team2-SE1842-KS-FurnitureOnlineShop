@@ -117,7 +117,8 @@ public class FeedbackServlet extends HttpServlet {
             String feedbackStr = request.getParameter("feedback_" + count);
             int rating = tryParseInt(request.getParameter("rating_" + count), 0);
 
-            if (feedbackStr != null && !feedbackStr.isEmpty() && rating > 0) {
+            if ( rating > 0) {
+
                 Feedback feedback = new Feedback(u.getId(), productId, rating, feedbackStr);
                 feedbackDAO.insertFeedback(feedback);
 
@@ -133,13 +134,32 @@ public class FeedbackServlet extends HttpServlet {
                     ImageFeedback imageFeedback = new ImageFeedback(feedbackId, fileName);
                     feedbackDAO.insertImageFb(feedbackId, fileName);
                 }
-                count++;
+                
             }
+            count++;
+//            else if ((feedbackStr == null || feedbackStr.isEmpty()) && rating > 0) {
+//                Feedback feedback = new Feedback(u.getId(), productId, rating, null); 
+//                feedbackDAO.insertFeedback(feedback);
+//
+//                int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
+//                String image = "imgfeedback_" + count;
+//                Part filePart = request.getPart(image);
+//                String[] fileNames = new String[fileCount];
+//                if (filePart != null && filePart.getSize() > 0) {
+//                    fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, image, UPLOAD_DIRECTORY);
+//                }
+//
+//                for (String fileName : fileNames) {
+//                    ImageFeedback imageFeedback = new ImageFeedback(feedbackId, fileName);
+//                    feedbackDAO.insertImageFb(feedbackId, fileName);
+//                }
+//                count++;
+//            }
         }
         ProductDAO pdao = new ProductDAO();
         pdao.updateScoreOfProduct();
         feedbackDAO.insertHistory(orderId, feedbackId);
-        response.sendRedirect("HomePage");
+        response.sendRedirect("MyOrderServlet");
 
     }
 

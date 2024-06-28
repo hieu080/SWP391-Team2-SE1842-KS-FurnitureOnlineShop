@@ -22,13 +22,6 @@ public class FeedbackDAO extends DBContext {
 
     private static final Logger LOGGER = Logger.getLogger(FeedbackDAO.class.getName());
 
-    public static void main(String[] args) {
-        FeedbackDAO fdao = new FeedbackDAO();
-        ArrayList<Feedback> feedbacks = fdao.getFeedbackListByProductId(5);
-        for (Feedback feedback : feedbacks) {
-            System.out.println(feedback.getId());
-        }
-    }
     public ArrayList<Feedback> getFeedbackListByProductId(int productId) {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
         String sql = "SELECT * FROM Feedback WHERE product_id = ? AND status = 'None'";
@@ -167,6 +160,100 @@ public class FeedbackDAO extends DBContext {
             LOGGER.log(Level.SEVERE, "Error inserting image feedback", e);
             return false;
         }
+    }
+
+    public int countFeedbacks(Integer votescore, String status, String customerName, String productName, String description) {
+        int count = 0;
+        String sql;
+        if (votescore != 0) {
+            sql = "SELECT COUNT(*) as total "
+                    + "FROM Feedback f "
+                    + "JOIN User u ON f.customer_id = u.id "
+                    + "JOIN Product p ON f.product_id = p.id "
+                    + "WHERE (f.votescore = " + votescore + ") "
+                    + "AND (f.status LIKE '%" + status + "%') "
+                    + "AND (u.fullname LIKE '%" + customerName + "%') "
+                    + "AND (p.name LIKE '%" + productName + "%') "
+                    + "AND (f.feedback LIKE '%" + description + "%') ";
+        }else{
+            sql = "SELECT COUNT(*) as total "
+                    + "FROM Feedback f "
+                    + "JOIN User u ON f.customer_id = u.id "
+                    + "JOIN Product p ON f.product_id = p.id "
+                    + "WHERE (f.status LIKE '%" + status + "%') "
+                    + "AND (u.fullname LIKE '%" + customerName + "%') "
+                    + "AND (p.name LIKE '%" + productName + "%') "
+                    + "AND (f.feedback LIKE '%" + description + "%') ";
+        }
+
+        try (PreparedStatement ps = connect.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+//    public static void main(String[] args) {
+//        FeedbackDAO feedbackDAO = new FeedbackDAO();
+//        int list = feedbackDAO.countFeedbacks(0, "", "", "", "");
+//        System.out.println(list);
+//    }
+    public String s ;
+
+    public List<Feedback> searchFeedbacks(int votescore, String status, String customerName, String productName, String description, int index, int pageSize) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        String sql;
+         String c= status.equals("")?"%%":status;
+        if (votescore != 0) {
+            sql = "SELECT f.id, f.customer_id, u.fullname AS customer_name, f.product_id, p.name AS product_name, f.votescore, f.feedback, f.status, p.description "
+                    + "FROM Feedback f "
+                    + "JOIN User u ON f.customer_id = u.id "
+                    + "JOIN Product p ON f.product_id = p.id "
+                    + "WHERE (f.votescore = " + votescore + ") "
+                    + "AND (f.status LIKE '" + c + "') "
+                    + "AND (u.fullname LIKE '%" + customerName + "%') "
+                    + "AND (p.name LIKE '%" + productName + "%') "
+                    + "AND (f.feedback LIKE '%" + description + "%') order by f.id "
+                    + "LIMIT " + index + ", " + pageSize + ";";
+        }else{
+            sql = "SELECT f.id, f.customer_id, u.fullname AS customer_name, f.product_id, p.name AS product_name, f.votescore, f.feedback, f.status, p.description "
+                    + "FROM Feedback f "
+                    + "JOIN User u ON f.customer_id = u.id "
+                    + "JOIN Product p ON f.product_id = p.id "
+                    + "WHERE (f.status LIKE '" + c + "') "
+                    + "AND (u.fullname LIKE '%" + customerName + "%') "
+                    + "AND (p.name LIKE '%" + productName + "%') "
+                    + "AND (f.feedback LIKE '%" + description + "%') order by f.id "
+                    + "LIMIT " + index + ", " + pageSize + ";";
+        }
+        try {
+            PreparedStatement ps = connect.prepareStatement(sql);
+            System.out.println(sql);
+            s=sql;
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Feedback feedback = new Feedback();
+                    feedback.setId(rs.getInt("id"));
+                    feedback.setCustomer_id(rs.getInt("customer_id"));
+                    feedback.setCustomer_Name(rs.getString("customer_name"));
+                    feedback.setProduct_id(rs.getInt("product_id"));
+                    feedback.setProduct_Name(rs.getString("product_name"));
+                    feedback.setVotescore(rs.getInt("votescore"));
+                    feedback.setFeedback(rs.getString("feedback"));
+                    feedback.setStatus(rs.getString("status"));
+                    feedbackList.add(feedback);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return feedbackList;
     }
 
     public ArrayList<Feedback> SearchList(int vote, String status, String customer_name, String product_name, String Description, int index, int pagesize) {
@@ -311,14 +398,12 @@ public class FeedbackDAO extends DBContext {
             e.printStackTrace(); // In ra lỗi nếu có
         }
     }
-    
 
     public int[] getHistory() {
         String sql = "SELECT order_id FROM HistoryOrderFeedback";
         List<Integer> orderIds = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql); ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
                 int orderId = resultSet.getInt("order_id");

@@ -488,7 +488,7 @@
                                                     <div id="page-pagination">
                                                         <c:forEach var="page" items="${pagenumber}">
                                                             <input type="radio" name="page" id="page${page}" value="${page}" style="display: none;">
-                                                            <label for="page${page}" style="width: 25px; border: groove;" class="page-node" aria-label="Trang ${page}">${page}</label>
+                                                            <label for="page${page}" style="width: 25px; border: groove;" class="page-node" aria-label="Trang ${page}" onclick="submitFormWithPage(${page})">${page}</label>
                                                         </c:forEach>
                                                         <span class="page-node">&hellip;</span>
                                                     </div>
@@ -755,32 +755,58 @@
                 updateTags('input[name="color-filter"]', 'color-tag', 'color-filter');
             });
 
-            $(document).ready(function () {
-                $('.page-node').click(function (event) {
-                    event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+//            $(document).ready(function () {
+//                $('.page-node').click(function (event) {
+//                    event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+//
+//                    var pageValue = $(this).text();
+//                    $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
+//
+//                    submitFormWithAjax();
+//                });
+//
+//                function submitFormWithAjax() {
+//                    var form = $('#paginationForm')[0]; // Lấy form theo id
+//
+//                    $.ajax({
+//                        type: form.getAttribute("method"),
+//                        url: form.getAttribute("action"),
+//                        data: $(form).serialize(),
+//                        success: function (response) {
+//                            $("#product-container").html(response); // Cập nhật nội dung sản phẩm
+//                        },
+//                        error: function (xhr, status, error) {
+//                            console.error("Error: " + error);
+//                        }
+//                    });
+//                }
+//            });
+$(document).ready(function () {
+            // Hàm để xử lý sự kiện onclick và gửi yêu cầu AJAX
+            window.submitFormWithPage = function (pageValue) {
+                $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
+                console.log(pageValue);
+                submitFormWithAjax();
+            }
 
-                    var pageValue = $(this).text();
-                    $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
+            function submitFormWithAjax() {
+                var form = $('#paginationForm')[0]; // Lấy form theo id
 
-                    submitFormWithAjax();
+                $.ajax({
+                    type: form.getAttribute("method"),
+                    url: form.getAttribute("action"),
+                    data: $(form).serialize(),
+                    success: function (response) {
+                        $("#product-container").html(response); // Cập nhật nội dung sản phẩm
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                    }
                 });
+            }
+        });
 
-                function submitFormWithAjax() {
-                    var form = $('#paginationForm')[0]; // Lấy form theo id
 
-                    $.ajax({
-                        type: form.getAttribute("method"),
-                        url: form.getAttribute("action"),
-                        data: $(form).serialize(),
-                        success: function (response) {
-                            $("#product-container").html(response); // Cập nhật nội dung sản phẩm
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error: " + error);
-                        }
-                    });
-                }
-            });
             
             $(document).ready(function () {
                 var searchInput = $('#inputSearchAuto');

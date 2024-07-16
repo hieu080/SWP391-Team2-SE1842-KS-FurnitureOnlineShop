@@ -351,7 +351,7 @@ public class ProductServlet extends HttpServlet {
 
         return htmlResponse.toString();
     }
-
+    
     private String pagePagination(HttpServletRequest request, ArrayList<Product> productList) {
         ServletContext context = request.getServletContext();
         ConfigReaderHelper configReaderHelper = new ConfigReaderHelper();
@@ -373,7 +373,9 @@ public class ProductServlet extends HttpServlet {
                     .append(i)
                     .append("\" style=\"width: 25px; border: groove;\" class=\"page-node\" aria-label=\"Trang ")
                     .append(i)
-                    .append("\">")
+                    .append("\" onclick=\"submitFormWithPage(")
+                    .append(i)
+                    .append(")\">")
                     .append(i)
                     .append("</label>");
         }
@@ -381,6 +383,36 @@ public class ProductServlet extends HttpServlet {
 
         return pagePaginationHtml.toString();
     }
+
+//    private String pagePagination(HttpServletRequest request, ArrayList<Product> productList) {
+//        ServletContext context = request.getServletContext();
+//        ConfigReaderHelper configReaderHelper = new ConfigReaderHelper();
+//        String CONFIG_FILE_PATH = context.getRealPath("/");
+//        String itemsPerPage = "itemsPerProductListPage";
+//        int pageSize = configReaderHelper.getValueOfItemsPerPage(CONFIG_FILE_PATH, itemsPerPage);
+//
+//        PaginationHelper paginationHelper = new PaginationHelper(productList, pageSize);
+//        int numberOfPage = paginationHelper.getTotalPages();
+//        StringBuilder pagePaginationHtml = new StringBuilder();
+//
+//        for (int i = 1; i <= numberOfPage; i++) {
+//            pagePaginationHtml.append("<input type=\"radio\" name=\"page\" id=\"page")
+//                    .append(i)
+//                    .append("\" value=\"")
+//                    .append(i)
+//                    .append("\" style=\"display: none;\">")
+//                    .append("<label for=\"page")
+//                    .append(i)
+//                    .append("\" style=\"width: 25px; border: groove;\" class=\"page-node\" aria-label=\"Trang ")
+//                    .append(i)
+//                    .append("\">")
+//                    .append(i)
+//                    .append("</label>");
+//        }
+//        pagePaginationHtml.append("<span class=\"page-node\">&hellip;</span>");
+//
+//        return pagePaginationHtml.toString();
+//    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

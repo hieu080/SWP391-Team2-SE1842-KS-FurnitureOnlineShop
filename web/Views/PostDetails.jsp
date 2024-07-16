@@ -43,7 +43,7 @@
                     </h5>
                     <h5 class="">Tác giả: <span class="text-info">${author}</span></h5>
                 </div>
-<!--                <button class="btn btn-secondary col-2">Lịch sử chỉnh sửa</button>-->
+                <!--                <button class="btn btn-secondary col-2">Lịch sử chỉnh sửa</button>-->
             </div>
 
             <form id="postForm" action="PostDetails?id=${post.getId()}" method="post" enctype="multipart/form-data">
@@ -82,19 +82,19 @@
                     <div class="col-sm-10 d-flex align-items-center">
                         <input id="stt" type="text" class="form-control" value="${post.getStatus()}" readonly>
                         <select id="status" name="status" class="form-control" style="display: none;">
-                            <c:forEach items="${listStatus}" var="s">
-                                <option value="${s}" <c:if test="${s eq post.getStatus()}">selected</c:if>>${s}</option>
-                            </c:forEach>
-                        </select>
-                        <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('status')">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                            <option value="show" <c:if test="${'show' eq post.getStatus()}">selected</c:if>>show</option>
+                            <option value="hide" <c:if test="${'hide' eq post.getStatus()}">selected</c:if>>hide</option>
+                            <option value="featured" <c:if test="${'featured' eq post.getStatus()}">selected</c:if>>featured</option>
+                            </select>
+                            <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('status')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="content" class="col-sm-2 col-form-label">Nội dung</label>
-                    <div class="col-sm-10 d-flex align-items-center">
-                        <textarea id="content" class="form-control" name="content" rows="5" readonly>${post.getContent()}</textarea>
+                    <div class="form-group row">
+                        <label for="content" class="col-sm-2 col-form-label">Nội dung</label>
+                        <div class="col-sm-10 d-flex align-items-center">
+                            <textarea id="content" class="form-control" name="content" rows="5" readonly>${post.getContent()}</textarea>
                         <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('content')">
                             <i class="fas fa-edit"></i>
                         </button>

@@ -11,7 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -379,6 +382,28 @@ public class UserDAO extends DBContext {
 
     //update account cua khach hang(mkt)
     public boolean updateCustomer(String id, String name, String gender, String phone, String add, String email) {
+        // Kiểm tra tên không được để trống
+        if (name.isBlank()) {
+            return false;
+        }
+
+        // Kiểm tra độ dài của địa chỉ (từ 20 đến 320 ký tự)
+        if (add.length() < 20 || add.length() > 320) {
+            return false;
+        }
+
+        // Kiểm tra định dạng email
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w]$";
+        if (!email.matches(emailRegex)) {
+            return false;
+        }
+
+        // Kiểm tra định dạng số điện thoại (bắt đầu bằng 0 và gồm chính xác 10 ký tự)
+        String phoneRegex = "^0\\d{9}$";
+        if (!phone.matches(phoneRegex)) {
+            return false;
+        }
+
         String sql = "UPDATE `furniture`.`user`\n"
                 + "SET\n"
                 + "`fullname` = ?,\n"
@@ -421,9 +446,10 @@ public class UserDAO extends DBContext {
         }
         return list;
     }
+
     //lay ra danh sach customerchanges by customerid
-    public List<CustomerChanges> getListCustomerChangesbyId(String id){
-        String sql= "select * from customerchanges where customer_id=?";
+    public List<CustomerChanges> getListCustomerChangesbyId(String id) {
+        String sql = "select * from customerchanges where customer_id=?";
         List<CustomerChanges> list = new ArrayList<>();
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
@@ -437,16 +463,15 @@ public class UserDAO extends DBContext {
                 cc.setPhone(rs.getString("phone"));
                 cc.setGender(rs.getString("gender"));
                 cc.setUpdatedby(rs.getInt("updatedby"));
-                cc.setUpdateddate(rs.getString("updateddate"));
+                cc.setUpdateddate(String.valueOf(rs.getDate("updateddate")));
                 list.add(cc);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
-        
+
     }
-    
 
     //cap nhat vao bang customerchanges sau khi update
     public void addToCustomerChanges(CustomerChanges cc) {
@@ -466,7 +491,7 @@ public class UserDAO extends DBContext {
                 + "?,\n"
                 + "?,\n"
                 + "?);";
-        
+
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
             statement.setString(1, cc.getEmail());
             statement.setString(2, cc.getFullname());
@@ -482,8 +507,139 @@ public class UserDAO extends DBContext {
         }
     }
 
+    //đếm số lượng khách hàng trong khoảng thời gian 
+    public int getCustomerCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        String sql = "select count(*) from user where CreateDate \n"
+                + "between ? and ? and role_id=1";
+        int count = 0;
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    //đếm số lượng khách hàng theo ngày trong khoảng thời gian tuỳ chỉnh
+    public List<Map<String, Object>> getCustomerCountsByDate(java.sql.Date startDate, java.sql.Date endDate) {
+        List<Map<String, Object>> customerCounts = new ArrayList<>();
+        String sql = "WITH RECURSIVE DateRange AS (\n"
+                + "    SELECT ? AS Date -- Thay bằng startdate\n"
+                + "    UNION ALL\n"
+                + "    SELECT Date + INTERVAL 1 DAY\n"
+                + "    FROM DateRange\n"
+                + "    WHERE Date + INTERVAL 1 DAY <= ? -- Thay bằng enddate\n"
+                + ")\n"
+                + "SELECT d.Date, COUNT(c.createdate) AS customer_count\n"
+                + "FROM DateRange d\n"
+                + "LEFT JOIN user c ON DATE(c.createdate) = d.Date and c.role_id=1\n"
+                + "GROUP BY d.Date\n"
+                + "ORDER BY d.Date;";
+
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("date", rs.getDate("Date"));
+                row.put("customer_count", rs.getInt("customer_count"));
+                customerCounts.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customerCounts;
+    }
+
+    /////////////////////////////////////// SALE /////////////////////////////////////
+    //lấy danh sách các sale
+    public ArrayList<User> getSaleList() {
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM user where role_id=2";
+
+        try (
+                PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setAvatar(rs.getString("avatar"));
+                u.setPhonenumber(rs.getString("phonenumber"));
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setStatus(rs.getString("status"));
+
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving user list", ex);
+        }
+
+        return userList;
+    }
+
+    //lấy số lượng khách mới đăng kí
+    public int newRegisteredCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        int count = 0;
+        String sql = "select count(u.createdate) as newregister\n"
+                + "from user u\n"
+                + "where u.role_id='1' and u.createdate between ? AND ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("newregister");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    //lấy số lượng khách mới mua hang
+    public int newBoughtCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        int count = 0;
+        String sql = "select count( distinct o.customer_id) as newbought\n"
+                + "from `furniture`.`order` o \n"
+                + "where orderdate between ? AND ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("newbought");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
     public static void main(String[] args) {
         UserDAO u = new UserDAO();
-        System.out.println(u.getListCustomerChangesbyId("1"));
+        System.out.println(u.getCustomerCounts(java.sql.Date.valueOf("2024-07-06"), java.sql.Date.valueOf("2024-07-11")));
+//        System.out.println(u.getCustomerCountsByDate(java.sql.Date.valueOf("2024-07-06"), java.sql.Date.valueOf("2024-07-11")));
     }
 }

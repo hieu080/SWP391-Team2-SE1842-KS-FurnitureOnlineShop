@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,18 +22,28 @@
     </head>
 
     <body>
+        <header>
+
+<!--        <iframe src="Views/HomeHeader.jsp" style="width:100%; border:none;"></iframe>-->
+
+        
+        </header>
+
+
         <div class="container">
             <h1>Customers List</h1>
             <form action="CustomersList">                
                 Trạng thái:
                 <select name="status" >
                     <option value="All">All</option>
-                    <c:forEach items="${listStatus}" var = "s">
-                        <option value="${s}"
-                                <c:if test="${s eq param.status}">selected
-                                </c:if>>${s}
-                        </option>
-                    </c:forEach>
+                    <option value="Active"
+                            <c:if test="${'Active' eq param.status}">selected
+                            </c:if>>Active
+                    </option>
+                    <option value="Inactive"
+                            <c:if test="${'Inactive' eq param.status}">selected
+                            </c:if>>Inactive
+                    </option>
                 </select>
                 <button type="submit">Lọc</button>
             </form>
@@ -69,7 +79,7 @@
                 Tạo tài khoản khách
             </button>
 
-            <!-- The Modal -->
+            <!-- The Modal to create new account-->
             <div class="modal" id="createAccountModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -112,51 +122,53 @@
                             </form>
                             <p <c:if test="${msg eq 'Tạo thành công'}">
                                     style="color:green"</c:if>
-                                    style="color:red">${msg}</p>
-                            </div>
-
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                                <button id="createAccountButton" type="submit" class="btn btn-success" form="createAccountForm">Tạo tài khoản</button>
-                            </div>
-
+                                style="color:red">${msg}</p>
                         </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                            <button id="createAccountButton" type="submit" class="btn btn-success" form="createAccountForm">Tạo tài khoản</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
-
-            <script>
-                $(document).ready(function () {
-                    if (${msg!=null}) {
-                        $('#createAccountModal').modal('show');
-                    }
-
-                    // Khôi phục lại trang từ localStorage trước khi khởi tạo DataTable
-                    var currentPage = localStorage.getItem('currentPage');
-                    currentPage = currentPage ? parseInt(currentPage) : 0;
-
-                    var table = $('#table').DataTable({
-                        "columnDefs": [
-                            {"targets": [0, 2, 5, 6], "searchable": false}, // tắt tính năng tìm kiếm cho các cột khác
-                            {"orderable": false, "targets": [0, 2, 6]} // Vô hiệu hóa sắp xếp cho các cột
-                        ],
-                        "language": {
-                            "search": "Tìm kiếm:"
-                        },
-                        "pageLength": 5,
-                        "dom": 'rftp',
-                        "displayStart": currentPage * 5 // Hiển thị trang đã lưu
-                    });
-
-                    // Lưu trữ trang hiện tại vào localStorage khi thay đổi trang
-                    table.on('page.dt', function () {
-                        var pageInfo = table.page.info();
-                        localStorage.setItem('currentPage', pageInfo.page);
-                    });
+        </div>
 
 
+
+        <script>
+            $(document).ready(function () {
+                if (${msg!=null}) {
+                    $('#createAccountModal').modal('show');
+                }
+
+                // Khôi phục lại trang từ localStorage trước khi khởi tạo DataTable
+                var currentPage = localStorage.getItem('currentPage');
+                currentPage = currentPage ? parseInt(currentPage) : 0;
+
+                var table = $('#table').DataTable({
+                    "columnDefs": [
+                        {"targets": [0, 2, 5, 6], "searchable": false}, // tắt tính năng tìm kiếm cho các cột khác
+                        {"orderable": false, "targets": [0, 2, 6]} // Vô hiệu hóa sắp xếp cho các cột
+                    ],
+                    "language": {
+                        "search": "Tìm kiếm:"
+                    },
+                    "pageLength": 5,
+                    "dom": 'rftp',
+                    "displayStart": currentPage * 5 // Hiển thị trang đã lưu
                 });
+
+                // Lưu trữ trang hiện tại vào localStorage khi thay đổi trang
+                table.on('page.dt', function () {
+                    var pageInfo = table.page.info();
+                    localStorage.setItem('currentPage', pageInfo.page);
+                });
+
+
+            });
         </script>
 
     </body>

@@ -8,10 +8,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="preload stylesheet" as="style" fetchpriority="low"
-              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-        <link rel="preload stylesheet" as="style" fetchpriority="low"
-              href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
         <link rel="preload stylesheet" as="style" fetchpriority="low" href="css/style-theme.scss.css">
         <link rel="stylesheet" href="css/style.css">
@@ -178,9 +174,6 @@
             </div>
         </footer>
         <!-- Bootstrap JS and dependencies -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </body>
 

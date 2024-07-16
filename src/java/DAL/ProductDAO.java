@@ -7,6 +7,7 @@ package DAL;
 import Models.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -347,6 +348,28 @@ public class ProductDAO extends DBContext {
         }
 
         return product;
+    }
+    
+    
+    //đếm số lượng product trong khoảng thời gian 
+    public int getProductCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        String sql = "select count(*) from product where CreateDate \n"
+                + "between ? and ?";
+        int count=0;
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count=rs.getInt("count(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     public static void main(String[] args) {

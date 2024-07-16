@@ -5,10 +5,9 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Page Layout</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <title>Page Layout</title>    
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <style>
             #content *{
                 max-width: 100%;
@@ -25,8 +24,10 @@
                     <!-- search bar -->
                     <div class="row mb-5" id="search">
                         <form action="BlogListServlet">
-                            <input type="text" class="col-lg-9" placeholder="Nhập tên tác giả, nội dung..."name="keyword">
-                            <button type="submit" class="col-lg-2 ms-2">🔍</button>
+                            <div class="mt-3 d-flex justify-content-between mx-4">
+                                <input type="text" class="col-9 form-control " placeholder="Nhập từ khoá" name="keyword">
+                                <button type="submit" class="  btn btn-default">🔍</button>
+                            </div>
                         </form>
                     </div>
 
@@ -34,7 +35,7 @@
                     <!-- dropdown to filter category -->
                     <div class="mb-5">
                         <form action="BlogListServlet">
-                            <select class="form-select form-select-sm" name="category" onchange="this.form.submit()">
+                            <select class="form-select form-control" name="category" onchange="this.form.submit()">
                                 <option value="0" >All</option>
                                 <c:forEach items="${listCategory}" var="c">
                                     <option value="${c.getId()}"

@@ -4,12 +4,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Page Layout</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>Blogs List</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     </head>
     <body>
-        <%@ include file="HomeHeader.jsp" %>
+        <%@include file="HomeHeader.jsp" %>
         <div class="container">
             <div class="row">
                 <!-- sider -->
@@ -18,8 +17,10 @@
                     <!-- search bar -->
                     <div class="row mb-5" id="search">
                         <form action="BlogListServlet">
-                            <input type="text" class="col-lg-9" placeholder="Nhập tên tác giả, nội dung..." name="keyword">
-                            <button type="submit" class="col-lg-2 ms-2 btn btn-info">🔍</button>
+                            <div class="mt-3 d-flex justify-content-between mx-4">
+                                <input type="text" class="col-9 form-control " placeholder="Nhập từ khoá" name="keyword">
+                                <button type="submit" class="  btn btn-default">🔍</button>
+                            </div>
                         </form>
                     </div>
 
@@ -27,7 +28,7 @@
                     <!-- dropdown to filter category -->
                     <div class="mb-5">
                         <form action="BlogListServlet">
-                            <select class="form-select form-select-sm" name="category" onchange="this.form.submit()">
+                            <select class="form-select form-control" name="category" onchange="this.form.submit()">
                                 <option value="0" >All</option>
                                 <c:forEach items="${listCategory}" var="c">
                                     <option value="${c.getId()}"
@@ -40,7 +41,7 @@
 
                     <!-- hien thi new post (dung foreach) -->
                     <c:forEach items="${listNewPost}" var="p">
-                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-dark">
                             <div class="row border p-2">
                                 <div class="col-lg-5 pt-3" style="width:100px;height:60px">
                                     <img src="${p.getThumbnail()}"
@@ -76,12 +77,12 @@
                     </c:if>
                     <!-- category -->          
                     <div>
-                        <h2>${catname}</h2>
+                        <h1>${catname}</h1>
                     </div>
 
                     <!-- list of post -->
                     <c:forEach items="${listPost}" var="p">
-                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-dark">
                             <div class="row border-bottom p-2 post-item ${p.getCategory_id()}">
                                 <div class="col-lg-5" style="width:350px;height:200px">
                                     <img src="image/post/${p.getThumbnail()}"
@@ -93,7 +94,7 @@
                                             <p class="text-danger">|${category.getCategory()}</p>
                                         </c:if>
                                     </c:forEach>
-                                    <h5>${p.getTitle()}</h5>
+                                    <h3>${p.getTitle()}</h3>
                                     <h6>${p.getSubtitle()}</h6>
                                 </div>
                             </div>
@@ -116,7 +117,7 @@
 
 
         </div>
-        <%@ include file="HomeFooter.jsp" %>
+        <%@include file="HomeFooter.jsp" %>
     </body>
 
 </html>

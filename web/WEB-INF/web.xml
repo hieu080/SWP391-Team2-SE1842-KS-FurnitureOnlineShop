@@ -108,6 +108,18 @@
         <servlet-name>NewPost</servlet-name>
         <servlet-class>Controller.Marketing.NewPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingDashboard</servlet-name>
+        <servlet-class>Controller.Marketing.MarketingDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleDashboard</servlet-name>
+        <servlet-class>Controller.Sale.SaleDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashboard</servlet-name>
+        <servlet-class>Controller.Admin.AdminDashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
@@ -215,5 +227,17 @@
     <servlet-mapping>
         <servlet-name>NewPost</servlet-name>
         <url-pattern>/NewPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingDashboard</servlet-name>
+        <url-pattern>/MarketingDashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleDashboard</servlet-name>
+        <url-pattern>/SaleDashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboard</servlet-name>
+        <url-pattern>/AdminDashboard</url-pattern>
     </servlet-mapping>
 </web-app>

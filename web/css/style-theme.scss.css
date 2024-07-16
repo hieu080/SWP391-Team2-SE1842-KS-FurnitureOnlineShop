@@ -9,26 +9,13 @@
   .fa {
     font-family: "FontAwesome" !important; }
   
-  html, body {
-    border: 0;
-    background-color: #fff; }
+
   
-  html {
-    font-size: 62.5%;
-    -webkit-overflow-scrolling: touch;
-    -webkit-text-size-adjust: none;
-    -ms-text-size-adjust: 100%; }
-  
+
   img {
     max-width: 100%; }
   
-  body {
-    line-height: 1.4;
-    font-size: 14px;
-    color: #434343;
-    overflow-x: hidden;
-    background: #fff;
-    position: initial !important; }
+
   
   /* 1.2 - HTML5 Elements */
   article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {
@@ -93,22 +80,7 @@
     color: #000000; }
   
   /* 1.6 - Tables */
-  table {
-    width: 100%;
-    border-spacing: 0; }
-  
-  table tr td {
-    border-top: 1px solid #dddddd; }
-  
-  table tr td, table tr th {
-    padding: 10px;
-    text-align: left; }
-  
-  table tr td:first-child, table tr th:first-child {
-    padding-left: 0px; }
-  
-  table tr td:last-child, table tr th:last-child {
-    padding-right: 0px; }
+
   
   strong {
     font-weight: 700; }

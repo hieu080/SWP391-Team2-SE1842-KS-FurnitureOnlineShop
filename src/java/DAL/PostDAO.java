@@ -308,6 +308,27 @@ public class PostDAO extends DBContext {
         }
     }
     
+    //đếm số lượng post trong khoảng thời gian 
+    public int getPostCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        String sql = "select count(*) from post where CreateDate \n"
+                + "between ? and ?";
+        int count=0;
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count=rs.getInt("count(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+    
     public static void main(String[] args) {
         PostDAO p = new PostDAO();
         System.out.println(p.createPost(4, 1, "ava.jpg", "ngucv", "abcd", "hide", "dlakfjhewr"));

@@ -39,70 +39,75 @@
             </form>
 
             <div class="row mb-4">
-                <div class="col-lg-3 mb-4">
-                    <div class="card p-3 shadow-sm">
-                        <h4 class="font-weight-bold text-primary text-center">Khách hàng</h4>
-                        <div class="row">
-                            <div class="col-6 text-center border-right">
-                                <div class="py-2">
-                                    <h6 class="text-secondary">Mới đăng ký:</h6>
-                                    <strong class="h5 text-dark">${registerCounts}</strong>
+                <div class="col-lg-4">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card p-3 shadow-sm">
+                            <h4 class="font-weight-bold text-primary text-center">Khách hàng</h4>
+                            <div class="row">
+                                <div class="col-6 text-center border-right">
+                                    <div class="py-2">
+                                        <h6 class="text-secondary">Mới đăng ký:</h6>
+                                        <strong class="h5 text-dark">${registerCounts}</strong>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="py-2">
+                                        <h6 class="text-secondary">Mới mua:</h6>
+                                        <strong class="h5 text-dark">${boughtCounts}</strong>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6 text-center">
-                                <div class="py-2">
-                                    <h6 class="text-secondary">Mới mua:</h6>
-                                    <strong class="h5 text-dark">${boughtCounts}</strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <div class="card p-3 shadow-sm">
+                            <h4 class="font-weight-bold text-primary text-center">Danh mục sản phẩm</h4>
+                            <div class="row">
+                                <div class="col-12 mb-3 text-center">
+                                    <div class="card p-3 shadow-sm">
+                                        <h4 class="font-weight-bold text-primary">Doanh thu</h4>
+                                        <canvas id="Chart2"></canvas>
+                                        <p style="display: none;font-size: 40px" id="nodata2">0</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <div class="card p-3 shadow-sm">
+                                        <h4 class="font-weight-bold text-primary">Đánh giá</h4>
+                                        <canvas id="Chart3"></canvas>
+                                        <p style="display: none;font-size: 40px" id="nodata3">0</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-4">
+                <div class="col-md-8 mb-4">
                     <div class="card p-3 shadow-sm">
                         <h3 class="font-weight-bold text-primary text-center">Đơn hàng</h3>
                         <div class="row">
-                            <div class="col-md-6 col-sm-12 text-center mb-3">
+
+                            <div class="col-md-8 col-sm-12 mb-4">
+                                <div class="card p-3 shadow">
+                                    <h4 class="font-weight-bold text-primary text-center">Số lượng đơn hàng</h4>
+                                    <canvas id="Chart4" style="height: 550px;"></canvas>
+                                    <p style="display: none; font-size: 40px;" id="nodata4">0</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 text-center mb-3">
                                 <div class="card p-3 shadow-sm">
                                     <h4 class="font-weight-bold text-primary">Trạng thái đơn hàng</h4>
                                     <canvas id="orderStatusChart"></canvas>
                                     <p style="display: none; font-size: 40px" id="nodata">0</p>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 mb-4">
-                                <div class="card p-3 shadow">
-                                    <h4 class="font-weight-bold text-primary text-center">Số lượng đơn hàng</h4>
-                                    <canvas id="Chart4" style="height: 300px;"></canvas>
-                                    <p style="display: none; font-size: 40px;" id="nodata4">0</p>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3 mb-4">
-                    <div class="card p-3 shadow-sm">
-                        <h4 class="font-weight-bold text-primary text-center">Danh mục sản phẩm</h4>
-                        <div class="row">
-                            <div class="col-12 mb-3 text-center">
-                                <div class="card p-3 shadow-sm">
-                                    <h4 class="font-weight-bold text-primary">Doanh thu</h4>
-                                    <canvas id="Chart2"></canvas>
-                                    <p style="display: none;font-size: 40px" id="nodata2">0</p>
-                                </div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <div class="card p-3 shadow-sm">
-                                    <h4 class="font-weight-bold text-primary">Đánh giá</h4>
-                                    <canvas id="Chart3"></canvas>
-                                    <p style="display: none;font-size: 40px" id="nodata3">0</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
 

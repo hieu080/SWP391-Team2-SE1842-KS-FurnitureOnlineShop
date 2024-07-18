@@ -80,7 +80,7 @@ public class VerifyEmail extends HttpServlet {
         request.setAttribute("categoryOfPostList", categoryOfPost);
 
         PostDAO postDAO = new PostDAO();
-        ArrayList<Post> postList = postDAO.getPostList();
+        ArrayList<Post> postList = (ArrayList<Post>) postDAO.getListPost();
         request.setAttribute("postList", postList);
 
         SaleOffDAO saleOffDAO = new SaleOffDAO();

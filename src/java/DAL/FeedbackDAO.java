@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -417,4 +419,84 @@ public class FeedbackDAO extends DBContext {
         return orderIds.stream().mapToInt(i -> i).toArray();
     }
 
+    //đếm số lượng feedback trong khoảng thời gian 
+    public int getFeedbackCounts(java.sql.Date startDate, java.sql.Date endDate) {
+        String sql = "select count(*) from feedback where CreateDate \n"
+                + "between ? and ?";
+        int count = 0;
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count(*)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    //tính trung bình sao của tất cả feedback
+    public double avgStarOfAllFeedbacks(java.sql.Date startDate, java.sql.Date endDate) {
+        String sql = "select sum(f.votescore)/count(*) as avgstar\n"
+                + "from feedback f\n"
+                + "where f.createdate BETWEEN ? AND ?";
+        double avg=0;
+        
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                avg = rs.getDouble("avgstar");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return avg;
+    }
+
+    //thống kê sao trung bình của feedback theo product category
+    public Map<String, Double> getAvgStarByCategory(java.sql.Date startDate, java.sql.Date endDate) {
+        Map<String, Double> starMap = new LinkedHashMap<>();
+
+        String sql = "SELECT \n"
+                + "    c.category,\n"
+                + "    SUM(f.votescore)/count(c.category) AS avg_star    \n"
+                + "FROM \n"
+                + "    feedback f\n"
+                + "JOIN\n"
+                + "    product p ON f.product_id = p.id\n"
+                + "JOIN \n"
+                + "    category c ON p.category_id = c.id\n"
+                + "WHERE \n"
+                + "     f.createdate BETWEEN ? AND ? -- Thay bằng startdate và enddate\n"
+                + "GROUP BY \n"
+                + "    c.category";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                String category = rs.getString("category");
+                double star = rs.getDouble("avg_star");
+                starMap.put(category, star);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return starMap;
+    }
 }

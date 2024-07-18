@@ -1,966 +1,309 @@
 <%-- 
     Document   : AdminDashboard
-    Created on : Jun 12, 2024, 1:36:03 AM
-    Author     : HELLO
+    Created on : Jul 15, 2024, 1:16:57 AM
+    Author     : DELL
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, java.util.Map, java.util.HashMap, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-        <meta name="author" content="AdminKit">
-        <meta name="keywords"
-              content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-
-        <link rel="canonical" href="index.html" />
-
-        <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
-
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
-
-        <link class="js-stylesheet" href="../css/light.css" rel="stylesheet">
-        <style>
-            body {
-                opacity: 0;
-            }
-        </style>
-        <!-- END SETTINGS -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-
-            gtag('config', 'UA-120946860-10', {'anonymize_ip': true});
-        </script>
+        <title>Admin Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
         <div class="wrapper">
             <%@include file="DashboardNavbar.jsp" %>
-            <div class="main">
+            <div class=" bg-light main">
                 <%@include file="DashboardHeader.jsp" %>
-                <main class="content">
-                    <div class="container-fluid p-0">
-
-                        <div class="row mb-2 mb-xl-3">
-                            <div class="col-auto d-none d-sm-block">
-                                <h3><strong>Admin</strong> Dashboard</h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6 col-xxl-5 d-flex">
-                                <div class="w-100">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col mt-0">
-                                                            <h5 class="card-title">Sales</h5>
-                                                        </div>
-
-                                                        <div class="col-auto">
-                                                            <div class="stat text-primary">
-                                                                <i class="align-middle" data-feather="truck"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h1 class="mt-1 mb-3">2.382</h1>
-                                                    <div class="mb-0">
-                                                        <span class="badge badge-primary-light"> <i
-                                                                class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                                        <span class="text-muted">Since last week</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col mt-0">
-                                                            <h5 class="card-title">Visitors</h5>
-                                                        </div>
-
-                                                        <div class="col-auto">
-                                                            <div class="stat text-primary">
-                                                                <i class="align-middle" data-feather="users"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h1 class="mt-1 mb-3">14.212</h1>
-                                                    <div class="mb-0">
-                                                        <span class="badge badge-success-light"> <i
-                                                                class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                                        <span class="text-muted">Since last week</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col mt-0">
-                                                            <h5 class="card-title">Earnings</h5>
-                                                        </div>
-
-                                                        <div class="col-auto">
-                                                            <div class="stat text-primary">
-                                                                <i class="align-middle" data-feather="dollar-sign"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h1 class="mt-1 mb-3">$21.300</h1>
-                                                    <div class="mb-0">
-                                                        <span class="badge badge-success-light"> <i
-                                                                class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                                        <span class="text-muted">Since last week</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col mt-0">
-                                                            <h5 class="card-title">Orders</h5>
-                                                        </div>
-
-                                                        <div class="col-auto">
-                                                            <div class="stat text-primary">
-                                                                <i class="align-middle" data-feather="shopping-cart"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h1 class="mt-1 mb-3">64</h1>
-                                                    <div class="mb-0">
-                                                        <span class="badge badge-danger-light"> <i
-                                                                class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                                        <span class="text-muted">Since last week</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-xxl-7">
-                                <div class="card flex-fill w-100">
-                                    <div class="card-header">
-                                        <div class="float-end">
-                                            <form class="row g-2">
-                                                <div class="col-auto">
-                                                    <select class="form-select form-select-sm bg-light border-0">
-                                                        <option>Jan</option>
-                                                        <option value="1">Feb</option>
-                                                        <option value="2">Mar</option>
-                                                        <option value="3">Apr</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <input type="text"
-                                                           class="form-control form-control-sm bg-light rounded-2 border-0"
-                                                           style="width: 100px;" placeholder="Search..">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <h5 class="card-title mb-0">Recent Movement</h5>
-                                    </div>
-                                    <div class="card-body pt-2 pb-3">
-                                        <div class="chart chart-sm">
-                                            <canvas id="chartjs-dashboard-line"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-3">
-                                <div class="card flex-fill w-100">
-                                    <div class="card-header">
-                                        <div class="card-actions float-end">
-                                            <div class="dropdown position-relative">
-                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title mb-0">Browser Usage</h5>
-                                    </div>
-                                    <div class="card-body d-flex">
-                                        <div class="align-self-center w-100">
-                                            <div class="py-3">
-                                                <div class="chart chart-xs">
-                                                    <canvas id="chartjs-dashboard-pie"></canvas>
-                                                </div>
-                                            </div>
-
-                                            <table class="table mb-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><i class="fas fa-circle text-primary fa-fw"></i> Chrome <span
-                                                                class="badge badge-success-light">+12%</span></td>
-                                                        <td class="text-end">4306</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i class="fas fa-circle text-warning fa-fw"></i> Firefox <span
-                                                                class="badge badge-danger-light">-3%</span></td>
-                                                        <td class="text-end">3801</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i class="fas fa-circle text-danger fa-fw"></i> Edge</td>
-                                                        <td class="text-end">1689</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><i class="fas fa-circle text-dark fa-fw"></i> Other</td>
-                                                        <td class="text-end">3251</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-                                <div class="card flex-fill w-100">
-                                    <div class="card-header">
-                                        <div class="card-actions float-end">
-                                            <div class="dropdown position-relative">
-                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title mb-0">Real-Time</h5>
-                                    </div>
-                                    <div class="card-body px-4">
-                                        <div id="world_map" style="height:350px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-1">
-                                <div class="card flex-fill">
-                                    <div class="card-header">
-                                        <div class="card-actions float-end">
-                                            <div class="dropdown position-relative">
-                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title mb-0">Calendar</h5>
-                                    </div>
-                                    <div class="card-body d-flex">
-                                        <div class="align-self-center w-100">
-                                            <div class="chart">
-                                                <div id="datetimepicker-dashboard"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
-                                <div class="card flex-fill">
-                                    <div class="card-header">
-                                        <div class="card-actions float-end">
-                                            <div class="dropdown position-relative">
-                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title mb-0">New Order</h5>
-                                    </div>
-                                    <table class="table table-borderless my-0">
-                                        <thead>
-                                            <tr>
-                                                <th>User</th>
-                                                <th class="d-none d-xl-table-cell">Order ID</th>
-                                                <th class="d-none d-xxl-table-cell">Address</th>
-                                                <th>Status</th>
-                                                <th class="d-none d-xl-table-cell">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0">
-                                                            <div class="bg-light rounded-2">
-                                                                <img class="p-2" src="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <strong>Phan Trung Hiếu</strong>
-                                                            <div class="text-muted">
-                                                                0372422260
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <strong>#OD001</strong>
-                                                </td>
-                                                <td class="d-none d-xxl-table-cell">
-                                                    <strong>Hà Nội</strong>
-                                                    <div class="text-muted">
-                                                        Thạch Hòa - Thạch Thất
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex flex-column w-100">
-                                                        <span class="me-2 mb-1 text-muted">Shipping</span>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <a href="#" class="btn btn-light">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0">
-                                                            <div class="bg-light rounded-2">
-                                                                <img class="p-2" src="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <strong>Nguyễn Tài Nam</strong>
-                                                            <div class="text-muted">
-                                                                0372422260
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <strong>#OD002</strong>
-                                                </td>
-                                                <td class="d-none d-xxl-table-cell">
-                                                    <strong>Hà Nội</strong>
-                                                    <div class="text-muted">
-                                                        Thạch Hòa - Thạch Thất
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex flex-column w-100">
-                                                        <span class="me-2 mb-1 text-muted">Request</span>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <a href="#" class="btn btn-light">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0">
-                                                            <div class="bg-light rounded-2">
-                                                                <img class="p-2" src="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <strong>Bùi Thị Minh Trang</strong>
-                                                            <div class="text-muted">
-                                                                0372422260
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <strong>#OD003</strong>
-                                                </td>
-                                                <td class="d-none d-xxl-table-cell">
-                                                    <strong>Hà Nội</strong>
-                                                    <div class="text-muted">
-                                                        Thạch Hòa - Thạch Thất
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex flex-column w-100">
-                                                        <span class="me-2 mb-1 text-muted">Request</span>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <a href="#" class="btn btn-light">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0">
-                                                            <div class="bg-light rounded-2">
-                                                                <img class="p-2" src="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <strong>Đỗ Thu Hằng</strong>
-                                                            <div class="text-muted">
-                                                                0372422260
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <strong>#OD004</strong>
-                                                </td>
-                                                <td class="d-none d-xxl-table-cell">
-                                                    <strong>Hà Nội</strong>
-                                                    <div class="text-muted">
-                                                        Thạch Hòa - Thạch Thất
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex flex-column w-100">
-                                                        <span class="me-2 mb-1 text-muted">Done</span>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <a href="#" class="btn btn-light">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0">
-                                                            <div class="bg-light rounded-2">
-                                                                <img class="p-2" src="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <strong>Vũ Đại Dương</strong>
-                                                            <div class="text-muted">
-                                                                0372422260
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <strong>#OD005</strong>
-                                                </td>
-                                                <td class="d-none d-xxl-table-cell">
-                                                    <strong>Hà Nội</strong>
-                                                    <div class="text-muted">
-                                                        Thạch Hòa - Thạch Thất
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex flex-column w-100">
-                                                        <span class="me-2 mb-1 text-muted">Delivery</span>
-                                                    </div>
-                                                </td>
-                                                <td class="d-none d-xl-table-cell">
-                                                    <a href="#" class="btn btn-light">View</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 col-xxl-3 d-flex">
-                                <div class="card flex-fill w-100">
-                                    <div class="card-header">
-                                        <div class="card-actions float-end">
-                                            <div class="dropdown position-relative">
-                                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="card-title mb-0">Monthly Sales</h5>
-                                    </div>
-                                    <div class="card-body d-flex w-100">
-                                        <div class="align-self-center chart chart-lg">
-                                            <canvas id="chartjs-dashboard-bar"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="card flex-fill">
-                                <div class="card-header">
-                                    <div class="card-actions float-end">
-                                        <div class="dropdown position-relative">
-                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                                <i class="align-middle" data-feather="more-horizontal"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Top Tuần</a>
-                                                <a class="dropdown-item" href="#">Top Tháng</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5 class="card-title mb-0">Top Selling Products</h5>
-                                </div>
-                                <table class="table table-borderless my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th class="d-none d-xl-table-cell">Category</th>
-                                            <th class="d-none d-xl-table-cell">Label</th>
-                                            <th class="d-none d-xl-table-cell">Price</th>
-                                            <th class="d-none d-xl-table-cell text-end">Orders</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="bg-light rounded-2">
-                                                            <img class="p-2" src="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <strong>Cam cao phong</strong>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Fruit</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Cam</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>35.000VNĐ/KG</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-end">
-                                                520
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-success-light">In stock</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="bg-light rounded-2">
-                                                            <img class="p-2" src="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <strong>Cam cao phong</strong>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Fruit</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Cam</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>35.000VNĐ/KG</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-end">
-                                                520
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-success-light">In stock</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="bg-light rounded-2">
-                                                            <img class="p-2" src="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <strong>Cam cao phong</strong>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Fruit</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Cam</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>35.000VNĐ/KG</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-end">
-                                                520
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-success-light">In stock</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="bg-light rounded-2">
-                                                            <img class="p-2" src="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <strong>Cam cao phong</strong>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Fruit</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Cam</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>35.000VNĐ/KG</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-end">
-                                                520
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-success-light">In stock</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <div class="bg-light rounded-2">
-                                                            <img class="p-2" src="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <strong>Cam cao phong</strong>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Fruit</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>Cam</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell">
-                                                <strong>35.000VNĐ/KG</strong>
-                                            </td>
-                                            <td class="d-none d-xl-table-cell text-end">
-                                                520
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-success-light">In stock</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="container">
+                    <div class="row mb-3 mt-3">
+                        <div class="col-auto">
+                            <h1><strong>Admin </strong>Dashboard</h1>
                         </div>
                     </div>
-            </div>
-        </main>
-    </div>
-    <%@include file="DashboardFooter.jsp" %>   
-    <script src="../js/app.js"></script>
+                    <form action="AdminDashboard">
+                        <div class="row mb-3 align-items-end">
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <label class="col-form-label">Ngày bắt đầu:</label>
+                                <input type="date" class="form-control" name="start" required value="${param.start != null ? param.start : ''}">
+                            </div>
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <label class="col-form-label">Ngày kết thúc:</label>
+                                <input type="date" class="form-control" name="end" required value="${param.end != null ? param.end : ''}">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <input type="submit" class="btn btn-primary btn-block" value="Lọc"
+                                       style="width:auto">
+                            </div>
+                        </div>
+                    </form>
 
-<!--    <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-                var gradientLight = ctx.createLinearGradient(0, 0, 0, 225);
-                gradientLight.addColorStop(0, "rgba(215, 227, 244, 1)");
-                gradientLight.addColorStop(1, "rgba(215, 227, 244, 0)");
-                var gradientDark = ctx.createLinearGradient(0, 0, 0, 225);
-                gradientDark.addColorStop(0, "rgba(51, 66, 84, 1)");
-                gradientDark.addColorStop(1, "rgba(51, 66, 84, 0)");
-                // Line chart
-                new Chart(document.getElementById("chartjs-dashboard-line"), {
-                    type: "line",
-                    data: {
-                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                        datasets: [{
-                                label: "Sales ($)",
-                                fill: true,
-                                backgroundColor: window.theme.id === "light" ? gradientLight : gradientDark,
-                                borderColor: window.theme.primary,
-                                data: [
-                                    2115,
-                                    1562,
-                                    1584,
-                                    1892,
-                                    1587,
-                                    1923,
-                                    2566,
-                                    2448,
-                                    2805,
-                                    3438,
-                                    2917,
-                                    3327
-                                ]
-                            }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            intersect: false
-                        },
-                        hover: {
-                            intersect: true
-                        },
-                        plugins: {
-                            filler: {
-                                propagate: false
+                    <div class="row mb-4 d-flex justify-content-center">
+                        <div class="col-lg-3 mb-4">
+                            <div class="card p-3 shadow-sm">
+                                <h2 class="font-weight-bold text-primary text-center">Khách hàng</h2>
+                                <div class="row">
+                                    <div class="col-6 text-center border-right">
+                                        <div class="py-2">
+                                            <h6 class="text-secondary">Mới đăng ký:</h6>
+                                            <strong class="h5 text-dark">${registerCounts}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <div class="py-2">
+                                            <h6 class="text-secondary">Mới mua:</h6>
+                                            <strong class="h5 text-dark">${boughtCounts}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 mb-4">
+                            <div class=" p-3 shadow-sm">
+                                <h2 class="font-weight-bold text-primary text-center bg-white">Danh mục sản phẩm</h2>
+                                <div class="row">
+                                    <div class="col-6 mb-3 text-center">
+                                        <div class="card p-3 shadow-sm">
+                                            <h4 class="font-weight-bold text-primary">Doanh thu</h4>
+                                            <canvas id="Chart2"></canvas>
+                                            <p style="display: none;font-size: 40px" id="nodata2">0</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <div class="card p-3 shadow-sm">
+                                            <h4 class="font-weight-bold text-primary">Đánh giá</h4>
+                                            <canvas id="Chart3"></canvas>
+                                            <p style="display: none;font-size: 40px" id="nodata3">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 mb-4">
+                            <div class="p-3 shadow-sm">
+                                <h2 class="font-weight-bold text-primary text-center bg-white">Đơn hàng</h2>
+                                <div class="row">
+                                    <div class="col-4 text-center mb-3">
+                                        <div class="card p-3 shadow-sm">
+                                            <h4 class="font-weight-bold text-primary">Trạng thái đơn hàng</h4>
+                                            <canvas id="orderStatusChart"></canvas>
+                                            <p style="display: none; font-size: 40px" id="nodata">0</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-8  mb-4 text-center">
+                                        <div class="card p-3 shadow">
+                                            <h4 class="font-weight-bold text-primary ">Số lượng đơn hàng</h4>
+                                            <canvas id="Chart4" style="height: 300px;"></canvas>
+                                            <p style="display: none; font-size: 40px;" id="nodata4">0</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <script>
+                        <%  
+                            Map<String, Integer> statusCounts = (Map<String, Integer>) request.getAttribute("statusCounts");
+                            if (statusCounts != null && !statusCounts.isEmpty()) {
+                                StringBuilder status = new StringBuilder();
+                                StringBuilder count = new StringBuilder();     
+                                // Duyệt qua các key và lấy giá trị
+                                for (String key : statusCounts.keySet()) {
+                                    status.append("'").append(key).append("',");
+                                    count.append(statusCounts.get(key)).append(",");                    
+                                }
+                        %>
+                        var ctx = document.getElementById('orderStatusChart').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: [<%= status.substring(0, status.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                datasets: [{
+                                        label: 'Số lượng đơn',
+                                        data: [<%= count.substring(0, count.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                                    }]
                             }
-                        },
-                        scales: {
-                            xAxes: [{
-                                    reverse: true,
-                                    gridLines: {
-                                        color: "rgba(0,0,0,0.0)"
+                        });
+                        <%  
+                            } else {
+                        %>
+                        document.getElementById('nodata').style.display = 'block';
+                        document.getElementById('nodata2').style.display = 'block';
+                        document.getElementById('orderStatusChart').style.display = 'none';
+                        document.getElementById('Chart2').style.display = 'none';
+                        document.getElementById('nodata4').style.display = 'block';
+                        document.getElementById('Chart4').style.display = 'none';
+                        <%    
+                            }
+                        %>
+                    </script> 
+
+
+
+                    <script>
+
+                        <%  
+                            Map<String, Double> revenueMap = (Map<String, Double>) request.getAttribute("revenueMap");
+                            StringBuilder category = new StringBuilder();
+                            StringBuilder revenue = new StringBuilder();     
+                            // Duyệt qua các key và lấy giá trị
+                            for (String key : revenueMap.keySet()) {
+                                category.append("'").append(key).append("',");
+                                revenue.append(revenueMap.get(key)).append(",");                    
+                            }
+                        %>
+
+                        var ctx2 = document.getElementById('Chart2').getContext('2d');
+                        var chart2 = new Chart(ctx2, {
+                            type: 'bar',
+                            data: {
+                                labels: [<%= category.substring(0, category.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                datasets: [{
+                                        label: 'Doanh thu',
+                                        data: [<%= revenue.substring(0, revenue.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                        backgroundColor:'lightblue'
+                                    }]
+                            },
+
+                            options: {
+                                indexAxis: 'y',
+                                scales: {
+                                    y: {
+                                        grid: {
+                                            display: false
+                                        }
                                     }
-                                }],
-                            yAxes: [{
-                                    ticks: {
-                                        stepSize: 1000
+                                }
+                            }
+
+                        });
+                    </script>   
+
+                    <script>
+
+                        <%  
+                            Map<String, Double> starMap = (Map<String, Double>) request.getAttribute("starMap");
+                        
+                            if (starMap != null && !starMap.isEmpty()) {
+                            StringBuilder category3 = new StringBuilder();
+                            StringBuilder star = new StringBuilder();     
+                            // Duyệt qua các key và lấy giá trị
+                            for (String key : starMap.keySet()) {
+                                category3.append("'").append(key).append("',");
+                                star.append(starMap.get(key)).append(",");                    
+                            }
+                        %>
+
+                        var ctx3 = document.getElementById('Chart3').getContext('2d');
+                        var chart3 = new Chart(ctx3, {
+                            type: 'bar',
+                            data: {
+                                labels: [<%= category3.substring(0, category3.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                datasets: [{
+                                        label: 'Sao trung bình',
+                                        data: [<%= star.substring(0, star.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                        backgroundColor: 'yellow'
+                                    }]
+                            },
+
+                            options: {
+                                indexAxis: 'y',
+                                scales: {
+                                    y: {
+                                        grid: {
+                                            display: false
+                                        }
                                     },
-                                    display: true,
-                                    borderDash: [3, 3],
-                                    gridLines: {
-                                        color: "rgba(0,0,0,0.0)",
-                                        fontColor: "#fff"
+                                    x: {
+                                        max: 5
                                     }
-                                }]
-                        }
-                    }
-                });
-            });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie"), {
-                type: "pie",
-                data: {
-                    labels: ["Chrome", "Firefox", "IE", "Other"],
-                    datasets: [{
-                            data: [4306, 3801, 1689, 3251],
-                            backgroundColor: [
-                                window.theme.primary,
-                                window.theme.warning,
-                                window.theme.danger,
-                                "#E8EAED"
-                            ],
-                            borderWidth: 5,
-                            borderColor: window.theme.white
-                        }]
-                },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    cutoutPercentage: 70
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Bar chart
-            new Chart(document.getElementById("chartjs-dashboard-bar"), {
-                type: "bar",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                            label: "This year",
-                            backgroundColor: window.theme.primary,
-                            borderColor: window.theme.primary,
-                            hoverBackgroundColor: window.theme.primary,
-                            hoverBorderColor: window.theme.primary,
-                            data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                            barPercentage: .75,
-                            categoryPercentage: .5
-                        }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                                gridLines: {
-                                    display: false
-                                },
-                                stacked: false,
-                                ticks: {
-                                    stepSize: 20
+
                                 }
-                            }],
-                        xAxes: [{
-                                stacked: false,
-                                gridLines: {
-                                    color: "transparent"
+                            }
+
+                        });
+
+                        <% } else{ %>
+
+                        document.getElementById('nodata3').style.display = 'block';
+                        document.getElementById('Chart3').style.display = 'none';
+
+                        <%  } %>
+                    </script>   
+
+                    <script>
+                        <%  
+                            List<Map<String, Object>> orderCounts = (List<Map<String, Object>>) request.getAttribute("orderCounts");
+                            StringBuilder dates = new StringBuilder();
+                            StringBuilder successOrders = new StringBuilder();
+                            StringBuilder allOrders = new StringBuilder();
+
+                            for (Map<String, Object> row : orderCounts) {
+                                int successOrder = (int) row.get("successOrder");
+                                int allOrder = (int) row.get("allOrder");
+
+                                dates.append("'").append(row.get("date").toString()).append("',");
+                                successOrders.append(successOrder).append(",");
+                                allOrders.append(allOrder).append(",");
+                            }
+                        %>
+
+                        var ctx4 = document.getElementById('Chart4').getContext('2d');
+                        var chart4 = new Chart(ctx4, {
+                            type: 'bar',
+                            data: {
+                                labels: [<%= dates.substring(0, dates.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                datasets: [
+                                    {
+                                        label: 'Số đơn thành công',
+                                        data: [<%= successOrders.substring(0, successOrders.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Tổng số đơn',
+                                        data: [<%= allOrders.substring(0, allOrders.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    },
+                                    x: {
+                                        grid: {
+                                            display: false
+                                        }
+                                    }
+
                                 }
-                            }]
-                    }
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var markers = [{
-                    coords: [31.230391, 121.473701],
-                    name: "Shanghai"
-                },
-                {
-                    coords: [28.704060, 77.102493],
-                    name: "Delhi"
-                },
-                {
-                    coords: [6.524379, 3.379206],
-                    name: "Lagos"
-                },
-                {
-                    coords: [35.689487, 139.691711],
-                    name: "Tokyo"
-                },
-                {
-                    coords: [23.129110, 113.264381],
-                    name: "Guangzhou"
-                },
-                {
-                    coords: [40.7127837, -74.0059413],
-                    name: "New York"
-                },
-                {
-                    coords: [34.052235, -118.243683],
-                    name: "Los Angeles"
-                },
-                {
-                    coords: [41.878113, -87.629799],
-                    name: "Chicago"
-                },
-                {
-                    coords: [51.507351, -0.127758],
-                    name: "London"
-                },
-                {
-                    coords: [40.416775, -3.703790],
-                    name: "Madrid "
-                }
-            ];
-            var map = new jsVectorMap({
-                map: "world",
-                selector: "#world_map",
-                zoomButtons: true,
-                markers: markers,
-                markerStyle: {
-                    initial: {
-                        r: 9,
-                        stroke: window.theme.white,
-                        strokeWidth: 7,
-                        stokeOpacity: .4,
-                        fill: window.theme.primary
-                    },
-                    hover: {
-                        fill: window.theme.primary,
-                        stroke: window.theme.primary
-                    }
-                },
-                regionStyle: {
-                    initial: {
-                        fill: window.theme["gray-200"]
-                    }
-                },
-                zoomOnScroll: false
-            });
-            window.addEventListener("resize", () => {
-                map.updateSize();
-            });
-            setTimeout(function () {
-                map.updateSize();
-            }, 250);
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-            document.getElementById("datetimepicker-dashboard").flatpickr({
-                inline: true,
-                prevArrow: "<span class=\"fas fa-chevron-left\" title=\"Previous month\"></span>",
-                nextArrow: "<span class=\"fas fa-chevron-right\" title=\"Next month\"></span>",
-                defaultDate: defaultDate
-            });
-        });
-    </script>
+                            }
+                        });
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            setTimeout(function () {
-                if (localStorage.getItem('popState') !== 'shown') {
-                    window.notyf.open({
-                        type: "success",
-                        message: "Get access to all 500+ components and 45+ pages with AdminKit PRO. <u><a class=\"text-white\" href=\"https://adminkit.io/pricing\" target=\"_blank\">More info</a></u> 🚀",
-                        duration: 10000,
-                        ripple: true,
-                        dismissible: false,
-                        position: {
-                            x: "left",
-                            y: "bottom"
-                        }
-                    });
-
-                    localStorage.setItem('popState', 'shown');
-                }
-            }, 15000);
-        });
-    </script>-->
-</body>
-
+                    </script>
+                </div>
+            </div>
+        </div>
+        <%@include file="DashboardFooter.jsp" %>
+    </body>
 </html>

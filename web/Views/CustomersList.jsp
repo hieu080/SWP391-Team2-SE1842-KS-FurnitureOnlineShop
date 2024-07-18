@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -22,23 +22,24 @@
     </head>
 
     <body>
-        <div class="wrapper">
-            <c:import url="DashboardNavbar.jsp"/>
-
+        <div class="wrapper"> 
+            <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
-                <c:import url="DashboardHeader.jsp"/>
-                <div class="container" style="margin-top: 20px">
+                <%@include file="DashboardHeader.jsp" %>
+                <div class="container">
                     <h1>Customers List</h1>
                     <form action="CustomersList">                
                         Trạng thái:
-                        <select name="status" style="height: 25px;">
+                        <select name="status" >
                             <option value="All">All</option>
-                            <c:forEach items="${listStatus}" var = "s">
-                                <option value="${s}"
-                                        <c:if test="${s eq param.status}">selected
-                                        </c:if>>${s}
-                                </option>
-                            </c:forEach>
+                            <option value="Active"
+                                    <c:if test="${'Active' eq param.status}">selected
+                                    </c:if>>Active
+                            </option>
+                            <option value="Inactive"
+                                    <c:if test="${'Inactive' eq param.status}">selected
+                                    </c:if>>Inactive
+                            </option>
                         </select>
                         <button type="submit">Lọc</button>
                     </form>
@@ -74,7 +75,7 @@
                         Tạo tài khoản khách
                     </button>
 
-                    <!-- The Modal -->
+                    <!-- The Modal to create new account-->
                     <div class="modal" id="createAccountModal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -121,9 +122,9 @@
                                 </div>
 
                                 <!-- Modal Footer -->
-                                <div class="modal-footer" style="display: flex; justify-content: center">
-                                    <button style="margin-right: 20px" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                                    <button style="margin-left: 20px" id="createAccountButton" type="submit" class="btn btn-success" form="createAccountForm">Tạo tài khoản</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                    <button id="createAccountButton" type="submit" class="btn btn-success" form="createAccountForm">Tạo tài khoản</button>
                                 </div>
 
                             </div>
@@ -132,7 +133,7 @@
                 </div>
             </div>
         </div>
-
+        <%@include file="DashboardFooter.jsp" %>
         <script>
             $(document).ready(function () {
                 if (${msg!=null}) {

@@ -2,26 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.Public;
+package Controller.Sale;
 
-import DAL.CategoryOfPostDAO;
-import DAL.PostDAO;
-import Helper.PaginationHelper;
-import Models.CategoryOfPost;
-import Models.Post;
-import jakarta.servlet.ServletContext;
+import DAL.OrderDAO;
+import DAL.UserDAO;
+import Models.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author DELL
  */
-public class BlogListServlet extends HttpServlet {
+public class SaleDashboard extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,46 +35,53 @@ public class BlogListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CategoryOfPostDAO cdao = new CategoryOfPostDAO();
-        PostDAO pdao = new PostDAO();
-        //list category
-        List<CategoryOfPost> listCategory = cdao.getListCategoryofPost();
-        request.setAttribute("listCategory", listCategory);
+        UserDAO udao = new UserDAO();
+        OrderDAO odao = new OrderDAO();
 
-        //list new post
-        List<Post> listNewPost = pdao.getFeaturedPostList();
-        request.setAttribute("listNewPost", listNewPost);
+        //lay danh sach cac sale
+        List<User> saleList = udao.getSaleList();
 
-        //selected category and list post tuong ung
-        List<Post> listPost = null;
-        String categoryId = request.getParameter("category");
-        String catname="";
-        request.setAttribute("catId", categoryId);
-        if (categoryId!=null && !categoryId.equals("0") && !categoryId.isBlank()) {
-            catname=cdao.getCategoryOfPostByID(categoryId).getCategory();
-            listPost=pdao.getPostListByCategoryId(categoryId);
-        }else{
-            catname="All";
-            listPost=pdao.getListPost();
-        } 
-        
-        
-        String key = request.getParameter("keyword");
-        if(key!=null && !key.isBlank()){
-            catname="";
-            listPost=pdao.getListPostbySearch(key);
+        //lay cac tieu chi loc (ngay thang, status, sale)
+        String startDateStr = request.getParameter("start");
+        String endDateStr = request.getParameter("end");
+        java.sql.Date startDate;
+        java.sql.Date endDate;
+        if (startDateStr == null || startDateStr.isEmpty() || endDateStr == null || endDateStr.isEmpty()) {
+            startDate = Date.valueOf(LocalDate.now().minusDays(6));
+            endDate = Date.valueOf(LocalDate.now());
+        } else {
+            startDate = Date.valueOf(startDateStr);
+            endDate = Date.valueOf(endDateStr);
+        }
+
+        String status = request.getParameter("status");
+        if (status == null) {
+            status = "Done";
+        }
+
+        String sale = request.getParameter("sale");
+
+        //set ten sale va status cua label trong chart
+        String saleLabel = "(chung)";
+        if ( sale != null && !sale.isEmpty()) {
+            saleLabel = "của " + udao.getUserbyID(sale).getFullname() + " (#" + sale + ")" ;
+        }
+        String statusLabel = "thành công";
+        if(!status.equals("Done") ){
+            statusLabel = "bị huỷ";
         }
         
-        request.setAttribute("catname", catname);
-        request.setAttribute("listPost", listPost);
+        //lay danh sach orderstats de ve chart
+        List<Map<String, Object>> orderStats = odao.getOrderStats(startDate, endDate, sale, status);
+        //lấy danh sách revenuestats để vẽ chart
+        List<Map<String, Object>> revenueStats = odao.getRevenueStats(startDate, endDate, sale);
         
-        //phan trang
-        PaginationHelper paginationHelper = new PaginationHelper();
-        ServletContext context = getServletContext();
-        String itemsPerPage = "itemsPerPostList";
-        String attribute = "listPost";
-        paginationHelper.Pagination(request, listPost, context, itemsPerPage, attribute);
-        request.getRequestDispatcher("Views/BlogList.jsp").forward(request, response);
+        request.setAttribute("statusLabel", statusLabel);
+        request.setAttribute("saleLabel", saleLabel);
+        request.setAttribute("orderStats", orderStats);
+        request.setAttribute("revenueStats", revenueStats);
+        request.setAttribute("saleList", saleList);
+        request.getRequestDispatcher("Views/SaleDashboard.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

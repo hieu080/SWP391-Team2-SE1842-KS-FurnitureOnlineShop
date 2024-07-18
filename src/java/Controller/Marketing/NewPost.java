@@ -11,7 +11,6 @@ import Helper.FileUploadHelper;
 import Models.CategoryOfPost;
 import Models.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -52,11 +51,7 @@ public class NewPost extends HttpServlet {
         //list category
         List<CategoryOfPost> listCategory = categoryOfPostDAO.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
-
-        //lay ra list status
-        List<String> listStatus = pdao.getListStatus();
-        request.setAttribute("listStatus", listStatus);
-
+        
         request.getRequestDispatcher("Views/NewPost.jsp").forward(request, response);
     }
 
@@ -103,7 +98,7 @@ public class NewPost extends HttpServlet {
         String status = request.getParameter("status");
         String content = request.getParameter("content");
        
-        //lay ra tac gia bang sesstion
+        //lay ra tac gia bang session
         HttpSession session = request.getSession();
         User author = (User) session.getAttribute("customer");
         //insert new post vao database

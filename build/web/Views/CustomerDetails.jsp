@@ -9,6 +9,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
         <style>
             body {
                 margin: 20px;
@@ -43,11 +45,16 @@
             <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
                 <%@include file="DashboardHeader.jsp" %>
-                <div class="container" style="margin-top: 20px">
+                <div class="container">
                     <h1 class="mb-4">Chi tiết tài khoản: #${cus.getId()}</h1>
-                    <div style="display: flex; justify-content: flex-end">
-                        <button class="btn btn-secondary col-2 mb-5" data-toggle="modal" data-target="#customerChangesModal">Lịch sử chỉnh sửa</button>
+                    <div class="row justify-content-center mb-4">
+
+                        <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('.ip')"
+                                style="width:auto">
+                            <p class="mb-0">Chỉnh sửa<i class="fas fa-edit pl-2"></i></p>
+                        </button>
                     </div>
+
                     <!-- The Modal -->
                     <div class="modal fade" id="customerChangesModal">
                         <div class="modal-dialog modal-lg">
@@ -108,57 +115,52 @@
                         <div class="form-group row">
                             <label for="title" class="col-sm-2 col-form-label">Tên</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="fullname" type="text" class="form-control" name="fullname" value="${cus.getFullname()}" readonly>
-                                <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('fullname')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <input type="text" class="form-control ip" name="fullname" value="${cus.getFullname()}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Giới tính</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="gender" type="text" class="form-control" name="gender" value="${cus.getGender()}" readonly>
-                                <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('gender')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </div>
+                                <input  type="text" class="form-control" id="gd1" value="${cus.getGender()}" readonly>
+                                <select name="gender" style="display:none" id="gd2" class="form-control">
+                                    <option value="Nam">
+                                        Nam
+                                    </option>
+                                    <option value="Nữ">
+                                        Nữ
+                                    </option>
+                                    <option value="Khác">
+                                        Khác
+                                    </option>
+                                </select>
+                            </div>  
                         </div>
 
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="email" type="email" class="form-control" name="email" value="${cus.getEmail()}" readonly>
-                                <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('email')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <input type="email" class="form-control ip" name="email" value="${cus.getEmail()}" readonly>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Số điên thoại</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="phone" type="text" class="form-control" name="phone" value="${cus.getPhonenumber()}" readonly>
-                                <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('phone')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <input type="number" class="form-control ip" name="phone" value="${cus.getPhonenumber()}" readonly>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Địa chỉ</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="add" type="text" class="form-control" name="add" value="${cus.getAddress()}" readonly>
-                                <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('add')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <input  type="text" class="form-control ip" name="add" value="${cus.getAddress()}" readonly>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Trạng thái</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input id="status" type="text" class="form-control" name="status" value="${cus.getStatus()}" readonly>
-                                <div style="margin-left: 42px"></div>
+                                <input type="text" class="form-control" name="status" value="${cus.getStatus()}" readonly>
                             </div>
                         </div>
 
@@ -169,44 +171,44 @@
                         </div>
                     </form>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="resultModalLabel">Thông báo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p id="modalMessage"></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="row justify-content-end pr-3">
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#customerChangesModal"
+                                style="width:auto">Lịch sử</button>
                     </div>
+
+
                 </div>
             </div>
         </div>
         <%@include file="DashboardFooter.jsp" %>
         <script>
-            function editField(fieldId) {
-                var field = document.getElementById(fieldId);
-                field.readOnly = false;
+            function editField(classname) {
+                var field = document.querySelectorAll(classname);
+                field.forEach(input => {
+                    input.readOnly = false;
+                }),
+                        document.getElementById('gd1').style.display = 'none';
+                document.getElementById('gd2').style.display = 'block';
+
                 document.getElementById('saveBtn').style.display = 'block';
             }
 
             $(document).ready(function () {
                 var result = '${result}';
                 if (result === 'success') {
-                    $('#modalMessage').text('Lưu thành công.');
-                    $('#resultModal').modal('show');
+                    Swal.fire({
+                        title: 'Lưu thành công',
+                        icon: 'success',
+                        confirmButtonText: 'Đóng'
+                    });
                 } else if (result === 'failure') {
-                    $('#modalMessage').text('Lưu thất bại.');
-                    $('#resultModal').modal('show');
+                    Swal.fire({
+                        title: 'Lưu thất bại',
+                        text: '${error}',
+                        icon: 'error',
+                        confirmButtonText: 'Đóng'
+                    });
                 }
             });
 

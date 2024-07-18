@@ -9,6 +9,10 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+
         <style>
             body {
                 margin: 20px;
@@ -33,18 +37,18 @@
         <div class="wrapper">
             <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
-                <%@include file="DashboardHeader.jsp" %>
+               <%@include file="DashboardHeader.jsp" %>
                 <div class="container" style="margin-top: 20px">
-                    <h1 class="mb-4">Tạo bài viết mới</h1>
+                    <h1 class="mb-4 text-center">Tạo bài viết mới</h1>
 
                     <form id="postForm" action="NewPost" method="post" enctype="multipart/form-data">
                         <div class="form-group row">
                             <label for="category" class="col-sm-2 col-form-label">Thể loại</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <select id="category" name="category" class="form-control">
+                                <select id="category" name="category" class="form-select">
                                     <c:forEach items="${listCategory}" var="c">
                                         <option value="${c.getId()}">${c.getCategory()}</option>
-                                    </c:forEach>
+                                    </c:forEach>                                                  
                                 </select>
                             </div>
                         </div>
@@ -76,45 +80,39 @@
                         <div class="form-group row">
                             <label for="status" class="col-sm-2 col-form-label">Trạng thái</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <select id="status" name="status" class="form-control">
-                                    <c:forEach items="${listStatus}" var="s">
-                                        <option value="${s}">${s}</option>
-                                    </c:forEach>
+                                <select id="status" name="status" class="form-select">
+
+                                    <option value="show" >
+                                        Hiển thị
+                                    </option>
+                                    <option value="hide">
+                                        Ẩn
+                                    </option>
+                                    <option value="featured">
+                                        Nổi bật
+                                    </option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="content" class="col-sm-2 col-form-label">Nội dung</label>
-                            <div class="col-sm-10 d-flex align-items-center">
-                                <textarea id="content" class="form-control" name="content" rows="5" required></textarea>
+                            <div class="col-sm-10">
+                                <textarea id="content" class="form-control" name="content" rows="5" required>${post.getContent()}</textarea>
                             </div>
                         </div>
-                        <div class="row">
+                        <script>
+                            CKEDITOR.replace('content');
+                        </script>  
+
+
+
+                        <div class="row mb-5">
                             <div class="col-sm-10 offset-sm-2" style="display: flex; justify-content: center">
                                 <button id="saveBtn" type="submit" class="btn btn-primary">Tạo Bài</button>
                             </div>
                         </div>
                     </form>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="resultModalLabel">Thông báo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p id="modalMessage"></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -124,11 +122,17 @@
             $(document).ready(function () {
                 var result = '${result}';
                 if (result === 'success') {
-                    $('#modalMessage').text('Tạo bài viết thành công.');
-                    $('#resultModal').modal('show');
+                    Swal.fire({
+                        title: 'Tạo thành công',
+                        icon: 'success',
+                        confirmButtonText: 'Đóng'
+                    });
                 } else if (result === 'failure') {
-                    $('#modalMessage').text('Tạo bài viết thất bại.');
-                    $('#resultModal').modal('show');
+                    Swal.fire({
+                        title: 'Tạo thất bại',
+                        icon: 'error',
+                        confirmButtonText: 'Đóng'
+                    });
                 }
             });
             function previewImage(event, imageId) {
@@ -144,7 +148,5 @@
             }
         </script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

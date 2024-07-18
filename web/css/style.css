@@ -1,38 +1,38 @@
-.fb_dialog_mobile .fb_dialog_content iframe {
+.home .fb_dialog_mobile .fb_dialog_content iframe {
     bottom: 60px !important;
     transform: scale(0.85);
 }
 
-.fb-customerchat.fb_invisible_flow.fb_iframe_widget iframe {
+.home .fb-customerchat.fb_invisible_flow.fb_iframe_widget iframe {
     height: 0;
 }
 
-.fb_new_ui_mobile_overlay_active {
+.home .fb_new_ui_mobile_overlay_active {
     overflow: initial !important;
 }
-img {
+.home img {
     max-width: 100%;
     height: auto;
 }
 
-.w-100 {
+.home .w-100 {
     width: 100% !important;
 }
 
-.d-flex-owl {
+.home .d-flex-owl {
     display: flex !important;
     overflow: hidden !important;
 }
 
-.d-flex-owl>* {
+.home .d-flex-owl>* {
     min-width: 100% !important;
 }
 
-.contact {
+.home .contact {
     padding-left: 0;
 }
 
-.cart-button {
+.home .cart-button {
     background-color: orange;
     /* M�u cam */
     padding: 10px 15px;
@@ -43,53 +43,53 @@ img {
     align-items: center;
 }
 
-.cart-button:hover {
+.home .cart-button:hover {
     background-color: darkorange;
     /* M�u cam khi di chu?t v�o */
 }
 
-.cart-button svg {
+.home .cart-button svg {
     margin-right: 5px;
 }
 
 .carousel-control-prev-icon,
-.carousel-control-next-icon {
+.home .carousel-control-next-icon {
     background-color: black;
 }
 
-.carousel-inner .carousel-item {
+.home .carousel-inner .carousel-item {
     transition: transform 1s ease, opacity 1s ease;
 }
 
-.carousel-fade .carousel-item {
+.home .carousel-fade .carousel-item {
     opacity: 0;
     transition-property: opacity;
 }
 
-.carousel-fade .carousel-item.active {
+.home .carousel-fade .carousel-item.active {
     opacity: 1;
 }
 
 .carousel-fade .carousel-item-next.carousel-item-left,
 .carousel-fade .carousel-item-prev.carousel-item-right,
 .carousel-fade .carousel-item-next,
-.carousel-fade .carousel-item-prev {
+.home .carousel-fade .carousel-item-prev {
     opacity: 1;
 }
 
 .carousel-fade .active.carousel-item-left,
-.carousel-fade .active.carousel-item-right {
+.home .carousel-fade .active.carousel-item-right {
     opacity: 0;
 }
 
 /* CSS for the prev and next buttons */
 .carousel-control-prev,
-.carousel-control-next {
+.home .carousel-control-next {
     width: 5%;
 }
 
 .carousel-control-prev-icon,
-.carousel-control-next-icon {
+.home .carousel-control-next-icon {
     background-color: rgba(0, 0, 0, 0.5);
     /* Semi-transparent black background */
     border-radius: 50%;
@@ -100,12 +100,12 @@ img {
     /* Height of the icon */
 }
 
-.carousel-control-prev-icon {
+.home .carousel-control-prev-icon {
     background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23fff" viewBox="0 0 8 8"%3E%3Cpath d="M4.5 0L3.41 1.09 5.81 3.5 0 3.5 0 4.5l5.81 0L3.41 6.91 4.5 8l4-4-4-4z" /%3E%3C/svg%3E');
     /* You can replace this with your preferred icon or SVG */
 }
 
-.carousel-control-next-icon {
+.home .carousel-control-next-icon {
     background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23fff" viewBox="0 0 8 8"%3E%3Cpath d="M3.5 0L4.59 1.09 2.19 3.5 8 3.5 8 4.5 2.19 4.5l2.4 2.41L3.5 8l-4-4 4-4z" /%3E%3C/svg%3E');
     /* You can replace this with your preferred icon or SVG */
 }
@@ -113,19 +113,19 @@ img {
 .carousel-control-prev:hover,
 .carousel-control-next:hover,
 .carousel-control-prev:focus,
-.carousel-control-next:focus {
+.home .carousel-control-next:focus {
     background-color: rgba(0, 0, 0, 0.7);
     /* Darker background on hover/focus */
 }
 /* LOGIN FORM */
-.customLogin {
+.home .customLogin {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     
 }
 
-.customLogin .logincontainer {
+.home .customLogin .logincontainer {
     width: 400px;
     background-color: #fff;
     border-radius: 8px;
@@ -133,28 +133,28 @@ img {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.customLogin .loginform-container {
+.home .customLogin .loginform-container {
     padding: 20px;
 }
 
-.customLogin .loginform-group {
+.home .customLogin .loginform-group {
     margin-bottom: 20px;
 }
 
-.customLogin label {
+.home .customLogin label {
     display: block;
     margin-bottom: 5px;
 }
 
 .customLogin input[type="text"],
-.customLogin input[type="password"] {
+.home .customLogin input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.customLogin button {
+.home .customLogin button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -164,21 +164,21 @@ img {
     cursor: pointer;
 }
 
-.customLogin button:hover {
+.home .customLogin button:hover {
     background-color: #0056b3;
 }
 
-.customLogin p {
+.home .customLogin p {
     margin-top: 15px;
 }
 
 
 
 /*REGISTER FORM*/
-.customerRegister{
+.home .customerRegister{
 
 
-    .registerForm {
+.home     .registerForm {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -189,38 +189,38 @@ img {
         background-color: #f2f2f2;
     }
 
-    .registercontainer {
+.home     .registercontainer {
         width: 400px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .registerform-container {
+.home     .registerform-container {
         padding: 20px;
     }
 
-    .registerform-group {
+.home     .registerform-group {
         margin-bottom: 20px;
     }
-    .modal-content{
+.home     .modal-content{
         width: 400px;
     }
 
-    label {
+.home     label {
         display: block;
         margin-bottom: 5px;
     }
 
     input[type="text"],
-    input[type="password"] {
+.home     input[type="password"] {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
 
-    button {
+.home     button {
         width: 100%;
         padding: 10px;
         background-color: #007bff;
@@ -230,34 +230,34 @@ img {
         cursor: pointer;
     }
 
-    button:hover {
+.home     button:hover {
         background-color: #0056b3;
     }
 
-    p {
+.home     p {
         margin-top: 15px;
     }
 
-    #signupForm {
+.home     #signupForm {
         display: none;
     }
 
-    #signupLink, #loginLink {
+.home     #signupLink, #loginLink {
         color: #007bff;
         text-decoration: none;
     }
 
-    #signupLink:hover, #loginLink:hover {
+.home     #signupLink:hover, #loginLink:hover {
         text-decoration: underline;
     }
 }
 /*
 RESET PASSWORD*/
-.customerReset{
+.home .customerReset{
     padding-left: 5px;
     padding-right: 5px;
 
-    body {
+.home     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -268,35 +268,35 @@ RESET PASSWORD*/
         background-color: #f2f2f2;
     }
 
-    .container {
+.home     .container {
         width: 400px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .form-container {
+.home     .form-container {
         padding: 20px;
     }
 
-    .form-group {
+.home     .form-group {
         margin-bottom: 20px;
     }
 
-    label {
+.home     label {
         display: block;
         margin-bottom: 5px;
     }
 
     input[type="text"],
-    input[type="password"] {
+.home     input[type="password"] {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
 
-    button {
+.home     button {
         width: 100%;
         padding: 10px;
         background-color: #007bff;
@@ -306,20 +306,20 @@ RESET PASSWORD*/
         cursor: pointer;
     }
 
-    button:hover {
+.home     button:hover {
         background-color: #0056b3;
     }
 
-    p {
+.home     p {
         margin-top: 15px;
     }
 }
 
 /*DOI MAT KHAU*/
-.reset{
+.home .reset{
     padding-left: 5px;
     padding-right: 5px;
-    body {
+.home     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -330,35 +330,35 @@ RESET PASSWORD*/
         background-color: #f2f2f2;
     }
 
-    .container {
+.home     .container {
         width: 400px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .form-container {
+.home     .form-container {
         padding: 20px;
     }
 
-    .form-group {
+.home     .form-group {
         margin-bottom: 20px;
     }
 
-    label {
+.home     label {
         display: block;
         margin-bottom: 5px;
     }
 
     input[type="text"],
-    input[type="password"] {
+.home     input[type="password"] {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
 
-    button {
+.home     button {
         width: 100%;
         padding: 10px;
         background-color: #007bff;
@@ -368,11 +368,11 @@ RESET PASSWORD*/
         cursor: pointer;
     }
 
-    button:hover {
+.home     button:hover {
         background-color: #0056b3;
     }
 
-    p {
+.home     p {
         margin-top: 15px;
     }
 

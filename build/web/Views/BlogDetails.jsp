@@ -2,61 +2,94 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
-        <title>Page Layout</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <title>Page Layout</title>    
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <style>
-            #content *{
-                max-width: 100%;
+            body {
+                background-color: white;
+            }
+            .post-item:hover {
+                background-color: #f1f1f1;
+            }
+            .post-thumbnail {
+                width: 100%;
+                height: 100%;
+            }
+            .sidebar-thumbnail {
+                width: 100%;
+                height: 100%;
+            }
+
+            .fixed-size {
+                width: 100%;
+                height: auto;
+            }
+            .fixed-size-lg {
+                width: 100%;
+                height: 600px;
+            }
+            .content {
+                background-color: #fff;
+                padding: 20px;
+            }
+
+            .content .noidung img{
+                width: 100%;
+                height:auto;
             }
         </style>
     </head>
     <body>
-        <%@ include file="HomeHeader.jsp" %>
+        <div class="d-flex justify-content-center">
+            <%@include file="HomeHeader.jsp" %>
+        </div>
+        <div class="bg-light" style="width:100%; height: 30px"></div>
         <div class="container">
             <div class="row">
-                <!-- sider -->
-                <div class="col-lg-3 mt-5  pt-2 border">
-
-                    <!-- search bar -->
-                    <div class="row mb-5" id="search">
+                <!-- Sidebar -->
+                <div class="col-lg-3 pt-2 border bg-white rounded">
+                    <!-- Search bar -->
+                    <div class="mb-5" id="search">
                         <form action="BlogListServlet">
-                            <input type="text" class="col-lg-9" placeholder="Nhập tên tác giả, nội dung..."name="keyword">
-                            <button type="submit" class="col-lg-2 ms-2">🔍</button>
+                            <div class="input-group mt-3">
+                                <input type="text" class="form-control" placeholder="Nhập từ khoá" name="keyword">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-secondary">🔍</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
 
-
-                    <!-- dropdown to filter category -->
-                    <div class="mb-5">
+                    <!-- Dropdown to filter category -->
+                    <div class="mb-3">
                         <form action="BlogListServlet">
-                            <select class="form-select form-select-sm" name="category" onchange="this.form.submit()">
-                                <option value="0" >All</option>
+                            <select class="form-control" name="category" onchange="this.form.submit()">
+                                <option value="0">All</option>
                                 <c:forEach items="${listCategory}" var="c">
-                                    <option value="${c.getId()}"
-                                            <c:if test="${c.getId()==param.category}">selected</c:if>>${c.getCategory()}</option>
+                                    <option value="${c.getId()}" <c:if test="${c.getId()==param.category}">selected</c:if>>${c.getCategory()}</option>
                                 </c:forEach>
                             </select>
                         </form>
                     </div>
 
+                    <div class="border-bottom text-center"><h4>Bài viết nổi bật</h4></div>
 
-                    <!-- hien thi new post (dung foreach) -->
+                    <!-- Display new posts (using forEach) -->
                     <c:forEach items="${listNewPost}" var="p">
-                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-black">
-                            <div class="row border p-2">
-                                <div class="col-lg-5 pt-3" style="width:100px;height:60px">
-                                    <img src="${p.getThumbnail()}"
-                                         alt="anhdep" style="width:100%;height:100%">
+                        <a href="BlogDetailServlet?id=${p.getId()}" class="text-decoration-none text-dark">
+                            <div class="row p-3 border-bottom post-item">
+                                <div class="col-lg-5">
+                                    <div style="width:100%;height:70px">
+                                        <img src="image/post/${p.getThumbnail()}" alt="Thumbnail" class="post-thumbnail">
+                                    </div>
                                 </div>
-                                <div class="col-lg-7">  
+                                <div class="col-lg-7">
                                     <c:forEach items="${listCategory}" var="category">
                                         <c:if test="${category.getId() == p.getCategory_id()}">
-                                            <p class="text-danger">|${category.getCategory()}</p>
+                                            <p class="text-danger mb-1">|${category.getCategory()}</p>
                                         </c:if>
                                     </c:forEach>
                                     <h6>${p.getTitle()}</h6>
@@ -65,35 +98,31 @@
                         </a>
                     </c:forEach>
                 </div>
-                <!-- hien thi Post detail -->         
-                <div class="col-lg-9 mt-5 ps-5">
-                    <!-- thumbnail -->
-                    <div class="pb-5" style="width:800px;height:500px">
-                        <img src="image/post/${post.getThumbnail()}"
-                             alt="anhdep" style="width:100%;height:100%">
+
+                <!-- Main content -->
+                <div class="col-lg-9 ps-5">
+                    <!-- Thumbnail -->
+                    <div class="mb-5 border">
+                        <img src="image/post/${post.getThumbnail()}" alt="Thumbnail" class="fixed-size-lg">
                     </div>
 
-                    <!-- Title and sub -->
-                    <div>
+                    <!-- Title and subtitle -->
+                    <div class="content border mb-3">
                         <h3 class="pb-2">${post.getTitle()}</h3>
-                        <h6>${post.getSubtitle()}</h6>
-                    </div>  
-
-                    <!-- content -->
-                    <div id="content">
-                        ${post.getContent()}
+                        <h6 class="pb-5">${post.getSubtitle()}</h6>
+                        <div class="noidung">${post.getContent()}</div>
                     </div>
 
-                    <!-- author and updated date -->
-                    <div class="float-end">
+                    <!-- Author and updated date -->
+                    <div class="text-right">
                         <p class="fw-bold font-monospace">Tác giả: ${author}</p>
                         <p class="font-monospace">Cập nhật: ${post.getUpdatedtime()}</p>
                     </div>
                 </div>
-
             </div>
         </div>
-        <%@ include file="HomeFooter.jsp" %>
+        <div class="d-flex justify-content-center">
+            <%@include file="HomeFooter.jsp" %>
+        </div>
     </body>
-
 </html>

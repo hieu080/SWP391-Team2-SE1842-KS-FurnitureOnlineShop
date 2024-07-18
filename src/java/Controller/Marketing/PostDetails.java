@@ -54,9 +54,6 @@ public class PostDetails extends HttpServlet {
         List<CategoryOfPost> listCategory = categoryOfPostDAO.getListCategoryofPost();
         request.setAttribute("listCategory", listCategory);
 
-        //lay ra list status
-        List<String> listStatus = pdao.getListStatus();
-        request.setAttribute("listStatus", listStatus);
 
         //post detail
         String id = request.getParameter("id");
@@ -115,8 +112,6 @@ public class PostDetails extends HttpServlet {
         boolean isSuccess = pdao.updatePost(id, filename, title, subtitle, status, content);
         if (isSuccess) {
             request.setAttribute("result", "success");
-            HttpSession session = request.getSession();
-            User updater = (User) session.getAttribute("customer");
         } else {
             request.setAttribute("result", "failure");
         }

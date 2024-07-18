@@ -189,12 +189,8 @@
         <servlet-class>Controller.Marketing.AddProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserListServlet</servlet-name>
-        <servlet-class>Controller.Admin.UserListServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ManageUserServlet</servlet-name>
-        <servlet-class>Controller.Admin.ManageUserServlet</servlet-class>
+        <servlet-name>ImageUploadServlet</servlet-name>
+        <servlet-class>Controller.Marketing.ImageUploadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -385,12 +381,32 @@
         <url-pattern>/AddProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserListServlet</servlet-name>
-        <url-pattern>/UserListServlet</url-pattern>
+        <servlet-name>ImageUploadServlet</servlet-name>
+        <url-pattern>/ImageUploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MarketingDashboard</servlet-name>
+        <servlet-class>Controller.Marketing.MarketingDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleDashboard</servlet-name>
+        <servlet-class>Controller.Sale.SaleDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashboard</servlet-name>
+        <servlet-class>Controller.Admin.AdminDashboard</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MarketingDashboard</servlet-name>
+        <url-pattern>/MarketingDashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ManageUserServlet</servlet-name>
-        <url-pattern>/ManageUserServlet</url-pattern>
+        <servlet-name>SaleDashboard</servlet-name>
+        <url-pattern>/SaleDashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboard</servlet-name>
+        <url-pattern>/AdminDashboard</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

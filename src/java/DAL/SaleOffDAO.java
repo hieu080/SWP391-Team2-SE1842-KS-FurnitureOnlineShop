@@ -30,10 +30,7 @@ public class SaleOffDAO extends DBContext {
         ArrayList<SaleOff> saleOffList = new ArrayList<>();
         String sql = "SELECT * FROM SaleOff";
 
-        try (
-            PreparedStatement pstmt = connect.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()
-        ) {
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 int productId = rs.getInt("product_id");

@@ -99,7 +99,7 @@ public class ProductDAO extends DBContext {
                 product.setQuantity(resultSet.getInt("quantity"));
                 product.setStatus(resultSet.getString("status"));
                 product.setCreateDate(resultSet.getDate("createdate"));
-                
+
                 productList.add(product);
             }
         } catch (Exception e) {
@@ -108,7 +108,106 @@ public class ProductDAO extends DBContext {
 
         return productList;
     }
+
+    public ArrayList<Product> getProductListByCategoryID(int categoryId) {
+        ArrayList<Product> productList = new ArrayList<>();
+        String query = "SELECT * FROM product WHERE status = 'Active' AND quantity > 0 AND category_id = ?";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setInt(1, categoryId);  // Setting the parameter for the prepared statement
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("id"));
+                    product.setCategory_id(resultSet.getInt("category_id"));
+                    product.setBrand_id(resultSet.getInt("brand_id"));
+                    product.setRoom_id(resultSet.getInt("room_id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setStaravg(resultSet.getDouble("staravg"));
+                    product.setImage(resultSet.getString("image"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantity(resultSet.getInt("quantity"));
+                    product.setStatus(resultSet.getString("status"));
+                    product.setCreateDate(resultSet.getDate("createdate"));
+
+                    productList.add(product);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
+        }
+
+        return productList;
+    }
     
+    public ArrayList<Product> getProductListByBrandID(int brandID) {
+        ArrayList<Product> productList = new ArrayList<>();
+        String query = "SELECT * FROM product WHERE status = 'Active' AND quantity > 0 AND brand_id = ?";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setInt(1, brandID);  // Setting the parameter for the prepared statement
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("id"));
+                    product.setCategory_id(resultSet.getInt("category_id"));
+                    product.setBrand_id(resultSet.getInt("brand_id"));
+                    product.setRoom_id(resultSet.getInt("room_id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setStaravg(resultSet.getDouble("staravg"));
+                    product.setImage(resultSet.getString("image"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantity(resultSet.getInt("quantity"));
+                    product.setStatus(resultSet.getString("status"));
+                    product.setCreateDate(resultSet.getDate("createdate"));
+
+                    productList.add(product);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
+        }
+
+        return productList;
+    }
+    
+    public ArrayList<Product> getProductListByRoomID(int roomID) {
+        ArrayList<Product> productList = new ArrayList<>();
+        String query = "SELECT * FROM product WHERE status = 'Active' AND quantity > 0 AND room_id = ?";
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(query)) {
+            preparedStatement.setInt(1, roomID);  // Setting the parameter for the prepared statement
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("id"));
+                    product.setCategory_id(resultSet.getInt("category_id"));
+                    product.setBrand_id(resultSet.getInt("brand_id"));
+                    product.setRoom_id(resultSet.getInt("room_id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setStaravg(resultSet.getDouble("staravg"));
+                    product.setImage(resultSet.getString("image"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setQuantity(resultSet.getInt("quantity"));
+                    product.setStatus(resultSet.getString("status"));
+                    product.setCreateDate(resultSet.getDate("createdate"));
+
+                    productList.add(product);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error retrieving product list", e);
+        }
+
+        return productList;
+    }
+
     public ArrayList<Product> getProductListByMarketing() {
         ArrayList<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM product";
@@ -128,7 +227,7 @@ public class ProductDAO extends DBContext {
                 product.setQuantity(resultSet.getInt("quantity"));
                 product.setStatus(resultSet.getString("status"));
                 product.setCreateDate(resultSet.getDate("createdate"));
-                
+
                 productList.add(product);
             }
         } catch (Exception e) {
@@ -446,7 +545,7 @@ public class ProductDAO extends DBContext {
             e.printStackTrace(); // In ra lỗi nếu có
         }
     }
-    
+
     public void updateProductQuantity(int productId) {
         String sql = "SELECT SUM(quantity) AS totalQuantity FROM ProductDetail WHERE product_id = ?";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
@@ -472,12 +571,12 @@ public class ProductDAO extends DBContext {
             LOGGER.log(Level.SEVERE, "Error updating product quantity", e);
         }
     }
-    
-     //đếm số lượng product trong khoảng thời gian 
+
+    //đếm số lượng product trong khoảng thời gian 
     public int getProductCounts(java.sql.Date startDate, java.sql.Date endDate) {
         String sql = "select count(*) from product where CreateDate \n"
                 + "between ? and ?";
-        int count=0;
+        int count = 0;
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setDate(1, startDate);
@@ -485,7 +584,7 @@ public class ProductDAO extends DBContext {
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                count=rs.getInt("count(*)");
+                count = rs.getInt("count(*)");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -529,6 +628,5 @@ public class ProductDAO extends DBContext {
 //            LOGGER.log(Level.SEVERE, "Error deleting product", e);
 //        }
 //    }
-    
 
 }

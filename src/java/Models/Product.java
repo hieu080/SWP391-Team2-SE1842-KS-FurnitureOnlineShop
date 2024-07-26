@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Models;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 /**
  *
  * @author HELLO
@@ -21,7 +23,13 @@ public class Product {
     private int quantity;
     private String status;
     private Date createDate;
-
+    
+    private int saleOff;
+    private double salePrice;
+    private int numberFeedback;
+    private int quantitySold;
+    private List<Color> colorList; 
+    
     public Product() {
     }
 
@@ -39,6 +47,7 @@ public class Product {
         this.createDate = new Date();
     }
 
+    
     public int getId() {
         return id;
     }
@@ -134,5 +143,45 @@ public class Product {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-    
+
+    public int getSaleOff() {
+        return saleOff;
+    }
+
+    public void setSaleOff(int saleOff) {
+        this.saleOff = saleOff;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public int getNumberFeedback() {
+        return numberFeedback;
+    }
+
+    public void setNumberFeedback(int numberFeedback) {
+        this.numberFeedback = numberFeedback;
+    }
+
+    public int getQuantitySold() {
+        return quantitySold;
+    }
+
+    public void setQuantitySold(int quantitySold) {
+        this.quantitySold = quantitySold;
+    }
+
+    public List<Color> getColorList() {
+        return colorList;
+    }
+
+    public void setColorList(List<Color> colorList) {
+        this.colorList = colorList;
+    }
+
 }

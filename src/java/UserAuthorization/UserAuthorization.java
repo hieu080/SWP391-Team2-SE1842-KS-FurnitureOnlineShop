@@ -119,6 +119,7 @@ public class UserAuthorization implements Filter {
         String string[] = uri.split("/");
         String uri1 = string[string.length - 1];
         System.out.println("URI: " + uri1);
+        log(uri1);
         int role = 0;
         if (customer != null) {
             role = customer.getRole_id();
@@ -134,10 +135,11 @@ public class UserAuthorization implements Filter {
             if (uri1.equals("HomePage") || uri1.equals("BlogListServlet")
                     || uri1.equals("BlogDetailServlet") || uri1.equals("ProductServlet")
                     || uri1.equals("ProductSearchServlet") || uri1.equals("RegisterServlet")
-                    || uri1.equals("ProductDetailServlet") || uri1.equals("LoginServlet")|| uri1.equals("OrderStatus")
-                   || uri1.equals("CartContact")  || uri1.equals("MyOrderInformationServlet")) {
+                    || uri1.equals("ProductDetailServlet") || uri1.equals("LoginServlet")
+                    || uri1.equals("PageServlet") || uri1.equals("AboutUsServlet")
+                    || uri1.equals("FurnitureHieu")) {
             } else {
-                httpServletResponse.sendRedirect("HomePage");
+                httpServletResponse.sendRedirect("HomePage?action=showLoginForm");
             }
         } else if (role == 1) {
             if (uri1.equals("HomePage") || uri1.equals("BlogListServlet")
@@ -155,7 +157,8 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("DeleteCartItem") || uri1.equals("MoreProduct")
                     || uri1.equals("UpdateAddress") || uri1.equals("UpdateAddressCartContact")
                     || uri1.equals("UpdateCartItemStatus") || uri1.equals("UpdateCartQuantity")
-                    || uri1.equals("MyOrderInformationServlet")) {
+                    || uri1.equals("MyOrderInformationServlet") || uri1.equals("PageServlet") 
+                    || uri1.equals("AboutUsServlet") || uri1.equals("FurnitureHieu")) {
 
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
@@ -170,7 +173,8 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("ChangePassword") || uri1.equals("ResetPasswordServlet")
                     || uri1.equals("UserProfile") || uri1.equals("VerifyEmail")
                     || uri1.equals("VerifyResetEmail") || uri1.equals("BlogListSearchedServlet")
-                    || uri1.equals("ProductSearchServlet")) {
+                    || uri1.equals("ProductSearchServlet") || uri1.equals("PageServlet") 
+                    || uri1.equals("AboutUsServlet") || uri1.equals("FurnitureHieu")) {
 
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
@@ -185,7 +189,8 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("ChangePassword") || uri1.equals("ResetPasswordServlet")
                     || uri1.equals("UserProfile") || uri1.equals("VerifyEmail")
                     || uri1.equals("VerifyResetEmail") || uri1.equals("BlogListSearchedServlet")
-                    || uri1.equals("ProductSearchServlet")) {
+                    || uri1.equals("ProductSearchServlet") || uri1.equals("PageServlet") 
+                    || uri1.equals("AboutUsServlet") || uri1.equals("FurnitureHieu")) {
 
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
@@ -202,7 +207,8 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("ProductListMKTServlet") || uri1.equals("SliderDetail")
                     || uri1.equals("SliderEdit") || uri1.equals("SliderInsert")
                     || uri1.equals("SliderList") || uri1.equals("SliderUpdate")
-                    || uri1.equals("MarketingDashboard")) {
+                    || uri1.equals("MarketingDashboard") || uri1.equals("PageServlet") 
+                    || uri1.equals("AboutUsServlet") || uri1.equals("FurnitureHieu")) {
 
                 // Tiếp tục xử lý bình thường cho các trang này
             } else {

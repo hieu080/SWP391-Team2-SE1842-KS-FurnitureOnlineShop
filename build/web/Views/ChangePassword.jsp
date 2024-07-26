@@ -1,4 +1,5 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -138,7 +139,12 @@
                     <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility()"> Hiển thị mật khẩu
                 </div>
                 <div class="col-md-12" style="padding: 2px;">
+                    <c:if test="${s==1}">
+                        <p style="color: green;">${mess}</p>
+                    </c:if>
+                    <c:if test="${s!=1}">
                     <p style="color: red;">${mess}</p>
+                    </c:if>
                 </div>
                 <div class="d-flex">
                     <button class="btn"><a href="HomePage" target="_self">Trang chủ</a></button>

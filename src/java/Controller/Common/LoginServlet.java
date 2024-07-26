@@ -114,7 +114,8 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserDAO userDAO = new UserDAO();
-        User customer = userDAO.login(email, password);
+        String hassPass = userDAO.hashPassword(password);
+        User customer = userDAO.login(email, hassPass);
         if (customer != null && !("Block".equals(customer.getStatus()))) {
             HttpSession session = request.getSession();
             session.setAttribute("customer", customer);

@@ -32,13 +32,15 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDAO userDAO = new UserDAO();
         HttpSession session = request.getSession();
         String oldpass = request.getParameter("oldpass");
+        String hassPass = userDAO.hashPassword(oldpass);
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
-        UserDAO userDAO = new UserDAO();
+        
         User u = (User) session.getAttribute("customer");
-        if (!oldpass.equals(u.getPassword())) {
+        if (!hassPass.equals(u.getPassword())) {
             request.setAttribute("mess", "Mật khẩu cũ không đúng");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else if (!newpass.equals(renewpass)) {
@@ -48,8 +50,13 @@ public class ChangePassword extends HttpServlet {
             request.setAttribute("mess", "Mật khẩu mới không được trùng với mật khẩu cũ");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         } else {
+            userDAO = new UserDAO();
+            newpass = userDAO.hashPassword(newpass);
             UserDAO dao = new UserDAO();
             dao.changePass(String.valueOf(u.getId()), newpass);
+            u.setPassword(newpass);
+            session.setAttribute("customer", u);
+            request.setAttribute("s", 1);
             request.setAttribute("mess", "Thay đổi mật khẩu thành công");
             request.getRequestDispatcher("Views/ChangePassword.jsp").forward(request, response);
         }

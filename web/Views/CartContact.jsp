@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
             .payment-details {
@@ -406,11 +407,11 @@
                                         <div>${cartdetail.color.colorname}</div>
                                     </td>
                                     <td class="align-middle">
-                                        ${cartdetail.cartItem.totalcost/cartdetail.cartItem.quantity}
+                                        <fmt:formatNumber value="${cartdetail.cartItem.totalcost/cartdetail.cartItem.quantity}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
 
                                     </td>
                                     <td class="align-middle">${cartdetail.cartItem.quantity}</td>
-                                    <td class="align-middle">${cartdetail.cartItem.totalcost}</td>
+                                    <td class="align-middle"><fmt:formatNumber value="${cartdetail.cartItem.totalcost}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</td>
                                     <td class="align-middle">
                                         <div class="form-group">
                                             <label for="message">Lời nhắn:</label>

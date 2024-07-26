@@ -8,6 +8,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="preload stylesheet" as="style" fetchpriority="low"
               href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
         <link rel="preload stylesheet" as="style" fetchpriority="low"

@@ -7,7 +7,8 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Trang Chủ</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -107,20 +108,16 @@
                     <div class="flexContainer-header row-flex flexAlignCenter">
 
                         <div class="header-upper-logo">
-                            <div class="wrap-logo text-center fade-box">
-
-
+                            <div class="text-center fade-box">
                                 <a href="#" itemprop="url" aria-label="logo">
                                     <img itemprop="logo" loading="lazy" decoding="async"
-                                         src="image/furniture-high-resolution-logo-transparent.png"
-                                         alt="Nội Thất MOHO" />
+                                         src="image/logoshop.png"
+                                         alt="Nội Thất MOHO"
+                                         style="height: 70px; width: 90px;" />
                                 </a>
-                                <h1 style="display:none"><a href="https://moho.com.vn" itemprop="url">Nội Thất Furniture</a>
-                                </h1>
-
-
                             </div>
                         </div>
+
                         <div class="header-upper-search-top hidden-xs hidden-sm">
                             <div class="header-search">
                                 <div class="search-box wpo-wrapper-search">
@@ -311,14 +308,14 @@
                                                         <c:set value="${sessionScope.customer}" var="customer"/>
                                                         <c:if test="${customer.role_id == 2}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                        </c:if>
-                                                        <c:if test="${customer.role_id == 3}">
+                                                            </c:if>
+                                                            <c:if test="${customer.role_id == 3}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                        </c:if>
+                                                            </c:if>
                                                             <c:if test="${customer.role_id == 4}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MarketingDashboard">Marketing Dashboard</a></li>
-                                                        </c:if>
-                                                        <c:if test="${customer.role_id == 5}">
+                                                            </c:if>
+                                                            <c:if test="${customer.role_id == 5}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AdminDashboard">Admin Dashboard</a></li>
                                                             </c:if>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>

@@ -27,6 +27,28 @@ public class BrandDAO extends DBContext {
 //    }
     public ArrayList<Brand> getBrandList() {
         ArrayList<Brand> brandList = new ArrayList<>();
+        String sql = "SELECT * FROM brand WHERE status = 'Active'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String brandname = rs.getString("brandname");
+                String status = rs.getString("status");
+                Brand brand = new Brand(brandname);
+                brand.setId(id);
+                brand.setStatus(status);
+                brandList.add(brand);
+            }
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving brand list.", ex);
+        }
+        return brandList;
+    }
+    
+    public ArrayList<Brand> getBrandListAll() {
+        ArrayList<Brand> brandList = new ArrayList<>();
         String sql = "SELECT * FROM brand";
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {

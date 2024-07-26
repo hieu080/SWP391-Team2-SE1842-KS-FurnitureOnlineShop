@@ -5,6 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login/Sign Up</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <!--        <link rel="stylesheet" href="css/style.css">-->
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">

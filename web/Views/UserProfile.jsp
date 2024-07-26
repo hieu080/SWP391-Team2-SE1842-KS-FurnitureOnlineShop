@@ -9,6 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>User Profile</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -34,7 +35,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 15px;
         }
@@ -178,7 +179,7 @@
                                         <label>Ảnh đại diện</label>   <input type="file" style="background-color: white;" id="fbimg" name="fbimg"   accept="image/*><br>
                                                                              <span  id="invalid1" style="color: red;" > </span>
                                         <input name="img" id="sendimg" type="hidden" >
-                                        <label>Họ tên</label>  <input style=" width: 300px;" type="text" placeholder="" value="${sessionScope.customer.fullname}" name="fullname" required="" maxlength="50"/><br>
+                                        <label>Họ tên</label>  <input type="text" placeholder="" value="${sessionScope.customer.fullname}" name="fullname" required="" maxlength="50"/><br>
                                         <label>Số điện thoại</label>      <input type="text" placeholder="" value="${sessionScope.customer.phonenumber}" name="phone"required="" maxlength="11"/>
                                         <label>Địa chỉ</label>     <input type="text" placeholder="" value="${sessionScope.customer.address}" name="address" required="" maxlength="100"/>
                                         <label>Giới tính: </label>      <input type="radio" value="Male" ${sessionScope.customer.gender=="Male"?"checked":""}  style="display: inline-block; width: auto;margin: 0; padding: 0; height: auto;" checked="" name="gender"/> Nam 

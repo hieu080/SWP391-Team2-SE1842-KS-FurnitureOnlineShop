@@ -28,6 +28,26 @@ public class CategoryOfPostDAO extends DBContext {
 //    }
     //get list post category de filter
     public List<CategoryOfPost> getCategoryOfPostList() {
+        String sql = "select * from categoryofpost WHERE status = 'Active'";
+        List<CategoryOfPost> list = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                CategoryOfPost cop = new CategoryOfPost();
+                cop.setId(rs.getInt("id"));
+                cop.setCategory(rs.getString("category"));
+                cop.setStatus(rs.getString("status"));
+                list.add(cop);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryOfPostDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public List<CategoryOfPost> getCategoryOfPostListAll() {
         String sql = "select * from categoryofpost";
         List<CategoryOfPost> list = new ArrayList<>();
 

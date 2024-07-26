@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Feedback Detail</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <style>
             html,
             body {
@@ -149,12 +150,16 @@
             <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
                 <%@include file="DashboardHeader.jsp" %>
+                
+                <div style="margin: 15px 0px 15px 15px;"><a href="FeedBackList" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Quay lại</a></div>
+                
+                
                 <div class="container" style="background-color: #ffffff; margin-top: 20px ">
                     <div class="row">
                         <div class="col-md-6">
                             <table>
                                 <tr>
-                                    <td>Customer Name:</td>
+                                    <td>Tên khách hàng:</td>
                                     <td>${feedback.getCustomer_Name()}</td>
                                 </tr>
                                 <tr>
@@ -162,24 +167,24 @@
                                     <td>${feedback.getUser().getEmail()}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mobile:</td>
+                                    <td>Số điện thoại:</td>
                                     <td>${feedback.getUser().getPhonenumber()}</td>
                                 </tr>
                                 <tr>
-                                    <td>Product:</td>
+                                    <td>Sản phẩm:</td>
                                     <td>${feedback.getProduct_Name()}</td>
                                 </tr>
                                 <tr>
-                                    <td>Description:</td>
+                                    <td>Đánh giá:</td>
                                     <td>${feedback.getFeedback()}</td>
                                 </tr>
                                 <tr>
-                                    <td>Feedback Status:</td>
+                                    <td>Trạng thái:</td>
                                     <td>${feedback.getStatus()}</td>
                                 </tr>
                                 <tr>
-                                    <td><a class="button-link" href="FeedBackList">Back to list</a></td>
-                                    <td><form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${feedback.getId()}"><button class="btn btn-warning" style="background-color: ">Change Status</button></form></td> 
+                                    <td></td>
+                                    <td><form method="get" action="ChangeStatusFeedback"><input type="text" hidden="" name="id" value="${feedback.getId()}"><button class="btn btn-warning" style="background-color: ">Thay đổi trạng thái</button></form></td> 
                                 </tr>
                             </table>
                         </div>
@@ -189,7 +194,7 @@
                                 </c:forEach>
                         </div>
                     </div>
-                    
+
                 </div>
 
             </div>

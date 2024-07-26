@@ -13,6 +13,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Feedback List</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="stylesheet" href="css/main.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -254,13 +255,109 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="title">
-                                            <h2><a href="FeedBackList" style="text-decoration: none">Feedback List</a></h2>
+                                            <h2><a href="FeedBackList" style="text-decoration: none">Danh sách Đánh giá</a></h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ml-15 mr-15" style="display: flex; justify-content: space-between; margin-bottom: 20px">
+
+                        <div>
+                            <form id="filterForm" action="FeedBackList" method="get">
+                                <input id="sang" value="" name="sort" hidden="">
+                                <div class="ml-15 mb-15">
+                                    <input type="hidden" name="action" value="search"/>
+                                    <div class="d-flex button-add" style="justify-content: space-between">
+                                        <input type="text" class="form-control" value="${searchproduct}" name="searchproduct" placeholder="Tên sản phẩm" style="width: 300px;" />
+                                        <input type="text" class="form-control" value="${searchcustomer}" name="searchcustomer" placeholder="Tên khách hàng" style="width: 300px;" />
+                                        <input type="text" class="form-control" value="${searchfeedback}" name="searchfeedback" placeholder="Đánh giá" style="width: 350px;" />
+                                        <button class="btn btn-primary" style="margin-right: 12px" type="submit">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="action" value="filter" />
+                                <div class="ml-15 mb-15 d-flex" style="align-items: center">
+                                    <div style="font-weight: 600; font-size: 16px; text-transform: uppercase;">
+                                        <span class="icon_title"><i class="fa fa-filter"></i></span>
+                                        <span>Bộ Lọc</span>
+                                    </div>
+                                    <div class="dropdown" style="margin-left: 15px; width: 160px">
+                                        <div class="dropbtn">
+                                            Điểm đánh giá
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                        </div>
+
+                                        <%
+                                            int[] ratings = {1, 2, 3, 4, 5};
+                                            request.setAttribute("ratings", ratings);
+
+                                            // Kiểm tra và khởi tạo `rate` nếu cần thiết
+                                            int[] rate = (int[]) request.getAttribute("rate");
+                                            if (rate == null) {
+                                                rate = new int[] {}; // hoặc giá trị mặc định khác nếu cần
+                                            }
+                                            request.setAttribute("rate", rate);
+                                        %>
+
+                                        <ul class="dropdown-content">
+                                            <%for(int j = 0;j<ratings.length;j++){ %>
+                                            <%
+                                            boolean check = false;
+                                            for(int i = 0;i<rate.length;i++){
+                                                if(rate[i]==ratings[j]){
+                                                    check = true;
+                                                    }
+                                                }
+                                            %>
+
+                                            <li>
+                                                <input onclick="filterFeedback()" type="checkbox" value="<%=ratings[j]%>"
+                                                       name="rate-filter"
+                                                       <% if (check) { %> checked <% } %> />
+                                                <span style="margin-left: 5px"><%=ratings[j]%></span>
+                                            </li>
+                                            <%}%>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown">
+                                        <div class="dropbtn">
+                                            Trạng thái
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                        </div>
+                                        <%
+                                        String[] stating = {"Hide", "None"};
+                                        request.setAttribute("stating", stating);
+                                        
+                                            
+                                        String[] status = (String[]) request.getAttribute("statusfilter");
+                                            if (status == null) {
+                                                status = new String[] {}; // hoặc giá trị mặc định khác nếu cần
+                                            }
+                                        %>
+                                        <ul class="dropdown-content">
+                                            <% for (int j=0;j<stating.length;j++){%>
+                                            <%
+                                            boolean check1 = false;
+                                            for(int i = 0;i<status.length;i++){
+                                                if(stating[j].equals(status[i])){
+                                                    check1 = true;
+                                                    }
+                                                }
+                                            %>
+                                            <li>
+                                                <input onclick="filterFeedback()" <% if (check1) { %> checked <% } %> type="checkbox" value="<%=stating[j]%>" data-status="<%=stating[j]%>" name="status-filter" /><span> <%=stating[j]%> </span>
+                                            </li>
+                                            <%}%>
+                                        </ul>
+                                    </div>
+                                    <div class="group_filter_tags" style="margin-top: 10px; padding-bottom: 20px; display: flex">
+                                        <div class="filter_tags filter_tags_remove_all opened"><span><a href="FeedBackList">Xóa hết</a></span></div>
+                                    </div>
+                                </div>            
+                            </form>
+
+                        </div>
+
+                        <div class="ml-15 mr-15" style="display: flex; justify-content: flex-end; position: relative; bottom: 68px">
                             <!--Sort form-->
                             <div class="sort-wrapper">
                                 <div class="sort-header">
@@ -286,104 +383,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Search Form-->
-
-
-                        <div>
-                            <form id="filterForm" action="FeedBackList" method="get">
-                                <input id="sang" value="" name="sort" hidden="">
-                                <div class="ml-15 mb-15">
-                                    <input type="hidden" name="action" value="search"/>
-                                    <div class="d-flex button-add">
-                                        <input type="text" class="form-control" value="${searchproduct}" name="searchproduct" placeholder="Tên sản phẩm" style="width: 300px;" />
-                                        <input type="text" class="form-control" value="${searchcustomer}" name="searchcustomer" placeholder="Tên khách hàng" style="width: 300px;" />
-                                        <input type="text" class="form-control" value="${searchfeedback}" name="searchfeedback" placeholder="Feedback" style="width: 350px;" />
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="action" value="filter" />
-                                <div class="ml-15 mb-15 d-flex" style="align-items: center">
-                                    <div style="font-weight: 600; font-size: 16px; text-transform: uppercase;">
-                                        <span class="icon_title"><i class="fa fa-filter"></i></span>
-                                        <span>Bộ Lọc</span>
-                                    </div>
-                                    <div class="dropdown" style="margin-left: 15px; width: 160px">
-                                        <div class="dropbtn">
-                                            Ratings
-                                            <span><i class="fa fa-chevron-down"></i></span>
-                                        </div>
-
-                                        <%
-                                            int[] ratings = {1, 2, 3, 4, 5};
-                                            request.setAttribute("ratings", ratings);
-
-                                            // Kiểm tra và khởi tạo `rate` nếu cần thiết
-                                            int[] rate = (int[]) request.getAttribute("rate");
-                                            if (rate == null) {
-                                                rate = new int[] {}; // hoặc giá trị mặc định khác nếu cần
-                                            }
-                                            request.setAttribute("rate", rate);
-                                        %>
-                                        
-                                        <ul class="dropdown-content">
-                                            <%for(int j = 0;j<ratings.length;j++){ %>
-                                            <%
-                                            boolean check = false;
-                                            for(int i = 0;i<rate.length;i++){
-                                                if(rate[i]==ratings[j]){
-                                                    check = true;
-                                                    }
-                                                }
-                                            %>
-
-                                            <li>
-                                                <input onclick="filterFeedback()" type="checkbox" value="<%=ratings[j]%>"
-                                                       name="rate-filter"
-                                                       <% if (check) { %> checked <% } %> />
-                                                <span style="margin-left: 5px"><%=ratings[j]%></span>
-                                            </li>
-                                            <%}%>
-                                        </ul>
-                                    </div>
-                                    <div class="dropdown">
-                                        <div class="dropbtn">
-                                            Status
-                                            <span><i class="fa fa-chevron-down"></i></span>
-                                        </div>
-                                        <%
-                                        String[] stating = {"Hide", "None"};
-                                        request.setAttribute("stating", stating);
-                                        
-                                            
-                                        String[] status = (String[]) request.getAttribute("statusfilter");
-                                            if (status == null) {
-                                                status = new String[] {}; // hoặc giá trị mặc định khác nếu cần
-                                            }
-                                        %>
-                                        <ul class="dropdown-content">
-                                            <% for (int j=0;j<stating.length;j++){%>
-                                            <%
-                                            boolean check1 = false;
-                                            for(int i = 0;i<status.length;i++){
-                                                if(stating[j].equals(status[i])){
-                                                    check1 = true;
-                                                    }
-                                                }
-                                            %>
-                                                <li>
-                                                    <input onclick="filterFeedback()" <% if (check1) { %> checked <% } %> type="checkbox" value="<%=stating[j]%>" data-status="<%=stating[j]%>" name="status-filter" /><span> <%=stating[j]%> </span>
-                                                </li>
-                                            <%}%>
-                                        </ul>
-                                    </div>
-                                </div>            
-                            </form>
-                            <div class="group_filter_tags" style="margin-top: 10px; padding-bottom: 20px; display: flex">
-
-                                <div class="filter_tags filter_tags_remove_all opened"><span><a href="FeedBackList">Xóa hết</a></span></div>
-                            </div> 
-                        </div>
-
                         <div>
                             <div class="card-style ml-15 mr-15">
                                 <div class="table-responsive">
@@ -394,19 +393,19 @@
                                                     <h6 class="text-sm text-medium">ID</h6>
                                                 </th>
                                                 <th>
-                                                    <h6 class="text-sm text-medium">Customer</h6>
+                                                    <h6 class="text-sm text-medium">Khách hàng</h6>
                                                 </th>
                                                 <th>
-                                                    <h6 class="text-sm text-medium">Product</h6>
+                                                    <h6 class="text-sm text-medium">Sản phẩm</h6>
                                                 </th>
                                                 <th class="min-width">
-                                                    <h6 class="text-sm text-medium">Rate Stars</h6>
+                                                    <h6 class="text-sm text-medium">Sao</h6>
                                                 </th>
                                                 <th class="min-width">
                                                     <h6 class="text-sm text-medium">Status</h6>
                                                 </th>
                                                 <th class="min-width">
-                                                    <h6 class="text-sm text-medium">View</h6>
+                                                    <h6 class="text-sm text-medium">Xem</h6>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -435,7 +434,7 @@
                                                         </c:if>
                                                     </td>
                                                     <td>
-                                                        <a href="/FurnitureHieu/FeedBackDetail?id=${f.getId()}">Detail</a>
+                                                        <a href="/FurnitureHieu/FeedBackDetail?id=${f.getId()}">Chi tiết</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -454,10 +453,10 @@
                                             <input hidden="" id="page_index" value="${index}">
                                             <c:forEach begin="1" end="${numberpage}" var="i">
                                                 <c:if test="${index==i}">
-                                                    <a onclick="navigateToPage(${i})"  class="page-node" style="border: 1px;border: groove;background-color: yellow">${i}</a>
+                                                    <a onclick="navigateToPage(${i})"  class="page-node" style="border: 1px;border: groove;background-color: yellow; width: 25px">${i}</a>
                                                 </c:if>
                                                 <c:if test="${index!=i}">
-                                                    <a onclick="navigateToPage(${i})"  class="page-node" style="border: 1px;border: groove;">${i}</a>
+                                                    <a onclick="navigateToPage(${i})"  class="page-node" style="border: 1px;border: groove; width: 25px">${i}</a>
                                                 </c:if>
                                             </c:forEach>
                                             <span class="page-node">&hellip;</span>
@@ -494,11 +493,28 @@
                                                             var params = new URLSearchParams(new FormData(form)).toString();
                                                             window.location.href = "/FurnitureHieu/FeedBackList" + '?' + params + '&index=' + pageIndex;
                                                         }
-                                                        
-                                                        function filterFeedback(){
+
+                                                        function filterFeedback() {
                                                             var index = document.getElementById("page_index").value;
                                                             navigateToPage(index);
                                                         }
+
+//                                                        $(document).ready(function () {
+//                                                            var filterForm = $('#filterForm');
+//                                                            var clearButton = $('#clearButton');
+//                                                            var checkboxes = filterForm.find('input[type="checkbox"]');
+//
+//                                                            // Bắt sự kiện thay đổi của checkbox
+//                                                            checkboxes.on('change', function () {
+//                                                                clearButton.show(); // Hiển thị nút Clear khi có thay đổi
+//                                                            });
+//
+//                                                            // Bắt sự kiện click nút Clear
+//                                                            clearButton.on('click', function () {
+//                                                                checkboxes.prop('checked', false); // Bỏ chọn tất cả các checkbox
+//                                                                clearButton.hide(); // Ẩn nút Clear
+//                                                            });
+//                                                        });
     </script>
 </body>
 </html>

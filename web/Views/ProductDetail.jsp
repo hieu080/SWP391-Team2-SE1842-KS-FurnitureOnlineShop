@@ -5,9 +5,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" href="//theme.hstatic.net/200000065946/1001187274/14/favicon.png?v=582"
-              type="image/png" />
-        <title>Tất Cả Sản Phẩm Đồ Gỗ Nội Thất Của MOHO</title>
+        <title>Chi tiết sản phẩm</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <style>
@@ -387,6 +386,9 @@
                                 </c:forEach>
                                 <c:if test="${!hasSale}">
                                     <span style="color: black">
+                                          <div style="display: none">
+                                                    <input type="hidden" id="priceunit" name="priceunit" value="${product.price}">
+                                                </div>
                                         <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
                                     </span>
                                 </c:if>

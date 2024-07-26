@@ -49,31 +49,31 @@ public class SettingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ColorDAO colorDAO = new ColorDAO();
-        ArrayList<Color> colorList = colorDAO.getColorList();
+        ArrayList<Color> colorList = colorDAO.getColorListAll();
         request.setAttribute("colorList", colorList);
 
         CategoryDAO categoryDAO = new CategoryDAO();
-        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryListAll();
         request.setAttribute("categoryList", categoryList);
 
         SaleOffDAO saleOffDAO = new SaleOffDAO();
-        ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffList();
+        ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffListAll();
         request.setAttribute("saleOffList", saleOffList);
 
         CategoryOfPostDAO categoryOfPostDAO = new CategoryOfPostDAO();
-        List<CategoryOfPost> categoryOfPost = categoryOfPostDAO.getCategoryOfPostList();
+        List<CategoryOfPost> categoryOfPost = categoryOfPostDAO.getCategoryOfPostListAll();
         request.setAttribute("categoryOfPostList", categoryOfPost);
 
         RoomDAO roomDAO = new RoomDAO();
-        ArrayList<Room> roomList = roomDAO.getRoomList();
+        ArrayList<Room> roomList = roomDAO.getRoomListAll();
         request.setAttribute("roomList", roomList);
 
         BrandDAO brandDao = new BrandDAO();
-        ArrayList<Brand> brandList = brandDao.getBrandList();
+        ArrayList<Brand> brandList = brandDao.getBrandListAll();
         request.setAttribute("brandList", brandList);
 
         UserRoleDAO userRoleDAO = new UserRoleDAO();
-        ArrayList<UserRole> userRoleList = userRoleDAO.getUserRoleList();
+        ArrayList<UserRole> userRoleList = userRoleDAO.getUserRoleListAll();
         request.setAttribute("userRoleList", userRoleList);
 
         ProductDAO productDAO = new ProductDAO();

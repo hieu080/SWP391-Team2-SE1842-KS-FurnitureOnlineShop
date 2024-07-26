@@ -17,6 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,7 +84,7 @@ public class UpdateCartItemStatus extends HttpServlet {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("countcartitemselected", countCartItemSelected);
         jsonObject.addProperty("countcartitem", countCartItem);
-        jsonObject.addProperty("sumtotalprice", sumtotalprice);
+        jsonObject.addProperty("sumtotalprice", formatCurrency(sumtotalprice));
         Gson gson = new Gson();
         String json = gson.toJson(jsonObject);
         response.setContentType("application/json");
@@ -89,5 +92,11 @@ public class UpdateCartItemStatus extends HttpServlet {
         response.getWriter().write(json);
     }
 
-    
+    public String formatCurrency(double number) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+        symbols.setMonetaryDecimalSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        return decimalFormat.format(number) + "₫";
+    }
 }

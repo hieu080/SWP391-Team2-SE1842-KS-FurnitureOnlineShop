@@ -37,6 +37,25 @@ public class UserRoleDAO extends DBContext {
 
     public ArrayList<UserRole> getUserRoleList() {
         ArrayList<UserRole> userRoleList = new ArrayList<>();
+        String query = "SELECT * FROM userrole WHERE status = 'Active'";
+        try (PreparedStatement ps = connect.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                UserRole userRole = new UserRole();
+                userRole.setId(rs.getInt("id"));
+                userRole.setRolename(rs.getString("rolename"));
+                userRole.setStatus(rs.getString("status"));
+
+                userRoleList.add(userRole);
+            }
+            return userRoleList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public ArrayList<UserRole> getUserRoleListAll() {
+        ArrayList<UserRole> userRoleList = new ArrayList<>();
         String query = "SELECT * FROM userrole";
         try (PreparedStatement ps = connect.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

@@ -54,6 +54,7 @@ public class VerifyAccountDAO extends DBContext {
     }
 
    public void signUpUser(User user) {
+       String hassPassword = userDAO.hashPassword(user.getPassword());
         String mysql = "INSERT INTO `furniture`.`verifyaccount`\n"
                 + "(\n"
                 + "`fullname`,\n"
@@ -73,7 +74,7 @@ public class VerifyAccountDAO extends DBContext {
             statement.setString(3, user.getPhonenumber());
             statement.setString(4, user.getAddress());
             statement.setString(5, user.getEmail());
-            statement.setString(6, user.getPassword());
+              statement.setString(6, hassPassword);
             statement.setInt(7, user.getRole_id());
             statement.setString(8, user.getStatus());
             statement.executeUpdate();
@@ -81,6 +82,6 @@ public class VerifyAccountDAO extends DBContext {
             LOGGER.log(Level.SEVERE, "Error inserting verified customer", e);
         }
     }     
-   
+    UserDAO userDAO = new UserDAO();
 
 }

@@ -4,6 +4,7 @@
  */
 package Controller.Customer;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.ColorDAO;
 import DAL.FeedbackDAO;
 import DAL.OrderDAO;
@@ -25,7 +26,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  *
@@ -128,11 +132,11 @@ public class MyOrderServlet extends HttpServlet {
                                             }
 
                                             htmlResponse.append("                    <td style=\"text-align: center; background-color: white;\">")
-                                                    .append(orderDetail.getPrice()).append("</td>\n")
+                                                    .append(formatCurrency(orderDetail.getPrice())).append("</td>\n")
                                                     .append("                    <td style=\"text-align: center; background-color: white;\">")
                                                     .append(orderDetail.getQuantity()).append("</td>\n")
                                                     .append("                    <td style=\"text-align: center; background-color: white;\">")
-                                                    .append(order.getTotalcost()).append("</td>\n");
+                                                    .append(formatCurrency(order.getTotalcost())).append("</td>\n");
 
                                             firstProduct = false;
                                         } else {
@@ -151,7 +155,7 @@ public class MyOrderServlet extends HttpServlet {
                     htmlResponse.append("                <tr>\n")
                             .append("                    <td colspan=\"6\" style=\"text-decoration: none; color: black;  background-color: white;\">\n")
                             .append("                        <a href=\"MyOrderInformationServlet?id=").append(order.getId())
-                            .append("\" style=\"text-decoration: none; color: black;\">Số sản phẩm khác: ").append(productCount )
+                            .append("\" style=\"text-decoration: none; color: black;\">Số sản phẩm khác: ").append(productCount)
                             .append("</a>\n")
                             .append("                    </td>\n")
                             .append("                </tr>\n");
@@ -167,7 +171,7 @@ public class MyOrderServlet extends HttpServlet {
                         .append("        </table>\n")
                         .append("        <div style=\"display: flex;justify-content: flex-end;\">\n")
                         .append("            <div></div>\n")
-                        .append("            <div><b>Total: </b>").append(order.getTotalcost()).append("</div>\n")
+                        .append("            <div><b>Total: </b>").append(formatCurrency(order.getTotalcost())).append("</div>\n")
                         .append("        </div>\n")
                         .append("        <div class=\"button-order\" style=\"display: flex; justify-content: flex-end; margin-top: 10px\">\n")
                         .append("            <c:choose>\n");
@@ -265,7 +269,7 @@ public class MyOrderServlet extends HttpServlet {
                 // Ví dụ: cập nhật trạng thái đơn hàng trong cơ sở dữ liệu thành "Cancelled"
                 OrderDAO orderDAO = new OrderDAO();
                 orderDAO.updateOrderStatus(order_id, "Done");
-
+                OrderUpdateEndpoint.sendUpdate("update");
                 // Phản hồi về cho client rằng đã hủy đơn hàng thành công
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("Đã nhận đơn hàng thành công!");
@@ -276,6 +280,14 @@ public class MyOrderServlet extends HttpServlet {
             }
         }
 
+    }
+
+    public String formatCurrency(double number) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+        symbols.setMonetaryDecimalSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        return decimalFormat.format(number) + "₫";
     }
 
     /**

@@ -97,13 +97,16 @@
 
                         <div class="form-group">
                             <label for="email">Nhập mật khẩu mới</label>
-                            <input type="password" id="pass" name="pass" required 
+                            <input type="password" id="pass" name="pass" required placeholder="Nhập mật khẩu mới của bạn"
                                    pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
                                    title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
                         </div>
                         <div class="form-group">
                             <label for="email">Nhập lại mật khẩu</label>
-                            <input type="password" id="rePass" name="rePass" required>
+                             <input type="password" id="rePass" name="rePass" required 
+                                   placeholder="Nhập mật khẩu mới của bạn"
+                                   pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
                         </div>
                         <div>
                             <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility3()"> Hiển thị mật khẩu

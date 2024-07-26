@@ -107,7 +107,7 @@ public class CartItemDAO extends DBContext {
                 cartItem.setCustomer_id(rs.getInt(33));
                 cartItem.setProduct_id(rs.getInt(34));
                 cartItem.setQuantity(rs.getInt(35));
-                cartItem.setTotalcost(rs.getDouble(36));
+                cartItem.setTotalcost(rs.getLong(36));
                 cartItem.setStatus(rs.getString(37));
 
                 CartItemWithDetail cartItemWithDetail = new CartItemWithDetail(product, productDetail, color, user, cartItem, brand, category);
@@ -181,7 +181,7 @@ public class CartItemDAO extends DBContext {
                 cartItem.setCustomer_id(rs.getInt(33));
                 cartItem.setProduct_id(rs.getInt(34));
                 cartItem.setQuantity(rs.getInt(35));
-                cartItem.setTotalcost(rs.getDouble(36));
+                cartItem.setTotalcost(rs.getLong(36));
                 cartItem.setStatus(rs.getString(37));
 
                 CartItemWithDetail cartItemWithDetail = new CartItemWithDetail(product, productDetail, color, user, cartItem, brand, category);
@@ -315,7 +315,7 @@ public class CartItemDAO extends DBContext {
                 cartItem.setCustomer_id(rs.getInt("customer_id"));
                 cartItem.setProduct_id(rs.getInt("product_id"));
                 cartItem.setQuantity(rs.getInt("quantity"));
-                cartItem.setTotalcost(rs.getDouble("totalcost"));
+                cartItem.setTotalcost(rs.getLong("totalcost"));
                 cartItem.setStatus(rs.getString("status"));
                 return cartItem;
             }
@@ -365,5 +365,24 @@ public class CartItemDAO extends DBContext {
 
             ps.executeUpdate();
         }
+    }
+    public CartItem getCartItemByCartId(int cartId) throws SQLException {
+        String query = "SELECT * FROM CartItem WHERE id = ? ";
+        try (PreparedStatement ps = connect.prepareStatement(query)) {
+            ps.setInt(1, cartId);
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                CartItem cartItem = new CartItem();
+                cartItem.setId(rs.getInt("id"));
+                cartItem.setCustomer_id(rs.getInt("customer_id"));
+                cartItem.setProduct_id(rs.getInt("product_id"));
+                cartItem.setQuantity(rs.getInt("quantity"));
+                cartItem.setTotalcost(rs.getLong("totalcost"));
+                cartItem.setStatus(rs.getString("status"));
+                return cartItem;
+            }
+        }
+        return null;
     }
 }

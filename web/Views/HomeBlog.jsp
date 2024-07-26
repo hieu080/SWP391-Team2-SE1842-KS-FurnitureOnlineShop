@@ -53,7 +53,7 @@
                                                 <picture>
                                                     <source srcset="${post.thumbnail}" media="(max-width: 500px)" />
                                                     <source srcset="${post.thumbnail}" />
-                                                    <img loading="lazy" decoding="async" src="${post.thumbnail}" alt="${post.title}" />
+                                                    <img loading="lazy" decoding="async" src="${post.thumbnail}" alt="${post.title}" style="width: 320px;height: 215px;" />
                                                 </picture>
                                             </a>
                                             <div class="post--date">
@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="post-body">
-                                            <h3><a href="/blogs/media/ghe-sofa-don">${post.title}</a></h3>
+                                            <h3><a href="${pageContext.request.contextPath}/blogdetail?id=${post.id}">${post.title}</a></h3>
                                             <div class="post--desc">${post.subtitle}</div>
                                             <p class="post--action text-right"><a class="link-more" href="${pageContext.request.contextPath}/BlogDetailServlet?id=${post.id}">Xem thêm</a></p>
                                         </div>

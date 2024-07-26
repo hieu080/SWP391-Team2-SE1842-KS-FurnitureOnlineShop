@@ -101,7 +101,7 @@
                         <form action="${pageContext.request.contextPath}/VerifyEmail" method="post" id="forgotPasswordForm" style="display:block;">
                             <div class="form-group">
                                 <label for="email">Nhập địa chỉ email</label>
-                                <input type="email" id="email" name="email" required>
+                                 <input type="text" id="email" name="email" required placeholder="Nhập địa chỉ email của bạn">
                             </div>
                             <input type="hidden" name="action" value="forgotPassword">
                             <button type="submit">Tiếp</button>

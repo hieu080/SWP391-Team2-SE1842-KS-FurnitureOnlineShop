@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller.Customer;
 
 import DAL.CartItemDAO;
 import Models.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -23,44 +24,73 @@ import java.util.logging.Logger;
  * @author ADMIN
  */
 public class UpdateCartQuantity extends HttpServlet {
-   
-   
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       
-    } 
 
-   
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-       
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        User customer = (User) session.getAttribute("customer");
+
         String cartid = request.getParameter("cartid");
-        String quantity= request.getParameter("quantity");
+        String quantity = request.getParameter("quantity");
         String totalcost = request.getParameter("totalPrice");
         CartItemDAO cartItemDAO = new CartItemDAO();
         try {
-            cartItemDAO.updateCartItemQuantity(Integer.parseInt(cartid), Integer.parseInt(quantity),Double.parseDouble(totalcost));
+            cartItemDAO.updateCartItemQuantity(Integer.parseInt(cartid), Integer.parseInt(quantity), Double.parseDouble(totalcost));
         } catch (SQLException ex) {
             Logger.getLogger(UpdateCartQuantity.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
-//        response.getWriter().print(totalcost);
-        response.sendRedirect("CartDetail");
+        double sumtotalprice = 0;
+        try {
+            sumtotalprice = cartItemDAO.getTotalCost(customer.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Integer countCartItem = null;
+        try {
+            countCartItem = cartItemDAO.countCartItemsByCustomerId(customer.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int countCartItemSelected = 0;
+        try {
+            countCartItemSelected = cartItemDAO.countCartItemsBySelectedCustomerId(customer.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("countcartitemselected", countCartItemSelected);
+        jsonObject.addProperty("countcartitem", countCartItem);
+        jsonObject.addProperty("sumtotalprice", sumtotalprice);
+        try {
+            jsonObject.addProperty("price",cartItemDAO.getCartItemByCartId(Integer.parseInt(cartid)).getTotalcost());
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateCartQuantity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Gson gson = new Gson();
+        String json = gson.toJson(jsonObject);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+
     }
+
     public static void main(String[] args) throws SQLException {
-        CartItemDAO cartItemDAO = new CartItemDAO();
-        cartItemDAO.updateCartItemQuantity(2,4,3.2);
-        
+        System.out.println((long)new CartItemDAO().getTotalCost(1));
 
     }
 
-   
 }

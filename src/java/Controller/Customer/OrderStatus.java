@@ -4,6 +4,7 @@
  */
 package Controller.Customer;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.CartItemDAO;
 import DAL.OrderDAO;
 import DAL.UserDAO;
@@ -50,19 +51,21 @@ public class OrderStatus extends HttpServlet {
         String[] cartIds = request.getParameterValues("cartId");
         if ("00".equals(vnp_TransactionStatus)) {
             request.setAttribute("vnp_TransactionStatus", "Thành Công");
-            for (int i = 0; i < cartIds.length; i++) {
-                try {
-                    new CartItemDAO().deleteCartItem(Integer.parseInt(cartIds[i]));
-                } catch (SQLException ex) {
-                    Logger.getLogger(AddToOrder.class.getName()).log(Level.SEVERE, null, ex);
+            if (cartIds != null) {
+                for (int i = 0; i < cartIds.length; i++) {
+                    try {
+                        new CartItemDAO().deleteCartItem(Integer.parseInt(cartIds[i]));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AddToOrder.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
-
             new OrderDAO().updateOrderStatus(Integer.parseInt(vnp_TxnRef), "Order");
+            OrderUpdateEndpoint.sendUpdate("order");
         } else {
             request.setAttribute("vnp_TransactionStatus", "Thất Bại");
             new OrderDAO().updateOrderStatus(Integer.parseInt(vnp_TxnRef), "Wait");
-            
+
         }
         request.setAttribute("vnp_TxnRef", vnp_TxnRef);
         request.setAttribute("vnp_PayDate", vnp_PayDate);

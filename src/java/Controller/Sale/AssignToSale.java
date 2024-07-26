@@ -67,7 +67,7 @@ public class AssignToSale extends HttpServlet {
 
         // Thiết lập phân trang
         int page = 1; // Trang mặc định là 1
-        int recordsPerPage = 4; // Số bản ghi trên mỗi trang (có thể thay đổi tùy vào yêu cầu)
+        int recordsPerPage = 25; // Số bản ghi trên mỗi trang (có thể thay đổi tùy vào yêu cầu)
         if (pageStr != null && !pageStr.isEmpty()) {
             try {
                 page = Integer.parseInt(pageStr);
@@ -110,7 +110,7 @@ public class AssignToSale extends HttpServlet {
         response.getWriter().write(jsonResult.toString());
 
     }
-
+   
     
 
 

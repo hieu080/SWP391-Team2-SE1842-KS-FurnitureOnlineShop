@@ -14,7 +14,7 @@ public class CartItem {
     private int customer_id;
     private int product_id;
     private int quantity = 1;
-    private double totalcost = 0;
+    private long totalcost = 0;
     private String status = "unselected";
 
     public CartItem() {
@@ -68,7 +68,7 @@ public class CartItem {
         return totalcost;
     }
 
-    public void setTotalcost(double totalcost) {
+    public void setTotalcost(long totalcost) {
         this.totalcost = totalcost;
     }
 

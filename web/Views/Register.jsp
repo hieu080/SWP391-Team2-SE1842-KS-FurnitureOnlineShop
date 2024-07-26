@@ -28,7 +28,11 @@
                     <form method="post" action="${pageContext.request.contextPath}/RegisterServlet" id="signupForm">
                         <div class="form-group">
                             <label for="fullname">Họ và tên</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" required value="${param.fullname}">
+                             <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ và tên của bạn"
+                                   required 
+                                   placeholder="Nhập số điện thoại của bạn"
+                                   pattern=".*\S+.*" title="Tên không đúng định dạng"
+                                   value="${param.fullname}">
                         </div>
                         <div class="form-group">
                             <label for="gender">Giới tính</label>
@@ -50,27 +54,32 @@
                         </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
-                            <input type="text" class="form-control" id="address" name="address" required value="${address}">
+                             <input type="text" class="form-control" id="address" name="address" placeholder="Nhập địa chỉ của bạn"
+                                   pattern=".*\S+.*" title="Địa chỉ không đúng định dạng"
+                                   required value="${address}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" required value="${email}"
+                            <input type="email" placeholder="Nhập email của bạn" class="form-control" id="email" name="email" required value="${email}"
                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                                    title="Vui lòng nhập địa chỉ email hợp lệ (ví dụ: example@example.com)">
                         </div>
                         <div>           
                             <label for="password">Mật khẩu</label>
-                            <input id="password" type="password" class="form-control password2" name="password" required
+                            <input id="password" type="password" placeholder="Nhập mật khẩu của bạn"  class="form-control password2" name="password" required
                                    pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
                                    title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt."
                                    value="${password}">
                         </div>
                         <div class="form-group">
                             <label for="pass">Nhập lại mật khẩu</label>
-                            <input id="rePassword" type="password" class="form-control password2" name="pass" required value="${pass}">
+                             <input id="rePassword" type="password" class="form-control password2" name="pass" placeholder="Nhập lại mật khẩu của bạn"
+                                   pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt."
+                                   required value="${pass}">
                         </div>
                         <input type="hidden" name="role_id" value="1"/>
-                        <input type="hidden" name="status" value="Inactive"/>
+                        <input type="hidden" name="status" value="Offline"/>
                         <div>
                             <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility2()"> Hiển thị mật khẩu
                         </div>

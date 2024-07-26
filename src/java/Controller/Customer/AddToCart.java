@@ -4,6 +4,7 @@
  */
 package Controller.Customer;
 
+import Controller.Public.HomePage;
 import DAL.BrandDAO;
 import DAL.CartItemDAO;
 import DAL.CategoryDAO;
@@ -28,6 +29,7 @@ import Models.Post;
 import Models.Room;
 import Models.SaleOff;
 import Models.User;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -80,9 +82,10 @@ public class AddToCart extends HttpServlet {
                     // chuyener huowng trang
                     return;
                 }
-                if(action.equals("buynow"))
-                cartItemDAO.updateCartItemStatus(cartItem.getId(), "selected");
-                
+                if (action.equals("buynow")) {
+                    cartItemDAO.updateCartItemStatus(cartItem.getId(), "selected");
+                }
+
                 cartItemDAO.updateCartItemQuantity(cartItem.getId(), cartItem.getQuantity() + quantity, cartItem.getTotalcost() + Double.parseDouble(price) * quantity);
             } else {
                 if (quantity > productDetailDAO.getProductDetail(Integer.parseInt(productid)).getQuantity()) {
@@ -92,7 +95,7 @@ public class AddToCart extends HttpServlet {
                 cartItem.setCustomer_id(customer.getId());
                 cartItem.setProduct_id(Integer.parseInt(productid));
                 cartItem.setQuantity(quantity);
-                cartItem.setTotalcost(Double.parseDouble(price) * quantity);
+                cartItem.setTotalcost((long) (Double.parseDouble(price) * quantity));
                 if (action.equals("buynow")) {
                     cartItem.setStatus("selected");
                 }
@@ -107,9 +110,26 @@ public class AddToCart extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        if (action.equals("buynow")) {
             response.sendRedirect("CartDetail");
-       
+        }
+        JsonObject jsonResult = new JsonObject();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("customer");
+
+            try {
+                jsonResult.addProperty("status", "success"); // Danh sách đơn hàng cho trang hiện tại
+                jsonResult.addProperty("countcartitem", String.valueOf(cartItemDAO.countCartItemsByCustomerId(user.getId())));
+
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonResult.toString());
 
     }
 

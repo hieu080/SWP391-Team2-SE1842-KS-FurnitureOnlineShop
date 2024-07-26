@@ -33,6 +33,9 @@ import Models.ProductDetail;
 import Models.Room;
 import Models.SaleOff;
 import Models.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,8 +44,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,11 +100,11 @@ public class CartDetail extends HttpServlet {
         ColorDAO colorDAO = new ColorDAO();
         ArrayList<Color> colorList = colorDAO.getColorList();
         request.setAttribute("colorList", colorList);
-        
+
         ProductDetailDAO pddao = new ProductDetailDAO();
-        ArrayList<ProductDetail> productDetailList= pddao.getAllProductDetails();
+        ArrayList<ProductDetail> productDetailList = pddao.getAllProductDetails();
         request.setAttribute("productDetailList", productDetailList);
-        
+
         request.setAttribute("colorList", colorList);
 
         ProductDAO productDAO = new ProductDAO();
@@ -134,9 +140,8 @@ public class CartDetail extends HttpServlet {
                 Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-    }
 
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -144,55 +149,71 @@ public class CartDetail extends HttpServlet {
         HttpSession session = request.getSession(false);
         User customer = (User) session.getAttribute("customer");
         CartItemDAO cartItemDAO = new CartItemDAO();
-        
+
         List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
         try {
             cartItemWithDetails = cartItemDAO.getCartItemsDetail(customer.getId());
         } catch (SQLException ex) {
             Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         request.setAttribute("listcartdetail", cartItemWithDetails);
-        
-         SaleOffDAO saleOffDAO = new SaleOffDAO();
+
+        SaleOffDAO saleOffDAO = new SaleOffDAO();
         ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffList();
-        
+
         double sumtotalprice = 0;
         try {
             sumtotalprice = cartItemDAO.getTotalCost(customer.getId());
         } catch (SQLException ex) {
             Logger.getLogger(CartDetail.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-            Integer countCartItem = null;
-            try {
-                countCartItem = cartItemDAO.countCartItemsByCustomerId(customer.getId());
-            } catch (SQLException ex) {
-                Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             int countCartItemSelected = 0;
-            try {
-                countCartItemSelected = cartItemDAO.countCartItemsBySelectedCustomerId(customer.getId());
-            } catch (SQLException ex) {
-                Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            request.setAttribute("countcartitemselected", countCartItemSelected);
-            request.setAttribute("countcartitem", countCartItem);
+
+        Integer countCartItem = null;
+        try {
+            countCartItem = cartItemDAO.countCartItemsByCustomerId(customer.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int countCartItemSelected = 0;
+        try {
+            countCartItemSelected = cartItemDAO.countCartItemsBySelectedCustomerId(customer.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("countcartitemselected", countCartItemSelected);
+        request.setAttribute("countcartitem", countCartItem);
         request.setAttribute("saleOffList", saleOffList);
-         request.setAttribute("sumtotalprice", sumtotalprice);
-         processRequest(request, response);
+        request.setAttribute("sumtotalprice", (long) sumtotalprice);
+        processRequest(request, response);
         request.getRequestDispatcher("Views/CartDetail.jsp").forward(request, response);
-        
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("countcartitemselected", countCartItemSelected);
+        jsonObject.addProperty("countcartitem", countCartItem);
+        jsonObject.addProperty("sumtotalprice", sumtotalprice);
+        Gson gson = new Gson();
+        String json = gson.toJson(jsonObject);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
+    public String formatCurrency(double number) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+        symbols.setMonetaryDecimalSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        return decimalFormat.format(number) + "₫";
+    }
+
     public static void main(String[] args) {
-         CartItemDAO cartItemDAO = new CartItemDAO();
+        CartItemDAO cartItemDAO = new CartItemDAO();
 //        List<CartItemWithDetail> cartItemWithDetails = new ArrayList<>();
 //        try {
 //            cartItemWithDetails = cartItemDAO.getCartItemsDetail(5);
@@ -202,14 +223,13 @@ public class CartDetail extends HttpServlet {
 //        for (CartItemWithDetail cartItemWithDetail : cartItemWithDetails) {
 //            System.out.println(cartItemWithDetail.getCategory().getId()); 
 //        }
-         int countCartItemSelected = 0;
-            try {
-                countCartItemSelected = cartItemDAO.countCartItemsBySelectedCustomerId(5);
-            } catch (SQLException ex) {
-                Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println(countCartItemSelected);
+        int countCartItemSelected = 0;
+        try {
+            countCartItemSelected = cartItemDAO.countCartItemsBySelectedCustomerId(5);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(countCartItemSelected);
     }
-   
 
 }

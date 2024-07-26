@@ -4,6 +4,7 @@
  */
 package Controller.Sale;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.AddressDAO;
 import DAL.CategoryDAO;
 import DAL.ColorDAO;
@@ -107,7 +108,7 @@ public class OrderDetailServlet extends HttpServlet {
 
         AddressDAO addressDAO = new AddressDAO();
         List<Address> address = addressDAO.getAllAddresses();
-        
+
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         int[] historyFeedbackOrder = feedbackDAO.getHistory();
 
@@ -120,7 +121,7 @@ public class OrderDetailServlet extends HttpServlet {
         request.setAttribute("orderDetailList", orderDetailList);
         request.setAttribute("order", order);
         request.setAttribute("historyFeedbackOrder", historyFeedbackOrder);
-        
+
         request.getRequestDispatcher("Views/OrderDetail.jsp").forward(request, response);
     }
 
@@ -152,14 +153,14 @@ public class OrderDetailServlet extends HttpServlet {
                 // Xử lý hủy đơn hàng
                 OrderDAO orderDAO = new OrderDAO();
                 orderDAO.updateOrderStatus(order_id, "Canceled");
-
+                OrderUpdateEndpoint.sendUpdate("update");
                 // Chuyển hướng người dùng đến trang thông tin đơn hàng sau khi hủy
                 response.sendRedirect("Views/MyOrderInformation.jsp");
             } else if (action.equals("confirm")) {
                 // Xử lý xác nhận đơn hàng
                 OrderDAO orderDAO = new OrderDAO();
                 orderDAO.updateOrderStatus(order_id, "Confirmed");
-
+                OrderUpdateEndpoint.sendUpdate("update");
                 // Chuyển hướng người dùng đến trang xác nhận
                 //response.sendRedirect("orderConfirmation.jsp");
             } else {

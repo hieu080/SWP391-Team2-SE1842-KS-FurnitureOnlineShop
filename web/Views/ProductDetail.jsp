@@ -9,7 +9,7 @@
               type="image/png" />
         <title>Tất Cả Sản Phẩm Đồ Gỗ Nội Thất Của MOHO</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <style>
             img {
                 max-width: 100%;
@@ -546,25 +546,53 @@
                 var selectedRadio = document.querySelector('input[name="color"]:checked');
                 var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
                 var quantity = document.getElementById('quantity').value;
-                var price =  document.getElementById('priceunit').value;
+                var price = document.getElementById('priceunit').value;
+
 
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
+
                 document.getElementById('price').value = price;
 
-                document.getElementById('hiddenForm').submit();
+
+                $.ajax({
+                    type: 'GET',
+                    url: $('#hiddenForm').attr('action'), // Replace with your server endpoint URL
+                    data: $('#hiddenForm').serialize(),
+                    success: function (response) {
+                        // Handle the response from the server
+                        $('#countcart').text(response.countcartitem);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Order Complete',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle any errors
+                        console.error(error);
+                    }
+                });
             });
 
             document.getElementById('buy_now').addEventListener('click', function () {
                 var selectedRadio = document.querySelector('input[name="color"]:checked');
                 var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
                 var quantity = document.getElementById('quantity').value;
-                var price =  document.getElementById('priceunit').value;
+                var price = document.getElementById('priceunit').value;
+
 
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
+
                 document.getElementById('price').value = price;
-                 document.getElementById('action').value ="buynow";
+
+                document.getElementById('action').value = "buynow";
 
                 document.getElementById('hiddenForm').submit();
             });
@@ -586,6 +614,7 @@
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>               
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>   
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

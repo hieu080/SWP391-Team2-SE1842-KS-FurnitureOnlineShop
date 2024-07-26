@@ -39,7 +39,6 @@
                         <a class="" href="${pageContext.request.contextPath}/BlogListServlet">Xem thêm</a>
                     </div>
                 </div>
-
                 <div class="row">
                     <c:forEach items="${postList}" var="post">
                         <div class="col-md-3">

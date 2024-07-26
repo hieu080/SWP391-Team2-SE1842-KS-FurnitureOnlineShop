@@ -121,7 +121,8 @@ public class FeedbackServlet extends HttpServlet {
 
                 Feedback feedback = new Feedback(u.getId(), productId, rating, feedbackStr);
                 feedbackDAO.insertFeedback(feedback);
-
+                feedbackId = feedbackDAO.getFeedbackWithMaxId();
+                System.out.println(feedbackId);
                 int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
                 String image = "imgfeedback_" + count;
                 Part filePart = request.getPart(image);
@@ -132,29 +133,12 @@ public class FeedbackServlet extends HttpServlet {
 
                 for (String fileName : fileNames) {
                     ImageFeedback imageFeedback = new ImageFeedback(feedbackId, fileName);
-                    feedbackDAO.insertImageFb(feedbackId + 1, fileName);
+                    feedbackDAO.insertImageFb(feedbackId, fileName);
                 }
                 
             }
             count++;
-//            else if ((feedbackStr == null || feedbackStr.isEmpty()) && rating > 0) {
-//                Feedback feedback = new Feedback(u.getId(), productId, rating, null); 
-//                feedbackDAO.insertFeedback(feedback);
-//
-//                int fileCount = tryParseInt(request.getParameter("fileCount_" + count), 0);
-//                String image = "imgfeedback_" + count;
-//                Part filePart = request.getPart(image);
-//                String[] fileNames = new String[fileCount];
-//                if (filePart != null && filePart.getSize() > 0) {
-//                    fileNames = fileUploadHelper.uploadFilesAndReturnFileNames(request, response, image, UPLOAD_DIRECTORY);
-//                }
-//
-//                for (String fileName : fileNames) {
-//                    ImageFeedback imageFeedback = new ImageFeedback(feedbackId, fileName);
-//                    feedbackDAO.insertImageFb(feedbackId, fileName);
-//                }
-//                count++;
-//            }
+
         }
         ProductDAO pdao = new ProductDAO();
         pdao.updateScoreOfProduct();

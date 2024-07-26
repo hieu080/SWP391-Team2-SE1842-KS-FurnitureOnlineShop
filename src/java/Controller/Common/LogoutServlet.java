@@ -4,6 +4,7 @@
  */
 package Controller.Common;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.UserDAO;
 import Models.User;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class LogoutServlet extends HttpServlet {
         userDAO.UpdateUser(customer.getRole_id(), "Inactive", customer.getId());
         if (session != null) {
             session.invalidate(); // Hủy session hiện tại
+            OrderUpdateEndpoint.sendUpdate("aaa");
         }
         // Redirect to login page or any other page after logout
         response.sendRedirect("HomePage"); // Chuyển hướng đến trang đăng nhập sau khi đăng xuất

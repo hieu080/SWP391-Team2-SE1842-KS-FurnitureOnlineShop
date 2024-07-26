@@ -7,13 +7,12 @@ import java.io.*;
 import com.google.gson.JsonObject;
 
 public class ChangePassword extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String oldpass = request.getParameter("oldpass");
+        String hassPass = userDAO.hashPassword(oldpass);
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
-
         UserDAO userDAO = new UserDAO();
         User u = (User) session.getAttribute("customer");
 

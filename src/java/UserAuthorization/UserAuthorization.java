@@ -141,20 +141,22 @@ public class UserAuthorization implements Filter {
             if (uri1.equals("HomePage") || uri1.equals("BlogListServlet")
                     || uri1.equals("BlogDetailServlet") || uri1.equals("ProductServlet")
                     || uri1.equals("ProductSearchServlet") || uri1.equals("RegisterServlet")
-                    || uri1.equals("ProductDetailServlet") || uri1.equals("LoginServlet")|| uri1.equals("OrderStatus")
-                   || uri1.equals("CartContact")  || uri1.equals("MyOrderInformationServlet")) {
+                    || uri1.equals("ResetPasswordServlet")
+                    || uri1.equals("ProductDetailServlet") || uri1.equals("LoginServlet") || uri1.equals("ResetPasswordServlet")) {
             } else {
-                httpServletResponse.sendRedirect("HomePage");
+
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/HomePage");
+
             }
         } else if (role == 1) {
             if (uri1.equals("HomePage") || uri1.equals("BlogListServlet")
                     || uri1.equals("BlogDetailServlet") || uri1.equals("ProductServlet")
                     || uri1.equals("ProductDetailServlet") || uri1.equals("BlogListSearchedServlet")
-                    || uri1.equals("ProductSearchServlet") 
+                    || uri1.equals("ProductSearchServlet")
                     || uri1.equals("FeedbackServlet") || uri1.equals("AddToOrder")
-                    || uri1.equals("RegisterServlet") || uri1.equals("ResetPasswordServlet")
+                    || uri1.equals("ResetPasswordServlet")
                     || uri1.equals("ChangePassword") || uri1.equals("UserProfile")
-                    || uri1.equals("MyOrderServlet") || uri1.equals("OrderStatus")
+                    || uri1.equals("MyOrderServlet")
                     || uri1.equals("LoginServlet") || uri1.equals("LogoutServlet")
                     || uri1.equals("VerifyEmail") || uri1.equals("VerifyResetEmail")
                     || uri1.equals("AddNewAddress") || uri1.equals("AddToCart")
@@ -177,15 +179,17 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("ChangePassword") || uri1.equals("ResetPasswordServlet")
                     || uri1.equals("UserProfile") || uri1.equals("VerifyEmail")
                     || uri1.equals("VerifyResetEmail") || uri1.equals("BlogListSearchedServlet")
-                    || uri1.equals("ProductSearchServlet")) {
+                    || uri1.equals("ProductSearchServlet") || uri1.equals("RegisterServlet")) {
 
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
-                httpServletResponse.sendRedirect("HomePage");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/HomePage");
             }
         } else if (role == 3) {
-            if (uri1.equals("HomePage") 
-                    || uri1.equals("SaleDashboard")
+            if (uri1.equals("HomePage")
+                    || uri1.equals("SaleDashboard") || uri1.equals("BlogListServlet")
+                    || uri1.equals("BlogDetailServlet") || uri1.equals("ProductServlet")
+                    || uri1.equals("ProductDetailServlet") || uri1.equals("RegisterServlet")
                     || uri1.equals("OrderListServlet") || uri1.equals("OrderDetailServlet")
                     || uri1.equals("AssignToSale") || uri1.equals("SaleAssignOrder")
                     || uri1.equals("SaleListServlet") || uri1.equals("LoginServlet") || uri1.equals("LogoutServlet")
@@ -196,11 +200,14 @@ public class UserAuthorization implements Filter {
 
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
-                httpServletResponse.sendRedirect("HomePage");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/HomePage");
             }
         } else if (role == 4) {
             // Các trang cho phép truy cập khi là role 4
-            if (uri1.equals("HomePage") 
+            if (uri1.equals("HomePage")
+                    || uri1.equals("BlogListServlet") || uri1.equals("BlogDetailServlet")
+                    || uri1.equals("BlogListSearchedServlet") || uri1.equals("LoginServlet")
+                    || uri1.equals("RegisterServlet") || uri1.equals("ResetPasswordServlet")
                     || uri1.equals("AddProductServlet") || uri1.equals("ChangeStatusFeedback")
                     || uri1.equals("CustomerDetails") || uri1.equals("CustomersList")
                     || uri1.equals("FeedBackList") || uri1.equals("FeedBackDetail")
@@ -209,12 +216,27 @@ public class UserAuthorization implements Filter {
                     || uri1.equals("ProductListMKTServlet") || uri1.equals("SliderDetail")
                     || uri1.equals("SliderEdit") || uri1.equals("SliderInsert")
                     || uri1.equals("SliderList") || uri1.equals("SliderUpdate")
-                    || uri1.equals("MarketingDashboard")) {
+                    || uri1.equals("MarketingDashboard") || uri1.equals("ProductServlet")
+                    || uri1.equals("ProductDetailServlet") || uri1.equals("ProductSearchServlet")
+                    || uri1.equals("ChangePassword") || uri1.equals("UserProfile")) {
 
                 // Tiếp tục xử lý bình thường cho các trang này
             } else {
                 // Chuyển hướng tới trang mặc định hoặc thông báo lỗi
-                httpServletResponse.sendRedirect("HomePage");
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/HomePage");
+            }
+        } else if (role == 5) {
+            if (uri1.equals("HomePage")
+                    || uri1.equals("BlogListServlet") || uri1.equals("BlogDetailServlet")
+                    || uri1.equals("BlogListSearchedServlet") || uri1.equals("ProductServlet")
+                    || uri1.equals("ProductDetailServlet") || uri1.equals("ProductSearchServlet")
+                    || uri1.equals("LoginServlet") || uri1.equals("RegisterServlet")
+                    || uri1.equals("ResetPasswordServlet") || uri1.equals("ChangePassword")
+                    || uri1.equals("AdminDashboard") || uri1.equals("UserListServlet")
+                    || uri1.equals("ManageUserServlet") || uri1.equals("SettingServlet")) {
+
+            } else {
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/HomePage");
             }
         }
 

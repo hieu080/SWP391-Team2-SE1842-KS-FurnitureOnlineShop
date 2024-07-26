@@ -263,20 +263,64 @@
                                                         <li style="font-size: 14px"><span>${sessionScope.customer.fullname}</span></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/UserProfile">Tài khoản của bạn</a></li>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MyOrderServlet">Đơn hàng của tôi</a></li>
-                                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassword">Thay đổi mật khẩu </a></li>
+                                                        <li><a class="dropdown-item" href="#" id="openModal">Thay đổi mật khẩu</a></li>
+                                                            <%@ include file="ChangePassword.jsp" %>
+
+
+                                                        <div id="exampleModal" class="modal">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Thay Đổi Mật Khẩu</h5>
+                                                                        <span class="close" id="closeModal">&times;</span>
+                                                                    </div>
+                                                                    <form id="changePasswordForm">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <input type="password" class="form-control" id="oldpass" placeholder="Mật khẩu cũ" name="oldpass" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Mật khẩu mới" required 
+                                                                                       pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                                                                       title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <input type="password" class="form-control" id="renewpass" name="renewpass" placeholder="Nhập lại mật khẩu mới" required 
+                                                                                       pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                                                                       title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox" class="form-check-input" id="togglePasswords" onclick="togglePasswordVisibility()">
+                                                                                <label class="form-check-label" for="togglePasswords">Hiển thị mật khẩu</label>
+                                                                            </div>
+                                                                            <div class="form-group text-danger">
+                                                                                <p id="errorMessage">${mess}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" id="closeModalFooter">Close</button>
+                                                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
                                                         <c:set value="${sessionScope.customer}" var="customer"/>
                                                         <c:if test="${customer.id == 2}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                        </c:if>
-                                                        <c:if test="${customer.id == 3}">
+                                                            </c:if>
+                                                            <c:if test="${customer.id == 3}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                        </c:if>
+                                                            </c:if>
                                                             <c:if test="${customer.id == 4}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MarketingDashboard">Marketing Dashboard</a></li>
-                                                        </c:if>
-                                                        <c:if test="${customer.id == 5}">
+                                                            </c:if>
+                                                            <c:if test="${customer.id == 5}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AdminDashboard">Admin Dashboard</a></li>
-                                                        </c:if>
+                                                            </c:if>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>
                                                     </ul>
                                                 </div>
@@ -330,29 +374,7 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.customer != null}">
                                             <%@ include file="CartDropDown.jsp" %>
-                                            <a class="header-action-toggle"  href="#" data-bs-toggle="dropdown" aria-expanded="false" id="site-cart-handle" aria-label="3 Giỏ hàng">
-                                                <span class="box-icon">
-                                                    <svg class="svg-ico-cart" enable-background="new 0 0 512 512" height="512"
-                                                         viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
-                                                    <g>
-                                                    <path
-                                                        d="m472 452c0 11.046-8.954 20-20 20h-20v20c0 11.046-8.954 20-20 20s-20-8.954-20-20v-20h-20c-11.046 0-20-8.954-20-20s8.954-20 20-20h20v-20c0-11.046 8.954-20 20-20s20 8.954 20 20v20h20c11.046 0 20 8.954 20 20zm0-312v192c0 11.046-8.954 20-20 20s-20-8.954-20-20v-172h-40v60c0 11.046-8.954 20-20 20s-20-8.954-20-20v-60h-192v60c0 11.046-8.954 20-20 20s-20-8.954-20-20v-60h-40v312h212c11.046 0 20 8.954 20 20s-8.954 20-20 20h-232c-11.046 0-20-8.954-20-20v-352c0-11.046 8.954-20 20-20h60.946c7.945-67.477 65.477-120 135.054-120s127.109 52.523 135.054 120h60.946c11.046 0 20 8.954 20 20zm-121.341-20c-7.64-45.345-47.176-80-94.659-80s-87.019 34.655-94.659 80z">
-                                                    </path>
-                                                    </g>
-                                                    </svg>
-                                                    <span class="box-icon--close">
-                                                        <svg viewBox="0 0 19 19">
-                                                        <path
-                                                            d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"
-                                                            fill="currentColor" fill-rule="evenodd"></path>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="box-text">
-                                                        <span class="count-holder">${requestScope.countcart}</span>
-                                                    </span>
-                                                </span>
-                                                <span class="icon-box-text">Giỏ hàng</span>
-                                            </a>
+
 
                                         </c:when>
                                         <c:otherwise>
@@ -682,6 +704,53 @@
 //                    searchForm.submit();
                 });
             });
+            $(document).ready(function () {
+                $('#openModal').on('click', function () {
+                    $('#exampleModal').fadeIn();
+                });
+
+                $('#closeModal, #closeModalFooter').on('click', function () {
+                    $('#exampleModal').fadeOut();
+                });
+
+                $(window).on('click', function (event) {
+                    if ($(event.target).is('#exampleModal')) {
+                        $('#exampleModal').fadeOut();
+                    }
+                });
+
+                $('#changePasswordForm').on('submit', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/ChangePassword',
+                        type: 'POST',
+                        data: $(this).serialize(), // Serialize form data
+
+                        success: function (data) {
+                            if (data.status === 'error') {
+                                $('#errorMessage').text(data.message);
+                            } else {
+                                $('#errorMessage').text(''); // Clear previous errors
+                                alert(data.message); // Show success message or handle it as needed
+                                $('#exampleModal').fadeOut();
+                                location.reload();// Close the modal
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                            $('#errorMessage').text('Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    });
+                });
+            });
+
+            function togglePasswordVisibility() {
+                var passwordFields = $('input[type="password"]');
+                passwordFields.each(function () {
+                    $(this).attr('type', $(this).attr('type') === 'password' ? 'text' : 'password');
+                });
+            }
         </script>
         <!-- Bootstrap JS and dependencies -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

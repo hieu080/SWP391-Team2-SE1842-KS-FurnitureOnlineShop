@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -172,7 +174,7 @@
                                                        role="checkbox" aria-label="Click here to select this product"
                                                        ${cartdetail.cartItem.status == 'selected' ? 'checked' : ''}>
                                                 <!-- Form ẩn để gửi trạng thái -->
-                                                <form id="statusForm${status.index}" action="${pageContext.request.contextPath}/UpdateCartItemStatus" method="post" style="display:none;">
+                                                <form id="statusForm${status.index}"  style="display:none;">
                                                     <input type="hidden" name="cartid" value="${cartdetail.cartItem.id}">
                                                     <input type="hidden" id="statusInput${status.index}" name="status" value="">
                                                 </form>
@@ -202,13 +204,13 @@
                                                             <c:set var="hasSale" value="true" />
                                                             <c:choose>
                                                                 <c:when test="${saleoff.getSaleoffvalue() == 0}">
-                                                                    <span style="color: black">${cartdetail.product.price}₫</span>
+                                                                    <span style="color: black"><fmt:formatNumber value=" ${cartdetail.product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</span>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <span>${cartdetail.product.price - cartdetail.product.price * saleoff.getSaleoffvalue() / 100}₫</span>
+                                                                    <span><fmt:formatNumber value=" ${cartdetail.product.price - cartdetail.product.price * saleoff.getSaleoffvalue() / 100}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</span>
                                                                     <span class="pro-price-del">
                                                                         <del class="compare-price">
-                                                                            ${cartdetail.product.price}₫
+                                                                            <fmt:formatNumber value=" ${cartdetail.product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
                                                                         </del>
                                                                     </span>
                                                                 </c:otherwise>
@@ -219,7 +221,7 @@
                                             </div>
                                             <div class="col-1 d-flex justify-content-center align-items-center">
                                                 <!-- Form ẩn để cập nhật số lượng sản phẩm -->
-                                                <form id="updateCartForm${status.index}" action="${pageContext.request.contextPath}/UpdateCartQuantity" method="post" style="display:none;">
+                                                <form id="updateCartForm${status.index}"  style="display:none;">
                                                     <input type="hidden" name="cartid" value="${cartdetail.cartItem.id}">
                                                     <input type="hidden" id="quantity${status.index}" name="quantity" value="${cartdetail.cartItem.quantity}">
                                                     <!-- Thêm trường ẩn để lưu giá sản phẩm sau khi tính toán -->
@@ -227,13 +229,13 @@
                                                 </form>
                                                 <!-- Input và nút bấm để thay đổi số lượng -->
                                                 <div class="d-flex justify-content-center ">
-                                                    <button type="button" class=""  style="width: 20px" onclick="updateQuantity(${status.index}, -1,${cartdetail.productDetail.quantity}, ${cartdetail.cartItem.totalcost})">-</button>
+                                                    <button type="button" style="width: 20px" onclick="updateQuantity(${status.index}, -1,${cartdetail.productDetail.quantity}, ${cartdetail.cartItem.totalcost})">-</button>
                                                     <input type="number" id="quantityInput${status.index}" style="width: 27px" class="text-center" min="1"  value="${cartdetail.cartItem.quantity}" readonly >
                                                     <button type="button" style="width: 20px"  onclick="updateQuantity(${status.index}, 1,${cartdetail.productDetail.quantity}, ${cartdetail.cartItem.totalcost})">+</button>
                                                 </div>
                                             </div>
                                             <div class="col d-flex justify-content-center align-items-center">
-                                                <span>${cartdetail.cartItem.totalcost}₫</span>
+                                                <span id="price${status.index}">${cartdetail.cartItem.totalcost}₫</span>
                                             </div>
                                             <form id="deleteCartForm${status.index}" action="${pageContext.request.contextPath}/DeleteCartItem" method="post" style="display:none;">
                                                 <input type="hidden" name="cartid" value="${cartdetail.cartItem.id}">
@@ -346,7 +348,7 @@
                         <div class="d-flex align-items-center">
                             <input type="checkbox" id="selectAllProducts" aria-checked="false" aria-disabled="false" tabindex="0" role="checkbox"
                                    aria-label="Click here to select all products" ${sessionScope.statusallcart == 'selected' ? 'checked' : ''}>
-                            :Chọn Tất Cả (${countcartitem})
+                            <p id="countCartItem">:Chọn Tất Cả (${countcartitem})</p>
                             <button class="btn btn-link" onclick="document.getElementById('deleteCartForm').submit();">Xóa</button>
 
                         </div>
@@ -355,8 +357,8 @@
                         </form>
                         <div class="d-flex align-items-center">
                             <div class="d-flex me-3">
-                                <div>Tổng thanh toán (${countcartitemselected} Sản phẩm):</div>
-                                <div class="fw-bold">${sumtotalprice} ₫ </div>
+                                <div id="countCartItemSelected">Tổng thanh toán (${countcartitemselected} Sản phẩm):</div>
+                                <div id="sumtotalprice" class="fw-bold"> <fmt:formatNumber value="${sumtotalprice}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</div>
                             </div>
                             <form id="deleteCartForm" action="${pageContext.request.contextPath}/DeleteCartItem" method="get" style="display:none;">
                                 <input type="hidden" name="cartid" value="${cartdetail.cartItem.id}">
@@ -370,153 +372,153 @@
 
         <c:choose>
             <c:when test="${sessionScope.moreproduct ne null}">
-               
+
                 <section class="section section-collection">
-            <div class="wrapper-heading-home text-center">
-                <div class="container">
+                    <div class="wrapper-heading-home text-center">
+                        <div class="container">
 
-                    <div class="site-animation">
-                        <h2>
-                            <a href="/collections/uu-dai">
+                            <div class="site-animation">
+                                <h2>
+                                    <a href="/collections/uu-dai">
 
-                                 Các Sản Phẩm Của --${sessionScope.brand}--${sessionScope.category} 
+                                        Các Sản Phẩm Của --${sessionScope.brand}--${sessionScope.category} 
 
-                            </a>
-                        </h2>
-                        <span class="view-more">
-                            <a href="${pageContext.request.contextPath}/ProductServlet">
-                                Xem thêm
-                            </a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row filter-here">
-
-                    <c:forEach items="${requestScope.productList}" var="product">
-                        <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
-                            <div class="product-block product-resize site-animation single-product">
-                                <div class="product-img fade-box">
-                                    <c:forEach items="${requestScope.saleOffList}" var="saleoff">
-                                        <c:if test="${saleoff.product_id == product.id}">
-
-                                            <c:choose>
-                                                <c:when test="${saleoff.getSaleoffvalue() != 0}">
-                                                    <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div></div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:if>
-                                    </c:forEach>
-
-                                    <div class="tag-loop">
-                                        <div class="icon icon_hot">
-                                            <img loading="lazy" decoding="async"
-                                                 src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
-                                                 alt="icon hot" />
-                                        </div>
-                                    </div>
-                                    <a href="ProductDetailServlet?productId=${product.id}"
-                                       title="${product.name}" class="image-resize">
-                                        <picture class="loop-one-img ">
-                                            <img loading="lazy" decoding="async" width="480"
-                                                 height="480" class="img-loop"
-                                                 alt="${product.name}"
-                                                 src="image/product/${product.image}" />
-                                        </picture>
                                     </a>
-                                </div>
-                                <div class="product-detail clearfix">
-                                    <div class="box-pro-detail">
-                                        <h3 class="pro-name">
-                                            <a href="#"
-                                               title="${product.name}">
-                                                ${product.name}
-                                            </a>
-                                        </h3>
-                                        <div class="box-pro-prices">
-                                            <p class="pro-price highlight">
-                                                <c:set var="hasSale" value="false" />
-                                                <c:forEach items="${requestScope.saleOffList}" var="saleoff">
-                                                    <c:if test="${saleoff.product_id == product.id}">  
-                                                        <c:set var="hasSale" value="true" />
-                                                        <c:choose>
-                                                            <c:when test="${saleoff.getSaleoffvalue() == 0}">
-                                                                <span style="color: black">${product.price}₫</span>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span>${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
-                                                                <span class="pro-price-del">
-                                                                    <del class="compare-price">
-                                                                        ${product.price}₫
-                                                                    </del>
-                                                                </span>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:if test="${!hasSale}">
-                                                    <span style="color: black">${product.price}₫</span>
-                                                </c:if>
-                                            </p>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
-                                                <c:set var="reviewCount" value="0" scope="page" />
-
-                                                <c:forEach items="${requestScope.feedbackList}" var="feedback">
-                                                    <c:if test="${feedback.product_id == product.id}">
-                                                        <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
-                                                    </c:if>
-                                                </c:forEach>
-                                                <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="${reviewCount}">
-                                                    <div class="rating"></div>
-                                                    <span class="num-reviews"></span>
-                                                </div>
-                                                <div>Số lượng: ${product.getQuantity()}</div>
-                                            </div>
-                                            <c:set var="quantitySold" value="0" scope="page" /> 
-                                            <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
-                                                <c:forEach items="${requestScope.productDetailList}" var="productDetail">
-                                                    <c:if test="${orderDetail.productdetail_id == productDetail.id}">
-                                                        <c:if test="${productDetail.product_id == product.id}">
-                                                            <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
-                                                        </c:if>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:forEach>
-                                            <div
-                                                class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
-                                                <div class="cmpText">Đã bán ${quantitySold}</div>
-                                                <span>
-                                                    <c:forEach items="${productDetailList}" var="productDetail">
-                                                        <c:if test="${product.id == productDetail.product_id}">
-                                                            <c:forEach items="${colorList}" var="color">
-                                                                <c:if test="${productDetail.color_id == color.id}">
-                                                                    <label class="color-checkbox">
-                                                                        <input type="checkbox" name="color" value="${color.id}" style="display: none;">
-                                                                        <span class="color-circle" style="background-color:${color.colorcode};"></span>
-                                                                    </label>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </h2>
+                                <span class="view-more">
+                                    <a href="${pageContext.request.contextPath}/ProductServlet">
+                                        Xem thêm
+                                    </a>
+                                </span>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
-            </div>
-        </section>
-                
+                    </div>
+                    <div class="container">
+                        <div class="row filter-here">
+
+                            <c:forEach items="${requestScope.productList}" var="product">
+                                <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-4">
+                                    <div class="product-block product-resize site-animation single-product">
+                                        <div class="product-img fade-box">
+                                            <c:forEach items="${requestScope.saleOffList}" var="saleoff">
+                                                <c:if test="${saleoff.product_id == product.id}">
+
+                                                    <c:choose>
+                                                        <c:when test="${saleoff.getSaleoffvalue() != 0}">
+                                                            <div class="product-sale"><span>-${saleoff.getSaleoffvalue()}%</span></div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div></div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <div class="tag-loop">
+                                                <div class="icon icon_hot">
+                                                    <img loading="lazy" decoding="async"
+                                                         src="//theme.hstatic.net/200000065946/1001187274/14/icon_hot.png?v=582"
+                                                         alt="icon hot" />
+                                                </div>
+                                            </div>
+                                            <a href="ProductDetailServlet?productId=${product.id}"
+                                               title="${product.name}" class="image-resize">
+                                                <picture class="loop-one-img ">
+                                                    <img loading="lazy" decoding="async" width="480"
+                                                         height="480" class="img-loop"
+                                                         alt="${product.name}"
+                                                         src="image/product/${product.image}" />
+                                                </picture>
+                                            </a>
+                                        </div>
+                                        <div class="product-detail clearfix">
+                                            <div class="box-pro-detail">
+                                                <h3 class="pro-name">
+                                                    <a href="#"
+                                                       title="${product.name}">
+                                                        ${product.name}
+                                                    </a>
+                                                </h3>
+                                                <div class="box-pro-prices">
+                                                    <p class="pro-price highlight">
+                                                        <c:set var="hasSale" value="false" />
+                                                        <c:forEach items="${requestScope.saleOffList}" var="saleoff">
+                                                            <c:if test="${saleoff.product_id == product.id}">  
+                                                                <c:set var="hasSale" value="true" />
+                                                                <c:choose>
+                                                                    <c:when test="${saleoff.getSaleoffvalue() == 0}">
+                                                                        <span style="color: black">${product.price}₫</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span>${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
+                                                                        <span class="pro-price-del">
+                                                                            <del class="compare-price">
+                                                                                ${product.price}₫
+                                                                            </del>
+                                                                        </span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <c:if test="${!hasSale}">
+                                                            <span style="color: black">${product.price}₫</span>
+                                                        </c:if>
+                                                    </p>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 custom_review">
+                                                        <c:set var="reviewCount" value="0" scope="page" />
+
+                                                        <c:forEach items="${requestScope.feedbackList}" var="feedback">
+                                                            <c:if test="${feedback.product_id == product.id}">
+                                                                <c:set var="reviewCount" value="${reviewCount + 1}" scope="page" />
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <div class="rating-container" data-rating="${product.staravg}" data-num-reviews="${reviewCount}">
+                                                            <div class="rating"></div>
+                                                            <span class="num-reviews"></span>
+                                                        </div>
+                                                        <div>Số lượng: ${product.getQuantity()}</div>
+                                                    </div>
+                                                    <c:set var="quantitySold" value="0" scope="page" /> 
+                                                    <c:forEach items="${requestScope.orderDetailList}" var="orderDetail">
+                                                        <c:forEach items="${requestScope.productDetailList}" var="productDetail">
+                                                            <c:if test="${orderDetail.productdetail_id == productDetail.id}">
+                                                                <c:if test="${productDetail.product_id == product.id}">
+                                                                    <c:set var="quantitySold" value="${quantitySold + orderDetail.quantity}" scope="page" />
+                                                                </c:if>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:forEach>
+                                                    <div
+                                                        class="col-lg-4 col-md-4 col-sm-4 col-xs-12 custom_sold_qty">
+                                                        <div class="cmpText">Đã bán ${quantitySold}</div>
+                                                        <span>
+                                                            <c:forEach items="${productDetailList}" var="productDetail">
+                                                                <c:if test="${product.id == productDetail.product_id}">
+                                                                    <c:forEach items="${colorList}" var="color">
+                                                                        <c:if test="${productDetail.color_id == color.id}">
+                                                                            <label class="color-checkbox">
+                                                                                <input type="checkbox" name="color" value="${color.id}" style="display: none;">
+                                                                                <span class="color-circle" style="background-color:${color.colorcode};"></span>
+                                                                            </label>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </section>
+
             </c:when>
             <c:otherwise>
                 <%@ include file="HomeProduct.jsp" %>
@@ -627,9 +629,30 @@
                 // Calculate the total price and set it in the hidden input
                 var totalPrice = pricePerItem / oldQuantity * quantity;
                 document.getElementById("totalPrice" + index).value = totalPrice;
-
+                var price= '#price'+ index;
                 // Submit the form
-                document.getElementById("updateCartForm" + index).submit();
+//                document.getElementById("updateCartForm" + index).submit();
+                $.ajax({
+                    type: 'POST',
+                    url: 'UpdateCartQuantity',
+                    data: $('#updateCartForm' + index).serialize(), // Serialize form data if needed
+                    success: function (response) {
+                        // Handle success response
+                        console.log('Data loaded successfully.');
+                        console.log(response);
+                        // Update table with initial data
+                        $('#countCartItem').text(': Chọn Tất Cả (' + response.countcartitem + ')');
+                        $('#countCartItemSelected').text('Tổng thanh toán (' + response.countcartitemselected + 'Sản phẩm):');
+                        $('#sumtotalprice').text(response.sumtotalprice + '₫');
+                        $(price).text(response.price+'₫');
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if any
+                        console.error('Error loading initial data:', error);
+                    }
+                });
             }
             document.getElementById('selectAllProducts').addEventListener('change', function () {
                 var checkboxes = document.querySelectorAll('.product-checkbox');
@@ -657,7 +680,24 @@
                         } else {
                             statusInput.value = 'unselected';
                         }
-                        form.submit();
+                        $.ajax({
+                            type: 'POST',
+                            url: 'UpdateCartItemStatus',
+                            data: $('#statusForm' + index).serialize(), // Serialize form data if needed
+                            success: function (response) {
+                                // Handle success response
+                                console.log('Data loaded successfully.');
+                                console.log(response);
+                                // Update table with initial data
+                                $('#countCartItem').text(': Chọn Tất Cả (' + response.countcartitem + ')');
+                                $('#countCartItemSelected').text('Tổng thanh toán (' + response.countcartitemselected + 'Sản phẩm):');
+                                $('#sumtotalprice').text(response.sumtotalprice + '₫');
+                            },
+                            error: function (xhr, status, error) {
+                                // Handle errors if any
+                                console.error('Error loading initial data:', error);
+                            }
+                        });
                     });
                 });
             });

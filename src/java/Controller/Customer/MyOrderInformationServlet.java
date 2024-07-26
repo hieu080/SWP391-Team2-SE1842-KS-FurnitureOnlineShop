@@ -4,6 +4,7 @@
  */
 package Controller.Customer;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.AddressDAO;
 import DAL.CategoryDAO;
 import DAL.ColorDAO;
@@ -150,7 +151,7 @@ public class MyOrderInformationServlet extends HttpServlet {
             // Ví dụ: cập nhật trạng thái đơn hàng trong cơ sở dữ liệu thành "Cancelled"
             OrderDAO orderDAO = new OrderDAO();
             orderDAO.updateOrderStatus(order_id, "Canceled");
-
+            OrderUpdateEndpoint.sendUpdate("update");
             // Phản hồi về cho client rằng đã hủy đơn hàng thành công
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("Đã hủy đơn hàng thành công!");

@@ -4,6 +4,7 @@
  */
 package Controller.Common;
 
+import Controller.WebSocket.OrderUpdateEndpoint;
 import DAL.BrandDAO;
 import DAL.CategoryDAO;
 import DAL.CategoryOfPostDAO;
@@ -114,7 +115,8 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserDAO userDAO = new UserDAO();
-        User customer = userDAO.login(email, password);
+        String hassPass = userDAO.hashPassword(password);
+        User customer = userDAO.login(email, hassPass);
         if (customer != null && !("Block".equals(customer.getStatus()))) {
             HttpSession session = request.getSession();
             session.setAttribute("customer", customer);
@@ -122,6 +124,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("password", password);
             userDAO.UpdateUser(customer.getRole_id(), "Active", customer.getId());
             response.sendRedirect("HomePage");
+            OrderUpdateEndpoint.sendUpdate("aaa");
         }else if(customer != null && "Block".equals(customer.getStatus())){
             processRequest(request, response);
             request.setAttribute("showlogin", "block");

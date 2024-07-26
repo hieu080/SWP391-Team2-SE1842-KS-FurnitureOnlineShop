@@ -51,10 +51,15 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div style="display: flex; justify-content: flex-end">
-                                            <!-- Edit Product Modal Trigger -->
-                                            <button id="edit-button" type="button" style="width: 80px; height: 41px" class="btn btn-primary">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
+                                            <c:set value="${requestScope.user}" var="user"/>
+                                            <c:if test="${user.role_id !=5}">
+                                                <!-- Edit Product Modal Trigger -->
+                                                <button id="edit-button" type="button" style="width: 80px; height: 41px" class="btn btn-primary">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                            </c:if>
+
+
                                         </div>
                                     </div>
 
@@ -140,22 +145,22 @@
                                                     </select>
                                                     <select name="statusUser" style="height: 40px; width: 100%; margin-bottom: 10px; border: groove">
                                                         <c:choose>
-                                                                <c:when test="${user.status == 'Active'}">
-                                                                    <option value="Active" selected>Active</option>
-                                                                    <option value="Inactive">Inactive</option>
-                                                                    <option value="Block">Block</option>
-                                                                </c:when>
-                                                                <c:when test="${user.status == 'Block'}">
-                                                                    <option value="Active" >Active</option>
-                                                                    <option value="Inactive">Inactive</option>
-                                                                    <option value="Block" selected>Block</option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="Active">Active</option>
-                                                                    <option value="Inactive" selected>Inactive</option>
-                                                                    <option value="Block">Block</option>
-                                                                </c:otherwise>
-                                                            </c:choose>
+                                                            <c:when test="${user.status == 'Online'}">
+                                                                <option value="Online" selected>Online</option>
+                                                                <option value="Offline">Offline</option>
+                                                                <option value="Block">Block</option>
+                                                            </c:when>
+                                                            <c:when test="${user.status == 'Block'}">
+                                                                <option value="Online" >Online</option>
+                                                                <option value="Offline">Offline</option>
+                                                                <option value="Block" selected>Block</option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option value="Online">Online</option>
+                                                                <option value="Offline" selected>Offline</option>
+                                                                <option value="Block">Block</option>
+                                                            </c:otherwise>
+                                                        </c:choose> 
                                                     </select>
                                                 </div>
                                             </div>

@@ -537,25 +537,44 @@
                 var selectedRadio = document.querySelector('input[name="color"]:checked');
                 var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
                 var quantity = document.getElementById('quantity').value;
-                var price =  document.getElementById('priceunit').value;
+                var price = document.getElementById('priceunit').value;
 
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
                 document.getElementById('price').value = price;
 
-                document.getElementById('hiddenForm').submit();
+                $.ajax({
+                    type: 'GET',
+                    url: $('#hiddenForm').attr('action'), // Replace with your server endpoint URL
+                    data: $('#hiddenForm').serialize(),
+                    success: function (response) {
+                        // Handle the response from the server
+                        $('#countcart').text(response.countcartitem);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Order Complete',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle any errors
+                        console.error(error);
+                    }
+                });
             });
 
             document.getElementById('buy_now').addEventListener('click', function () {
                 var selectedRadio = document.querySelector('input[name="color"]:checked');
                 var productDetailId = selectedRadio.getAttribute('data-product-detail-id');
                 var quantity = document.getElementById('quantity').value;
-                var price =  document.getElementById('priceunit').value;
+                var price = document.getElementById('priceunit').value;
 
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
                 document.getElementById('price').value = price;
-                 document.getElementById('action').value ="buynow";
+                document.getElementById('action').value = "buynow";
 
                 document.getElementById('hiddenForm').submit();
             });

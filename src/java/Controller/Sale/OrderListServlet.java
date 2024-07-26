@@ -30,9 +30,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -200,11 +203,11 @@ public class OrderListServlet extends HttpServlet {
 
                                                     htmlResponse.append("                    </td>\n")
                                                             .append("                    <td style=\"text-align: center; background-color: white;\">")
-                                                            .append(orderDetail.getPrice()).append("</td>\n")
+                                                            .append(formatCurrency(orderDetail.getPrice())).append("</td>\n")
                                                             .append("                    <td style=\"text-align: center; background-color: white;\">")
                                                             .append(orderDetail.getQuantity()).append("</td>\n")
                                                             .append("                    <td style=\"text-align: center; background-color: white;\">")
-                                                            .append(order.getTotalcost()).append("</td>\n");
+                                                            .append(formatCurrency(order.getTotalcost())).append("</td>\n");
 
                                                     firstProduct = false;
                                                 } else {
@@ -240,7 +243,7 @@ public class OrderListServlet extends HttpServlet {
                         .append("        </table>\n")
                         .append("        <div style=\"display: flex;justify-content: flex-end;\">\n")
                         .append("            <div></div>\n")
-                        .append("            <div><b>Total: </b>").append(order.getTotalcost()).append("</div>\n")
+                        .append("            <div><b>Total: </b>").append(formatCurrency(order.getTotalcost())).append("</div>\n")
                         .append("        </div>\n")
                         .append("        <div class=\"button-order\" style=\"display: flex; justify-content: flex-end; margin-top: 10px\">\n");
 
@@ -269,6 +272,10 @@ public class OrderListServlet extends HttpServlet {
                             statusButton = "<button class=\"btn btn-warning\" style=\"height: 30px;\">Hoàn thành đơn hàng</button>";
                         }
                         break;
+                    case "Wait":
+                        htmlResponse.append(" <a href=\"#\" class=\"btn btn-light\" style=\"height: 30px; background-color: pink\">Chưa thanh toán</a>\n");
+                        break;
+
                     default:
                         statusButton = "<button style=\"width: 80px; height: 30px\" class=\"btn btn-warning\">" + order.getStatus() + "</button>";
                         break;
@@ -381,6 +388,13 @@ public class OrderListServlet extends HttpServlet {
             response.getWriter().print(htmlResponse + "|" + pagePagination);
         }
 
+    }
+    public String formatCurrency(double number) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+        symbols.setMonetaryDecimalSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        return decimalFormat.format(number) + "₫";
     }
 
 }

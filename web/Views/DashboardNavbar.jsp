@@ -18,38 +18,10 @@
                     <span class="sidebar-brand-text align-middle">
                         Furniture Dashboard
                     </span>
-                    <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"
-                         stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
-                    <path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
-                    <path d="M20 12L12 16L4 12"></path>
-                    <path d="M20 16L12 20L4 16"></path>
-                    </svg>
+                    
                 </a>
 
-                <div class="sidebar-user">
-                    <div class="d-flex justify-content-center">
-                        <div class="flex-shrink-0">
-                            <img src="image/avatar/${user.avatar}" class="avatar img-fluid rounded me-1" alt="${user.fullname}" />
-                        </div>
-                        <div class="flex-grow-1 ps-2">
-                            <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                ${user.fullname}
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-start">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
-                                    Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Log out</a>
-                            </div>
-
-                            <div class="sidebar-user-subtitle">Admin</div>
-                        </div>
-                    </div>
-                </div>
+              
 
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">

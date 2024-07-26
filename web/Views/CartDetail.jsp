@@ -217,6 +217,9 @@
                                                             </c:choose>
                                                         </c:if>
                                                     </c:forEach>
+                                                    <c:if test="${!hasSale}">
+                                                        <span style="color: black"><fmt:formatNumber value=" ${cartdetail.product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</span>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <div class="col-1 d-flex justify-content-center align-items-center">
@@ -235,7 +238,7 @@
                                                 </div>
                                             </div>
                                             <div class="col d-flex justify-content-center align-items-center">
-                                                <span id="price${status.index}">${cartdetail.cartItem.totalcost}₫</span>
+                                                <span id="price${status.index}"><fmt:formatNumber value=" ${cartdetail.cartItem.totalcost}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫</span>
                                             </div>
                                             <form id="deleteCartForm${status.index}" action="${pageContext.request.contextPath}/DeleteCartItem" method="post" style="display:none;">
                                                 <input type="hidden" name="cartid" value="${cartdetail.cartItem.id}">
@@ -615,21 +618,30 @@
 
 
         <script>
+            var cost = new Array(50).fill(0);
             function updateQuantity(index, change, maxquantity, pricePerItem) {
                 var quantityInput = document.getElementById("quantityInput" + index);
                 var oldQuantity = parseInt(quantityInput.value);
+                console.log(oldQuantity);
                 var quantity = parseInt(quantityInput.value) + change;
+                
+                console.log(quantity);
                 if (quantity < 1)
                     quantity = 1;
                 if (quantity > maxquantity)
                     quantity = maxquantity;
                 quantityInput.value = quantity;
-                document.getElementById("quantity" + index).value = quantity;
 
+                document.getElementById("quantity" + index).value = quantity;
+                console.log(index);
                 // Calculate the total price and set it in the hidden input
-                var totalPrice = pricePerItem / oldQuantity * quantity;
+                if (cost[index] === 0) {
+                    var totalPrice = pricePerItem / oldQuantity * quantity;
+                }else{
+                    var totalPrice = cost[index] / oldQuantity * quantity;
+                }
                 document.getElementById("totalPrice" + index).value = totalPrice;
-                var price= '#price'+ index;
+                var price = '#price' + index;
                 // Submit the form
 //                document.getElementById("updateCartForm" + index).submit();
                 $.ajax({
@@ -644,7 +656,8 @@
                         $('#countCartItem').text(': Chọn Tất Cả (' + response.countcartitem + ')');
                         $('#countCartItemSelected').text('Tổng thanh toán (' + response.countcartitemselected + 'Sản phẩm):');
                         $('#sumtotalprice').text(response.sumtotalprice + '₫');
-                        $(price).text(response.price+'₫');
+                        $(price).text(response.price + '₫');
+                        cost[index]=response.price;
 
 
                     },

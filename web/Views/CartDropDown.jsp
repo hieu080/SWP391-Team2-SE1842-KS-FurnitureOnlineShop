@@ -158,7 +158,8 @@
                                             <div><a class="pro-title-view" href="/products/ghe-an-go-cao-su-tu-nhien-moho-vline-601" title="${cartdetail.product.name}">${cartdetail.product.name}</a></div>
                                             <div><span class="variant">${cartdetail.color.colorname}</span></div>
                                             <div><span class="pro-quantity-view">Số lượng: ${cartdetail.cartItem.quantity}</span> </div>
-                                            <div> <c:set var="hasSale" value="false" />
+                                            <div> 
+                                                <c:set var="hasSale" value="false" />
                                                 <c:forEach items="${requestScope.saleOffList}" var="saleoff">
                                                     <c:if test="${saleoff.product_id == cartdetail.product.id}">
                                                         <c:set var="hasSale" value="true" />
@@ -168,12 +169,16 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <span class="pro-price-view">${cartdetail.product.price - cartdetail.product.price * saleoff.getSaleoffvalue() / 100}₫/1 sản phẩm </span>
+                                                                <del class="cart_mini_compare">${cartdetail.product.price}₫</del>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:if>
                                                 </c:forEach>
-                                                <del class="cart_mini_compare">${cartdetail.product.price}₫</del>
 
+
+                                                <c:if test="${!hasSale}">
+                                                    <span class="pro-price-view">${cartdetail.product.price}₫/1 sản phẩm</span>
+                                                </c:if>
                                             </div>
 
                                         </td>

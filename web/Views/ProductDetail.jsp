@@ -8,7 +8,7 @@
               type="image/png" />
         <title>Tất Cả Sản Phẩm Đồ Gỗ Nội Thất Của MOHO</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         <style>
             img {
                 max-width: 100%;
@@ -366,6 +366,8 @@
                                         <c:choose>
                                             <c:when test="${saleoff.getSaleoffvalue() == 0}">
                                                 <span style="color: black">${product.price}₫</span>
+
+
                                             </c:when>
                                             <c:otherwise>
                                                 <span class="pro-price">${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
@@ -380,6 +382,9 @@
                                 </c:forEach>
                                 <c:if test="${!hasSale}">
                                     <span style="color: black">${product.price}₫</span>
+                                    <div style="display: none">
+                                        <input type="hidden" id="priceunit" name="priceunit" value="${product.price}">
+                                    </div>
                                 </c:if>
                             </div>
                             <div style="border-bottom: 1px dotted #dfe0e1; margin-top: 10px">
@@ -539,9 +544,12 @@
                 var quantity = document.getElementById('quantity').value;
                 var price = document.getElementById('priceunit').value;
 
+
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
+
                 document.getElementById('price').value = price;
+
 
                 $.ajax({
                     type: 'GET',
@@ -555,8 +563,11 @@
                             icon: 'success',
                             title: 'Order Complete',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1000
                         });
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
                     },
                     error: function (xhr, status, error) {
                         // Handle any errors
@@ -571,9 +582,12 @@
                 var quantity = document.getElementById('quantity').value;
                 var price = document.getElementById('priceunit').value;
 
+
                 document.getElementById('productDetailId').value = productDetailId;
                 document.getElementById('quantityproduct').value = quantity;
+
                 document.getElementById('price').value = price;
+
                 document.getElementById('action').value = "buynow";
 
                 document.getElementById('hiddenForm').submit();
@@ -596,6 +610,7 @@
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>               
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>   
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

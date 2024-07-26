@@ -1,11 +1,6 @@
-<%-- 
-    Document   : ProductListMKT
-    Created on : Jun 5, 2024, 2:27:59 PM
-    Author     : HELLO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -119,7 +114,7 @@
                                                     </div>
 
                                                     <div style="margin-bottom: 5px">
-                                                        <b>Price:</b><input type="text" name="priceProduct" value="${product.price}" style="margin-left: 34px; width: 120px; height: 23px;"/> VNĐ<br/> 
+                                                        <b>Price:</b><input type="text" name="priceProduct" value="${product.price}" style="margin-left: 34px; width: 120px; height: 23px;"/> ₫<br/> 
                                                     </div>
 
                                                     <div style="margin-bottom: 5px">
@@ -250,7 +245,7 @@
                                                 <c:if test="${product.brand_id == brand.id}">${brand.brandname}</c:if>
                                             </c:forEach><br/>
                                             <b>Score:</b> ${product.staravg} sao<br/>
-                                            <b>Price:</b> ${product.price} VNĐ<br/>
+                                            <b>Price:</b><fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫<br/>
                                             <b>Room:</b> 
                                             <c:forEach items="${requestScope.roomList}" var="room">
                                                 <c:if test="${product.room_id == room.id}">${room.roomname}</c:if>

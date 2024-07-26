@@ -1,11 +1,6 @@
-<%-- 
-    Document   : ProductListMKT
-    Created on : Jun 5, 2024, 2:27:59 PM
-    Author     : HELLO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -276,11 +271,27 @@
                                             </li>
                                             <li>
                                                 <input type="radio" name="sortby" value="quantityAsc" id="quantityAsc" style="display: none;">
-                                                <label for="quantityAsc">Số lượng tăng dần</label>
+                                                <label for="quantityAsc">Số lượng đang có tăng dần</label>
                                             </li>
                                             <li>
                                                 <input type="radio" name="sortby" value="quantityDesc" id="quantityDesc" style="display: none;">
-                                                <label for="quantityDesc">Số lượng giảm dần</label>
+                                                <label for="quantityDesc">Số lượng đang có giảm dần</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="sortby" value="quantitySoldAsc" id="quantitySoldAsc" style="display: none;">
+                                                <label for="quantitySoldAsc">Số lượng đã bán tăng dần</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="sortby" value="quantitySoldDesc" id="quantitySoldDesc" style="display: none;">
+                                                <label for="quantitySoldDesc">Số lượng đã bán giảm dần</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="sortby" value="starAsc" id="starAsc" style="display: none;">
+                                                <label for="starAsc">Số sao tăng dần</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="sortby" value="starDesc" id="starDesc" style="display: none;">
+                                                <label for="starDesc">Số sao bán giảm dần</label>
                                             </li>
                                             <li>
                                                 <input type="radio" name="sortby" value="createDateDesc" id="createDateDesc" style="display: none;">
@@ -601,22 +612,19 @@
                                                         <h6 class="text-sm text-medium">Product</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Category</h6>
-                                                    </th>
-                                                    <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Brand</h6>
-                                                    </th>
-                                                    <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Room</h6>
+                                                        <h6 class="text-sm text-medium">Feedback Star</h6>
                                                     </th>
                                                     <th class="min-width">
                                                         <h6 class="text-sm text-medium">Price</h6>
                                                     </th>
-                                                    <th>
+                                                    <th class="min-width">
                                                         <h6 class="text-sm text-medium">Sale Off</h6>
                                                     </th>
+                                                    <th>
+                                                        <h6 class="text-sm text-medium">Quantity Sold</h6>
+                                                    </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Quantity</h6>
+                                                        <h6 class="text-sm text-medium">Quantity Available</h6>
                                                     </th>
                                                     <th class="min-width">
                                                         <h6 class="text-sm text-medium">Status</h6>
@@ -627,8 +635,55 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="product-container">
-                                            <c:set value="${requestScope.htmlResponse}" var="htmlResponse"/>
-                                            ${htmlResponse}
+                                            <c:forEach items="${requestScope.productList}" var="product">
+                                                <tr>
+                                                    <td>
+                                                        <div><p class="text-sm">${product.id}</p></div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="image"><img src="image/product/${product.image}" alt="${product.name}"></div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-sm"><p class="text-sm">${product.name}</p></div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm">
+                                                        <div>${product.staravg} <span class="star" style="color: yellow">&#9733;</span> </div>
+                                                        <div>(${product.numberFeedback}) vote</div>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${product.saleOff > 0}">
+                                                                <span class="text-danger">
+                                                                    <fmt:formatNumber value="${product.salePrice}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                                </span>
+                                                                <del>
+                                                                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                                </del>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span>
+                                                                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                                </span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm text-danger">${product.saleOff}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm">${product.quantitySold}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm">${product.quantity}</p></td>
+                                                    <td>
+                                                        <p class="text-sm">Active</p>
+                                                    </td>
+                                                    <td class="actions"><p><a href="ManageProductServlet?productID=${product.id}" title="View" "=""><i class="fas fa-eye"></i></a></p>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -677,71 +732,6 @@
                                                     }
     </script>
     <script>
-        $(document).ready(function () {
-            // Bắt sự kiện khi người dùng thay đổi radio button
-            $('input[type="radio"][name="sortby"]').change(function () {
-                // Tự động submit form bằng AJAX
-                submitFormWithAjax();
-            });
-
-            // Hàm để gửi yêu cầu AJAX
-            function submitFormWithAjax() {
-                var form = $('#sortForm')[0]; // Lấy form theo id
-                $.ajax({
-                    type: form.getAttribute("method"),
-                    url: form.getAttribute("action"),
-                    data: $(form).serialize(),
-                    success: function (response) {
-                        console.log(response);
-                        $("#product-container").html(response); // Cập nhật nội dung sản phẩm
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: " + error);
-                    }
-                });
-            }
-        });
-
-        $(document).ready(function () {
-            // Bắt sự kiện khi người dùng thay đổi checkbox trong form
-            $('#filterForm input[type="checkbox"]').change(function () {
-                // Tự động submit form bằng AJAX
-                submitFormWithAjax();
-            });
-
-            // Hàm để gửi yêu cầu AJAX
-            function submitFormWithAjax() {
-                var form = $('#filterForm')[0]; // Lấy form theo id
-                $.ajax({
-                    type: form.getAttribute("method"),
-                    url: form.getAttribute("action"),
-                    data: $(form).serialize(),
-                    success: function (response) {
-                        // Tách response bằng dấu '|'
-                        var responses = response.split('|');
-                        if (responses.length === 2) {
-                            var htmlResponse = responses[0];
-                            var pagePagination = responses[1];
-                            console.log("Đây là phân trang:" + pagePagination);
-                            // Cập nhật nội dung sản phẩm
-                            $("#product-container").html(htmlResponse);
-
-                            // Cập nhật nội dung phân trang
-                            $("#page-pagination").html(pagePagination);
-                            var pagintion = $("#page-pagination");
-                            console.log(pagintion);
-                        } else {
-                            console.error("Unexpected response format");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: " + error);
-                    }
-                });
-            }
-
-        });
-
 
         document.addEventListener('DOMContentLoaded', function () {
             function updateTags(inputSelector, tagId, filterClass) {
@@ -784,37 +774,7 @@
                 }
             }
 
-            function submitFormWithAjax() {
-                var form = $('#filterForm')[0]; // Lấy form theo id
-                $.ajax({
-                    type: form.getAttribute("method"),
-                    url: form.getAttribute("action"),
-                    data: $(form).serialize(),
-                    success: function (response) {
-                        // Tách response bằng dấu '|'
-                        var responses = response.split('|');
-                        if (responses.length === 2) {
-                            var htmlResponse = responses[0];
-                            var pagePagination = responses[1];
-
-                            console.log("Đây là phân trang:" + pagePagination);
-                            // Cập nhật nội dung sản phẩm
-                            $("#product-container").html(htmlResponse);
-
-                            // Cập nhật nội dung phân trang
-                            $("#page-pagination").html(pagePagination);
-                        } else {
-                            console.error("Unexpected response format");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: " + error);
-                    }
-                });
-            }
-
-
-            function clearFilter(inputSelector, tagId) {
+            async function clearFilter(inputSelector, tagId) {
                 const inputs = document.querySelectorAll(inputSelector);
                 const tagElement = document.getElementById(tagId);
 
@@ -827,7 +787,37 @@
                 filterTagDiv.classList.remove('opened');
 
                 updateRemoveAllTag();
-                submitFormWithAjax();
+                try {
+                    // Gửi form với AJAX và chờ cho nó hoàn tất
+                    await submitFormWithAjax('#filterForm');
+                    // Gọi ReloadPagination sau khi submitFormWithAjax hoàn tất
+                    ReloadPagination();
+                } catch (error) {
+                    console.error("An error occurred while clearing filters:", error);
+                }
+            }
+
+
+            function submitFormWithAjax(formSelector) {
+                var form = $(formSelector)[0]; // Lấy form theo selector
+
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: form.getAttribute("method"),
+                        url: form.getAttribute("action"),
+                        data: $(form).serialize(),
+                        dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                        success: function (response) {
+                            console.log(response); // Kiểm tra dữ liệu trả về từ server
+                            displayProducts(response); // Hiển thị sản phẩm
+                            resolve(); // Hoàn tất Promise
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error: " + error);
+                            reject(error); // Từ chối Promise
+                        }
+                    });
+                });
             }
 
             // Add click event listeners to each filter tag remove button
@@ -895,51 +885,47 @@
             updateTags('input[name="room-filter"]', 'room-tag', 'room-filter');
             updateTags('input[name="price-filter"]', 'price-tag', 'price-filter');
             updateTags('input[name="status-filter"]', 'status-tag', 'status-filter');
-        });
 
-        //        $(document).ready(function () {
-        //            $('.page-node').click(function (event) {
-        //                event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
-        //
-        //                var pageValue = $(this).text();
-        //                $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
-        //                console.log(pageValue);
-        //                submitFormWithAjax();
-        //            });
-        //
-        //            function submitFormWithAjax() {
-        //                var form = $('#paginationForm')[0]; // Lấy form theo id
-        //
-        //                $.ajax({
-        //                    type: form.getAttribute("method"),
-        //                    url: form.getAttribute("action"),
-        //                    data: $(form).serialize(),
-        //                    success: function (response) {
-        //                        $("#product-container").html(response); // Cập nhật nội dung sản phẩm
-        //                    },
-        //                    error: function (xhr, status, error) {
-        //                        console.error("Error: " + error);
-        //                    }
-        //                });
-        //            }
-        //        });
-        $(document).ready(function () {
-            // Hàm để xử lý sự kiện onclick và gửi yêu cầu AJAX
-            window.submitFormWithPage = function (pageValue) {
-                $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
-                console.log(pageValue);
-                submitFormWithAjax();
+            function renderPagination(pages) {
+                var paginationHtml = '';
+                pages.forEach(function (page) {
+                    paginationHtml += `
+            <input type="radio" name="page" id="page` + page + `" value="` + page + `" style="display: none;">
+            <label for="page` + page + `" 
+                   style="width: 25px; border: groove;" 
+                   class="page-node" 
+                   aria-label="Trang ` + page + `" 
+                   onclick="submitFormWithPage(` + page + `)">
+                   ` + page + `
+            </label>
+        `;
+                });
+                paginationHtml += '<span class="page-node">&hellip;</span>';
+                return paginationHtml;
             }
 
-            function submitFormWithAjax() {
-                var form = $('#paginationForm')[0]; // Lấy form theo id
+
+            function ReloadPagination() {
+                const container = document.getElementById('page-pagination');
+                container.innerHTML = ''; // Làm rỗng nội dung hiện tại của container
 
                 $.ajax({
-                    type: form.getAttribute("method"),
-                    url: form.getAttribute("action"),
-                    data: $(form).serialize(),
+                    type: "POST",
+                    url: "ProductListMKTServlet",
+                    data: {action: "reloadPagination"}, // Thêm biến action vào dữ liệu gửi đi
+                    dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
                     success: function (response) {
-                        $("#product-container").html(response); // Cập nhật nội dung sản phẩm
+                        try {
+                            if (Array.isArray(response)) {
+                                console.log(response);
+                                // Gọi hàm renderPagination và cập nhật nội dung container
+                                container.innerHTML = renderPagination(response);
+                            } else {
+                                console.error("Unexpected response format:", response);
+                            }
+                        } catch (e) {
+                            console.error("Error processing JSON response:", e);
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error("Error: " + error);
@@ -948,7 +934,188 @@
             }
         });
 
+    </script>
+    <script>
+        function formatCurrency(number) {
+            return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND', minimumFractionDigits: 0}).format(number).replace('₫', '') + '₫';
+        }
 
+// Định nghĩa hàm displayProducts trước khi sử dụng
+        function displayProducts(products) {
+            const container = document.getElementById('product-container');
+            container.innerHTML = ''; // Xóa nội dung hiện có
+
+            products.forEach(function (product) {
+                // Tạo HTML cho sản phẩm
+                let priceHTML;
+                if (product.saleOff > 0) {
+                    priceHTML = '<span class="text-danger">' + formatCurrency(product.salePrice) + '</span>' +
+                            '<del>' + formatCurrency(product.price) + '</del>';
+                } else {
+                    priceHTML = '<span>' + formatCurrency(product.price) + '</span>';
+                }
+
+                const productHTML =
+                        '<tr>' +
+                        '<td>' +
+                        '<div><p class="text-sm">' + product.id + '</p></div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<div class="image"><img src="image/product/' + product.image + '" alt="' + product.name + '"></div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<div class="text-sm"><p class="text-sm">' + product.name + '</p></div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm">' +
+                        '<div>' + product.staravg + ' <span class="star" style="color: yellow">&#9733;</span></div>' +
+                        '<div>(' + product.numberFeedback + ') vote</div>' +
+                        '</p>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm">' + priceHTML + '</p>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm text-danger">' + product.saleOff + '%</p>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm">' + product.quantitySold + '</p>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm">' + product.quantity + '</p>' +
+                        '</td>' +
+                        '<td>' +
+                        '<p class="text-sm">Active</p>' +
+                        '</td>' +
+                        '<td class="actions">' +
+                        '<p><a href="ManageProductServlet?productID=' + product.id + '" title="View"><i class="fas fa-eye"></i></a></p>' +
+                        '</td>' +
+                        '</tr>';
+
+                // Thêm HTML sản phẩm vào container
+                container.innerHTML += productHTML;
+            });
+        }
+
+// Định nghĩa sự kiện khi tài liệu đã sẵn sàng
+        $(document).ready(function () {
+            // Bắt sự kiện khi người dùng thay đổi radio button
+            $('input[type="radio"][name="sortby"]').change(function () {
+                // Tự động submit form bằng AJAX
+                submitFormWithAjax('#sortForm');
+            });
+
+            // Bắt sự kiện khi người dùng thay đổi checkbox trong form
+            $('#filterForm input[type="checkbox"]').change(async function () {
+                try {
+                    // Tự động submit form bằng AJAX và chờ cho nó hoàn tất
+                    await submitFormWithAjax('#filterForm');
+                    // Gọi ReloadPagination sau khi submitFormWithAjax hoàn tất
+                    ReloadPagination();
+                } catch (error) {
+                    console.error("An error occurred:", error);
+                }
+            });
+
+            // Hàm để gửi yêu cầu AJAX
+            function submitFormWithAjax(formSelector) {
+                var form = $(formSelector)[0]; // Lấy form theo selector
+
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: form.getAttribute("method"),
+                        url: form.getAttribute("action"),
+                        data: $(form).serialize(),
+                        dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                        success: function (response) {
+                            console.log(response); // Kiểm tra dữ liệu trả về từ server
+                            displayProducts(response); // Hiển thị sản phẩm
+                            resolve(); // Hoàn tất Promise
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error: " + error);
+                            reject(error); // Từ chối Promise
+                        }
+                    });
+                });
+            }
+
+            function renderPagination(pages) {
+                var paginationHtml = '';
+                pages.forEach(function (page) {
+                    paginationHtml += `
+            <input type="radio" name="page" id="page` + page + `" value="` + page + `" style="display: none;">
+            <label for="page` + page + `" 
+                   style="width: 25px; border: groove;" 
+                   class="page-node" 
+                   aria-label="Trang ` + page + `" 
+                   onclick="submitFormWithPage(` + page + `)">
+                   ` + page + `
+            </label>
+        `;
+                });
+                paginationHtml += '<span class="page-node">&hellip;</span>';
+                return paginationHtml;
+            }
+
+
+            function ReloadPagination() {
+                const container = document.getElementById('page-pagination');
+                container.innerHTML = ''; // Làm rỗng nội dung hiện tại của container
+
+                $.ajax({
+                    type: "POST",
+                    url: "ProductListMKTServlet",
+                    data: {action: "reloadPagination"}, // Thêm biến action vào dữ liệu gửi đi
+                    dataType: 'json', // Đảm bảo dữ liệu trả về là JSON
+                    success: function (response) {
+                        try {
+                            if (Array.isArray(response)) {
+                                console.log(response);
+                                // Gọi hàm renderPagination và cập nhật nội dung container
+                                container.innerHTML = renderPagination(response);
+                            } else {
+                                console.error("Unexpected response format:", response);
+                            }
+                        } catch (e) {
+                            console.error("Error processing JSON response:", e);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                    }
+                });
+            }
+
+        });
+
+        $(document).ready(function () {
+            // Hàm để xử lý sự kiện onclick và gửi yêu cầu AJAX
+            window.submitFormWithPage = function (pageValue) {
+                $("input[name='page'][value='" + pageValue + "']").prop('checked', true);
+                console.log(pageValue);
+                submitFormWithAjax();
+            };
+
+            function submitFormWithAjax() {
+                var form = $('#paginationForm')[0]; // Lấy form theo id
+                console.log($(form).serialize());
+                $.ajax({
+                    type: form.getAttribute("method"),
+                    url: form.getAttribute("action"),
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response); // Kiểm tra dữ liệu trả về từ server
+                        displayProducts(response); // Hiển thị sản phẩm
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                    }
+                });
+            }
+
+        });
 
     </script>
 </body>

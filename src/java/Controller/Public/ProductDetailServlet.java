@@ -42,6 +42,7 @@ import Models.Feedback;
 import Models.ImageFeedback;
 import Models.User;
 import Models.UserRole;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -61,15 +62,68 @@ import java.util.logging.Logger;
  */
 public class ProductDetailServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private ArrayList<Product> ProductDisplay(HttpServletRequest request, ArrayList<Product> productList) {
+        SaleOffDAO saleOffDAO = new SaleOffDAO();
+        ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffList();
+
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        ArrayList<Feedback> feedbackList = feedbackDAO.getFeedbackList();
+
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        ArrayList<OrderDetail> orderDetailList = orderDetailDAO.getOrderDetailsList();
+
+        ProductDetailDAO pddao = new ProductDetailDAO();
+        ArrayList<ProductDetail> productDetailList = pddao.getAllProductDetails();
+
+        ColorDAO colorDAO = new ColorDAO();
+        ArrayList<Color> colorList = colorDAO.getColorList();
+
+        PaginationHelper paginationHelper = new PaginationHelper();
+        ServletContext context = getServletContext();
+        String itemsPerPage = "itemsPerProductInHomePage";
+        productList = paginationHelper.PaginationList(request, productList, context, itemsPerPage);
+
+        for (Product product : productList) {
+            for (SaleOff saleOff : saleOffList) {
+                if (saleOff.getProduct_id() == product.getId() && saleOff.getSaleoffvalue() != 0) {
+                    product.setSaleOff(saleOff.getSaleoffvalue());
+                    product.setSalePrice(product.getPrice() - (product.getPrice() * product.getSaleOff() / 100));
+                    break;
+                }
+            }
+
+            int reviewCount = 0;
+            for (Feedback feedback : feedbackList) {
+                if (feedback.getProduct_id() == product.getId()) {
+                    reviewCount++;
+                }
+            }
+            product.setNumberFeedback(reviewCount);
+
+            int quantitySold = 0;
+            for (OrderDetail orderDetail : orderDetailList) {
+                for (ProductDetail productDetail : productDetailList) {
+                    if (orderDetail.getProductdetail_id() == productDetail.getId() && productDetail.getProduct_id() == product.getId()) {
+                        quantitySold += orderDetail.getQuantity();
+                    }
+                }
+            }
+            product.setQuantitySold(quantitySold);
+            ArrayList<Color> newColorList = new ArrayList<>();
+            for (ProductDetail productDetail : productDetailList) {
+                if (product.getId() == productDetail.getProduct_id()) {
+                    for (Color color : colorList) {
+                        if (productDetail.getColor_id() == color.getId()) {
+                            newColorList.add(color);
+                        }
+                    }
+                }
+            }
+            product.setColorList(newColorList);
+        }
+        return productList;
+    }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SliderDAO sliderDAO = new SliderDAO();
@@ -131,25 +185,9 @@ public class ProductDetailServlet extends HttpServlet {
 
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList = productDAO.getProductList();
+        productList = ProductDisplay(request, productList);
 
-        PaginationHelper<Product> paginationHelper = new PaginationHelper<>(productList, 12);
-
-        int[] pagenumber = paginationHelper.getPageNumbers();
-        request.setAttribute("pagenumber", pagenumber);
-
-        String pageStr = request.getParameter("page");
-        int page = 0;
-
-        if (pageStr != null && !pageStr.isEmpty()) {
-            try {
-                page = Integer.parseInt(pageStr) - 1;
-            } catch (NumberFormatException e) {
-                page = 0; // default to first page if there's an error in parsing
-            }
-        }
-
-        ArrayList<Product> paginatedProductList = new ArrayList<>(paginationHelper.getPage(page));
-        request.setAttribute("productList", paginatedProductList);
+        request.setAttribute("productList", productList);
 
         int productId = tryParseInt(request.getParameter("productId"), 0);
         Product product = productDAO.getProductByID(productId);

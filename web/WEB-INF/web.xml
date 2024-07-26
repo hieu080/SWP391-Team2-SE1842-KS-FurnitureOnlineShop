@@ -224,6 +224,14 @@
         <servlet-name>SaleListServlet</servlet-name>
         <servlet-class>Controller.Sale.SaleListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PageServlet</servlet-name>
+        <servlet-class>Controller.Public.PageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AboutUsServlet</servlet-name>
+        <servlet-class>Controller.Public.AboutUsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -447,6 +455,14 @@
     <servlet-mapping>
         <servlet-name>SaleListServlet</servlet-name>
         <url-pattern>/SaleListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PageServlet</servlet-name>
+        <url-pattern>/PageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AboutUsServlet</servlet-name>
+        <url-pattern>/AboutUsServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

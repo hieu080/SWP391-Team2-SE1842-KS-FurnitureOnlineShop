@@ -40,6 +40,22 @@ public class ComparatorHelper {
     public static Comparator<Product> sortByStarDesc() {
         return Comparator.comparingDouble(Product::getStaravg).reversed();
     }
+    
+    public static Comparator<Product> sortByQuantitySoldAsc() {
+        return Comparator.comparingInt(Product::getQuantitySold);
+    }
+    
+    public static Comparator<Product> sortByQuantitySoldDesc() {
+        return Comparator.comparingInt(Product::getQuantitySold).reversed();
+    }
+    
+    public static Comparator<Product> sortByCreateDateAsc() {
+        return Comparator.comparing(Product::getCreateDate);
+    }
+    
+    public static Comparator<Product> sortByCreateDateDesc() {
+        return Comparator.comparing(Product::getCreateDate).reversed();
+    }
 
     public ArrayList<Product> sortProductList(ArrayList<Product> productList, String sortby) {
         if (sortby.equals("priceAsc")) {
@@ -54,6 +70,16 @@ public class ComparatorHelper {
             Collections.sort(productList, ComparatorHelper.sortByStarAsc());
         } else if (sortby.equals("starDesc")) {
             Collections.sort(productList, ComparatorHelper.sortByStarDesc());
+        }else if (sortby.equals("quantitySoldAsc")) {
+            Collections.sort(productList, ComparatorHelper.sortByQuantitySoldAsc());
+        }else if (sortby.equals("quantitySoldDesc")) {
+            Collections.sort(productList, ComparatorHelper.sortByQuantitySoldDesc());
+        }else if (sortby.equals("quantitySoldAsc")) {
+            Collections.sort(productList, ComparatorHelper.sortByQuantitySoldAsc());
+        }else if (sortby.equals("createDateDesc")) {
+            Collections.sort(productList, ComparatorHelper.sortByCreateDateDesc());
+        }else if (sortby.equals("createDateAsc")) {
+            Collections.sort(productList, ComparatorHelper.sortByCreateDateAsc());
         }
         return productList;
     }
@@ -75,11 +101,11 @@ public class ComparatorHelper {
     }
 
     public static Comparator<Order> sortByTotalCostAsc() {
-        return Comparator.comparing(Order::getTotalcost);
+        return Comparator.comparingDouble(Order::getTotalcost);
     }
 
     public static Comparator<Order> sortByTotalCostDesc() {
-        return Comparator.comparing(Order::getTotalcost).reversed();
+        return Comparator.comparingDouble(Order::getTotalcost).reversed();
     }
 
     public static Comparator<Order> sortByStatusAsc() {

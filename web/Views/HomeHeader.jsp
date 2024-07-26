@@ -309,16 +309,16 @@
 
 
                                                         <c:set value="${sessionScope.customer}" var="customer"/>
-                                                        <c:if test="${customer.id == 2}">
+                                                        <c:if test="${customer.role_id == 2}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                            </c:if>
-                                                            <c:if test="${customer.id == 3}">
+                                                        </c:if>
+                                                        <c:if test="${customer.role_id == 3}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/SaleDashboard">Sale Dashboard</a></li>
-                                                            </c:if>
-                                                            <c:if test="${customer.id == 4}">
+                                                        </c:if>
+                                                            <c:if test="${customer.role_id == 4}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MarketingDashboard">Marketing Dashboard</a></li>
-                                                            </c:if>
-                                                            <c:if test="${customer.id == 5}">
+                                                        </c:if>
+                                                        <c:if test="${customer.role_id == 5}">
                                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AdminDashboard">Admin Dashboard</a></li>
                                                             </c:if>
                                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>
@@ -462,7 +462,7 @@
                                             <c:forEach items="${categoryList}" var="category">
 
                                                 <li class="">
-                                                    <a href="${pageContext.request.contextPath}/ProductServlet?id=${category.id}" title="${category.category}">
+                                                    <a href="${pageContext.request.contextPath}/ProductServlet?action=showCategory&id=${category.id}" title="${category.category}">
                                                         ${category.category}
                                                     </a>
                                                 </li>
@@ -471,7 +471,7 @@
                                     </li>
 
                                     <li class="has-submenu  levl-1">
-                                        <a href="/pages/kitchen" title="Thương Hiệu">
+                                        <a href="ProductServlet" title="Thương Hiệu">
                                             Thương Hiệu
 
 
@@ -482,7 +482,7 @@
                                             <c:forEach items="${brandList}" var="brand">
 
                                                 <li class="">
-                                                    <a href="${pageContext.request.contextPath}/ProductServlet?id=${brand.id}" title="${brand.brandname}">
+                                                    <a href="${pageContext.request.contextPath}/ProductServlet?action=showBrand&id=${brand.id}" title="${brand.brandname}">
                                                         ${brand.brandname}
                                                     </a>
                                                 </li>
@@ -492,7 +492,7 @@
                                     </li>
 
                                     <li class="has-submenu  levl-1">
-                                        <a href="/collections/uu-dai" title="Khuyến Mãi">
+                                        <a href="ProductServlet" title="Khuyến Mãi">
                                             Phòng
 
                                             <label class="menu__label"></label>
@@ -502,7 +502,7 @@
                                         <ul class="menuList-submain level-1">
                                             <c:forEach items="${roomList}" var="room">
                                                 <li class="">
-                                                    <a href="${pageContext.request.contextPath}/ProductListServlet?id=${room.id}" title="[-49%] Ưu Đãi Mùa Hè">
+                                                    <a href="${pageContext.request.contextPath}/ProductServlet?action=showRoom&id=${room.id}">
                                                         ${room.roomname}
                                                     </a>
                                                 </li>
@@ -547,7 +547,7 @@
                                             <c:forEach items="${pageList}" var="page">
 
                                                 <li class="">
-                                                    <a href="/pages/chinh-sach-ban-hang" title="Chính Sách Bán Hàng">
+                                                    <a href="PageServlet?pageID=${page.id}" title="Chính Sách Bán Hàng">
                                                         ${page.name}
                                                     </a>
                                                 </li>
@@ -556,9 +556,8 @@
                                     </li>
                                     <li class="">
                                         <!--			<a href="/pages/brand-story" title="About Us"  > -->
-                                        <a href="AboutUs" title="About Us">
+                                        <a href="AboutUsServlet" title="About Us">
                                             About Us
-
                                             <label class="menu__label"></label>
                                         </a>
                                     </li>

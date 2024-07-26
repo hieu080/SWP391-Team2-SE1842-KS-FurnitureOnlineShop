@@ -162,7 +162,7 @@ public class OrderDetailServlet extends HttpServlet {
                 orderDAO.updateOrderStatus(order_id, "Confirmed");
                 OrderUpdateEndpoint.sendUpdate("update");
                 // Chuyển hướng người dùng đến trang xác nhận
-//                response.sendRedirect("orderConfirmation.jsp");
+                //response.sendRedirect("orderConfirmation.jsp");
             } else {
                 // Xử lý trường hợp action không hợp lệ
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");

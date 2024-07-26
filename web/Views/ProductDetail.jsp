@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -258,12 +259,12 @@
                                 <ol class="breadcrumb breadcrumb-arrows" itemscope
                                     itemtype="http://schema.org/BreadcrumbList">
                                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                                        <a href="/" target="_self" itemprop="item" content="https://moho.com.vn"><span
+                                        <a href="HomePage" target="_self" itemprop="item" content="https://moho.com.vn"><span
                                                 itemprop="name">Trang chủ</span></a>
                                         <meta itemprop="position" content="1" />
                                     </li>
                                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                                        <a href="https://moho.com.vn/collections/all" target="_self">
+                                        <a href="ProductServlet" target="_self">
                                             <span itemprop="item" content="https://moho.com.vn/collections/all"><span
                                                     itemprop="name">Danh mục</span></span>
                                         </a>
@@ -273,7 +274,7 @@
                                         itemtype="http://schema.org/ListItem">
                                         <span itemprop="item"
                                               content="https://moho.com.vn/collections/tat-ca-san-pham-moho"><span
-                                                itemprop="name">Tất cả sản phẩm Furniture</span></span>
+                                                itemprop="name">Chi tiết sản phẩm</span></span>
                                         <meta itemprop="position" content="3" />
                                     </li>
                                 </ol>
@@ -365,13 +366,17 @@
                                         <c:set var="hasSale" value="true" />
                                         <c:choose>
                                             <c:when test="${saleoff.getSaleoffvalue() == 0}">
-                                                <span style="color: black">${product.price}₫</span>
-
-
+                                                <span style="color: black">
+                                                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                </span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="pro-price">${product.price - product.price * saleoff.getSaleoffvalue() / 100}₫</span>
-                                                <del>${product.price}₫</del>
+                                                <span class="pro-price">
+                                                    <fmt:formatNumber value="${product.price - product.price * saleoff.getSaleoffvalue() / 100}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                </span>
+                                                <del>
+                                                    <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                </del>
                                                 <div style="display: none">
                                                     <input type="hidden" id="priceunit" name="priceunit" value="${product.price - product.price * saleoff.getSaleoffvalue() / 100}">
                                                 </div>
@@ -381,10 +386,9 @@
                                     </c:if>
                                 </c:forEach>
                                 <c:if test="${!hasSale}">
-                                    <span style="color: black">${product.price}₫</span>
-                                    <div style="display: none">
-                                        <input type="hidden" id="priceunit" name="priceunit" value="${product.price}">
-                                    </div>
+                                    <span style="color: black">
+                                        <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                    </span>
                                 </c:if>
                             </div>
                             <div style="border-bottom: 1px dotted #dfe0e1; margin-top: 10px">

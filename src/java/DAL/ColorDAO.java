@@ -27,6 +27,30 @@ public class ColorDAO extends DBContext {
     }
     public ArrayList<Color> getColorList() {
         ArrayList<Color> colorList = new ArrayList<>();
+        String sql = "SELECT * FROM color WHERE status = 'Active'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String colorname = rs.getString("colorname");
+                String colorcode = rs.getString("colorcode");
+                String status = rs.getString("status");
+                Color color = new Color(colorname, colorcode);
+                color.setId(id);
+                color.setStatus(status);
+                colorList.add(color);
+            }
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving color list", ex);
+        }
+
+        return colorList;
+    }
+    
+    public ArrayList<Color> getColorListAll() {
+        ArrayList<Color> colorList = new ArrayList<>();
         String sql = "SELECT * FROM color";
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {

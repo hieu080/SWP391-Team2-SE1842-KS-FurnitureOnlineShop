@@ -18,7 +18,8 @@
 
 
 
-        <title>Product List</title>
+        <title>Cart Detail</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <style>
             body {
                 background-color: #f8f9fa;

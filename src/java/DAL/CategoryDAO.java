@@ -28,6 +28,31 @@ public class CategoryDAO extends DBContext {
     // Phương thức getCategoryList
     public ArrayList<Category> getCategoryList() {
         ArrayList<Category> categoryList = new ArrayList<>();
+        String sql = "SELECT * FROM category WHERE status = 'Active'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); 
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String categoryName = rs.getString("category");
+                String status = rs.getString("status");
+                Category category = new Category();
+                category.setId(id);
+                category.setCategory(categoryName);
+                category.setStatus(status);
+                categoryList.add(category);
+            }
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving category list", ex);
+        }
+
+        return categoryList;
+    }
+    
+    public ArrayList<Category> getCategoryListAll() {
+        ArrayList<Category> categoryList = new ArrayList<>();
         String sql = "SELECT * FROM category";
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql); 

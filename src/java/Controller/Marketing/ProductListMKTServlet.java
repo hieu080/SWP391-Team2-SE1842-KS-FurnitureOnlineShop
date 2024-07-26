@@ -108,6 +108,15 @@ public class ProductListMKTServlet extends HttpServlet {
     }
 
     private ArrayList<Product> ProductDisplay(HttpServletRequest request, ArrayList<Product> productList) {
+        BrandDAO brandDao = new BrandDAO();
+        ArrayList<Brand> brandList = brandDao.getBrandList();
+
+        RoomDAO roomDAO = new RoomDAO();
+        ArrayList<Room> roomList = roomDAO.getRoomList();
+
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
+
         SaleOffDAO saleOffDAO = new SaleOffDAO();
         ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffList();
 
@@ -126,47 +135,83 @@ public class ProductListMKTServlet extends HttpServlet {
         PaginationHelper paginationHelper = new PaginationHelper();
         ServletContext context = getServletContext();
         String itemsPerPage = "itemsPerProductListPage";
-        productList = paginationHelper.PaginationList(request, productList, context, itemsPerPage);
-
+        
+        ArrayList<Product> copyProductList = new ArrayList<>();
+        
         for (Product product : productList) {
-            for (SaleOff saleOff : saleOffList) {
-                if (saleOff.getProduct_id() == product.getId() && saleOff.getSaleoffvalue() != 0) {
-                    product.setSaleOff(saleOff.getSaleoffvalue());
-                    product.setSalePrice(product.getPrice() - (product.getPrice() * product.getSaleOff() / 100));
+            boolean checkBrand = false;
+            boolean checkRoom = false;
+            boolean checkCategory = false;
+            boolean checkColor = false;
+            for (Brand brand : brandList) {
+                if (product.getBrand_id() == brand.getId()) {
+                    checkBrand = true;
                     break;
                 }
             }
-
-            int reviewCount = 0;
-            for (Feedback feedback : feedbackList) {
-                if (feedback.getProduct_id() == product.getId()) {
-                    reviewCount++;
+            for (Room room : roomList) {
+                if (product.getRoom_id() == room.getId()) {
+                    checkRoom = true;
+                    break;
                 }
             }
-            product.setNumberFeedback(reviewCount);
-
-            int quantitySold = 0;
-            for (OrderDetail orderDetail : orderDetailList) {
+            for (Category category : categoryList) {
+                if (product.getCategory_id() == category.getId()) {
+                    checkCategory = true;
+                    break;
+                }
+            }
+            for (Color color : colorList) {
                 for (ProductDetail productDetail : productDetailList) {
-                    if (orderDetail.getProductdetail_id() == productDetail.getId() && productDetail.getProduct_id() == product.getId()) {
-                        quantitySold += orderDetail.getQuantity();
+                    if(productDetail.getProduct_id() == product.getId() && productDetail.getColor_id() == color.getId()){
+                        checkColor = true;
+                        break;
                     }
                 }
             }
-            product.setQuantitySold(quantitySold);
-            ArrayList<Color> newColorList = new ArrayList<>();
-            for (ProductDetail productDetail : productDetailList) {
-                if (product.getId() == productDetail.getProduct_id()) {
-                    for (Color color : colorList) {
-                        if (productDetail.getColor_id() == color.getId()) {
-                            newColorList.add(color);
+
+            if (checkBrand == true && checkRoom == true && checkCategory == true && checkColor == true) {
+                for (SaleOff saleOff : saleOffList) {
+                    if (saleOff.getProduct_id() == product.getId() && saleOff.getSaleoffvalue() != 0) {
+                        product.setSaleOff(saleOff.getSaleoffvalue());
+                        product.setSalePrice(product.getPrice() - (product.getPrice() * product.getSaleOff() / 100));
+                        break;
+                    }
+                }
+
+                int reviewCount = 0;
+                for (Feedback feedback : feedbackList) {
+                    if (feedback.getProduct_id() == product.getId()) {
+                        reviewCount++;
+                    }
+                }
+                product.setNumberFeedback(reviewCount);
+
+                int quantitySold = 0;
+                for (OrderDetail orderDetail : orderDetailList) {
+                    for (ProductDetail productDetail : productDetailList) {
+                        if (orderDetail.getProductdetail_id() == productDetail.getId() && productDetail.getProduct_id() == product.getId()) {
+                            quantitySold += orderDetail.getQuantity();
                         }
                     }
                 }
+                product.setQuantitySold(quantitySold);
+                ArrayList<Color> newColorList = new ArrayList<>();
+                for (ProductDetail productDetail : productDetailList) {
+                    if (product.getId() == productDetail.getProduct_id()) {
+                        for (Color color : colorList) {
+                            if (productDetail.getColor_id() == color.getId()) {
+                                newColorList.add(color);
+                            }
+                        }
+                    }
+                }
+                product.setColorList(newColorList);
+                copyProductList.add(product);
             }
-            product.setColorList(newColorList);
         }
-        return productList;
+        copyProductList = paginationHelper.PaginationList(request, copyProductList, context, itemsPerPage);
+        return copyProductList;
     }
 
     private int[] pagePagination(HttpServletRequest request, ArrayList<Product> productList) {

@@ -5,9 +5,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" href="//theme.hstatic.net/200000065946/1001187274/14/favicon.png?v=582"
-              type="image/png" />
-        <title>Tất Cả Sản Phẩm Đồ Gỗ Nội Thất Của MOHO</title>
+        <title>Tìm kiếm sản phẩm</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <meta name="description"
               content="Nội Thất MOHO an toàn sức khỏe, chất lượng quốc tế với nhiều đồ gỗ nội thất hiện đại cho phòng khách, phòng ăn, phòng ngủ, phòng làm việc, văn phòng và tủ bếp." />
         <link rel="preload stylesheet" as="style" fetchpriority="low"

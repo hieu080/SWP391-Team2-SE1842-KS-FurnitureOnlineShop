@@ -29,6 +29,30 @@ public class RoomDAO extends DBContext {
     // Phương thức getRoomList
     public ArrayList<Room> getRoomList() {
         ArrayList<Room> roomList = new ArrayList<>();
+        String sql = "SELECT * FROM room WHERE status = 'Active'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); 
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String roomname = rs.getString("roomname");
+                String status = rs.getString("status");
+                Room room = new Room(roomname);
+                room.setId(id);
+                room.setStatus(status);
+                roomList.add(room);
+            }
+
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving room list", ex);
+        }
+
+        return roomList;
+    }
+    
+    public ArrayList<Room> getRoomListAll() {
+        ArrayList<Room> roomList = new ArrayList<>();
         String sql = "SELECT * FROM room";
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql); 

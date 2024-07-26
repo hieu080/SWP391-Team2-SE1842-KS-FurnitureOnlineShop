@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Danh sách cài đặt</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link class="js-stylesheet" href="../css/light.css" rel="stylesheet">
         <style>
             .switch {
@@ -115,10 +116,10 @@
                     <div class="container-fluid p-0">
                         <div class="row mb-2 mb-xl-3">
                             <div class="col-auto d-none d-sm-block">
-                                <h3><strong>Setting</strong> Page</h3>
+                                <h3>Danh sách <strong>Cài đặt</strong></h3>
                             </div>
                         </div>
-                        <h3>Pagination Page</h3>
+                        <h3>Phân trang</h3>
                         <c:set value="${requestScope.itemsHomeProductsList}" var="itemsHomeProductsList" scope="page"/>
                         <c:set value="${requestScope.itemsPerProductListPage}" var="itemsPerProductListPage" scope="page"/>
                         <c:set value="${requestScope.itemsPerFeedbackListPage}" var="itemsPerFeedbackListPage" scope="page"/>
@@ -131,137 +132,137 @@
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Home Products List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách sp trang chủ</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editHomeProductsListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsHomeProductsList}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsHomeProductsList}</b><span>sản phẩm/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Products List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách sản phẩm</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editProductsListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerProductListPage}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerProductListPage}</b><span>sản phẩm/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Feedbacks List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách đánh giá</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editFeedbacksListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerFeedbackListPage}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerFeedbackListPage}</b><span>sản phẩm/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Customers List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách người dùng</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editCustomersListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerCustomerListPage}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerCustomerListPage}</b><span>người dùng/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Posts List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách bài viết</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editPostsListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerPostList}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerPostList}</b><span>bài viết/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Sliders List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách thanh trượt</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editSlidersListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerSliderPage}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerSliderPage}</b><span>ảnh trượt/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Orders List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách đơn hàng</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editOrdersListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerOrderList}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerOrderList}</b><span>đơn hàng/trang</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div style="background-color: white; margin: 0px 10px 20px; border: groove">
                                     <div style="display: flex; justify-content: space-between">
-                                        <strong style="margin-left: 10px; margin-top: 10px">Shopping Carts List</strong>
+                                        <strong style="margin-left: 10px; margin-top: 10px">Danh sách giỏ hàng</strong>
                                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editShoppingCartsListModal">
                                             <i class="fas fa-edit"></i></button>
                                     </div>
                                     <div style="display: flex; justify-content: center; align-items: baseline">
-                                        <b class="item-count" style="font-size: 60px">${itemsPerShoppingCartsListPage}</b><span>items/Page</span>
+                                        <b class="item-count" style="font-size: 60px">${itemsPerShoppingCartsListPage}</b><span>sản phẩm/trang</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr/>
                         <div class="container row">
-                            <h3>Setting List</h3>
+                            <h3>Cài đặt</h3>
                             <div class="col-md-2" style="justify-content: flex-start; align-items: center">
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link active" data-toggle="tab" href="#userRole">
-                                        <div>User Role</div>
+                                        <div>Vai trò người dùng</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#category">
-                                        <div>Category</div>
+                                        <div>Danh mục</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#brand">
-                                        <div>Brand</div>
+                                        <div>Thương hiệu</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#room">
-                                        <div>Room</div>
+                                        <div>Phòng</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#color">
-                                        <div>Color</div>
+                                        <div>Màu sắc</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#saleOff">
-                                        <div>Sale Off</div>
+                                        <div>Giảm giá</div>
                                     </a>
                                 </div>
-                                <div style="background-color: white; width: 95%; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
+                                <div style="background-color: white; width: 165px; height: 30px; display: flex; justify-content: center; align-items: center; border: groove">
                                     <a class="nav-link" data-toggle="tab" href="#categoryOfPost">
-                                        <div>Category of Post</div>
+                                        <div>Danh mục bài đăng</div>
                                     </a>
                                 </div>  
                             </div>
@@ -270,15 +271,15 @@
                             <div class="tab-content col-md-10">
                                 <div id="userRole" class="tab-pane fade show active">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>User Role</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewUserRoleModal">Add new +</button></div>
+                                        <div><h3>Vai trò người dùng</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewUserRoleModal">Thêm vai trò +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>Role Name</th>
-                                            <th>Status</th>
+                                            <th>Tên vai trò</th>
+                                            <th>Trạng thái</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.userRoleList}" var="userRole">
@@ -303,16 +304,16 @@
                                 </div>
                                 <div id="category" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Category</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewCategoryModal">Add new +</button></div>
+                                        <div><h3>Danh mục</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewCategoryModal">Thêm danh mục +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>Category</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Tên danh mục</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.categoryList}" var="category">
@@ -340,13 +341,13 @@
                                                             </td>
                                                             <td>
                                                                 <button class="btn edit-category-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                    <i class="fas fa-edit edit-icon"></i> Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-category-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-category-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -358,16 +359,16 @@
                                 </div>
                                 <div id="brand" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Brand</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewBrandModal">Add new +</button></div>
+                                        <div><h3>Thương hiệu</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewBrandModal">Thêm thương hiệu +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>Brand Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Tên thương hiệu</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.brandList}" var="brand">
@@ -396,13 +397,13 @@
                                                             </td>
                                                             <td>
                                                                 <button class="btn edit-brand-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                    <i class="fas fa-edit edit-icon"></i>Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-brand-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-brand-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -413,16 +414,16 @@
                                 </div>
                                 <div id="room" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Room</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewRoomModal">Add new +</button></div>
+                                        <div><h3>Phòng</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewRoomModal">Thêm phòng +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>Room Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Tên phòng</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.roomList}" var="room">
@@ -450,13 +451,13 @@
                                                             </td>
                                                             <td>
                                                                 <button class="btn edit-room-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                    <i class="fas fa-edit edit-icon"></i> Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-room-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-room-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -467,17 +468,17 @@
                                 </div>
                                 <div id="color" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Color</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewColorModal">Add new +</button></div>
+                                        <div><h3>Màu sắc</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewColorModal">Thêm màu sắc +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>Color Name</th>
-                                            <th>Color Code</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Tên màu sắc</th>
+                                            <th>Mã màu sắc</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.colorList}" var="color">
@@ -513,13 +514,13 @@
                                                                 </form></td>
                                                             <td>
                                                                 <button class="btn edit-color-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                    <i class="fas fa-edit edit-icon"></i> Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-color-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-color-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -530,18 +531,18 @@
                                 </div>
                                 <div id="saleOff" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Sale Off</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewSaleOffModal">Add new +</button></div>
+                                        <div><h3>Giảm giá</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewSaleOffModal">Thêm giảm giá +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>P.ID</th>
-                                            <th>Product</th>
-                                            <th>Sale Off</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giảm giá</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.saleOffList}" var="saleOff">
@@ -550,7 +551,7 @@
                                                         <c:forEach items="${requestScope.productList}" var="product">
                                                             <c:if test="${product.id == saleOff.product_id}">
                                                                 <td>${product.id}</td>
-                                                                <td style="display: flex; align-items: center"><div><img src="image/product/${product.image}" width="37px" height="37px" alt="alt"/></div><div style="word-wrap: break-word;">${product.name}</div></td>
+                                                                <td style="display: flex; align-items: center"><div><img src="image/product/${product.image}" width="37px" height="37px" alt="alt" style="margin-right: 10px"/></div><div style="word-wrap: break-word;">${product.name}</div></td>
                                                                     </c:if>
                                                                 </c:forEach>
                                                         <td class="edit">
@@ -573,14 +574,14 @@
                                                                     </label>
                                                                 </form></td>
                                                             <td>
-                                                                <button class="btn edit-saleOff-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                <button class="btn edit-saleOff-btn" style="width: 118px">
+                                                                    <i class="fas fa-edit edit-icon"></i>Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-saleOff-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-saleOff-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -591,16 +592,16 @@
                                 </div>
                                 <div id="categoryOfPost" class="tab-pane fade">
                                     <div style="display: flex; justify-content: space-between">
-                                        <div><h3>Category Of Post</h3></div>
-                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewCategoryOfPostModal">Add new +</button></div>
+                                        <div><h3>Danh mục bài viết</h3></div>
+                                        <div><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewCategoryOfPostModal">Thêm danh mục bài viết +</button></div>
                                     </div>
                                     <div style="border: groove">
                                         <table class="table">
                                             <thead>
                                             <th>ID</th>
-                                            <th>C.O.P Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Tên danh mục bài viết</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${requestScope.categoryOfPostList}" var="categoryOfPost">
@@ -627,13 +628,13 @@
                                                                 </form></td>
                                                             <td>
                                                                 <button class="btn edit-categoryOfPost-btn">
-                                                                    <i class="fas fa-edit edit-icon"></i>
+                                                                    <i class="fas fa-edit edit-icon"></i> Chỉnh sửa
                                                                 </button>
                                                                 <button class="btn save-categoryOfPost-btn" style="display: none;">
-                                                                    <i class="fas fa-save save-icon"></i>
+                                                                    <i class="fas fa-save save-icon"></i> Lưu
                                                                 </button>
                                                                 <button class="btn cancel-categoryOfPost-btn" style="display: none;">
-                                                                    <i class="fas fa-times cancel-icon"></i>
+                                                                    <i class="fas fa-times cancel-icon"></i> Hủy
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -654,21 +655,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewUserRoleModalLabel">Add new User Role</h4>
+                        <h4 class="modal-title" id="addNewUserRoleModalLabel">Thêm vai trò người dùng mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewUserRole">
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 30%">User Role Name:</label>
+                                <label for="content" style="width: 30%">Tên vai trò người dùng:</label>
                                 <input id="content" class="form-control" name="userRoleName" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -681,21 +682,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewCategoryModalLabel">Add new Category</h4>
+                        <h4 class="modal-title" id="addNewCategoryModalLabel">Thêm danh mục mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewCategory">
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 30%">Category Name:</label>
+                                <label for="content" style="width: 30%">Tên danh mục:</label>
                                 <input id="content" class="form-control" name="categoryName" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -708,21 +709,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewBrandModalLabel">Add new Brand</h4>
+                        <h4 class="modal-title" id="addNewBrandModalLabel">Thêm thương hiệu mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewBrand">
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 30%">Brand Name:</label>
+                                <label for="content" style="width: 30%">Tên thương hiệu:</label>
                                 <input id="content" class="form-control" name="brandName" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -735,21 +736,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewRoomModalLabel">Add new Room</h4>
+                        <h4 class="modal-title" id="addNewRoomModalLabel">Thêm phòng mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewRoom">
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 30%">Room Name:</label>
+                                <label for="content" style="width: 30%">Tên phòng:</label>
                                 <input id="content" class="form-control" name="roomName" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -762,31 +763,31 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewColorModalLabel">Add new Color</h4>
+                        <h4 class="modal-title" id="addNewColorModalLabel">Thêm màu sắc mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewColor">
                             <div class="form-group d-flex" style="margin-bottom: 10px">
-                                <label for="color-content" style="width: 30%">Color Name:</label>
+                                <label for="color-content" style="width: 30%">Tên màu sắc:</label>
                                 <input id="color-content" class="form-control" name="colorName" required/>
                             </div>
                             <div class="form-group row" style="justify-content: space-between">
                                 <div class="d-flex col-md-5">
-                                    <label for="code-content" style="width: 58%">Color Code:</label>
+                                    <label for="code-content" style="width: 58%">Mã màu sắc:</label>
                                     <input id="code-content" class="form-control" style="width:90px" name="colorCode" value="" required/>
                                 </div>
                                 <div class="d-flex col-md-5">
-                                    <label for="pickColor" style="width: 58%">Pick color: </label>
+                                    <label for="pickColor" style="width: 58%">Lựa chọn màu: </label>
                                     <input id="pickColor" type="color">
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -799,17 +800,17 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewSaleOffModalLabel">Add new Sale Off</h4>
+                        <h4 class="modal-title" id="addNewSaleOffModalLabel">Thêm giảm giá mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewSaleOff">
                             <div class="form-group d-flex" style="margin-bottom: 10px">
-                                <label for="product" style="width: 30%">Product:</label>
+                                <label for="product" style="width: 30%">Sản phẩm:</label>
                                 <select id="product" class="form-control" name="productID">
                                     <c:forEach items="${requestScope.productList}" var="product">
                                         <option value="${product.id}">${product.id}-${product.name}</option>
@@ -817,11 +818,11 @@
                                 </select>
                             </div>
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 30%">Sale Off Value:</label>
+                                <label for="content" style="width: 30%">Giảm giá:</label>
                                 <input id="content" class="form-control" name="saleOfValue" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -834,21 +835,21 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="addNewCategoryOfPostModalLabel">Add new Sale Off</h4>
+                        <h4 class="modal-title" id="addNewCategoryOfPostModalLabel">Thêm danh mục bài viết mới</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="addNewCategoryOfPost">
                             <div class="form-group d-flex">
-                                <label for="content" style="width: 50%">Category Of Post Name:</label>
+                                <label for="content" style="width: 50%">Tên danh mục bài đăng:</label>
                                 <input id="content" class="form-control" name="categoryOfPostName" required/>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -861,30 +862,30 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editHomeProductsListModalLabel">Setting Home Products List</h4>
+                        <h4 class="modal-title" id="editHomeProductsListModalLabel">Cài đặt danh sách sản phẩm trang chủ</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
+                        <h4>Bạn có muốn thay đổi phân trang ?</h4>
                         <form id="HomeProductsListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfHomeProductsList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsHomeProductsList}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerHomeProductsList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -896,104 +897,103 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editroductsListModalLabel">Setting Products List</h4>
+                        <h4 class="modal-title" id="editProductsListModalLabel">Cài đặt danh sách sản phẩm</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
+                        <h4>Bạn có muốn thay đổi phân trang?</h4>
                         <form id="ProductsListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfProductsList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerProductListPage}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerProductsList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Modal Feedbacks List-->
         <div class="modal fade" id="editFeedbacksListModal" tabindex="-1" aria-labelledby="editFeedbacksListModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editFeedbacksListModalLabel">Setting Feedbacks List</h4>
+                        <h4 class="modal-title" id="editFeedbacksListModalLabel">Cài đặt danh sách đánh giá</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
-                        <form action="SettingServlet" method="post">
+                        <h4>Bạn có muốn thay đổi phân trang?</h4>
+                        <form id="FeedbacksListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfFeedbacksList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerFeedbackListPage}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerFeedbacksList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Modal Customers List-->
         <div class="modal fade" id="editCustomersListModal" tabindex="-1" aria-labelledby="editCustomersListModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editCustomersListModalLabel">Setting Customers List</h4>
+                        <h4 class="modal-title" id="editCustomersListModalLabel">Cài đặt danh sách khách hàng</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
-                        <form action="SettingServlet" method="post">
+                        <h4>Bạn có muốn thay đổi phân trang?</h4>
+                        <form id="CustomersListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfCustomersList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerCustomerListPage}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerCustomersList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -1004,32 +1004,31 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editPostsListModalLabel">Setting Posts List</h4>
+                        <h4 class="modal-title" id="editPostsListModalLabel">Cài đặt danh sách bài viết</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
-                        <form action="SettingServlet" method="post">
+                        <h4>Bạn có muốn thay đổi phân trang?</h4>
+                        <form id="PostsListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfPostsList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerPostList}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerPostsList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -1040,32 +1039,31 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editSlidersListModalLabel">Setting Sliders List</h4>
+                        <h4 class="modal-title" id="editSlidersListModalLabel">Cài đặt danh sách thanh trượt</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
-                        <form action="SettingServlet" method="post">
+                        <h4>Bạn có muốn thay đổi phân trang?</h4>
+                        <form id="SlidersListItemsForm" action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfSlidersList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
-                                    <input id="old-content" class="form-control" value="${itemsPerSliderPage}" style="height: 50px; font-size: 30px" readonly/>
+                                    <label for="old-content">Số lượng cũ:</label>
+                                    <input id="old-content" class="form-control" value="${itemsPerSliderList}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerSlidersList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -1076,73 +1074,73 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editOrdersListModalLabel">Setting Orders List</h4>
+                        <h4 class="modal-title" id="editOrdersListModalLabel">Cài đặt danh sách đơn hàng</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
+                        <h4>Bạn có muốn thay đổi phân trang của trang?</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfOrdersList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerOrderList}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerOrdersList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Modal Shopping Carts List-->
         <div class="modal fade" id="editShoppingCartsListModal" tabindex="-1" aria-labelledby="editShoppingCartsListModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="editShoppingCartsListModalLabel">Setting Shopping Carts List</h4>
+                        <h4 class="modal-title" id="editShoppingCartsListModalLabel">Cài đặt danh sách giỏ hàng</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>Do you want to change pagination of Page?</h4>
+                        <h4>Bạn có muốn thay đổi phân trang của trang?</h4>
                         <form action="SettingServlet" method="post">
                             <input type="hidden" name="action" value="changeItemsOfShoppingCartsList">
                             <div class="form-group row">
                                 <div class="col-md-4">
-                                    <label for="old-content">Old number of items</label>
+                                    <label for="old-content">Số lượng cũ:</label>
                                     <input id="old-content" class="form-control" value="${itemsPerShoppingCartsListPage}" style="height: 50px; font-size: 30px" readonly/>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                                     <i class="fas fa-arrow-right" style="font-size: 30px"></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="new-content">New number of items</label>
+                                    <label for="new-content">Số lượng mới:</label>
                                     <input id="new-content" name="itemsPerShoppingCartsList" class="form-control" style="height: 50px; font-size: 30px" required/>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: center; margin: 20px 0px 0px">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Lưu</button> 
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <%@include file="DashboardFooter.jsp" %>   
         <script src="../js/app.js"></script>
         <script>

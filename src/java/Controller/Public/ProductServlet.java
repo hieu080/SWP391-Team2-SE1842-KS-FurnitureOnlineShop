@@ -175,6 +175,15 @@ public class ProductServlet extends HttpServlet {
     }
 
     private ArrayList<Product> ProductDisplay(HttpServletRequest request, ArrayList<Product> productList) {
+        BrandDAO brandDao = new BrandDAO();
+        ArrayList<Brand> brandList = brandDao.getBrandList();
+
+        RoomDAO roomDAO = new RoomDAO();
+        ArrayList<Room> roomList = roomDAO.getRoomList();
+
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> categoryList = categoryDAO.getCategoryList();
+
         SaleOffDAO saleOffDAO = new SaleOffDAO();
         ArrayList<SaleOff> saleOffList = saleOffDAO.getSaleOffList();
 
@@ -193,47 +202,83 @@ public class ProductServlet extends HttpServlet {
         PaginationHelper paginationHelper = new PaginationHelper();
         ServletContext context = getServletContext();
         String itemsPerPage = "itemsPerProductListPage";
-        productList = paginationHelper.PaginationList(request, productList, context, itemsPerPage);
-
+        
+        ArrayList<Product> copyProductList = new ArrayList<>();
+        
         for (Product product : productList) {
-            for (SaleOff saleOff : saleOffList) {
-                if (saleOff.getProduct_id() == product.getId() && saleOff.getSaleoffvalue() != 0) {
-                    product.setSaleOff(saleOff.getSaleoffvalue());
-                    product.setSalePrice(product.getPrice() - (product.getPrice() * product.getSaleOff() / 100));
+            boolean checkBrand = false;
+            boolean checkRoom = false;
+            boolean checkCategory = false;
+            boolean checkColor = false;
+            for (Brand brand : brandList) {
+                if (product.getBrand_id() == brand.getId()) {
+                    checkBrand = true;
                     break;
                 }
             }
-
-            int reviewCount = 0;
-            for (Feedback feedback : feedbackList) {
-                if (feedback.getProduct_id() == product.getId()) {
-                    reviewCount++;
+            for (Room room : roomList) {
+                if (product.getRoom_id() == room.getId()) {
+                    checkRoom = true;
+                    break;
                 }
             }
-            product.setNumberFeedback(reviewCount);
-
-            int quantitySold = 0;
-            for (OrderDetail orderDetail : orderDetailList) {
+            for (Category category : categoryList) {
+                if (product.getCategory_id() == category.getId()) {
+                    checkCategory = true;
+                    break;
+                }
+            }
+            for (Color color : colorList) {
                 for (ProductDetail productDetail : productDetailList) {
-                    if (orderDetail.getProductdetail_id() == productDetail.getId() && productDetail.getProduct_id() == product.getId()) {
-                        quantitySold += orderDetail.getQuantity();
+                    if(productDetail.getProduct_id() == product.getId() && productDetail.getColor_id() == color.getId()){
+                        checkColor = true;
+                        break;
                     }
                 }
             }
-            product.setQuantitySold(quantitySold);
-            ArrayList<Color> newColorList = new ArrayList<>();
-            for (ProductDetail productDetail : productDetailList) {
-                if (product.getId() == productDetail.getProduct_id()) {
-                    for (Color color : colorList) {
-                        if (productDetail.getColor_id() == color.getId()) {
-                            newColorList.add(color);
+
+            if (checkBrand == true && checkRoom == true && checkCategory == true && checkColor == true) {
+                for (SaleOff saleOff : saleOffList) {
+                    if (saleOff.getProduct_id() == product.getId() && saleOff.getSaleoffvalue() != 0) {
+                        product.setSaleOff(saleOff.getSaleoffvalue());
+                        product.setSalePrice(product.getPrice() - (product.getPrice() * product.getSaleOff() / 100));
+                        break;
+                    }
+                }
+
+                int reviewCount = 0;
+                for (Feedback feedback : feedbackList) {
+                    if (feedback.getProduct_id() == product.getId()) {
+                        reviewCount++;
+                    }
+                }
+                product.setNumberFeedback(reviewCount);
+
+                int quantitySold = 0;
+                for (OrderDetail orderDetail : orderDetailList) {
+                    for (ProductDetail productDetail : productDetailList) {
+                        if (orderDetail.getProductdetail_id() == productDetail.getId() && productDetail.getProduct_id() == product.getId()) {
+                            quantitySold += orderDetail.getQuantity();
                         }
                     }
                 }
+                product.setQuantitySold(quantitySold);
+                ArrayList<Color> newColorList = new ArrayList<>();
+                for (ProductDetail productDetail : productDetailList) {
+                    if (product.getId() == productDetail.getProduct_id()) {
+                        for (Color color : colorList) {
+                            if (productDetail.getColor_id() == color.getId()) {
+                                newColorList.add(color);
+                            }
+                        }
+                    }
+                }
+                product.setColorList(newColorList);
+                copyProductList.add(product);
             }
-            product.setColorList(newColorList);
         }
-        return productList;
+        copyProductList = paginationHelper.PaginationList(request, copyProductList, context, itemsPerPage);
+        return copyProductList;
     }
 
     @Override
@@ -242,16 +287,15 @@ public class ProductServlet extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> productList = productDAO.getProductList();
         HttpSession session = request.getSession();
-        
-        
+
         String action = request.getParameter("action");
-        if("showCategory".equals(action)){
+        if ("showCategory".equals(action)) {
             int categoryId = Integer.parseInt(request.getParameter("id"));
             productList = productDAO.getProductListByCategoryID(categoryId);
-        }else if ("showBrand".equals(action)){
+        } else if ("showBrand".equals(action)) {
             int brandId = Integer.parseInt(request.getParameter("id"));
             productList = productDAO.getProductListByBrandID(brandId);
-        }else if ("showRoom".equals(action)){
+        } else if ("showRoom".equals(action)) {
             int roomId = Integer.parseInt(request.getParameter("id"));
             productList = productDAO.getProductListByRoomID(roomId);
         }
@@ -295,7 +339,7 @@ public class ProductServlet extends HttpServlet {
         } else if ("pagination".equals(action)) {
             productList = (ArrayList<Product>) session.getAttribute("productList");
             productList = ProductDisplay(request, productList);
-            
+
             Gson gson = new GsonBuilder().create();
             String jsonProductList = gson.toJson(productList);
 

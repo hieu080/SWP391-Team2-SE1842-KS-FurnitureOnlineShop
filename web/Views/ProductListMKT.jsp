@@ -6,7 +6,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Product List Marketing</title>
+        <title>Danh sách sản phẩm</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="stylesheet" href="css/main.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -234,7 +235,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="title">
-                                            <h2><a href="ProductListMKTServlet" style="text-decoration: none">Product List</a></h2>
+                                            <h2><a href="ProductListMKTServlet" style="text-decoration: none">Danh sách Sản phẩm</a></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -243,10 +244,10 @@
                         <div class="ml-15 mr-15" style="display: flex; justify-content: space-between; margin-bottom: 20px">
                             <div class="button-add">
                                 <button id="addNewProduct"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
-                                    Add New Product
+                                    Thêm sản phẩm mới
                                 </button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductDetailModal">
-                                    Add New Product Detail
+                                    Thêm chi tiết sản phẩm
                                 </button>
                             </div>
                             <!--Sort form-->
@@ -312,7 +313,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h3 class="modal-title" id="addProductModalLabel"><b>Add New Product</b></h3>
+                                        <h3 class="modal-title" id="addProductModalLabel"><b>Thêm sản phẩm mới</b></h3>
                                         <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close" style="margin-left: 532px;">
                                             <span aria-hidden="true" style="width: 30px; height: 20px">X</span>
                                         </button>
@@ -321,13 +322,13 @@
                                         <form action="ManageProductServlet" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="action" value="addNewProduct">
                                             <div class="form-group">
-                                                <label for="productName"><b>Product Name:</b></label>
+                                                <label for="productName"><b>Tên sản phẩm:</b></label>
                                                 <input type="text" class="form-control" id="productName" name="productName">
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <div class="form-group">
-                                                        <label for="categoryId"><b>Category:</b></label>
+                                                        <label for="categoryId"><b>Danh mục:</b></label>
                                                         <select class="form-control" id="categoryId" name="categoryId">
                                                             <c:forEach items="${requestScope.categoryList}" var="category">
                                                                 <option value="${category.id}">${category.category}</option>
@@ -335,7 +336,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="brandId"><b>Brand:</b></label>
+                                                        <label for="brandId"><b>Thương hiệu:</b></label>
                                                         <select class="form-control" id="brandId" name="brandId">
                                                             <c:forEach items="${requestScope.brandList}" var="brand">
                                                                 <option value="${brand.id}">${brand.brandname}</option>
@@ -343,7 +344,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="roomId"><b>Room:</b></label>
+                                                        <label for="roomId"><b>Phòng: </b></label>
                                                         <select class="form-control" id="roomId" name="roomId">
                                                             <c:forEach items="${requestScope.roomList}" var="room">
                                                                 <option value="${room.id}">${room.roomname}</option>
@@ -352,16 +353,16 @@
                                                     </div>
                                                     <div class="row" style="margin-bottom: 10px">
                                                         <div class="form-group col-md-6">
-                                                            <label for="priceProduct"><b>Price:</b></label>
+                                                            <label for="priceProduct"><b>Giá:</b></label>
                                                             <input type="text" class="form-control" id="priceProduct" name="priceProduct">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="quantityProduct"><b>Quantity:</b></label>
+                                                            <label for="quantityProduct"><b>Số lượng:</b></label>
                                                             <input type="text" class="form-control" id="quantityProduct" name="quantityProduct">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="imageProductInput"><b>Image:</b></label>
+                                                        <label for="imageProductInput"><b>Ảnh chính:</b></label>
                                                         <input type="file" class="form-control-file" id="imageProductInput" name="imageProduct" accept="image/*" onchange="previewImage(event, 'imageProduct')">
                                                     </div>
                                                 </div>
@@ -370,14 +371,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descriptionProduct"><b>Description:</b></label>
+                                                <label for="descriptionProduct"><b>Mô tả:</b></label>
                                                 <textarea class="form-control" id="descriptionProduct" name="descriptionProduct" rows="4"></textarea>
                                             </div>
                                             <script>
                                                 CKEDITOR.replace('descriptionProduct');
                                             </script>
                                             <div class="d-flex" style="justify-content: center; margin-top: 10px">
-                                                <button id="submitFormAddNewProduct" type="submit" class="btn btn-primary">Save</button>
+                                                <button id="submitFormAddNewProduct" type="submit" class="btn btn-primary">Lưu</button>
                                             </div>
                                         </form>
                                     </div>
@@ -390,7 +391,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h3 class="modal-title" id="addProductDetailModalLabel"><b>Add New Product Detail</b></h3>
+                                        <h3 class="modal-title" id="addProductDetailModalLabel"><b>Thêm chi tiết sản phẩm</b></h3>
                                         <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close" style="margin-left: 495px">
                                             <span aria-hidden="true" style="width: 30px; height: 20px">X</span>
                                         </button>
@@ -401,7 +402,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 row">
                                                     <div class="form-group">
-                                                        <label for="productDetailName"><b>Product:</b></label>
+                                                        <label for="productDetailName"><b>Sản phẩm:</b></label>
                                                         <select class="form-control" id="productDetailName" name="productId">
                                                             <c:forEach items="${requestScope.productList}" var="product">
                                                                 <option value="${product.id}">${product.name}</option>
@@ -409,7 +410,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="colorId"><b>Color:</b></label>
+                                                        <label for="colorId"><b>Màu sắc:</b></label>
                                                         <select class="form-control" id="colorId" name="colorId">
                                                             <c:forEach items="${requestScope.colorList}" var="color">
                                                                 <option value="${color.id}">${color.colorname}</option>
@@ -417,7 +418,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="quantityProductDetail"><b>Quantity:</b></label>
+                                                        <label for="quantityProductDetail"><b>Số lượng:</b></label>
                                                         <input style="height: 33px" type="text" class="form-control" id="quantityProductDetail" name="quantityProductDetail">
                                                     </div>
                                                     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
@@ -451,7 +452,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex" style="justify-content: center; margin-top: 10px">
-                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
                                             </div>
                                         </form>
                                     </div>
@@ -465,7 +466,7 @@
                                 <input type="hidden" name="action" value="search"/>
                                 <div class="d-flex button-add">
                                     <input type="text" class="form-control" name="search" placeholder="Tên sản phẩm" style="width: 350px;" />
-                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                                 </div>
                             </form>
                         </div>
@@ -553,7 +554,7 @@
                                         </div>
                                         <div class="dropdown">
                                             <div class="dropbtn">
-                                                Status
+                                                Trạng thái
                                                 <span><i class="fa fa-chevron-down"></i></span>
                                             </div>
                                             <ul class="dropdown-content">
@@ -588,7 +589,7 @@
                                         </span>
                                     </div>
                                     <div class="filter_tags ">
-                                        Status: <b id="status-tag"></b>
+                                        Trạng thái: <b id="status-tag"></b>
                                         <span class="filter_tags_remove" data-filter="status"><i class="fa fa-times"></i></span>
                                     </div>
                                     <div class="filter_tags filter_tags_remove_all opened"><span><a href="ProductListMKTServlet">Xóa hết</a></span></div>
@@ -606,31 +607,31 @@
                                                         <h6 class="text-sm text-medium">ID</h6>
                                                     </th>
                                                     <th>
-                                                        <h6 class="text-sm text-medium">Image</h6>
+                                                        <h6 class="text-sm text-medium">Ảnh</h6>
                                                     </th>
                                                     <th>
-                                                        <h6 class="text-sm text-medium">Product</h6>
+                                                        <h6 class="text-sm text-medium">Sản phẩm</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Feedback Star</h6>
+                                                        <h6 class="text-sm text-medium">Điểm đánh giá</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Price</h6>
+                                                        <h6 class="text-sm text-medium">Giá</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Sale Off</h6>
+                                                        <h6 class="text-sm text-medium">Giảm giá</h6>
                                                     </th>
                                                     <th>
-                                                        <h6 class="text-sm text-medium">Quantity Sold</h6>
+                                                        <h6 class="text-sm text-medium">SL đã bán</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Quantity Available</h6>
+                                                        <h6 class="text-sm text-medium">SL đang có</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Status</h6>
+                                                        <h6 class="text-sm text-medium">Trạng thái</h6>
                                                     </th>
                                                     <th class="min-width">
-                                                        <h6 class="text-sm text-medium">Action</h6>
+                                                        <h6 class="text-sm text-medium">Hành động</h6>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -678,9 +679,9 @@
                                                     <td>
                                                         <p class="text-sm">${product.quantity}</p></td>
                                                     <td>
-                                                        <p class="text-sm">Active</p>
+                                                        <p class="text-sm">${product.status}</p>
                                                     </td>
-                                                    <td class="actions"><p><a href="ManageProductServlet?productID=${product.id}" title="View" "=""><i class="fas fa-eye"></i></a></p>
+                                                    <td class="actions"><p><a href="ManageProductServlet?productID=${product.id}" title="View"><i class="fas fa-eye"></i></a></p>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

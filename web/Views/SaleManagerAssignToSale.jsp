@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Order Details</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="preload stylesheet" as="style" fetchpriority="low"
               href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -485,14 +486,14 @@
                         <table class="table table-striped table-bordered">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Customer</th>
-                                    <th scope="col">Total Cost</th>
-                                    <th scope="col">Order Date</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Tên Sale</th>
-                                    <th scope="col">View Detail</th>
-                                    <th scope="col">Assign Order</th>
+                                    <th scope="col">Mã</th>
+                                    <th scope="col">Người đặt</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Ngày đặt</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Tên Nv kinh doanh</th>
+                                    <th scope="col">Chi tiết</th>
+                                    <th scope="col">Phân đơn</th>
                                 </tr>
                             </thead>
                             <tbody id="dataTableBody">
@@ -504,7 +505,7 @@
                                 <div class="modal-content">
                                     <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="SearchSaleModalLabel">Sale List</h5>
+                                        <h5 class="modal-title" id="SearchSaleModalLabel">Danh sách nhân viên Kinh doanh</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
@@ -512,15 +513,15 @@
                                     <div class="modal-body">
                                         <form id="SaleForm" class="d-flex mb-3">
                                             <input type="text" class="form-control me-2" placeholder="Search by name..." name="apartofname">
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                            <button type="button" id="clearButtonSale" class="btn btn-secondary" >Clear</button>
+                                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                            <button type="button" id="clearButtonSale" class="btn btn-secondary" >Hủy lọc</button>
 
                                         </form>
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>Tên khách hàng</th>
+                                                    <th>Mã</th>
+                                                    <th>Tên Nv kinh doanh</th>
                                                     <th>Giới tính</th>
                                                     <th>Số điện thoại</th>
                                                     <th>Email</th>

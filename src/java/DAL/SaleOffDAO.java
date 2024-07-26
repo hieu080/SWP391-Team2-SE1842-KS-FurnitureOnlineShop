@@ -28,6 +28,28 @@ public class SaleOffDAO extends DBContext {
     // Phương thức getSaleOffList
     public ArrayList<SaleOff> getSaleOffList() {
         ArrayList<SaleOff> saleOffList = new ArrayList<>();
+        String sql = "SELECT * FROM SaleOff WHERE status = 'Active'";
+
+        try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int productId = rs.getInt("product_id");
+                int value = rs.getInt("value");
+                String status = rs.getString("status");
+                SaleOff saleOff = new SaleOff(productId, value);
+                saleOff.setId(id);
+                saleOff.setStatus(status);
+                saleOffList.add(saleOff);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving sale off list", ex);
+        }
+
+        return saleOffList;
+    }
+    
+    public ArrayList<SaleOff> getSaleOffListAll() {
+        ArrayList<SaleOff> saleOffList = new ArrayList<>();
         String sql = "SELECT * FROM SaleOff";
 
         try (PreparedStatement pstmt = connect.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {

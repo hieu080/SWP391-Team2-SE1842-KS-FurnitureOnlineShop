@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>JSP Page</title>
+        <link rel="icon" href="image/logoshop.png" type="image/png">
     </head>
     <body>
         <footer class="footer">

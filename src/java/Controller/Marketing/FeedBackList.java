@@ -5,6 +5,7 @@
 package Controller.Marketing;
 
 import DAL.FeedbackDAO;
+import Helper.ConfigReaderHelper;
 import Models.Feedback;
 import com.oracle.wls.shaded.org.apache.xalan.lib.Redirect;
 import java.io.IOException;
@@ -31,11 +32,12 @@ public class FeedBackList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private final int PageSize = 6;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ConfigReaderHelper config = new ConfigReaderHelper();
+        
+        int PageSize = config.getValueOfItemsPerPage(request.getServletContext().getRealPath("/"), "itemsPerFeedbackListPage");
         String index_str = request.getParameter("index") == null ? "" : request.getParameter("index");
         System.out.println(index_str);
         String sort = request.getParameter("sort") == null ? "" : request.getParameter("sort");

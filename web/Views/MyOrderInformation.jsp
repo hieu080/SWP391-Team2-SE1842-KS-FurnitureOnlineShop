@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html >
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyOrderInformation</title>
+    <link rel="icon" href="image/logoshop.png" type="image/png">
     <link rel="preload stylesheet" as="style" fetchpriority="low"
           href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -143,8 +145,12 @@
                                                                 </div>
                                                             </td>
                                                             <td>${orderDetail.quantity}</td>
-                                                            <td class="text-end" style="text-decoration: line-through;">${product.price} </td>
-                                                            <td class="text-end">${orderDetail.price}</td>
+                                                            <td class="text-end text-danger" style="text-decoration: line-through;">
+                                                                <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <fmt:formatNumber value="${orderDetail.price}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                                            </td>
                                                         <div style="display: none">
                                                             <input type="hidden" id="priceunit" name="priceunit" value="${orderDetail.price}">
                                                         </div>
@@ -158,7 +164,9 @@
                                 </tbody>
                                 <tfoot>
                                     <tr class="fw-bold">
-                                        <td colspan="4" style="text-align: right; padding-right: 50px">TOTAL: ${order.totalcost}</td>
+                                        <td colspan="4" style="text-align: right; padding-right: 50px">TOTAL: 
+                                            <fmt:formatNumber value="${order.totalcost}" type="number" minFractionDigits="0" maxFractionDigits="0" groupingUsed="true" />₫
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>

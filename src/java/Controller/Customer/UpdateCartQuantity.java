@@ -16,6 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,13 +73,13 @@ public class UpdateCartQuantity extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AddToCart.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("countcartitemselected", countCartItemSelected);
         jsonObject.addProperty("countcartitem", countCartItem);
-        jsonObject.addProperty("sumtotalprice", sumtotalprice);
+        jsonObject.addProperty("sumtotalprice", formatCurrency(sumtotalprice));
         try {
-            jsonObject.addProperty("price",cartItemDAO.getCartItemByCartId(Integer.parseInt(cartid)).getTotalcost());
+            jsonObject.addProperty("price", formatCurrency(cartItemDAO.getCartItemByCartId(Integer.parseInt(cartid)).getTotalcost()));
         } catch (SQLException ex) {
             Logger.getLogger(UpdateCartQuantity.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,8 +92,15 @@ public class UpdateCartQuantity extends HttpServlet {
     }
 
     public static void main(String[] args) throws SQLException {
-        System.out.println((long)new CartItemDAO().getTotalCost(1));
+        System.out.println((long) new CartItemDAO().getTotalCost(1));
 
     }
 
+    public String formatCurrency(double number) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator(',');
+        symbols.setMonetaryDecimalSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        return decimalFormat.format(number) + "₫";
+    }
 }

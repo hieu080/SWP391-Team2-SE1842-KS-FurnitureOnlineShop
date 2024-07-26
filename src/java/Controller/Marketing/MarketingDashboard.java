@@ -54,6 +54,11 @@ public class MarketingDashboard extends HttpServlet {
         }
         
         //lấy tổng khách, tổng post, tổng product, tổng feedback
+        int postall = pdao.getPostCounts(Date.valueOf("2024-07-01"), Date.valueOf(LocalDate.now()));
+        int customerall=udao.getCustomerCounts(Date.valueOf("2024-07-01"), Date.valueOf(LocalDate.now()));
+        int productall=prodao.getProductCounts(Date.valueOf("2024-07-01"), Date.valueOf(LocalDate.now()));
+        int feedbackall=fdao.getFeedbackCounts(Date.valueOf("2024-07-01"), Date.valueOf(LocalDate.now()));
+        
         int customer=udao.getCustomerCounts(startDate, endDate);
         int post=pdao.getPostCounts(startDate, endDate);
         int product=prodao.getProductCounts(startDate, endDate);
@@ -61,11 +66,19 @@ public class MarketingDashboard extends HttpServlet {
         //lấy danh sách số khách theo ngày
         List<Map<String, Object>> customerCounts = udao.getCustomerCountsByDate(startDate, endDate);
         
+        //lấy danh sách sản phẩm bán chạy
+        Map<String,Integer> topsell = prodao.getTopSellingProducts(startDate, endDate);
+        
         //set các attribute để hiển thị
+        request.setAttribute("topsell", topsell);
         request.setAttribute("product", product);
+        request.setAttribute("productall", productall);
         request.setAttribute("feedback", feedback);
+        request.setAttribute("feedbackall", feedbackall);
         request.setAttribute("post", post);
+        request.setAttribute("postall", postall);
         request.setAttribute("customer", customer);
+        request.setAttribute("customerall", customerall);
         request.setAttribute("customerCounts", customerCounts);
         request.getRequestDispatcher("Views/MktDashboard.jsp").forward(request, response);
     }

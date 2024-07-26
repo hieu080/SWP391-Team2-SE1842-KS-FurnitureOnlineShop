@@ -6,7 +6,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Customer Details</title>
-        <link rel="icon" href="image/logoshop.png" type="image/png">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -46,8 +45,14 @@
             <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
                 <%@include file="DashboardHeader.jsp" %>
-                <div class="container">
-                    <h1 class="mb-4">Chi tiết tài khoản: #${cus.getId()}</h1>
+                <div class="container card mt-3">
+                    <div>
+                        <a class="btn btn-secondary btn-sm edit-btn mt-3"
+                           style="width:auto" href="CustomersList">
+                            Trở lại
+                        </a>
+                    </div>
+                    <h1 class="mb-4 mt-3">Chi tiết tài khoản: #${cus.getId()}</h1>
                     <div class="row justify-content-center mb-4">
 
                         <button type="button" class="btn btn-secondary btn-sm edit-btn" onclick="editField('.ip')"
@@ -92,7 +97,7 @@
                                                     <td>${change.getUpdateddate()}</td>
                                                     <td><c:forEach items="${listMkt}" var="mkt">
                                                             <c:if test="${mkt.getId() == change.getUpdatedby()}">
-                                                                <p>${mkt.getFullname()}</p>
+                                                                <p style="margin:0">${mkt.getFullname()}</p>
                                                             </c:if>
                                                         </c:forEach></td>
                                                 </tr>
@@ -161,7 +166,8 @@
                         <div class="form-group row">
                             <label for="subtitle" class="col-sm-2 col-form-label">Trạng thái</label>
                             <div class="col-sm-10 d-flex align-items-center">
-                                <input type="text" class="form-control" name="status" value="${cus.getStatus()}" readonly>
+                                <input type="text" class="form-control" name="status" 
+                                       value="${cus.getStatus() eq 'online' ? 'Trực tuyến' : (cus.getStatus() eq 'offline' ? 'Ngoại tuyến' : 'Đã chặn')}" readonly>
                             </div>
                         </div>
 
@@ -173,7 +179,7 @@
                     </form>
 
 
-                    <div class="row justify-content-end pr-3">
+                    <div class="row justify-content-end pr-3 mb-3">
                         <button class="btn btn-secondary" data-toggle="modal" data-target="#customerChangesModal"
                                 style="width:auto">Lịch sử</button>
                     </div>

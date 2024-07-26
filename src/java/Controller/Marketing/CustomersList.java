@@ -32,22 +32,10 @@ public class CustomersList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO udao = new UserDAO();
-        //lay danh sach status de filter
-        List<String> listStatus = udao.getListStatus();
-        request.setAttribute("listStatus", listStatus);
 
         //lay danh sach khach hang
-        List<User> listCus = null;
-        String status = request.getParameter("status");
-        if (status != null) {
-            if (!status.equals("All")) {
-                listCus = udao.getCustomerListbyStatus(status);
-            }else{
-                listCus = udao.getCustomerList();
-            }
-        } else {
-            listCus = udao.getCustomerList();
-        }
+        List<User> listCus = udao.getCustomerList();
+ 
         request.setAttribute("listCus", listCus);
 
         request.getRequestDispatcher("Views/CustomersList.jsp").forward(request, response);

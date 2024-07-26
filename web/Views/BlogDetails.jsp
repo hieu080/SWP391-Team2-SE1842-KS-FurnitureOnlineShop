@@ -4,8 +4,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Chi tiết bài đăng</title>    
-        <link rel="icon" href="image/logoshop.png" type="image/png">
+        <title>Page Layout</title>    
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
         <style>
             body {
@@ -40,6 +40,12 @@
                 width: 100%;
                 height:auto;
             }
+            
+            input[type='text'] { font-size: 16px; }
+            
+            option{
+                font-size: 16px;
+            }
         </style>
     </head>
     <body>
@@ -66,7 +72,8 @@
                     <!-- Dropdown to filter category -->
                     <div class="mb-3">
                         <form action="BlogListServlet">
-                            <select class="form-control" name="category" onchange="this.form.submit()">
+                            <select class="form-control" name="category" onchange="this.form.submit()"
+                                    style="font-size:16px;">
                                 <option value="0">All</option>
                                 <c:forEach items="${listCategory}" var="c">
                                     <option value="${c.getId()}" <c:if test="${c.getId()==param.category}">selected</c:if>>${c.getCategory()}</option>
@@ -75,7 +82,7 @@
                         </form>
                     </div>
 
-                    <div class="border-bottom text-center"><h4>Bài viết nổi bật</h4></div>
+                    <div class="border-bottom text-center"><h3>Bài viết nổi bật</h3></div>
 
                     <!-- Display new posts (using forEach) -->
                     <c:forEach items="${listNewPost}" var="p">

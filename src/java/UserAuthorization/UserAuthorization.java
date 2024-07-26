@@ -4,6 +4,7 @@
  */
 package UserAuthorization;
 
+import DAL.UserDAO;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -122,6 +123,12 @@ public class UserAuthorization implements Filter {
         int role = 0;
         if (customer != null) {
             role = customer.getRole_id();
+        }else{
+            String sessionId = request.getParameter("sessionid");
+            if (sessionId != null) {
+                customer = new UserDAO().getUserByID(Integer.parseInt(sessionId));
+                session.setAttribute("customer", customer);
+            }
         }
         //SettingDetailsServlet
         System.out.println(role);

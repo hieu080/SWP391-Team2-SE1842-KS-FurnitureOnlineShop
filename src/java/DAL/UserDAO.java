@@ -6,6 +6,8 @@ package DAL;
 
 import Models.CustomerChanges;
 import Models.User;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,6 +63,7 @@ public class UserDAO extends DBContext {
     }
 
     public boolean changePass(String uid, String pass) {
+//        pass = hashPassword(pass);
         try {
             String sql = "UPDATE `furniture`.`User` SET `password` = ? WHERE `id` = ?";
             try (PreparedStatement stm = connect.prepareStatement(sql)) {
@@ -998,10 +1001,35 @@ public class UserDAO extends DBContext {
         return list;
     }
 
+     public String hashPassword(String password) {
+        try {
+            // Tạo đối tượng MessageDigest với thuật toán SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            
+            // Băm mật khẩu và chuyển đổi thành mảng byte
+            byte[] hashBytes = digest.digest(password.getBytes());
+            
+            // Chuyển đổi mảng byte thành chuỗi mã hóa Hex
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                // Chuyển đổi mỗi byte thành chuỗi Hex và thêm vào StringBuilder
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            
+            // Trả về chuỗi mã hóa Hex
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Xử lý lỗi khi thuật toán không tồn tại
+            throw new RuntimeException("Error hashing password", e);
+        }
+    }
     
     public static void main(String[] args) {
         UserDAO u = new UserDAO();
-        CustomerChanges cc = new CustomerChanges("123", "123", "123", "123", "123", 1, 9);
-        u.addToCustomerChanges(cc);
+        System.out.println(u.hashPassword("123456"));
     }
 }

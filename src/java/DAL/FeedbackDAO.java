@@ -165,39 +165,68 @@ public class FeedbackDAO extends DBContext {
     }
     public String counts;
 
-    public int countFeedbacks(Integer votescore, String status, String customerName, String productName, String description) {
+    public int countFeedbacks(int[] votescores, String[] statuses, String customerName, String productName, String description) {
         int count = 0;
-        String sql;
-        String c = status.equals("") ? "%%" : status;
-        if (votescore != 0) {
-            sql = "SELECT COUNT(*) as total "
-                    + "FROM Feedback f "
-                    + "JOIN User u ON f.customer_id = u.id "
-                    + "JOIN Product p ON f.product_id = p.id "
-                    + "WHERE (f.votescore = " + votescore + ") "
-                    + "AND (f.status LIKE '" + c + "') "
-                    + "AND (u.fullname LIKE '%" + customerName + "%') "
-                    + "AND (p.name LIKE '%" + productName + "%') "
-                    + "AND (f.feedback LIKE '%" + description + "%') ";
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT COUNT(*) AS total ")
+                .append("FROM Feedback f ")
+                .append("JOIN User u ON f.customer_id = u.id ")
+                .append("JOIN Product p ON f.product_id = p.id ")
+                .append("WHERE (");
+
+        // Add placeholders for status array
+        if (statuses.length > 0) {
+            for (int i = 0; i < statuses.length; i++) {
+                sql.append("f.status = ? ");
+                if (i < statuses.length - 1) {
+                    sql.append("OR ");
+                }
+            }
         } else {
-            sql = "SELECT COUNT(*) as total "
-                    + "FROM Feedback f "
-                    + "JOIN User u ON f.customer_id = u.id "
-                    + "JOIN Product p ON f.product_id = p.id "
-                    + "WHERE (f.status LIKE '" + c + "') "
-                    + "AND (u.fullname LIKE '%" + customerName + "%') "
-                    + "AND (p.name LIKE '%" + productName + "%') "
-                    + "AND (f.feedback LIKE '%" + description + "%') ";
+            sql.append("f.status LIKE '%%' ");
         }
-        counts = sql;
-        try (PreparedStatement ps = connect.prepareStatement(sql)) {
+
+        sql.append(") AND u.fullname LIKE ? ")
+                .append("AND p.name LIKE ? ")
+                .append("AND f.feedback LIKE ? ");
+
+        // Add placeholders for votescore array
+        if (votescores.length > 0) {
+            sql.append("AND (");
+            for (int i = 0; i < votescores.length; i++) {
+                sql.append("f.votescore = ? ");
+                if (i < votescores.length - 1) {
+                    sql.append("OR ");
+                }
+            }
+            sql.append(") ");
+        }
+
+        try {
+            PreparedStatement ps = connect.prepareStatement(sql.toString());
+            int paramIndex = 1;
+
+            // Set status parameters
+            for (String status : statuses) {
+                ps.setString(paramIndex++, status);
+            }
+
+            ps.setString(paramIndex++, "%" + customerName + "%");
+            ps.setString(paramIndex++, "%" + productName + "%");
+            ps.setString(paramIndex++, "%" + description + "%");
+
+            // Set votescore parameters
+            for (int votescore : votescores) {
+                ps.setInt(paramIndex++, votescore);
+            }
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt("total");
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return count;
@@ -210,72 +239,102 @@ public class FeedbackDAO extends DBContext {
 //    }
     public String s;
 
-   public List<Feedback> searchFeedbacks(int votescore, String status, String customerName, String productName, String description, int index, int pageSize, String sort) {
-    List<Feedback> feedbackList = new ArrayList<>();
-    StringBuilder sql = new StringBuilder();
-    String c = status.isEmpty() ? "%%" : status;
+    public List<Feedback> searchFeedbacks(int[] votescores, String[] statuses, String customerName, String productName, String description, int index, int pageSize, String sort) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        StringBuilder sql = new StringBuilder();
+        UserDAO dAO = new UserDAO();
+        ProductDAO aO = new ProductDAO();
+        sql.append("SELECT f.id, f.customer_id, u.fullname AS customer_name, f.product_id, p.name AS product_name, f.votescore, f.feedback, f.status, p.description ")
+                .append("FROM Feedback f ")
+                .append("JOIN User u ON f.customer_id = u.id ")
+                .append("JOIN Product p ON f.product_id = p.id ")
+                .append("WHERE (");
 
-    sql.append("SELECT f.id, f.customer_id, u.fullname AS customer_name, f.product_id, p.name AS product_name, f.votescore, f.feedback, f.status, p.description ")
-       .append("FROM Feedback f ")
-       .append("JOIN User u ON f.customer_id = u.id ")
-       .append("JOIN Product p ON f.product_id = p.id ")
-       .append("WHERE f.status LIKE ? ")
-       .append("AND u.fullname LIKE ? ")
-       .append("AND p.name LIKE ? ")
-       .append("AND f.feedback LIKE ? ");
-
-    if (votescore != 0) {
-        sql.append("AND f.votescore = ? ");
-    }
-
-    switch (sort) {
-        case "rate":
-            sql.append("ORDER BY f.votescore ASC ");
-            break;
-        case "rate_desc":
-            sql.append("ORDER BY f.votescore DESC ");
-            break;
-        default:
-            sql.append("ORDER BY f.id ");
-    }
-
-    sql.append("LIMIT ?, ?");
-
-    try {
-        PreparedStatement ps = connect.prepareStatement(sql.toString());
-        int paramIndex = 1;
-        ps.setString(paramIndex++, c);
-        ps.setString(paramIndex++, "%" + customerName + "%");
-        ps.setString(paramIndex++, "%" + productName + "%");
-        ps.setString(paramIndex++, "%" + description + "%");
-
-        if (votescore != 0) {
-            ps.setInt(paramIndex++, votescore);
-        }
-
-        ps.setInt(paramIndex++, index);
-        ps.setInt(paramIndex++, pageSize);
-
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Feedback feedback = new Feedback();
-                feedback.setId(rs.getInt("id"));
-                feedback.setCustomer_id(rs.getInt("customer_id"));
-                feedback.setCustomer_Name(rs.getString("customer_name"));
-                feedback.setProduct_id(rs.getInt("product_id"));
-                feedback.setProduct_Name(rs.getString("product_name"));
-                feedback.setVotescore(rs.getInt("votescore"));
-                feedback.setFeedback(rs.getString("feedback"));
-                feedback.setStatus(rs.getString("status"));
-                feedbackList.add(feedback);
+        // Add placeholders for status array
+        if (statuses.length > 0) {
+            for (int i = 0; i < statuses.length; i++) {
+                sql.append("f.status = ? ");
+                if (i < statuses.length - 1) {
+                    sql.append("OR ");
+                }
             }
+        } else {
+            sql.append("f.status LIKE '%%' ");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return feedbackList;
-}
 
+        sql.append(") AND u.fullname LIKE ? ")
+                .append("AND p.name LIKE ? ")
+                .append("AND f.feedback LIKE ? ");
+
+        // Add placeholders for votescore array
+        if (votescores.length > 0) {
+            sql.append("AND (");
+            for (int i = 0; i < votescores.length; i++) {
+                sql.append("f.votescore = ? ");
+                if (i < votescores.length - 1) {
+                    sql.append("OR ");
+                }
+            }
+            sql.append(") ");
+        }
+
+        switch (sort) {
+            case "rate":
+                sql.append("ORDER BY f.votescore ASC ");
+                break;
+            case "rate_desc":
+                sql.append("ORDER BY f.votescore DESC ");
+                break;
+            default:
+                sql.append("ORDER BY f.id ");
+        }
+
+        sql.append("LIMIT ?, ?");
+
+        try {
+            PreparedStatement ps = connect.prepareStatement(sql.toString());
+            int paramIndex = 1;
+
+            // Set status parameters
+            for (String status : statuses) {
+                ps.setString(paramIndex++, status);
+            }
+
+            ps.setString(paramIndex++, "%" + customerName + "%");
+            ps.setString(paramIndex++, "%" + productName + "%");
+            ps.setString(paramIndex++, "%" + description + "%");
+
+            // Set votescore parameters
+            for (int votescore : votescores) {
+                ps.setInt(paramIndex++, votescore);
+            }
+
+            ps.setInt(paramIndex++, index);
+            ps.setInt(paramIndex++, pageSize);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Feedback feedback = new Feedback();
+                    feedback.setId(rs.getInt("id"));
+                    feedback.setCustomer_id(rs.getInt("customer_id"));
+                    feedback.setCustomer_Name(dAO.getUserNameByID(feedback.getCustomer_id()));
+                    feedback.setProduct_id(rs.getInt("product_id"));
+                    feedback.setProduct_Name(aO.getProductName(feedback.getProduct_id()));
+                    feedback.setVotescore(rs.getInt("votescore"));
+                    feedback.setFeedback(rs.getString("feedback"));
+                    feedback.setStatus(rs.getString("status"));
+                    feedbackList.add(feedback);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return feedbackList;
+    }
+    public static void main(String[] args) {
+        FeedbackDAO aO = new FeedbackDAO();
+        System.out.println(aO.searchFeedbacks(new int[0], new String[0], "", "", "", 6, 6, "rate").size());
+    }
 
     public ArrayList<Feedback> SearchList(int vote, String status, String customer_name, String product_name, String Description, int index, int pagesize) {
         ArrayList<Feedback> feedbackList = new ArrayList<>();
@@ -336,12 +395,7 @@ public class FeedbackDAO extends DBContext {
 //        String name = feedbackDAO.GetFeedbackByID(1);
 //        System.out.println(name);
 //    }
-    public static void main(String[] args) {
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-//        int id_re = 1;  // Thay đổi giá trị ID cho phù hợp với dữ liệu trong cơ sở dữ liệu của bạn
-        Feedback feedback = feedbackDAO.GetFeedbackByID(1);
-        System.out.println(feedback);
-    }
+   
 
     public Feedback GetFeedbackByID(int id_re) {
         UserDAO ud = new UserDAO();
@@ -450,7 +504,7 @@ public class FeedbackDAO extends DBContext {
         // Chuyển danh sách orderIds thành mảng
         return orderIds.stream().mapToInt(i -> i).toArray();
     }
-    
+
     //đếm số lượng feedback trong khoảng thời gian 
     public int getFeedbackCounts(java.sql.Date startDate, java.sql.Date endDate) {
         String sql = "select count(*) from feedback where CreateDate \n"
@@ -477,8 +531,8 @@ public class FeedbackDAO extends DBContext {
         String sql = "select sum(f.votescore)/count(*) as avgstar\n"
                 + "from feedback f\n"
                 + "where f.createdate BETWEEN ? AND ?";
-        double avg=0;
-        
+        double avg = 0;
+
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
 
             statement.setDate(1, startDate);

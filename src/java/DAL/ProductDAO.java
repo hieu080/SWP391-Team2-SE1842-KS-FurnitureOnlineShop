@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -628,5 +630,35 @@ public class ProductDAO extends DBContext {
 //            LOGGER.log(Level.SEVERE, "Error deleting product", e);
 //        }
 //    }
+
+      //thống kê sản phẩm bán chạy trong khoảng thời gian
+    public Map<String,Integer> getTopSellingProducts(Date startDate, Date endDate) {
+        Map<String,Integer> topSellingProducts = new HashMap<>();
+        String query = "SELECT p.name AS product_name, SUM(od.quantity) AS total_quantity_sold "
+                + "FROM `order` o "
+                + "JOIN `orderdetail` od ON o.id = od.order_id "
+                + "JOIN `productdetail` pd ON od.productdetail_id = pd.id "
+                + "JOIN `product` p ON pd.product_id = p.id "
+                + "WHERE o.orderdate BETWEEN ? AND ? "
+                + "GROUP BY p.name "
+                + "ORDER BY total_quantity_sold DESC "
+                + "LIMIT 5";
+
+        try (PreparedStatement statement = connect.prepareStatement(query)) {
+            statement.setDate(1, startDate);
+            statement.setDate(2, endDate);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String productName = resultSet.getString("product_name");
+                int totalQuantitySold = resultSet.getInt("total_quantity_sold");
+                topSellingProducts.put(productName, totalQuantitySold);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return topSellingProducts;
+    }
 
 }

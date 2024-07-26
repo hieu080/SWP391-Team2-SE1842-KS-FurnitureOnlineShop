@@ -44,40 +44,38 @@
                     </form>
 
                     <div class="row mb-4 d-flex justify-content-center">
-                        <div class="col-lg-3 mb-4">
+                        <div class="col-lg-4 mb-4">
                             <div class="card p-3 shadow-sm">
-                                <h2 class="font-weight-bold text-primary text-center">Khách hàng</h2>
+                                <h2 class="font-weight-bold text-center">Thống kê khách hàng</h2>
                                 <div class="row">
                                     <div class="col-6 text-center border-right">
                                         <div class="py-2">
-                                            <h6 class="text-secondary">Mới đăng ký:</h6>
-                                            <strong class="h5 text-dark">${registerCounts}</strong>
+                                            <h5 class="text-secondary">Mới đăng ký:</h5>
+                                            <strong class="h4 text-dark">${registerCounts}</strong>
                                         </div>
                                     </div>
                                     <div class="col-6 text-center">
                                         <div class="py-2">
-                                            <h6 class="text-secondary">Mới mua:</h6>
-                                            <strong class="h5 text-dark">${boughtCounts}</strong>
+                                            <h5 class="text-secondary">Mới mua:</h5>
+                                            <strong class="h4 text-dark">${boughtCounts}</strong>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-12 mb-4">
+                        <div class="col-lg-12">
                             <div class=" p-3 shadow-sm">
-                                <h2 class="font-weight-bold text-primary text-center bg-white">Danh mục sản phẩm</h2>
+                                <h2 class="font-weight-bold text-center bg-white">Thống kê theo danh mục sản phẩm</h2>
                                 <div class="row">
                                     <div class="col-6 mb-3 text-center">
                                         <div class="card p-3 shadow-sm">
-                                            <h4 class="font-weight-bold text-primary">Doanh thu</h4>
                                             <canvas id="Chart2"></canvas>
                                             <p style="display: none;font-size: 40px" id="nodata2">0</p>
                                         </div>
                                     </div>
                                     <div class="col-6 text-center">
                                         <div class="card p-3 shadow-sm">
-                                            <h4 class="font-weight-bold text-primary">Đánh giá</h4>
                                             <canvas id="Chart3"></canvas>
                                             <p style="display: none;font-size: 40px" id="nodata3">0</p>
                                         </div>
@@ -88,18 +86,16 @@
 
                         <div class="col-lg-12 mb-4">
                             <div class="p-3 shadow-sm">
-                                <h2 class="font-weight-bold text-primary text-center bg-white">Đơn hàng</h2>
+                                <h2 class="font-weight-bold text-center bg-white">Thống kê theo đơn hàng</h2>
                                 <div class="row">
                                     <div class="col-4 text-center mb-3">
                                         <div class="card p-3 shadow-sm">
-                                            <h4 class="font-weight-bold text-primary">Trạng thái đơn hàng</h4>
                                             <canvas id="orderStatusChart"></canvas>
                                             <p style="display: none; font-size: 40px" id="nodata">0</p>
                                         </div>
                                     </div>
                                     <div class="col-8  mb-4 text-center">
                                         <div class="card p-3 shadow">
-                                            <h4 class="font-weight-bold text-primary ">Số lượng đơn hàng</h4>
                                             <canvas id="Chart4" style="height: 300px;"></canvas>
                                             <p style="display: none; font-size: 40px;" id="nodata4">0</p>
                                         </div>
@@ -118,25 +114,56 @@
                     <script>
                         <%  
                             Map<String, Integer> statusCounts = (Map<String, Integer>) request.getAttribute("statusCounts");
+                            
+                            // Định nghĩa màu sắc cho mỗi trạng thái
+                            Map<String, String> statusColors = new HashMap<>();
+                            statusColors.put("Thành công", "rgba(39, 245, 93, 0.8)");
+                            statusColors.put("Đã đặt hàng", "rgba(241, 43, 226, 1)");
+                            statusColors.put("Chưa thanh toán", "rgba(244, 223, 55, 1)");
+                            statusColors.put("Đã xác nhận", "rgba(43, 123, 241, 1)");
+                            statusColors.put("Đã hủy", "rgba(241, 43, 43, 1)");
+
                             if (statusCounts != null && !statusCounts.isEmpty()) {
                                 StringBuilder status = new StringBuilder();
-                                StringBuilder count = new StringBuilder();     
+                                StringBuilder count = new StringBuilder();   
+                                StringBuilder backgroundColors = new StringBuilder();
                                 // Duyệt qua các key và lấy giá trị
                                 for (String key : statusCounts.keySet()) {
                                     status.append("'").append(key).append("',");
-                                    count.append(statusCounts.get(key)).append(",");                    
+                                    count.append(statusCounts.get(key)).append(",");   
+                                    backgroundColors.append("'").append(statusColors.get(key)).append("',"); // Mặc định là màu đen nếu không tìm thấy màu
                                 }
+                                
                         %>
+                            console.log(<%= status %>);
+                            console.log(<%= backgroundColors %>);
                         var ctx = document.getElementById('orderStatusChart').getContext('2d');
-                        var chart = new Chart(ctx, {
+                        var chart = new Chart(ctx, {              
                             type: 'pie',
                             data: {
                                 labels: [<%= status.substring(0, status.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
                                 datasets: [{
                                         label: 'Số lượng đơn',
                                         data: [<%= count.substring(0, count.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
-                                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                                        backgroundColor: [<%= backgroundColors.substring(0, backgroundColors.length() - 1) %>] // Loại bỏ dấu phẩy cuối cùng
                                     }]
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16 // Tăng kích thước chữ của legend
+                                            }
+                                        },
+                                        onClick: (e) => e.stopPropagation() // Tắt chế độ click vào label để ẩn/hiện dữ liệu
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ tỉ lệ các đơn hàng theo trạng thái',
+                                        font: {size: 20}
+                                    }
+                                }
                             }
                         });
                         <%  
@@ -176,7 +203,7 @@
                                 datasets: [{
                                         label: 'Doanh thu',
                                         data: [<%= revenue.substring(0, revenue.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
-                                        backgroundColor: 'lightblue'
+                                        backgroundColor: 'rgba(245, 123, 39, 0.8)'
                                     }]
                             },
 
@@ -187,6 +214,21 @@
                                         grid: {
                                             display: false
                                         }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16 // Tăng kích thước chữ của legend
+                                            }
+                                        },
+                                        onClick: (e) => e.stopPropagation() // Tắt chế độ click vào label để ẩn/hiện dữ liệu
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ doanh thu ',
+                                        font: {size: 20}
                                     }
                                 }
                             }
@@ -217,7 +259,7 @@
                                 datasets: [{
                                         label: 'Sao trung bình',
                                         data: [<%= star.substring(0, star.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
-                                        backgroundColor: 'yellow'
+                                        backgroundColor: 'rgba(245, 226, 39, 0.8)'
                                     }]
                             },
 
@@ -233,6 +275,21 @@
                                         max: 5
                                     }
 
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16 // Tăng kích thước chữ của legend
+                                            }
+                                        },
+                                        onClick: (e) => e.stopPropagation() // Tắt chế độ click vào label để ẩn/hiện dữ liệu
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ phản hồi ',
+                                        font: {size: 20}
+                                    }
                                 }
                             }
 
@@ -272,16 +329,12 @@
                                     {
                                         label: 'Số đơn thành công',
                                         data: [<%= successOrders.substring(0, successOrders.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
-                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                        borderColor: 'rgba(54, 162, 235, 1)',
-                                        borderWidth: 1
+                                        backgroundColor: 'rgba(43, 241, 107, 1)'
                                     },
                                     {
                                         label: 'Tổng số đơn',
                                         data: [<%= allOrders.substring(0, allOrders.length() - 1) %>], // Loại bỏ dấu phẩy cuối cùng
-                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                        borderColor: 'rgba(255, 99, 132, 1)',
-                                        borderWidth: 1
+                                        backgroundColor: 'rgba(43, 181, 241, 1)'
                                     }
                                 ]
                             },
@@ -296,6 +349,21 @@
                                         }
                                     }
 
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            font: {
+                                                size: 16 // Tăng kích thước chữ của legend
+                                            }
+                                        },
+                                        onClick: (e) => e.stopPropagation() // Tắt chế độ click vào label để ẩn/hiện dữ liệu
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ số lượng đơn hàng thành công và tổng đơn theo ngày ',
+                                        font: {size: 20}
+                                    }
                                 }
                             }
                         });

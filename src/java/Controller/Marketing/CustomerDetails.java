@@ -89,7 +89,7 @@ public class CustomerDetails extends HttpServlet {
         }
         
         if(!fullname.matches("^[\\p{L}\\s]+$")){
-            error = "Tên không chứa kí tự đặc biệt!";
+            error = "Tên không chứa kí tự đặc biệt hoặc số!";
         }
 
         // Kiểm tra độ dài của địa chỉ (từ 20 đến 320 ký tự)
@@ -151,31 +151,31 @@ public class CustomerDetails extends HttpServlet {
 
                 //so sanh xem co thay doi gi khong
                 if (old.getFullname().equals(current.getFullname())) {
-                    cc.setFullname("unchanged");
+                    cc.setFullname("Không đổi");
                 } else {
                     cc.setFullname(old.getFullname());
                 }
 
                 if (old.getAddress().equals(current.getAddress())) {
-                    cc.setAddress("unchanged");
+                    cc.setAddress("Không đổi");
                 } else {
                     cc.setAddress(old.getAddress());
                 }
 
                 if (old.getEmail().equals(current.getEmail())) {
-                    cc.setEmail("unchanged");
+                    cc.setEmail("Không đổi");
                 } else {
                     cc.setEmail(old.getEmail());
                 }
 
                 if (old.getGender().equals(current.getGender())) {
-                    cc.setGender("unchanged");
+                    cc.setGender("Không đổi");
                 } else {
                     cc.setGender(old.getGender());
                 }
 
                 if (old.getPhonenumber().equals(current.getPhonenumber())) {
-                    cc.setPhone("unchanged");
+                    cc.setPhone("Không đổi");
                 } else {
                     cc.setPhone(old.getPhonenumber());
                 }

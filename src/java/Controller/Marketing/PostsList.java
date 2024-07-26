@@ -45,11 +45,8 @@ public class PostsList extends HttpServlet {
         request.setAttribute("listMkt", listMkt);
         
         
-        //get list post theo filter
-        String category = request.getParameter("category");
-        String author = request.getParameter("author");
-        String status = request.getParameter("status");
-        List<Post> listPost = pdao.getPostListbyFilter(category,author,status);
+        //get list post 
+        List<Post> listPost = pdao.getPostListMkt();
         request.setAttribute("listPost", listPost);
         request.getRequestDispatcher("Views/PostsList.jsp").forward(request, response);
     } 

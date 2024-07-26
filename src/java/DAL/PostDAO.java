@@ -21,7 +21,6 @@ public class PostDAO extends DBContext {
 
     private static final java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(PostDAO.class.getName());
 
-
     public ArrayList<Post> getFeaturedPostList() {
         String sql = "SELECT * FROM Post where status = 'featured'";
         ArrayList<Post> list = new ArrayList<>();
@@ -47,10 +46,8 @@ public class PostDAO extends DBContext {
         return list;
     }
 
-    
-
     public ArrayList<Post> getPostList() {
-            String sql = "SELECT * FROM Post where status != 'hide'";
+        String sql = "SELECT * FROM Post where status != 'hide'";
         ArrayList<Post> list = new ArrayList<>();
 
         try (PreparedStatement statement = connect.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
@@ -75,7 +72,7 @@ public class PostDAO extends DBContext {
         return list;
     }
 
-     //get list of post by keyword searched
+    //get list of post by keyword searched
     public ArrayList<Post> getListPostbySearch(String keyword) {
         String sql = "SELECT p.*, c.category, u.fullname\n"
                 + "FROM Post p\n"
@@ -105,8 +102,8 @@ public class PostDAO extends DBContext {
         }
         return list;
     }
-    
-     //get list of all posts
+
+    //get list of all posts
     public List<Post> getListPost() {
         String sql = "SELECT * from Post where status != 'hide'";
         List<Post> list = new ArrayList<>();
@@ -158,54 +155,31 @@ public class PostDAO extends DBContext {
         return null;
     }
     //*************************** FOR MARKETING ****************************************
-    //get posts list by filter
-    public ArrayList<Post> getPostListbyFilter(String category_id, String mkt_id, String status) {
-        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM Post WHERE 1=1");
-        ArrayList<Post> list = new ArrayList<>();
-        ArrayList<String> params = new ArrayList<>();
-
-        // Xây dựng câu lệnh SQL và danh sách tham số dựa trên các tham số đầu vào
-        if (category_id != null && !category_id.isEmpty()) {
-            sqlBuilder.append(" AND category_id = ?");
-            params.add(category_id);
-        }
-        if (mkt_id != null && !mkt_id.isEmpty()) {
-            sqlBuilder.append(" AND mkt_id = ?");
-            params.add(mkt_id);
-        }
-        if (status != null && !status.isEmpty()) {
-            sqlBuilder.append(" AND status = ?");
-            params.add(status);
-        }
-
-        try (PreparedStatement statement = connect.prepareStatement(sqlBuilder.toString())) {
-            // Đặt các tham số vào câu lệnh SQL
-            for (int i = 0; i < params.size(); i++) {
-                statement.setString(i + 1, params.get(i));
-            }
-
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    Post p = new Post();
-                    p.setId(rs.getInt("id"));
-                    p.setCategory_id(rs.getInt("category_id"));
-                    p.setMkt_id(rs.getInt("mkt_id"));
-                    p.setTitle(rs.getString("title"));
-                    p.setSubtitle(rs.getString("subtitle"));
-                    p.setThumbnail(rs.getString("thumbnail"));
-                    p.setContent(rs.getString("content"));
-                    p.setUpdatedtime(rs.getString("updatedtime"));
-                    p.setStatus(rs.getString("status"));
-                    list.add(p);
-                }
+    //get all posts list 
+    public List<Post> getPostListMkt() {
+        String sql = "SELECT * from Post";
+        List<Post> list = new ArrayList<>();
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post p = new Post();
+                p.setId(rs.getInt("id"));
+                p.setCategory_id(rs.getInt("category_id"));
+                p.setTitle(rs.getString("title"));
+                p.setSubtitle(rs.getString("subtitle"));
+                p.setThumbnail(rs.getString("thumbnail"));
+                p.setContent(rs.getString("content"));
+                p.setMkt_id(rs.getInt("mkt_id"));
+                p.setUpdatedtime(rs.getString("updatedtime"));
+                p.setStatus(rs.getString("status"));
+                list.add(p);
             }
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Error retrieving post list", ex);
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return list;
     }
-
 
     ///update status ở trang posts list
     public void updateStatus(String status, String id) {
@@ -255,7 +229,7 @@ public class PostDAO extends DBContext {
     }
 
     ///create new post
-    public boolean createPost(int mkt_id,int category_id , String thumbnail, String title, String subtitle, String status, String content) {
+    public boolean createPost(int mkt_id, int category_id, String thumbnail, String title, String subtitle, String status, String content) {
         String sql = "INSERT INTO `furniture`.`post`\n"
                 + "(`category_id`,\n"
                 + "`mkt_id`,\n"
@@ -281,7 +255,7 @@ public class PostDAO extends DBContext {
             statement.setString(5, content);
             statement.setString(6, thumbnail);
             statement.setString(7, status);
-            
+
             statement.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -289,10 +263,11 @@ public class PostDAO extends DBContext {
             return false;
         }
     }
+
     public ArrayList<Post> getPostListByCategoryId(String categoryOfPost_id) {
         String sql = "SELECT * FROM Post WHERE category_id = ? and status != 'hide'";
         ArrayList<Post> list = new ArrayList<>();
-            try (PreparedStatement statement = connect.prepareStatement(sql)) {
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
             statement.setString(1, categoryOfPost_id);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
@@ -314,13 +289,13 @@ public class PostDAO extends DBContext {
         }
 
         return list;
-    } 
-   
-   //đếm số lượng post trong khoảng thời gian 
+    }
+
+    //đếm số lượng post trong khoảng thời gian 
     public int getPostCounts(java.sql.Date startDate, java.sql.Date endDate) {
         String sql = "select count(*) from post where CreateDate \n"
                 + "between ? and ?";
-        int count=0;
+        int count = 0;
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setDate(1, startDate);
@@ -328,7 +303,7 @@ public class PostDAO extends DBContext {
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                count=rs.getInt("count(*)");
+                count = rs.getInt("count(*)");
             }
         } catch (SQLException e) {
             e.printStackTrace();

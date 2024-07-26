@@ -12,7 +12,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Customers List</title>
-        <link rel="icon" href="image/logoshop.png" type="image/png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
@@ -28,6 +27,7 @@
                 content: none !important;
                 display: none !important;
             }
+
         </style>
     </head>
 
@@ -36,23 +36,25 @@
             <%@include file="DashboardNavbar.jsp" %>
             <div class="main">
                 <%@include file="DashboardHeader.jsp" %>
-                <div class="container">
-                    <h1>Customers List</h1>
-                    <form action="CustomersList">                
-                        Trạng thái:
-                        <select name="status" >
-                            <option value="All">All</option>
-                            <option value="Active"
-                                    <c:if test="${'Active' eq param.status}">selected
-                                    </c:if>>Active
-                            </option>
-                            <option value="Inactive"
-                                    <c:if test="${'Inactive' eq param.status}">selected
-                                    </c:if>>Inactive
-                            </option>
-                        </select>
-                        <button type="submit">Lọc</button>
-                    </form>
+                <div class="container card mt-3" >
+                    <h1 class="mt-3">Customers List</h1>
+                    <div>
+                        <div class="ml-15 mb-15 d-flex mt-3" style="align-items: center">
+                            <div style="font-weight: 600; font-size: 16px; text-transform: uppercase;">
+                                <span class="icon_title"><i class="fa fa-filter"></i></span>
+                                <span>Bộ Lọc</span>
+                            </div>
+                            <div> 
+                                <select class="form-select ms-3" id="status-filter">
+                                    <option value="">Tất cả trạng thái</option>
+                                    <option value="Trực tuyến">Trực tuyến</option>
+                                    <option value="Ngoại tuyến">Ngoại tuyến</option>
+                                    <option value="Đã chặn">Đã chặn</option>
+                                </select>
+                            </div>
+                        </div>            
+
+                    </div>
                     <table id="table" class="display" style="width:100%">
                         <thead>
                             <tr>
@@ -73,7 +75,13 @@
                                     <td>${c.getGender()}</td>
                                     <td>${c.getPhonenumber()}</td>
                                     <td>${c.getEmail()}</td>
-                                    <td>${c.getStatus()}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${c.getStatus() eq 'online'}"><p style="color:green">Trực tuyến</p></c:when>
+                                            <c:when test="${c.getStatus() eq 'offline'}"><p style="color:grey">Ngoại tuyến</p></c:when>
+                                            <c:when test="${c.getStatus() eq 'block'}"><p style="color:red">Đã chặn</p></c:when>
+                                        </c:choose>
+                                    </td>
                                     <td><a href="CustomerDetails?id=${c.getId()}" class="text-decoration-none text-black btn btn-info">Chi tiết</a></td>
                                 </tr>  
                             </c:forEach>
@@ -81,10 +89,12 @@
                     </table>
 
                     <!-- Button to Open the Modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal">
-                        Tạo tài khoản khách
-                    </button>
-
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal"
+                                style="width:auto">
+                            Tạo tài khoản khách
+                        </button>
+                    </div>
                     <!-- The Modal to create new account-->
                     <div class="modal" id="createAccountModal">
                         <div class="modal-dialog">
@@ -133,7 +143,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Mật khẩu:</label>
-                                            <input type="password" class="form-control" id="password" name="password" required>
+                                            <input type="password" class="form-control" id="password" name="password" required
+                                                   pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ hoa, một số và một ký tự đặc biệt.">
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="togglePasswords" onclick="togglePasswordVisibility10()"> Hiển thị mật khẩu
                                         </div>
                                     </form>
                                     <p <c:if test="${msg eq 'Tạo thành công'}">
@@ -155,6 +170,20 @@
         </div>
         <%@include file="DashboardFooter.jsp" %>
         <script>
+            function togglePasswordVisibility10() {
+                const passwordField = document.getElementById('password');
+                console.log(passwordField);
+                console.log(passwordField.type);
+                if (passwordField.type === "password") {
+                    passwordField.type = 'text';
+                    console.log(passwordField.type);
+                } else {
+                    passwordField.type = 'password';
+                    console.log(passwordField.type);
+                }
+            }
+
+
             $(document).ready(function () {
                 var result = '${result}';
                 if (result === 'success') {
@@ -172,7 +201,7 @@
                     });
                 }
             });
-            
+
             $(document).ready(function () {
                 if (${msg!=null}) {
                     $('#createAccountModal').modal('show');
@@ -184,7 +213,7 @@
 
                 var table = $('#table').DataTable({
                     "columnDefs": [
-                        {"targets": [0, 2, 5, 6], "searchable": false}, // tắt tính năng tìm kiếm cho các cột khác
+                        {"targets": [6], "searchable": false}, // tắt tính năng tìm kiếm cho các cột khác
                         {"orderable": false, "targets": [0, 2, 6]} // Vô hiệu hóa sắp xếp cho các cột
                     ],
                     "language": {
@@ -193,6 +222,14 @@
                     "pageLength": 5,
                     "dom": 'rftp',
                     "displayStart": currentPage * 5 // Hiển thị trang đã lưu
+                });
+
+                // Lắng nghe sự thay đổi của thẻ select
+                $('#status-filter').on('change', function () {
+                    var status = $(this).val();
+
+                    // Áp dụng bộ lọc cho DataTable
+                    table.column(5).search(status).draw();
                 });
 
                 // Lưu trữ trang hiện tại vào localStorage khi thay đổi trang
